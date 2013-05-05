@@ -1,0 +1,3 @@
+[submodule "sublime2/User"]
+	path = sublime2/User
+	url = git@github.com:OmeGak/sublime-text-2-user-settings.git
