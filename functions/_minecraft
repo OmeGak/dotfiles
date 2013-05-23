@@ -1,0 +1,4 @@
+#compdef minecraft
+
+_arguments \
+    '1: :(start stop restart update backup status command)'
