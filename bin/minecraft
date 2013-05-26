@@ -15,8 +15,8 @@
 ### END INIT INFO
 
 #Settings
-SERVICE='minecraft_server.jar'
-OPTIONS='nogui'
+SERVICE='craftbukkit-1.5.2-R0.1.jar'
+OPTIONS='-o false'
 USERNAME='omegak'
 WORLD='closure'
 MCPATH='/Users/omegak/Dropbox/Minecraft/Server'
