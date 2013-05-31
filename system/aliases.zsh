@@ -18,4 +18,11 @@ alias ls="$LS -F --color"
 alias ll="$LS -lh --group-directories-first --color"
 alias lla="$LS -lhA --group-directories-first --color"
 
+# Linux fixes
+if [[ "$(uname -s)" == "Linux" ]]
+    then
+    alias pbcopy="xclip -selection clipboard"
+    alias pbpaste="xclip -selection clipboard -o"
+fi
+
 unset LS
