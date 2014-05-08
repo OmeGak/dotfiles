@@ -10,7 +10,6 @@ fi
 
 # places
 alias ..="cd .."
-alias \!="cd $HOME/Dropbox/#Workshop"
 alias code="cd $HOME/Code"
 
 # ls
