@@ -1,7 +1,8 @@
 'editor':
   'showIndentGuide': true
-  'fontFamily': 'Menlo'
-  'fontSize': 15
+  'fontSize': 12
+  'preferredLineLength': 120
+  'fontFamily': 'Source Code Pro'
 'core':
   'excludeVcsIgnoredPaths': true
   'ignoredNames': [
@@ -12,15 +13,15 @@
     'tmp'
     'vendor'
   ]
-  'themes': [
-    'unity-ui'
-    'glacier-syntax'
-  ]
   'hideGitIgnoredFiles': true
   'disabledPackages': [
-    'background-tips'
     'exception-reporting'
     'metrics'
+  ]
+  'projectHome': '~/Code'
+  'themes': [
+    'atom-dark-ui'
+    'monokai'
   ]
 'spell-check':
   'grammars': [
@@ -31,5 +32,8 @@
 'welcome':
   'showOnStartup': false
 'release-notes':
-  'viewedVersion': '0.89.0'
+  'viewedVersion': '0.94.0'
 'tree-view': {}
+'git-diff': {}
+'grammar-selector': {}
+'markdown-preview': {}
