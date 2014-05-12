@@ -1,8 +1,0 @@
-#!/bin/sh
-# Setup a machine for user fonts
-set -x
-
-# symlink settings in
-library_dir=~/Library
-sudo mv "$library_dir/Fonts" "$sublime_dir/Fonts.backup"
-sudo ln -s "$ZSH/osx/Fonts" "$library_dir"
