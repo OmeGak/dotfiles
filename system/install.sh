@@ -6,13 +6,15 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 elif [[ "$(uname -s)" == "Linux" ]]; then
   fonts_dir="$HOME/.fonts"
 else
-  echo "Unrecognized OS"
-  exit
+  pprint error "Unrecognized OS"
+  exit 1
 fi
 
-echo "Installing Fonts into $fonts_dir."
 cp $ZSH/system/fonts/* $fonts_dir
+pprint ok "Installed fonts into $fonts_dir"
 
 # Uncomment if fonts are not available
 # echo "Refreshing fonts cache"
 # fc-cache -f
+
+exit 0
