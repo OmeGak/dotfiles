@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -10,9 +10,9 @@ else
   exit
 fi
 
-echo "Installing Fonts."
-cp -R $fonts_dir $fonts_dir.backup
+echo "Installing Fonts into $fonts_dir."
 cp $ZSH/system/fonts/* $fonts_dir
 
-# TODO check if truly necessary
-fc-cache -f -v
+# Uncomment if fonts are not available
+# echo "Refreshing fonts cache"
+# fc-cache -f
