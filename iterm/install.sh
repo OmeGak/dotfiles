@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-set -e
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   pprint error "Unsupported OS"
-  exit 1
+  exit 0
 fi
 
 plist_name="com.googlecode.iterm2.plist"
@@ -14,6 +13,6 @@ mv "$plist_target" "$plist_target.backup"
 pprint ok "Backed up installed preferences"
 
 ln -s "$plist_source" "$plist_target"
-pprint ok "Linked your preferences"
+pprint ok "Your preferences are now linked"
 
 exit 0
