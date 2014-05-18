@@ -5,16 +5,12 @@
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
-set -e
-
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.symlink ]
-  then
+  if ! [ -f git/gitconfig.symlink ]; then
     pprint intro 'Setup gitconfig'
 
     git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
+    if [ "$(uname -s)" == "Darwin" ]; then
       git_credential='osxkeychain'
     fi
 
@@ -91,7 +87,7 @@ link_file () {
 }
 
 install_dotfiles () {
-  pprint info 'installing dotfiles'
+  pprint intro 'Installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
 
