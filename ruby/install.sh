@@ -20,7 +20,7 @@ if test ! $(which ruby-build); then
   fi
 fi
 
-if [[ $errors == "true"]]; then
+if [[ $errors == "true" ]]; then
 	exit 1
 fi
 

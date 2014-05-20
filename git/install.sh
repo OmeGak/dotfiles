@@ -7,6 +7,7 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   # TODO
   # sudo apt-get install git hub > /tmp/apt-get-git.dot.log 2>&1
   # pprint ok "Git freshly installed"
+  echo "unimplemented"
 else
   pprint error "Unrecognized OS"
   exit 0
