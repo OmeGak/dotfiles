@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if test ! $(which rbenv); then
   pprint step "Installing rbenv for you"
