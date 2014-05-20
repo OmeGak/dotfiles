@@ -1,6 +1,6 @@
-[submodule "sublime2/User"]
-	path = sublime2/User
-	url = git@github.com:OmeGak/sublime-text-2-user-settings.git
 [submodule "osx/US-ES-Keyboard"]
 	path = osx/US-ES-Keyboard
 	url = git@github.com:OmeGak/US-ES-Keyboard.git
+[submodule "sublimetext/User"]
+	path = sublimetext/User
+	url = git@github.com:OmeGak/sublime-text-user-settings.git
