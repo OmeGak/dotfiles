@@ -1,20 +1,12 @@
 #!/bin/bash
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  sublime_bin="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
   sublime_dir="$HOME/Library/Application Support/Sublime Text 3/Packages"
 elif [[ "$(uname -s)" == "Linux" ]]; then
-  sublime_bin="/usr/bin/sublime-text-3"
   sublime_dir="$HOME/.config/sublime-text-3/Packages"
 else
   print error "Unrecognized OS"
   exit 0
-fi
-
-# Link ST binary
-if test ! $(which subl); then
-  ln -s $sublime_bin $ZSH/bin/subl
-  pprint ok "Sublime Text binary linked"
 fi
 
 # Link ST settings
