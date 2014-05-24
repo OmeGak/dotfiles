@@ -11,5 +11,11 @@ else
   exit 0
 fi
 
-pprint ok "Python is ready"
+syspip install --upgrade pip virtualenv flake8 > /tmp/pip-install.dot.log 2>&1
+if [[ $? == 0 ]]; then
+  pprint error "Failed to install Python global packages"
+  exit 1
+fi
+
+pprint ok "Python is ready to fly"
 exit 0
