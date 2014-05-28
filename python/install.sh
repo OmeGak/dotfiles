@@ -11,7 +11,7 @@ else
   exit 0
 fi
 
-syspip install --upgrade pip virtualenv flake8 > /tmp/pip-install.dot.log 2>&1
+syspip install --upgrade pip virtualenv ipython flake8 > /tmp/pip-install.dot.log 2>&1
 if [[ $? == 0 ]]; then
   pprint error "Failed to install Python global packages"
   exit 1
