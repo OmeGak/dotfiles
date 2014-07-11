@@ -17,6 +17,9 @@ alias ls="$LS -F --color"
 alias ll="$LS -lh --group-directories-first --color"
 alias lla="$LS -lhA --group-directories-first --color"
 
+# path
+alias path='echo $PATH | tr : "\n"'
+
 # Linux fixes
 if [[ "$(uname -s)" == "Linux" ]]
     then
