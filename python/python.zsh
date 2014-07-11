@@ -6,5 +6,10 @@ export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
 # Install global packages
 syspip() {
-   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    sudo="sudo"
+  else
+    sudo=""
+  fi
+  PIP_REQUIRE_VIRTUALENV="" $sudo pip "$@"
 }
