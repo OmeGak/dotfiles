@@ -15,7 +15,7 @@ else
   exit 0
 fi
 
-npm install -g jshint
+npm install -g jshint > /tmp/npm-install.dot.log 2>&1
 if [[ $? == 0 ]]; then
   pprint error "Failed to install NodeJS global packages"
   exit 1
