@@ -1,0 +1,10 @@
+#!/bin/bash
+# Install pip global packages
+
+if [[ "$(uname -s)" == "Linux" ]]; then
+  sudo="sudo"
+else
+  sudo=""
+fi
+
+PIP_REQUIRE_VIRTUALENV="" $sudo pip "$@"

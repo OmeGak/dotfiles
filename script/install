@@ -12,11 +12,10 @@ for installer in `find $ZSH -maxdepth 2 -name install.sh`; do
   topic=`basename $(dirname ${installer})`
   pprint info "Installing $topic"
   sh -c "${installer}"
-  pprint flush
-
-  if [[ $? == 1 ]]; then
+  if [[ $? != 0 ]]; then
     errors=true
   fi
+  pprint flush
 done
 
 if [[ "$errors" == true ]]; then
