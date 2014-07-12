@@ -25,7 +25,6 @@ fi
 
 # Install homebrew packages
 brew install coreutils grc > /tmp/homebrew-dependencies.dot.log 2>&1
-
 if [[ $? != 0 ]]; then
   pprint error "Failed to install dependencies"
   exit 1
