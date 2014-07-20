@@ -37,4 +37,8 @@ do
   source $file
 done
 
+# check for virtualenv
+workon_venv
+
 unset config_files
+
