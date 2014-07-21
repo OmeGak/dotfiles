@@ -2,20 +2,20 @@
 # Indico launcher
 
 start_indico() {
-  source $PROJECTS/indico/bin/activate
+  source $WORKON_HOME/indico/bin/activate
   zdaemon -C $PROJECTS/indico/src/etc/zdctl.conf start
   /opt/maildump/bin/maildump -n -p /tmp/maildump.pid --http-ip 137.138.36.201 --db /tmp/maildump.sqlite --http-port 5000
   indico_shell --web-server --reload-on-change
 }
 
 stop_indico() {
-  source $PROJECTS/indico/bin/activate
+  source $WORKON_HOME/indico/bin/activate
   zdaemon -C $PROJECTS/indico/src/etc/zdctl.conf stop
   /opt/maildump/bin/maildump --stop -p /tmp/maildump.pid
 }
 
 run_indico_funct_tests() {
-  source $PROJECTS/indico/bin/activate
+  source $WORKON_HOME/indico/bin/activate
   cd $PROJECTS/indico/src/
 
   # if [ $# -gt 0 ]; then
@@ -28,7 +28,7 @@ run_indico_funct_tests() {
 }
 
 run_inidico_unit_tests() {
-  source $PROJECTS/indico/bin/activate
+  source $WORKON_HOME/indico/bin/activate
   cd $PROJECTS/indico/src/
   python setup.py test --unit
 }
