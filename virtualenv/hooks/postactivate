@@ -10,3 +10,6 @@ if [ -f "$VIRTUAL_ENV/$VIRTUALENVWRAPPER_PROJECT_FILENAME" ]; then
         generate_venv_file
     fi
 fi
+
+# Run ipython from inside virtualenv
+alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
