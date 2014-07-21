@@ -1,4 +1,8 @@
 .DS_Store
 
+# sublimetext
 *.sublime-project
 *.sublime-workspace
+
+# virtualenvironment
+.venv
