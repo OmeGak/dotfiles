@@ -1,2 +1,2 @@
-#!/usr/local/bin/zsh
+#!/bin/zsh
 # This hook is run before every virtualenv is activated.

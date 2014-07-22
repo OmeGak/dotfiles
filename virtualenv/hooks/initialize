@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/bin/zsh
 # This hook is run during the startup phase when loading virtualenvwrapper.sh.
 
 function generate_venv_file {
