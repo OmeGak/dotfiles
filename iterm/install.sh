@@ -12,7 +12,8 @@ plist_target="$HOME/Library/Preferences/$plist_name"
 mv "$plist_target" "$plist_target.backup"
 pprint ok "Backed up installed preferences"
 
-ln -s "$plist_source" "$plist_target"
-pprint ok "Your preferences are now linked"
+pprint warning "Make sure iTerm2 is not running for this step to work"
+cp "$plist_source" "$plist_target"
+pprint ok "Your preferences are now imported"
 
 exit 0
