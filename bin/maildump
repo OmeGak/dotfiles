@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+pidfile="/tmp/maildump.pid"
+ip="127.0.0.1"
+command="/opt/maildump/bin/maildump"
+command_args="-n -p $pidfile --http-ip $ip --db /tmp/maildump.sqlite --http-port 5000"
+
+start() {
+    eval $command $command_args
+}
+
+stop() {
+    eval $command "-p $pidfile --stop"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        start
+        stop
+        ;;
+    *)
+        echo 'Usage: maildump {start|stop|restart}' >&2
+        exit 1
+esac
