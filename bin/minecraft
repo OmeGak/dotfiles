@@ -15,7 +15,7 @@
 ### END INIT INFO
 
 #Settings
-SERVICE='craftbukkit-1.6.2-R1.0.jar'
+SERVICE='craftbukkit-1.6.4-R2.0.jar'
 OPTIONS='-o false'
 USERNAME='omegak'
 WORLD='closure'
