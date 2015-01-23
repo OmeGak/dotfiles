@@ -1,6 +1,9 @@
 # ^A prefix like screen
 set -g prefix C-a
 
+# Reload settings
+bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
+
 # Mouse tweaks
 set -g mode-mouse on
 set -g mouse-resize-pane on
