@@ -7,3 +7,7 @@ set -g mouse-resize-pane on
 set -g mouse-select-pane on
 set -g mouse-select-window on
 set -g mouse-utf8 off
+
+# Fix 0-indexes
+set -g base-index 1
+set -g pane-base-index 1
