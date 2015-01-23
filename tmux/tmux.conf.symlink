@@ -8,6 +8,14 @@ set -g mouse-select-pane on
 set -g mouse-select-window on
 set -g mouse-utf8 off
 
+# Window settings
+setw -g automatic-rename on
+setw -g allow-rename off
+bind C new-window -c ~
+bind C-a last-window
+bind C-Right next-window
+bind C-Left previous-window
+
 # Fix 0-indexes
 set -g base-index 1
 set -g pane-base-index 1
