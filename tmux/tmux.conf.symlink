@@ -22,3 +22,6 @@ bind C-Left previous-window
 # Fix 0-indexes
 set -g base-index 1
 set -g pane-base-index 1
+
+# Don't fuckup the layout easily
+unbind Space
