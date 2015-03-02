@@ -1,5 +1,4 @@
 # Sample gitconfig
-#
 
 [hub]
     protocol = https
@@ -33,11 +32,16 @@
     autocorrect = 1
 [mergetool]
     keepBackup = false
+
+
+# Action flags
+
+[fetch]
+    prune = true
+[pull]
+    rebase = true
 [push]
-    # See `git help config` (search for push.default)
-    # for more information on different options of the below setting.
-    #
-    # Setting to git 2.0 default to surpress warning message
+    # Setting for git 2.0 to surpress warning message
     default = simple
 [rebase]
     autostash = true
