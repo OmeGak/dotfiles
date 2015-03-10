@@ -1,7 +1,8 @@
 ---
 session_name: indico
 windows:
-  - window_name: local
+  - window_index: 0
+    window_name: local
     layout: 'c92b,319x79,0,0[319x15,0,0,0,319x63,0,16{159x63,0,16[159x32,0,16,1,159x30,0,49,3],159x63,160,16,2}]'
     focus: true
     shell_command_before: workon indico
