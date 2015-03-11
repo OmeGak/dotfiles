@@ -99,11 +99,7 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
-
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]; then
+install_dependencies () {
   pprint info "installing dependencies"
   if source bin/dot > /tmp/dotfiles.dot.log 2>&1; then
     pprint success -r "dependencies installed"
@@ -113,6 +109,10 @@ if [ "$(uname -s)" == "Darwin" ]; then
     pprint flush
     exit 1
   fi
-fi
+}
+
+setup_gitconfig
+install_dotfiles
+install_dependencies
 
 pprint intro "All installed"
