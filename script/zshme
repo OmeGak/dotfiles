@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#
-# Make ZSH your default login shell.
-
-chsh -s $(which zsh)

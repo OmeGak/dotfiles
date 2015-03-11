@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Initializes some things on a clean SO install.
+
+# Make ZSH the default login shell
+chsh -s $(which zsh)
+
+# Activate root user in Mac
+if [ "$(uname -s)" == "Darwin" ]; then
+	sudo echo "root user activated"
+fi
