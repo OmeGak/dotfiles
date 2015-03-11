@@ -4,23 +4,65 @@ set -g prefix C-a
 # Reload settings
 bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
 
+
+# Session tweaks
+# --------------
+    # Switch between multiple sessions
+    bind -r C-l switch-client -l
+    bind -r C-[ switch-client -p
+    bind -r C-] switch-client -n
+    # Kill session and select another
+    bind-key - confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
+    # Bindings
+    bind C-s choose-tree
+    bind + new-session
+
+
+# Window tweaks
+# -------------
+    # Prevent commands to permanently rename windows
+    setw -g allow-rename off
+    # Make unnamed windows to show the name of the running command
+    setw -g automatic-rename on
+    # Bindings
+    bind C-a last-window
+    bind C-n new-window -c ~
+    bind -r C-Right next-window
+    bind -r C-Left previous-window
+
+
+# Pane tweaks
+# -----------
+    # Don't fuckup the layout easily
+    unbind Space
+    # Full-screen (useful to copy multiple lines)
+    bind C-f resize-pane -Z
+    # Print in all panes
+    bind C-p setw synchronize-panes
+    # Bindings
+    bind \ split-window -v -c '#{pane_current_path}'
+    bind | split-window -h -c '#{pane_current_path}'
+
+
+# Other bindings
+# --------------
+    # Closing things
+    bind C-d detach
+    bind -r C-q kill-window
+    bind -r C-w kill-pane
+
+
 # Mouse tweaks
-set -g mode-mouse on
-set -g mouse-select-pane on
-set -g mouse-select-window on
-set -g mouse-utf8 off
+# ------------
+    set -g mode-mouse on
+    set -g mouse-select-pane on
+    set -g mouse-select-window on
+    set -g mouse-utf8 off
 
-# Window settings
-setw -g automatic-rename on
-setw -g allow-rename off
-bind C new-window -c ~
-bind C-a last-window
-bind C-Right next-window
-bind C-Left previous-window
 
-# Fix 0-indexes
-set -g base-index 1
-set -g pane-base-index 1
+# Fixes
+# -----
+    # Fix 0-indexes
+    set -g base-index 1
+    set -g pane-base-index 1
 
-# Don't fuckup the layout easily
-unbind Space
