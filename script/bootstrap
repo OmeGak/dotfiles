@@ -4,6 +4,7 @@
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
+export PATH="$DOTFILES_ROOT/bin:$PATH"
 
 setup_gitconfig () {
   if ! [ -f git/gitconfig.symlink ]; then
