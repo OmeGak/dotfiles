@@ -13,7 +13,7 @@ fi
 # Check for Homebrew
 if test ! $(which brew); then
   pprint step "Installing Homebrew for you"
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" > /tmp/homebrew-install.dot.log 2>&1
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null > /tmp/homebrew-install.dot.log 2>&1
 
   if [[ $? != 0 ]]; then
     pprint error "Failed to install Homebrew"
