@@ -26,9 +26,9 @@ fi
 # Install homebrew packages
 brew install coreutils grc > /tmp/homebrew-dependencies.dot.log 2>&1
 if [[ $? != 0 ]]; then
-  pprint error "Failed to install dependencies"
+  pprint error "Failed to install homebrew dependencies"
   exit 1
 fi
 
-pprint ok "Installed dotfiles dependencies"
+pprint ok "Installed homebrew dependencies"
 exit 0

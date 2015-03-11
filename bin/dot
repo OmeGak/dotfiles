@@ -9,8 +9,11 @@ export ZSH=$HOME/.dotfiles
 # Set OS X defaults
 # $ZSH/osx/set-defaults.sh
 
-# Upgrade homebrew
-brew update
+# Install homebrew dependencies
+if test $(which brew); then
+	brew update > /dev/null 2>&1
+fi
+$ZSH/homebrew/install.sh > /dev/null 2>&1
 
-# Install homebrew packages
-$ZSH/homebrew/install.sh 2>&1
+# Install python dependencies
+$ZSH/python/install.sh > /dev/null 2>&1
