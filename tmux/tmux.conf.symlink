@@ -65,4 +65,6 @@ bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
     # Fix 0-indexes
     set -g base-index 1
     set -g pane-base-index 1
+    # Fix ESC key delay
+    set -s escape-time 0
 
