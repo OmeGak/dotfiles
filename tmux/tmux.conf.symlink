@@ -42,6 +42,10 @@ bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
     # Bindings
     bind \ split-window -v -c '#{pane_current_path}'
     bind | split-window -h -c '#{pane_current_path}'
+    bind Down select-pane -D
+    bind Left select-pane -L
+    bind Right select-pane -R
+    bind Up select-pane -U
 
 
 # Other bindings
