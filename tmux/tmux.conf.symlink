@@ -9,13 +9,13 @@ bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
 # --------------
     # Switch between multiple sessions
     bind -r C-l switch-client -l
-    bind -r C-[ switch-client -p
-    bind -r C-] switch-client -n
+    bind -r { switch-client -p
+    bind -r } switch-client -n
     # Kill session and select another
-    bind-key - confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
+    bind-key Q confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
     # Bindings
+    bind N new-session
     bind C-s choose-tree
-    bind + new-session
 
 
 # Window tweaks
@@ -26,9 +26,9 @@ bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
     setw -g automatic-rename on
     # Bindings
     bind C-a last-window
-    bind C-n new-window -c ~
-    bind -r C-Right next-window
-    bind -r C-Left previous-window
+    bind n new-window -c ~
+    bind -r ] next-window
+    bind -r [ previous-window
 
 
 # Pane tweaks
@@ -52,8 +52,8 @@ bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
 # --------------
     # Closing things
     bind C-d detach
-    bind -r C-q kill-window
-    bind -r C-w kill-pane
+    bind -r q kill-window
+    bind -r w kill-pane
 
 
 # Mouse tweaks
