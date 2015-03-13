@@ -19,8 +19,6 @@ set -g visual-bell on
     bind -r C-l switch-client -l
     bind -r { switch-client -p
     bind -r } switch-client -n
-    # Kill session and select another
-    bind-key Q confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
     # Bindings
     bind N new-session
     bind C-s choose-tree
@@ -58,8 +56,12 @@ set -g visual-bell on
 
 # Other bindings
 # --------------
-    # Closing things
     bind C-d detach
+    # Kill server
+    bind K confirm-before -p "Kill server (y/n)?" "run-shell 'tmux kill-server'"
+    # Kill session and select another
+    bind-key k confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
+    # Closing things
     bind -r q kill-window
     bind -r w kill-pane
 
@@ -74,7 +76,7 @@ set -g visual-bell on
 
 # Fixes
 # -----
-    # Fix 0-indexes
+    # Fix 0-indexes (0 is too far from `)
     set -g base-index 1
     set -g pane-base-index 1
     # Fix ESC key delay
