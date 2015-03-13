@@ -17,3 +17,6 @@ $ZSH/homebrew/install.sh > /dev/null 2>&1
 
 # Install python dependencies
 $ZSH/python/install.sh > /dev/null 2>&1
+
+# Install apps
+$ZSH/cask/install-deps.sh

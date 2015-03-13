@@ -1,0 +1,37 @@
+# Essentials
+google-chrome
+totalfinder
+dropbox
+google-drive
+
+# Working tools
+iterm2
+sublime-text3
+atom
+evernote
+
+# Media
+spotify
+vlc
+vlc-remote
+utorrent
+
+# Games
+steam
+minecraft
+openemu
+
+# Chats
+gitter
+slack
+
+# Other apps
+calibre
+insomniax
+iexplorer
+mkvtools
+scroll-reverser
+
+# Drivers
+d235j-xbox360-controller-driver
+logitech-unifying
