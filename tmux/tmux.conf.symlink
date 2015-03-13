@@ -4,6 +4,14 @@ set -g prefix C-a
 # Reload settings
 bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
 
+# Ignore activity notifications
+setw -g monitor-activity off
+set -g visual-activity off
+
+# Visual bells
+set -g bell-action any
+set -g visual-bell on
+
 
 # Session tweaks
 # --------------
