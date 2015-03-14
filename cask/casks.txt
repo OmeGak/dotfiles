@@ -35,3 +35,4 @@ scroll-reverser
 # Drivers
 d235j-xbox360-controller-driver
 logitech-unifying
+osxfuse

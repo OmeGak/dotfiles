@@ -27,4 +27,7 @@ new_casks=$(cat $cask_dir/casks.txt | grep -v \# | grep -vwf /tmp/cask-ls)
 if [[ ! -z "$new_casks" ]]; then
   brew cask install $new_casks
 fi
+
+# Cleanup
+$ZSH/cask/ownerfix.sh
 brew cask cleanup
