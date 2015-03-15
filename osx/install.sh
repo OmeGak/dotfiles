@@ -6,7 +6,9 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
 fi
 
 # Install my keyboard layout
-ln -snf "$ZSH/osx/US-ES-Keyboard/US-ES-International.bundle" "$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
+# Apparently, symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
+# ln -snf "$ZSH/osx/US-ES-Keyboard/US-ES-International.bundle" "$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
+cp -r "$ZSH/osx/US-ES-Keyboard/US-ES-International.bundle" "$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
 pprint ok "US-ES-Keyboard installed for user"
 
 # Install NTFS support
