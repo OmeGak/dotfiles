@@ -31,6 +31,7 @@ insomniax
 iexplorer
 mkvtools
 scroll-reverser
+ukelele
 
 # Drivers
 d235j-xbox360-controller-driver
