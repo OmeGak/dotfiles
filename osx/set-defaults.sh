@@ -504,6 +504,73 @@ defaults write com.apple.sidebarlists favoriteitems '
 
 
 # -----------------------------------------------------------------------------
+# TotalFinder
+# -----------------------------------------------------------------------------
+
+# Dock: Show progress bar in the Dock
+defaults write com.binaryage.totalfinder TotalFinderShowDockProgressBar -bool true
+
+# Menus: Hide icon in menu bar
+defaults write com.binaryage.totalfinder TotalFinderShowStatusItem -bool false
+
+# Menus: Allow path copying from context menus
+defaults write com.binaryage.totalfinder TotalFinderCopyPathMenuEnabled -bool true
+
+# Visor: Enable
+defaults write com.binaryage.totalfinder TotalFinderVisorEnabled -bool true
+
+# Visor: Disable hide on ESC
+defaults write com.binaryage.totalfinder TotalFinderHideOnEscape -bool false
+
+# Visor: Set slide up animation
+defaults write com.binaryage.totalfinder TotalFinderUseFade -bool true
+defaults write com.binaryage.totalfinder TotalFinderUseSlide -bool true
+defaults write com.binaryage.totalfinder TotalFinderAnimationSpeed -float 0.3
+
+# Visor: Show on screen with mouse cursor
+defaults write com.binaryage.totalfinder TotalFinderScreen -int 0
+
+# Visor: Show on all spaces
+defaults write com.binaryage.totalfinder TotalFinderOnEverySpace -int 1
+
+# Visor: Disable show on top of Dock
+defaults write com.binaryage.totalfinder TotalFinderVisorOnDockLevel -bool false
+
+# Visor: Disable free form window
+defaults write com.binaryage.totalfinder TotalFinderVisorFreeForm -int 0
+
+# Browser: Folders on top
+defaults write com.binaryage.totalfinder TotalFinderFoldersOnTop -bool true
+
+# Browser: Automatically adjust width in column view
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthEnabled -bool true
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMaxColumnWidth -int 250
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMinColumnWidth -int 200
+
+# Tabs: Use narrow tabs bar
+defaults write com.binaryage.totalfinder TotalFinderNarrowTabsBar -bool true
+
+# Tabs: Open tabs with previous location
+defaults write com.binaryage.totalfinder TotalFinderNewTabsWithCurrentTarget -bool true
+
+# Shortcuts: Set favorites
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:ToggleVisor:Modifiers 524288" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:ToggleVisor:KeyCode 48" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:ShowSystemFiles:Modifiers 1179648" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:ShowSystemFiles:KeyCode 47" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:DualMode:Modifiers 1048576" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:DualMode:KeyCode 32" ~/Library/Preferences/com.binaryage.totalfinder.plist
+
+# Shortcuts: Disable unwanted
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:PinVisor:Modifiers 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:PinVisor:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:NarrowTabsBar:Modifiers 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:NarrowTabsBar:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:FoldersOnTop:Modifiers 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:FoldersOnTop:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
+
+
+# -----------------------------------------------------------------------------
 # Spotlight
 # -----------------------------------------------------------------------------
 
@@ -552,7 +619,7 @@ sudo mdutil -i on / > /dev/null
 # -----------------------------------------------------------------------------
 
 for app in "Activity Monitor" "Calendar" "Contacts" "cfprefsd" \
-  "Dock" "Finder" "SystemUIServer"; do
+  "Dock" "Finder" "SystemUIServer" "TotalFinder"; do
   killall "${app}" > /dev/null 2>&1
 done
 
