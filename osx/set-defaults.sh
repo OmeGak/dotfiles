@@ -397,6 +397,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
+# Arrange by kind in Open/Save dialogs
+defaults write com.apple.finder FK_ArrangeBy -string "Kind"
+
 # Enable AirDrop over every interface, not only ethernet
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
