@@ -3,12 +3,14 @@ google-chrome
 totalfinder
 dropbox
 google-drive
+1password
 
 # Working tools
 iterm2
 sublime-text3
 atom
 evernote
+p4merge
 
 # Media
 spotify
@@ -32,6 +34,7 @@ iexplorer
 mkvtools
 scroll-reverser
 ukelele
+virtualbox
 
 # Drivers
 d235j-xbox360-controller-driver
