@@ -25,7 +25,7 @@ new_casks=$(cat $cask_dir/casks.txt | grep -v \# | grep -vwf /tmp/cask-ls)
 
 # Install new casks
 if [[ ! -z "$new_casks" ]]; then
-  brew cask install $new_casks
+  brew cask install $new_casks --appdir=/Applications
 fi
 
 # Cleanup
