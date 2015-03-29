@@ -444,6 +444,22 @@ defaults write com.apple.sidebarlists favoriteitems '
                 Name = Home;
             },
                     {
+                Alias = <00000000 00a00003 00010000 d1251ac4 0000482b 00000000 000621e0 000621f1 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00100007 00440065 0073006b 0074006f 0070000f 001a000c 004d0061 00630069 006e0074 006f0073 00680020 00480044 00120014 55736572 732f6f6d 6567616b 2f446573 6b746f70 00130001 2f000015 0002000d ffff0000>;
+                CustomItemProperties =             {
+                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 6b736564 02000000 00000000>;
+                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819892;
+                };
+                Name = Desktop;
+            },
+                    {
+                Alias = <00000000 009e0003 00010000 d1251ac4 0000482b 00000000 000621e0 000621e3 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00140009 0044006f 0077006e 006c006f 00610064 0073000f 00120008 0055006e 00740069 0074006c 00650064 00120016 55736572 732f6f6d 6567616b 2f446f77 6e6c6f61 64730013 00012f00 00150002 000dffff 0000>;
+                CustomItemProperties =             {
+                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 666e7764 02000000 00000000>;
+                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819884;
+                };
+                Name = Downloads;
+            },
+                    {
                 Alias = <00000000 00a00003 00010000 d1251ac4 0000482b 00000000 000621e0 000ad731 0000d127 f7bd0000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00100007 00440072 006f0070 0062006f 0078000f 001a000c 004d0061 00630069 006e0074 006f0073 00680020 00480044 00120014 55736572 732f6f6d 6567616b 2f44726f 70626f78 00130001 2f000015 0002000d ffff0000>;
                 CustomItemProperties =             {
                     "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 72646c66 02000000 00000000>;
@@ -466,14 +482,6 @@ defaults write com.apple.sidebarlists favoriteitems '
                     "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819120;
                 };
                 Name = Applications;
-            },
-                    {
-                Alias = <00000000 009e0003 00010000 d1251ac4 0000482b 00000000 000621e0 000621e3 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00140009 0044006f 0077006e 006c006f 00610064 0073000f 00120008 0055006e 00740069 0074006c 00650064 00120016 55736572 732f6f6d 6567616b 2f446f77 6e6c6f61 64730013 00012f00 00150002 000dffff 0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 666e7764 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819884;
-                };
-                Name = Downloads;
             },
                     {
                 Alias = <00000000 009e0003 00010000 d1251ac4 0000482b 00000000 000621e0 00062219 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 000e0006 004d006f 00760069 00650073 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 00135573 6572732f 6f6d6567 616b2f4d 6f766965 73000013 00012f00 00150002 000dffff 0000>;
@@ -517,8 +525,6 @@ defaults write com.apple.sidebarlists favoriteitems '
 /usr/libexec/PlistBuddy -c "Delete 'NSToolbar Configuration Browser':'TB Item Identifiers'" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers' array" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':0 string com.apple.finder.BACK" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':1 string NSToolbarSpaceItem" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':2 string NSToolbarSpaceItem" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':3 string com.apple.finder.SWCH" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':4 string com.apple.finder.ARNG" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':5 string com.apple.finder.NFLD" ~/Library/Preferences/com.apple.finder.plist
