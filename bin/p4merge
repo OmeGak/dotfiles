@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Wrapper for p4merge based on Gregory Pakosz's (gpakosz) solution
+# Source: http://pempek.net/articles/2014/04/18/git-p4merge/
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  p4merge_dir="/Applications/p4merge.app/Contents/Resources/launchp4merge"
+else
+  p4merge_dir="/opt/p4v/bin/p4merge"
+fi
+
+if [ -n "$GIT_DIR" ]; then
+  if $(git submodule | grep -q $2); then
+    tmp=$(mktemp -t $2) && trap 'rm -rf $tmp' EXIT HUP INT QUIT TERM
+    sha=$(cd $2 > /dev/null && git rev-parse HEAD)
+    echo "Subproject commit $sha" > $tmp
+    set -- $1 $tmp
+  fi
+fi
+
+for arg; do [[ $arg = /* ]] || arg=$PWD/$arg; absargs+=("$arg"); done;
+$p4merge_dir "${absargs[@]}"

@@ -30,11 +30,14 @@
     prompt = false
 [help]
     autocorrect = 1
+[merge]
+    tool = p4merge
 [mergetool]
     keepBackup = false
+    prompt = false
 
 
-# Action flags
+# -- Action flags -------------------------------------------------------------
 
 [fetch]
     prune = true
