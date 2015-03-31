@@ -23,16 +23,19 @@ steam
 minecraft
 openemu
 
-# Chats
+# Messaging
 gitter
+skype
 slack
 
-# Other apps
+# Misc
+audiobookbinder
 calibre
 insomniax
 iexplorer
-mkvtools
 scroll-reverser
+the-tagger
+the-unarchiver
 ukelele
 virtualbox
 
@@ -40,3 +43,8 @@ virtualbox
 d235j-xbox360-controller-driver
 logitech-unifying
 osxfuse
+wacom-bamboo-tablet
+
+# Others
+basictex
+java
