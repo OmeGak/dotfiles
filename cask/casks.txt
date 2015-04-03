@@ -4,6 +4,7 @@ totalfinder
 dropbox
 google-drive
 1password
+backblaze
 
 # Working tools
 iterm2
