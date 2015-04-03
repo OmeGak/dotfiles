@@ -1,11 +1,16 @@
-# Sets reasonable OS X defaults.
+# Sets shit how I like in OS X.
 #
-# Or, in other words, set shit how I like in OS X.
+# To find other settings:
+#   $ defaults read > a
+# Then change the setting:
+#   $ defaults read > b
+#   $ diff a b
+#
+# Another option is inspecting file changes in real time:
+#   $ sudo opensnoop -n cfprefsd
 #
 # The original idea (and a couple settings) were grabbed from:
 #   https://github.com/mathiasbynens/dotfiles/blob/master/.osx
-#
-# Run ./set-defaults.sh and you'll be good to go.
 
 # Ask for the administrator password upfront
 sudo -v
