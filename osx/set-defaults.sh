@@ -179,7 +179,14 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-
+# Shortcuts: Disable Dictation shortcut
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:value:type standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Delete AppleSymbolicHotKeys:164:value:parameters" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:0 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:1 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:2 integer 0" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
 
 # -----------------------------------------------------------------------------
