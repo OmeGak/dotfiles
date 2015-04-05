@@ -409,6 +409,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
+# Sort files by kind in column view
+/usr/libexec/PlistBuddy -c "Set StandardViewOptions:ColumnViewOptions:ArrangeBy kipl" ~/Library/Preferences/com.apple.finder.plist
+
 # Arrange by kind in Open/Save dialogs
 defaults write com.apple.finder FK_ArrangeBy -string "Kind"
 
