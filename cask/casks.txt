@@ -32,10 +32,10 @@ slack
 # Misc
 audiobookbinder
 calibre
+handbrake
 insomniax
 iexplorer
 scroll-reverser
-the-tagger
 the-unarchiver
 ukelele
 virtualbox
