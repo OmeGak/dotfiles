@@ -378,7 +378,9 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 defaults write NSGlobalDomain AppleShowAllExtensions -bool false
 
 # Allow text selection in Quick Look
-defaults write com.apple.finder QLEnableTextSelection -bool true
+# Turns out this causes a glitch since Mavericks:
+#   - http://apple.stackexchange.com/questions/128825/quicklook-blanks-when-displaying-some-images
+# defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # When performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
