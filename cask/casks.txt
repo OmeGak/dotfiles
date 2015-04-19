@@ -45,6 +45,7 @@ d235j-xbox360-controller-driver
 logitech-unifying
 osxfuse
 wacom-bamboo-tablet
+wjoy
 
 # Others
 basictex
