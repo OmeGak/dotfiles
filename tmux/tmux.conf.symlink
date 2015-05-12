@@ -76,6 +76,8 @@ set -g visual-bell on
 
 # Fixes
 # -----
+    # Fix colors in vim (http://www.economyofeffort.com/2014/07/04/zsh/)
+    set -g default-terminal 'screen-256color'
     # Fix 0-indexes (0 is too far from `)
     set -g base-index 1
     set -g pane-base-index 1
