@@ -7,11 +7,11 @@ command="/opt/maildump/bin/maildump"
 command_args="-n -p $pidfile --http-ip $ip --db /tmp/maildump.sqlite --http-port 5000"
 
 start() {
-    eval $command $command_args
+    $command $command_args
 }
 
 stop() {
-    eval $command "-p $pidfile --stop"
+    $command "-p $pidfile --stop"
 }
 
 case "$1" in
@@ -22,8 +22,8 @@ case "$1" in
         stop
         ;;
     restart)
-        start
         stop
+        start
         ;;
     *)
         echo 'Usage: maildump {start|stop|restart}' >&2
