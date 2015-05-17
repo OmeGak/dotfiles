@@ -23,7 +23,6 @@ function workon_venv {
     venv=`findup .venv`
     if [[ -n $venv ]]; then
         echo "Moving onto virtualenv"
-        echo
         workon `cat $venv`
     fi
 }
