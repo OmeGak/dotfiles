@@ -4,3 +4,6 @@
 [submodule "sublimetext/User"]
 	path = sublimetext/User
 	url = git@github.com:OmeGak/sublime-text-user-settings.git
+[submodule ".antigen"]
+	path = .antigen
+	url = https://github.com/zsh-users/antigen.git
