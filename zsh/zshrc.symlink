@@ -19,16 +19,15 @@ for file in ${(M)config_files:#*/path.zsh}; do
   source $file
 done
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
+# load everything but the path and completion and antigen files
+for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/antigen.zsh}; do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+# load antigen
+source $ZSH/antigen/antigen.zsh
 
-# load every completion after autocomplete loads
+# load completions after antigen
 for file in ${(M)config_files:#*/completion.zsh}; do
   source $file
 done
