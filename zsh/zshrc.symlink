@@ -6,8 +6,7 @@ export PROJECTS=$HOME/Code
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
+if [[ -a ~/.localrc ]]; then
   source ~/.localrc
 fi
 
@@ -16,14 +15,12 @@ typeset -U config_files
 config_files=($ZSH/**/*.zsh)
 
 # load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
+for file in ${(M)config_files:#*/path.zsh}; do
   source $file
 done
 
 # load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
   source $file
 done
 
@@ -32,8 +29,7 @@ autoload -U compinit
 compinit
 
 # load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
+for file in ${(M)config_files:#*/completion.zsh}; do
   source $file
 done
 
@@ -41,4 +37,3 @@ done
 workon_venv
 
 unset config_files
-
