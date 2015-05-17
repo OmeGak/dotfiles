@@ -1,4 +1,13 @@
+# Load antigen framework
 source "$ZSH/.antigen/antigen.zsh"
 
-antigen bundle pip
-antigen bundle zsh-users/zsh-syntax-highlighting
+# Load antigen modules
+antigen bundles <<EOBUNDLES
+  brew-cask
+  pip
+  zsh-users/zsh-completions src
+  zsh-users/zsh-syntax-highlighting
+EOBUNDLES
+
+# Apply modules
+antigen apply
