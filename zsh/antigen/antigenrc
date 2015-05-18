@@ -11,3 +11,14 @@ EOBUNDLES
 
 # Apply modules
 antigen apply
+
+# All antigen zsh files
+typeset -U antigen_files
+antigen_files=($ZSH/zsh/antigen/*.zsh)
+
+# Load antigen plugin specific configuration files
+for file in ${antigen_files}; do
+  source $file
+done
+
+unset antigen_files
