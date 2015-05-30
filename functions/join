@@ -1,0 +1,6 @@
+# Joins a list of strings
+# Usage: join <separator> a b c ...
+
+function join() {
+  local IFS="$1"; shift; echo "$*";
+}
