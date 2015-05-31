@@ -9,19 +9,20 @@ else
   exit 0
 fi
 
-cp $ZSH/system/fonts/* $fonts_dir
+# TODO: check if fonts were already installed
+cp $DOT/system/fonts/* $fonts_dir
 pprint ok "Installed fonts into $fonts_dir"
 
 # Uncomment if fonts are not available
 # echo "Refreshing fonts cache"
 # fc-cache -f
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  brew install ack coreutils grc > /tmp/brew-system.dot.log 2>&1
-elif [[ "$(uname -s)" == "Linux" ]]; then
-  # TODO
-  echo "unimplemented"
+# Install common tools
+brew install ack coreutils grc > /tmp/brew.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+if [[ $? != 0 ]]; then
+  pprint error "Failed to install some packages"
+  exit 1
 fi
-
 pprint ok "System tools are ready"
+
 exit 0

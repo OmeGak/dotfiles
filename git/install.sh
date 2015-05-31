@@ -1,17 +1,28 @@
 #!/bin/bash
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  brew install git hub > /tmp/brew-git.dot.log 2>&1
-  pprint ok "Git freshly brewed"
-elif [[ "$(uname -s)" == "Linux" ]]; then
-  # TODO
-  # sudo apt-get install git hub > /tmp/apt-get-git.dot.log 2>&1
-  # pprint ok "Git freshly installed"
-  echo "unimplemented"
-else
-  pprint error "Unrecognized OS"
-  exit 0
+# Check for Git install it from Homebrew (latest version FTW)
+if [[ -z $(brew ls --versions git) ]]; then
+  pprint step "Brewing Git"
+  brew install git > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+  if [[ $? != 0 ]]; then
+    pprint error "Failed to brew Git"
+    errors=true
+  fi
 fi
 
-pprint ok "Git is ready"
+# Check for Hub and install it (for GitHub magic)
+if [[ -z $(brew ls --versions hub) ]]; then
+  pprint step "Brewing Hub"
+  brew install hub > /tmp/hub.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+  if [[ $? != 0 ]]; then
+    pprint error "Failed to brew hub"
+    errors=true
+  fi
+fi
+
+if [[ $errors == "true" ]]; then
+  exit 1
+fi
+
+pprint ok "Git and Hub are installed"
 exit 0

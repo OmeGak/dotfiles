@@ -1,28 +1,27 @@
 #!/bin/bash
 
-if test ! $(which rbenv); then
-  pprint step "Installing rbenv for you"
-  brew install rbenv > /tmp/rbenv-install.dot.log 2>&1
-
+# Check if rbenv is not installed
+if [[ -z $(brew ls --versions rbenv) ]]; then
+  pprint step "Brewing rbenv"
+  brew install rbenv > /tmp/rbenv.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
   if [[ $? != 0 ]]; then
-    pprint error -r "Failed to install rbenv"
+    pprint error "Failed to install rbenv"
     errors=true
   fi
 fi
 
-if test ! $(which ruby-build); then
-  pprint step "Installing ruby-build for you"
-  brew install ruby-build > /tmp/ruby-build-install.dot.log 2>&1
-
+if [[ -z $(brew ls --versions ruby-build) ]]; then
+  pprint step "Brewing ruby-build"
+  brew install ruby-build > /tmp/ruby-build.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
   if [[ $? != 0 ]]; then
-    pprint error -r "Failed to install ruby-build"
+    pprint error "Failed to install ruby-build"
     errors=true
   fi
 fi
 
 if [[ $errors == "true" ]]; then
-	exit 1
+  exit 1
 fi
 
-pprint ok "Ruby is properly installed"
+pprint ok "Ruby magic is installed"
 exit 0

@@ -1,9 +1,10 @@
 #!/bin/bash
-#
-# Installs Python global sweetness
 
-syspip install --upgrade pip virtualenv virtualenvwrapper ipython tmuxp flake8 wdb.server > /tmp/pip-install.dot.log 2>&1
+syspip install --upgrade pip ipython tmuxp wdb.server > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
 if [[ $? != 0 ]]; then
-  pprint error "Failed to install Python global packages"
+  pprint error "Failed to install some packages"
   exit 1
 fi
+
+pprint ok "Python magic is installed"
+exit 0
