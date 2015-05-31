@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Run all topic installers.
+
+pprint intro 'Running installers'
+
+# Init environment
+source $HOME/.dotfiles/.dot/util/env
+
+# Prepare logs
+logfile_suffix='.install.dot.log'
+find -L /tmp -maxdepth 1 -name *$logfile_suffix | while read logfile; do rm "$logfile"; done
+
+# Find and run install scripts
+for installer in `find $DOT -maxdepth 2 -name install.sh`; do
+  topic=`basename $(dirname $installer)`
+  export DOT_TOPIC_LOGFILE_SUFFIX=$topic$logfile_suffix
+  pprint info "Installing stuff for $topic..."
+  sh -c "${installer}"
+  [[ $? == 0 ]] && pprint ok "All is done"
+  [[ $? != 0 ]] && errors+=($topic) && pprint error "Failed"
+  pprint flush
+done
+
+# Show summary
+if [[ $errors ]]; then
+  print_error_logs $errors $logfile_suffix
+else
+  pprint success "Everything installed like a charm!"
+fi
+
+pprint flush
+exit 0

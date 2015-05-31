@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# Puts dotfiles in their place.
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
-export PATH="$DOTFILES_ROOT/bin:$PATH"
+# Init environment
+source $HOME/.dotfiles/.dot/util/env
 
-setup_gitconfig () {
+
+setup_gitconfig() {
   if ! [ -f git/gitconfig.symlink ]; then
     pprint intro 'Setup gitconfig'
 
@@ -26,17 +26,15 @@ setup_gitconfig () {
   fi
 }
 
-link_file () {
+
+link_file() {
   local src=$1 dst=$2
 
   local overwrite= backup= skip=
   local action=
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-  then
-
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
       pprint user "File already exists: $(basename "$src"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
       read -n 1 action
 
@@ -62,57 +60,45 @@ link_file () {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [ "$overwrite" == "true" ]
-    then
+    if [ "$overwrite" == "true" ]; then
       rm -rf "$dst"
       pprint success "removed $dst"
     fi
 
-    if [ "$backup" == "true" ]
-    then
+    if [ "$backup" == "true" ]; then
       mv "$dst" "${dst}.backup"
       pprint success "moved $dst to ${dst}.backup"
     fi
 
-    if [ "$skip" == "true" ]
-    then
+    if [ "$skip" == "true" ]; then
       pprint success "skipped $src"
     fi
   fi
 
-  if [ "$skip" != "true" ]  # "false" or empty
-  then
+  # "false" or empty
+  if [ "$skip" != "true" ]; then
     ln -s "$1" "$2"
     pprint success "linked $1 to $2"
   fi
 }
 
-install_dotfiles () {
-  pprint intro 'Installing dotfiles'
+
+link_dotfiles() {
+  pprint intro "Linking files to your home folder"
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
+  for src in $(find "$DOT" -maxdepth 2 -name '*.symlink')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+  pprint intro "All linked"
 }
 
-install_dependencies () {
-  pprint info "installing dependencies"
-  if source bin/dot > /tmp/dotfiles.dot.log 2>&1; then
-    pprint success -r "dependencies installed"
-    pprint flush
-  else
-    pprint fail -r "error installing dependencies"
-    pprint flush
-    exit 1
-  fi
-}
 
+# First, set git author info
 setup_gitconfig
-install_dotfiles
-install_dependencies
 
-pprint intro "All installed"
+# Link the dotfiles
+link_dotfiles

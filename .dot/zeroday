@@ -2,6 +2,8 @@
 #
 # Initializes some things on a clean SO install.
 
+# TODO: Add introduction text?
+
 # Make ZSH the default login shell
 chsh -s $(which zsh)
 

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Sets up the minimum environment for dot steps
+
+export DOT=$HOME/.dotfiles
+export PATH="$DOT/bin:$PATH"
+source $DOT/.dot/util/print_error_logs

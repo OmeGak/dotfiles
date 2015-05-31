@@ -17,7 +17,7 @@ pprint ok "Installed fonts into $fonts_dir"
 # fc-cache -f
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  brew install ack > /tmp/brew-system.dot.log 2>&1
+  brew install ack coreutils grc > /tmp/brew-system.dot.log 2>&1
 elif [[ "$(uname -s)" == "Linux" ]]; then
   # TODO
   echo "unimplemented"

@@ -1,0 +1,13 @@
+# Joins a list of strings
+# Usage: print_error_logs <failed_topics> <logfile_suffix>
+
+source $DOT/functions/join
+
+function print_error_logs() {
+  local failed_topics=$1
+  local logfile_suffix=$2
+  pprint fail "There were some errors in: ${failed_topics[@]}"
+  joined_topics=`join \| ${failed_topics[@]}`
+  error_logs=$(find -E -L /tmp -maxdepth 1 -regex ".*(${joined_topics})${logfile_suffix}")
+  for logfile in $error_logs; do pprint error "$logfile"; done
+}

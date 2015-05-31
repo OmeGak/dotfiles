@@ -4,19 +4,9 @@
 #
 # `dot` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
-export ZSH=$HOME/.dotfiles
 
-# Set OS X defaults
-# $ZSH/osx/set-defaults.sh
-
-# Install homebrew dependencies
+# Update homebrew
 if test $(which brew); then
 	brew update > /dev/null 2>&1
 fi
-$ZSH/homebrew/install.sh > /dev/null 2>&1
 
-# Install python dependencies
-$ZSH/python/install.sh > /dev/null 2>&1
-
-# Install apps
-$ZSH/cask/install-deps.sh

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-export ZSH=$HOME/.dotfiles
-cask_dir=$ZSH/cask
-
 if [[ "$(uname -s)" != "Darwin" ]]; then
   pprint error "Unsupported OS"
   exit 0
@@ -21,7 +18,7 @@ fi
 
 # Get list of new casks
 brew cask ls -1 > /tmp/cask-ls
-new_casks=$(cat $cask_dir/casks.txt | grep -v \# | grep -vwf /tmp/cask-ls)
+new_casks=$(cat $DOT/cask/casks.txt | grep -v \# | grep -vwf /tmp/cask-ls)
 
 # Install new casks
 if [[ ! -z "$new_casks" ]]; then
@@ -29,5 +26,5 @@ if [[ ! -z "$new_casks" ]]; then
 fi
 
 # Cleanup
-$ZSH/cask/ownerfix.sh
+$DOT/cask/ownerfix.sh
 brew cask cleanup
