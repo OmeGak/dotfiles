@@ -3,5 +3,5 @@
 # Sets up the minimum environment for dot steps
 
 export DOT=$HOME/.dotfiles
-export PATH="$DOT/bin:$PATH"
+export PATH="$DOT/.dot/bin:$DOT/bin:$PATH"
 source $DOT/.dot/util/print_error_logs
