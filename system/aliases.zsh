@@ -20,9 +20,6 @@ alias lla="$LS -lhA --group-directories-first --color"
 # path
 alias path='echo $PATH | tr : "\n"'
 
-# IP
-alias myip="ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
-
 # Linux fixes
 if [[ "$(uname -s)" == "Linux" ]]; then
   alias pbcopy="xclip -selection clipboard"
