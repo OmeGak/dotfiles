@@ -16,20 +16,11 @@ install_keyboard_layout() {
     # Apparently, symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
     # ln -snf "${source_bundle}" "${target_bundle}"
   fi
-
-  pprint ok "US-ES-Keyboard layout is available"
 }
 
 install_ntfs() {
-  # Check if NTFS-3G is not installed
-  if [[ -z $(brew ls --versions ntfs-3g) ]]; then
-    pprint step "Brewing NTFS-3g"
-    brew install ntfs-3g > /tmp/ntfs-3g.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-    if [[ $? != 0 ]]; then
-      pprint error "Failed to brew ntfs-3g"
-      exit 1
-    fi
-  fi
+  pinstall brew ntfs-3g
+  [[ $? != 0 ]] && exit 1
 
   # Check if mount_ntfs is symlinked
   if [[ ! -L "/sbin/mount_ntfs" ]]; then
@@ -45,4 +36,6 @@ install_ntfs() {
 
 install_keyboard_layout
 install_ntfs
+
+pprint ok "OS X sweets installed"
 exit 0

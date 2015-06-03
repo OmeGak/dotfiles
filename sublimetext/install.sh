@@ -27,29 +27,12 @@ if [[ ! -d "${sublime_pkgs_dir}/User.bak" ]]; then
   ln -snf "$DOT/sublimetext/User" "${sublime_pkgs_dir}/User"
 fi
 
-# Install flake8 linter
-if [[ ! $(syspip show flake8) ]]; then
-  pprint step "Installing flake8"
-  syspip install --upgrade flake8 > /tmp/flake8.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-  if [[ $? != 0 ]]; then
-    pprint error "Failed to install flake8"
-    errors=true
-  fi
-fi
+pinstall pip flake8 $DOT_TOPIC_LOGFILE_SUFFIX
+[[ $? != 0 ]] && errors=true
 
-# Install jshint linter
-if [[ ! $(npm -g list jshint) ]]; then
-  pprint step "Installing jshint"
-  npm -g install jshint > /tmp/npm.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-  if [[ $? != 0 ]]; then
-    pprint error "Failed to install jshint"
-    errors=true
-  fi
-fi
+pinstall npm jshint $DOT_TOPIC_LOGFILE_SUFFIX
+[[ $? != 0 ]] && errors=true
 
-if [[ $errors == "true" ]]; then
-  exit 1
-fi
-
+[[ ${errors} == "true" ]] && exit 1
 pprint ok "SublimeText is ready to hack"
 exit 0

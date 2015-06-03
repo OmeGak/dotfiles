@@ -17,12 +17,15 @@ pprint ok "Installed fonts into ${fonts_dir}"
 # echo "Refreshing fonts cache"
 # fc-cache -f
 
-# Install common tools
-brew install ack coreutils grc > /tmp/brew.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-if [[ $? != 0 ]]; then
-  pprint error "Failed to install some packages"
-  exit 1
-fi
-pprint ok "System tools are ready"
+pinstall brew ack $DOT_TOPIC_LOGFILE_SUFFIX
+[[ $? != 0 ]] && errors=true
 
+pinstall brew coreutils $DOT_TOPIC_LOGFILE_SUFFIX
+[[ $? != 0 ]] && errors=true
+
+pinstall brew grc $DOT_TOPIC_LOGFILE_SUFFIX
+[[ $? != 0 ]] && errors=true
+
+[[ ${errors} == "true" ]] && exit 1
+pprint ok "System tools are ready"
 exit 0
