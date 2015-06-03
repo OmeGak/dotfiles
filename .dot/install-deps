@@ -8,22 +8,22 @@ pprint intro 'Checking dependencies'
 
 # Prepare logs
 logsuffix='.install.dep.dot.log'
-find -L /tmp -maxdepth 1 -name *$logsuffix | while read logfile; do rm "$logfile"; done
+find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
 
 # TODO: define order of dependencies (python depends on homebrew)
 # Find and run dependency install scripts
-for script in `find $DOT -maxdepth 2 -name install.dep.sh`; do
+for script in $(find $DOT -maxdepth 2 -name install.dep.sh); do
   topic=`basename $(dirname ${script})`
-  export DOT_TOPIC_LOGFILE_SUFFIX=$topic$logsuffix
-  pprint info "Checking dependencies from $topic..."
-  sh -c "$script"
+  export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
+  pprint info "Checking dependencies from ${topic}..."
+  sh -c "${script}"
   [[ $? == 0 ]] && pprint ok "All is ready"
-  [[ $? != 0 ]] && errors+=($topic) && pprint error "Missing"
+  [[ $? != 0 ]] && errors+=(${topic}) && pprint error "Missing"
   pprint flush
 done
 
 # Show summary
-if [[ $errors ]]; then
+if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
 else
   pprint success "All dependencies are ready"

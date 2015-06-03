@@ -9,22 +9,22 @@ else
   exit 0
 fi
 
-sublime_pkgcontrol="$sublime_dir/Installed Packages/Package Control.sublime-package"
-sublime_pkgs_dir="$sublime_dir/Packages"
+sublime_pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
+sublime_pkgs_dir="${sublime_dir}/Packages"
 
 # Install Package Control if necessary
-if [[ ! -e "$sublime_pkgcontrol" ]]; then
+if [[ ! -e "${sublime_pkgcontrol}" ]]; then
   pprint step "Installing Package control"
   server_url="https://packagecontrol.io/Package%20Control.sublime-package"
-  curl -fsSL -o "$sublime_pkgcontrol" "$server_url"
+  curl -fsSL -o "${sublime_pkgcontrol}" "${server_url}"
 fi
 
 # Link ST settings if necessary
-if [[ ! -d "$sublime_pkgs_dir/User.bak" ]]; then
+if [[ ! -d "${sublime_pkgs_dir}/User.bak" ]]; then
   pprint step "Installing your preferences"
-  mv "$sublime_pkgs_dir/User" "$sublime_pkgs_dir/User.bak"
-  rm -rf "$sublime_pkgs_dir/User"
-  ln -snf "$ZSH/sublimetext/User" "$sublime_pkgs_dir/User"
+  mv "${sublime_pkgs_dir}/User" "${sublime_pkgs_dir}/User.bak"
+  rm -rf "${sublime_pkgs_dir}/User"
+  ln -snf "$DOT/sublimetext/User" "${sublime_pkgs_dir}/User"
 fi
 
 # Install flake8 linter

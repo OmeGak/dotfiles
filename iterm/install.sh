@@ -6,11 +6,11 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
 fi
 
 plist_name="com.googlecode.iterm2.plist"
-plist_source="$DOT/iterm/$plist_name"
-plist_target="$HOME/Library/Preferences/$plist_name"
+plist_source="$DOT/iterm/${plist_name}"
+plist_target="$HOME/Library/Preferences/${plist_name}"
 
 # Check if preferences were evere imported
-if [[ ! -f $plist_target.backup ]]; then
+if [[ ! -f ${plist_target}.backup ]]; then
   if [[ $TERM_PROGRAM = 'iTerm.app' ]]; then
     pprint warning "iTerm can't overwrite its own preferences"
     pprint warning "Run \`$ make install\` from Terminal instead"
@@ -18,8 +18,8 @@ if [[ ! -f $plist_target.backup ]]; then
   fi
   pprint step "Backing up prefs and importing yours"
   killall cfprefsd  # Clean prefs cache
-  mv "$plist_target" "$plist_target.backup"
-  cp "$plist_source" "$plist_target"
+  mv "${plist_target}" "${plist_target}.backup"
+  cp "${plist_source}" "${plist_target}"
 fi
 
 pprint ok "iTerm2 preferences are installed"

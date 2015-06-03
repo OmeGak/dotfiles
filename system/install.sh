@@ -10,8 +10,8 @@ else
 fi
 
 # TODO: check if fonts were already installed
-cp $DOT/system/fonts/* $fonts_dir
-pprint ok "Installed fonts into $fonts_dir"
+cp $DOT/system/fonts/* ${fonts_dir}
+pprint ok "Installed fonts into ${fonts_dir}"
 
 # Uncomment if fonts are not available
 # echo "Refreshing fonts cache"

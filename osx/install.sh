@@ -5,24 +5,22 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
   exit 0
 fi
 
-# Install custom keyboard layout
-function install_keyboard_layout() {
+install_keyboard_layout() {
   local source_bundle="$DOT/osx/US-ES-Keyboard/US-ES-International.bundle"
   local target_bundle="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
 
   # Check if keyboard layout is not installed
-  if [[ ! -d $target_bundle ]]; then
+  if [[ ! -d ${target_bundle} ]]; then
     pprint step "Installing US-ES-Keybouard layout"
-    cp -r "$source_bundle" "$target_bundle"
+    cp -r "${source_bundle}" "${target_bundle}"
     # Apparently, symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
-    # ln -snf "$source_bundle" "$target_bundle"
+    # ln -snf "${source_bundle}" "${target_bundle}"
   fi
 
   pprint ok "US-ES-Keyboard layout is available"
 }
 
-# Install NTFS support
-function install_ntfs() {
+install_ntfs() {
   # Check if NTFS-3G is not installed
   if [[ -z $(brew ls --versions ntfs-3g) ]]; then
     pprint step "Brewing NTFS-3g"

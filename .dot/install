@@ -8,21 +8,21 @@ pprint intro 'Running installers'
 
 # Prepare logs
 logsuffix='.install.dot.log'
-find -L /tmp -maxdepth 1 -name *$logsuffix | while read logfile; do rm "$logfile"; done
+find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
 
 # Find and run install scripts
-for installer in `find $DOT -maxdepth 2 -name install.sh`; do
-  topic=`basename $(dirname $installer)`
-  export DOT_TOPIC_LOGFILE_SUFFIX=$topic$logsuffix
-  pprint info "Installing stuff for $topic..."
-  sh -c "${installer}"
+for script in $(find $DOT -maxdepth 2 -name install.sh); do
+  topic=`basename $(dirname ${script})`
+  export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
+  pprint info "Installing stuff for ${topic}..."
+  sh -c "${script}"
   [[ $? == 0 ]] && pprint ok "All is done"
-  [[ $? != 0 ]] && errors+=($topic) && pprint error "Failed"
+  [[ $? != 0 ]] && errors+=(${topic}) && pprint error "Failed"
   pprint flush
 done
 
 # Show summary
-if [[ $errors ]]; then
+if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
 else
   pprint success "Everything installed like a charm!"
