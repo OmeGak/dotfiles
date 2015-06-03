@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Pretty print error report for failed topics
+
+source $DOT/functions/join
+
+function print_error_logs() {
+  msg="There were some errors in: ${failing_topics[@]}"
+  pprint fail "${msg}"
+  joined_topics=$(join \| ${failing_topics[@]})
+  error_logs=$(find -E -L /tmp -maxdepth 1 -regex ".*(${joined_topics})${logfile_suffix}")
+  for logfile in ${error_logs}; do pprint error "${logfile}"; done
+}
+
+function usage() {
+  echo "usage: $0 logsuffix topic1 [topic2 ...]"
+  echo "  logsuffix:   suffix of the install log file to be listed"
+  echo "  topic1, ...: list of topics that failed to install"
+}
+
+if [[ $# < 2 ]]; then
+  usage
+  exit 1
+fi
+
+logfile_suffix=$1; shift
+failing_topics=("$@")
+
+print_error_logs ${logfile_suffix} "${failing_topics}"
+pprint flush
+exit 0

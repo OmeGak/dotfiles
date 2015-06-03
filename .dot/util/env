@@ -4,4 +4,3 @@
 
 export DOT=$HOME/.dotfiles
 export PATH="$DOT/.dot/bin:$DOT/bin:$PATH"
-source $DOT/.dot/util/print_error_logs
