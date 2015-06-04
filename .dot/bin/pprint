@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Pretty prints for dotfiles scripts
 
+progname=$(basename $0)
+
 
 # -- Status prints -------------------------------------------------------------
 
@@ -54,7 +56,7 @@ pp_flush() {
 
 
 usage() {
-  echo "usage: $0 type [-r] [string]"
+  echo "usage: ${progname} type [-r] [string]"
   echo "  type:   fail info success user"
   echo "          error ok step warning"
   echo "          flush intro"

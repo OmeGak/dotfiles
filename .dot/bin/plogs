@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Pretty print error report for failed topics
 
+progname=$(basename $0)
 source $DOT/functions/join
 
 function print_error_logs() {
@@ -12,7 +13,7 @@ function print_error_logs() {
 }
 
 function usage() {
-  echo "usage: $0 logsuffix topic1 [topic2 ...]"
+  echo "usage: ${progname} logsuffix topic1 [topic2 ...]"
   echo "  logsuffix:   suffix of the install log file to be listed"
   echo "  topic1, ...: list of topics that failed to install"
 }

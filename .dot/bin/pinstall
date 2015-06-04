@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Pretty and quite silent package installer wrapper
 
+progname=$(basename $0)
+
 
 # -- Core ----------------------------------------------------------------------
 
@@ -51,7 +53,7 @@ ppip() {
 # ------------------------------------------------------------------------------
 
 usage() {
-  echo "usage: $0 system package [logsuffix]"
+  echo "usage: ${progname} system package [logsuffix]"
   echo "  system:    package system to use:"
   echo "               brew npm pip"
   echo "  package:   the package to be installed"
