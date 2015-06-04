@@ -1,9 +1,9 @@
 #!/bin/bash
 
-pinstall pip virtualenv $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall pip virtualenv
 [[ $? != 0 ]] && errors=true
 
-pinstall pip virtualenvwrapper $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall pip virtualenvwrapper
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1

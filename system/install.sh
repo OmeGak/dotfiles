@@ -17,13 +17,13 @@ pprint ok "Installed fonts into ${fonts_dir}"
 # echo "Refreshing fonts cache"
 # fc-cache -f
 
-pinstall brew ack $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall brew ack
 [[ $? != 0 ]] && errors=true
 
-pinstall brew coreutils $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall brew coreutils
 [[ $? != 0 ]] && errors=true
 
-pinstall brew grc $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall brew grc
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1

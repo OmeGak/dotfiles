@@ -27,10 +27,10 @@ if [[ ! -d "${sublime_pkgs_dir}/User.bak" ]]; then
   ln -snf "$DOT/sublimetext/User" "${sublime_pkgs_dir}/User"
 fi
 
-pinstall pip flake8 $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall pip flake8
 [[ $? != 0 ]] && errors=true
 
-pinstall npm jshint $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall npm jshint
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1

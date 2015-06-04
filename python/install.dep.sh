@@ -2,6 +2,6 @@
 
 set -e
 
-pinstall brew python $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall brew python
 pprint ok "Python is ready to fly"
 exit 0

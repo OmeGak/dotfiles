@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pinstall pip tmuxp $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall pip tmuxp
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1

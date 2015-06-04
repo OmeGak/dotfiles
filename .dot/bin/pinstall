@@ -2,6 +2,7 @@
 # Pretty and quite silent package installer wrapper
 
 progname=$(basename $0)
+[[ -z "$DOT_TOPIC_LOGFILE_SUFFIX" ]] && DOT_TOPIC_LOGFILE_SUFFIX="dot.log"
 
 
 # -- Core ----------------------------------------------------------------------
@@ -11,11 +12,9 @@ _pretty_install() {
   local system=$2
   local cmd_install=$3
   local cmd_check=$4
-  local logfile_suffix=$5
-  [[ -z "${logfile_suffix}" ]] && logfile_suffix="log"
   if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
     pprint step "Installing ${package} from ${system}"
-    ${cmd_install} ${package} > /tmp/${package}.with-${system}.${logfile_suffix} 2>&1
+    ${cmd_install} ${package} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
     if [[ $? != 0 ]]; then
       pprint error "Failed to install ${package}"
       exit 1
@@ -38,26 +37,24 @@ _is_installed() {
 # -- System calls --------------------------------------------------------------
 
 pbrew() {
-  _pretty_install $1 "brew" "brew install" "brew ls --versions" $2
+  _pretty_install $1 "brew" "brew install" "brew ls --versions"
 }
 
 pnpm() {
-  _pretty_install $1 "npm" "npm -g install" "npm -g list" $2
+  _pretty_install $1 "npm" "npm -g install" "npm -g list"
 }
 
 ppip() {
-  _pretty_install $1 "pip" "syspip install --upgrade" "syspip show" $2
+  _pretty_install $1 "pip" "syspip install --upgrade" "syspip show"
 }
 
 
 # ------------------------------------------------------------------------------
 
 usage() {
-  echo "usage: ${progname} system package [logsuffix]"
-  echo "  system:    package system to use:"
-  echo "               brew npm pip"
-  echo "  package:   the package to be installed"
-  echo "  logsuffix: suffix for the install log file"
+  echo "usage: ${progname} system package"
+  echo "  system:  package system to use: (brew | npm | pip)"
+  echo "  package: the package to be installed"
 }
 
 case "$1" in
@@ -77,5 +74,5 @@ if [[ $# < 2 ]]; then
   exit 1
 fi
 
-${fn} "$2" "$3"
+${fn} "$2"
 exit 0

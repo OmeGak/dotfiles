@@ -2,6 +2,6 @@
 
 set -e
 
-pinstall brew node $DOT_TOPIC_LOGFILE_SUFFIX
+pinstall brew node
 pprint ok "NodeJS is ready to rock"
 exit 0
