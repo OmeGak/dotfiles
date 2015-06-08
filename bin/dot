@@ -1,12 +1,21 @@
-#!/bin/sh
-#
-# dot
-#
-# `dot` handles installation, updates, things like that. Run it periodically
-# to make sure you're on the latest and greatest.
+#!/bin/bash
+# Entry point to control dotfiles operations
 
-# Update homebrew
-if test $(which brew); then
-	brew update > /dev/null 2>&1
-fi
+# -- Helpers ------------------------------------------------------------------
 
+edit() {
+  e $DOT
+}
+
+case "$1" in
+  edit)
+    edit
+    exit 0;;
+  *)
+    ;;
+esac
+
+
+# -- Go dot! ------------------------------------------------------------------
+
+command make -C $DOT $1
