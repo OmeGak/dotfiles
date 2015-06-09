@@ -1,13 +1,14 @@
 .SILENT:
-.PHONY: all bootstrap
-.PHONY: zeroday link install defaults
-.PHONY: link-deps install-deps defaults-deps
+.PHONY: bootstrap ossetup all
+.PHONY: zeroday link install defaults apps
+.PHONY: link-deps install-deps defaults-deps apps-deps
 
 
 # -- Workflows ----------------------------------------------------------------
 
 bootstrap: link install
-all: zeroday link install defaults
+ossetup: apps install defaults
+all: zeroday bootstrap defaults ossetup
 
 
 # -- Steps --------------------------------------------------------------------
@@ -25,6 +26,9 @@ install: install-deps
 defaults: defaults-deps
 	.dot/defaults
 
+apps: apps-deps
+	.dot/apps
+
 
 # -- Dependencies -------------------------------------------------------------
 
@@ -36,3 +40,6 @@ install-deps:
 
 defaults-deps:
 	.dot/defaults-deps
+
+apps-deps:
+	.dot/apps-deps
