@@ -14,25 +14,25 @@ all: zeroday link install defaults
 
 # Things you want to run only the first time you setup your computer
 zeroday:
-	-.dot/zeroday
+	.dot/zeroday
 
 link: link-deps
-	-.dot/link
+	.dot/link
 
 install: install-deps
-	-.dot/install
+	.dot/install
 
 defaults: defaults-deps
-	-.dot/defaults
+	.dot/defaults
 
 
 # -- Dependencies -------------------------------------------------------------
 
 link-deps:
-	-.dot/link-deps
+	.dot/link-deps
 
 install-deps:
-	-.dot/install-deps
+	.dot/install-deps
 
 defaults-deps:
-	-.dot/defaults-deps
+	.dot/defaults-deps
