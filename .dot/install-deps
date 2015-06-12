@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Checks and install dependencies for the install step.
+# Checks and install dependencies for the install step
 
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
@@ -10,7 +10,7 @@ pprint intro 'Checking dependencies'
 logsuffix='.install.dep.dot.log'
 find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
 
-# TODO: define order of dependencies (python depends on homebrew)
+# TODO: define order of dependencies (e.g. python depends on homebrew)
 # Find and run dependency install scripts
 for script in $(find $DOT -maxdepth 2 -name install.dep.sh); do
   topic=`basename $(dirname ${script})`

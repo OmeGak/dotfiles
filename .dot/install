@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run all topic installers
+# Runs all topic installers
 
 # Init environment
 source $HOME/.dotfiles/.dot/util/env

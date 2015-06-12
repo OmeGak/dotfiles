@@ -1,45 +1,44 @@
 .SILENT:
-.PHONY: bootstrap ossetup all
+.PHONY: dot
+.PHONY: bootstrap ossetup
 .PHONY: zeroday link install defaults apps
-.PHONY: link-deps install-deps defaults-deps apps-deps
+.PHONY: _dot-start _dot-finish
+
+
+# -- Make dot -----------------------------------------------------------------
+
+dot: _dot-start zeroday bootstrap _dot-finish
 
 
 # -- Workflows ----------------------------------------------------------------
 
 bootstrap: link install
 ossetup: apps install defaults
-all: zeroday bootstrap defaults ossetup
 
 
 # -- Steps --------------------------------------------------------------------
 
-# Things you want to run only the first time you setup your computer
 zeroday:
 	.dot/zeroday
 
-link: link-deps
+link:
 	.dot/link
 
-install: install-deps
+install:
+	.dot/install-deps
 	.dot/install
 
-defaults: defaults-deps
+defaults:
 	.dot/defaults
 
-apps: apps-deps
+apps:
 	.dot/apps
 
 
-# -- Dependencies -------------------------------------------------------------
+# -- Helpers ------------------------------------------------------------------
 
-link-deps:
-	.dot/link-deps
+_dot-start:
+	.dot/dot-start
 
-install-deps:
-	.dot/install-deps
-
-defaults-deps:
-	.dot/defaults-deps
-
-apps-deps:
-	.dot/apps-deps
+_dot-finish:
+	.dot/dot-finish
