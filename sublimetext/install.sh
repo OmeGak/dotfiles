@@ -9,6 +9,11 @@ else
   exit 0
 fi
 
+if [[ ! -d ${sublime_dir} ]]; then
+  pprint warning "SublimeText doesn't seem to be installed"
+  exit 0
+fi
+
 sublime_pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
 sublime_pkgs_dir="${sublime_dir}/Packages"
 
