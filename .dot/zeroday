@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
-# Initializes some things on a clean SO install.
+# Configures your shell on a clean SO install.
+
+set -e
+
+# Init environment
+source $HOME/.dotfiles/.dot/util/env
+
+pprint intro "Preparing your shell"
 
 # Make ZSH the default login shell
-chsh -s $(which zsh)
+if [[ $(basename $SHELL) != 'zsh' ]]; then
+  pprint info "Setting ZSH as your shell"
+  chsh -s $(which zsh)
+fi
 
 # Activate root user in Mac
 if [ "$(uname -s)" == "Darwin" ]; then
-	sudo echo "root user activated"
+  pprint info "Activating root user"
+  pprint flush
+  sudo echo > /dev/null
 fi
+
+pprint success "Your shell is properly configured"
+pprint flush
+exit 0

@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
-# Welcome splash
+# Welcomes and initializes submodules
+
+set -e
 
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-pprint intro "welcome to make dot!"
+echo
+echo "   ██████   ██████  ████████ ███████ ██ ██      ███████ ███████"
+echo "   ██   ██ ██    ██    ██    ██      ██ ██      ██      ██     "
+echo "   ██   ██ ██    ██    ██    █████   ██ ██      █████   ███████"
+echo "   ██   ██ ██    ██    ██    ██      ██ ██      ██           ██"
+echo "██ ██████   ██████     ██    ██      ██ ███████ ███████ ███████"
+echo "                                              Let's do(t) this!"
+echo
 
-# TODO: make sure submodules are initialized
+init_submodules() {
+  git submodule init 2> /dev/null
+  git submodule update 2> /dev/null
+}
+
+init_submodules
+pprint flush
+exit 0
