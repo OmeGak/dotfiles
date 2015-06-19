@@ -45,7 +45,12 @@ pp_warning() {
 # -- Helpers -------------------------------------------------------------------
 
 pp_intro() {
-  printf "$1  $2\n"
+  pad=$(printf '%0.1s' '-'{1..80})
+  padlength=74
+  string=$2
+  printf "$1# -- %s " "${string}"
+  printf '%*.*s' 0 $((${padlength} - ${#string})) "${pad}"
+  printf '%s\n'
 }
 
 pp_flush() {
