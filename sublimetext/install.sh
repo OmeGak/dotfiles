@@ -39,5 +39,4 @@ pinstall npm jshint
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1
-pprint ok "SublimeText is ready to hack"
 exit 0

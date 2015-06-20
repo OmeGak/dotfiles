@@ -37,5 +37,4 @@ install_ntfs() {
 install_keyboard_layout
 install_ntfs
 
-pprint ok "OS X sweets installed"
 exit 0

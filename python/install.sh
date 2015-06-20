@@ -6,5 +6,4 @@ if [[ $? != 0 ]]; then
   exit 1
 fi
 
-pprint ok "Python magic is installed"
 exit 0

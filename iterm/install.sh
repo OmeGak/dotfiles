@@ -22,5 +22,4 @@ if [[ ! -f ${plist_target}.backup ]]; then
   cp "${plist_source}" "${plist_target}"
 fi
 
-pprint ok "iTerm2 preferences are installed"
 exit 0

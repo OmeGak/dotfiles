@@ -25,5 +25,4 @@ if [[ -z $(brew tap | grep caskroom/versions) ]]; then
   fi
 fi
 
-pprint ok "Cask is installed"
 exit 0

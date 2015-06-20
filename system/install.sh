@@ -27,5 +27,4 @@ pinstall brew grc
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1
-pprint ok "System tools are ready"
 exit 0
