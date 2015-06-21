@@ -4,7 +4,7 @@
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-pprint intro 'Running installers'
+pprint intro 'RUNNING INSTALLERS'
 
 # Prepare logs
 logsuffix='.install.dot.log'
@@ -25,7 +25,7 @@ done
 if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
 else
-  pprint success "Everything installed like a charm!"
+  pprint success "Everything installed"
 fi
 
 pprint flush

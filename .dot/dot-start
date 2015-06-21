@@ -13,13 +13,12 @@ echo "   ██   ██ ██    ██    ██    █████   ██ 
 echo "   ██   ██ ██    ██    ██    ██      ██ ██      ██           ██"
 echo "██ ██████   ██████     ██    ██      ██ ███████ ███████ ███████"
 echo "                                              Let's do(t) this!"
-echo
 
-init_submodules() {
-  git submodule init 2> /dev/null
-  git submodule update 2> /dev/null
-}
+pprint intro "READY TO START?"
 
-init_submodules
+git submodule init
+git submodule update
+pprint success "All submodules in place"
+
 pprint flush
 exit 0

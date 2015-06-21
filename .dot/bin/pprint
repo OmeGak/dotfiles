@@ -48,7 +48,7 @@ pp_intro() {
   pad=$(printf '%0.1s' '-'{1..80})
   padlength=74
   string=$2
-  printf "$1# -- %s " "${string}"
+  printf "$1\n# -- %s " "${string}"
   printf '%*.*s' 0 $((${padlength} - ${#string})) "${pad}"
   printf '%s\n'
 }

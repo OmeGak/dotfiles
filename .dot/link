@@ -7,21 +7,22 @@ source $HOME/.dotfiles/.dot/util/env
 
 setup_gitconfig() {
   if ! [ -f git/gitconfig.symlink ]; then
-    pprint intro 'Setup gitconfig'
+    pprint intro 'SETTING UP GITCONFIG'
 
     git_credential='cache'
     if [ "$(uname -s)" == "Darwin" ]; then
       git_credential='osxkeychain'
     fi
 
-    pprint user ' - What is your github author name?'
+    pprint user 'What is your github author name?'
     read -e git_authorname
-    pprint user ' - What is your github author email?'
+    pprint user 'What is your github author email?'
     read -e git_authoremail
 
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
 
-    pprint success 'gitconfig'
+    pprint success '.gitconfig generated'
+    pprint flush
   fi
 }
 
@@ -61,29 +62,29 @@ link_file() {
 
     if [ "$overwrite" == "true" ]; then
       rm -rf "$dst"
-      pprint success "removed $dst"
+      pprint success "Removed $dst"
     fi
 
     if [ "$backup" == "true" ]; then
       mv "$dst" "${dst}.backup"
-      pprint success "moved $dst to ${dst}.backup"
+      pprint success "Moved $dst to ${dst}.backup"
     fi
 
     if [ "$skip" == "true" ]; then
-      pprint success "skipped $src"
+      pprint success "Skipped $src"
     fi
   fi
 
   # "false" or empty
   if [ "$skip" != "true" ]; then
     ln -s "$1" "$2"
-    pprint success "linked $1 to $2"
+    pprint success "Linked $1 to $2"
   fi
 }
 
 
 link_dotfiles() {
-  pprint intro "Linking files to your home folder"
+  pprint intro "LINKING DOTFILES TO HOME FOLDER"
 
   local overwrite_all=false backup_all=false skip_all=false
 
@@ -92,7 +93,8 @@ link_dotfiles() {
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
-  pprint intro "All linked"
+  pprint success "All dotfiles linked"
+  pprint flush
 }
 
 
