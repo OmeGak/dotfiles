@@ -1,0 +1,29 @@
+#!/bin/sh
+# Locates Mac OSX applications by either name or bundle ID
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  echo "Oops! This is not a Mac..."
+  exit 1
+fi
+
+which_app() {
+  local app=$1 is_name=0 bundle_id
+  # Determine whether an app *name* or *bundle ID* was specified
+  [[ ${app} =~ \.[aA][pP][pP]$ || ${app} =~ ^[^.]+$ ]] && is_name=1
+  # Translate to bundle ID if name specified
+  (( is_name )) && bundle_id=$(get_bundle_id "${app}") || bundle_id=${app}
+  # Gets bundle path if bundle ID found
+  [[ "${bundle_id}" ]] && path=$(find_bundle "${bundle_id}")
+  [[ ! "${path}" ]] && { echo "${app} app not found" 1>&2; return 1; }
+  echo ${path}
+}
+
+get_bundle_id() {
+  osascript -e "id of application \"$1\"" 2> /dev/null
+}
+
+find_bundle() {
+  osascript -e "tell application \"Finder\" to POSIX path of (get application file id \"$1\" as alias)" 2> /dev/null
+}
+
+which_app $1
