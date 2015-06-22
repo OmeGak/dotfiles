@@ -13,7 +13,7 @@ dot: _dot-start zeroday bootstrap _dot-finish
 # -- Workflows ----------------------------------------------------------------
 
 bootstrap: link install
-ossetup: apps install defaults
+osxsetup: apps install defaults
 
 
 # -- Steps --------------------------------------------------------------------
