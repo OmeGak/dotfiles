@@ -4,18 +4,20 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   fonts_dir="$HOME/Library/Fonts"
 elif [[ "$(uname -s)" == "Linux" ]]; then
   fonts_dir="$HOME/.fonts"
+  refresh='pprint step "Refreshing fonts"; fc-cache -f 2>&1'
 else
   pprint error "Unrecognized OS"
   exit 0
 fi
 
-# TODO: check if fonts were already installed
-cp $DOT/system/fonts/* ${fonts_dir}
-pprint ok "Installed fonts into ${fonts_dir}"
+fonts_installed=${fonts_dir}/.dot
 
-# Uncomment if fonts are not available
-# echo "Refreshing fonts cache"
-# fc-cache -f
+if [[ ! -f "${fonts_installed}" ]]; then
+  pprint step "Installing fonts into ${fonts_dir}"
+  cp $DOT/system/fonts/* ${fonts_dir}
+  touch ${fonts_installed}
+  sh -c "${refresh}"
+fi
 
 pinstall brew ack
 [[ $? != 0 ]] && errors=true
