@@ -22,6 +22,7 @@ zeroday:
 	.dot/zeroday
 
 link:
+	.dot/link-git
 	.dot/link
 
 install:

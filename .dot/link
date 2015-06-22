@@ -5,28 +5,6 @@
 source $HOME/.dotfiles/.dot/util/env
 
 
-setup_gitconfig() {
-  if ! [ -f git/gitconfig.symlink ]; then
-    pprint intro 'SETTING UP GITCONFIG'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]; then
-      git_credential='osxkeychain'
-    fi
-
-    pprint user 'What is your github author name?'
-    read -e git_authorname
-    pprint user 'What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.symlink.example > git/gitconfig.symlink
-
-    pprint success '.gitconfig generated'
-    pprint flush
-  fi
-}
-
-
 link_file() {
   local src=$1 dst=$2
 
@@ -98,8 +76,4 @@ link_dotfiles() {
 }
 
 
-# First, set git author info
-setup_gitconfig
-
-# Link the dotfiles
 link_dotfiles
