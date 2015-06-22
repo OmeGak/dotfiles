@@ -4,33 +4,30 @@
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-
 link_file() {
   local src=$1 dst=$2
 
   local overwrite= backup= skip=
   local action=
 
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
-      pprint user "File already exists: $(basename "$src"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+  if [ -f "${dst}" -o -d "${dst}" -o -L "${dst}" ]; then
+    if [[ "${overwrite_all}" == "false" ]] && [[ "${backup_all}" == "false" ]] && [[ "${skip_all}" == "false" ]]; then
+      pprint user "File already exists: $(basename "${src}"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
       action=$(readone)
 
-      case "$action" in
-        o )
+      case "${action}" in
+        o)
           overwrite=true;;
-        O )
+        O)
           overwrite_all=true;;
-        b )
+        b)
           backup=true;;
-        B )
+        B)
           backup_all=true;;
-        s )
-          skip=true;;
-        S )
+        S)
           skip_all=true;;
-        * )
-          ;;
+        *)
+          skip=true;;
       esac
     fi
 
@@ -38,42 +35,36 @@ link_file() {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
-    if [ "$overwrite" == "true" ]; then
-      rm -rf "$dst"
-      pprint success "Removed $dst"
+    if [[ "${overwrite}" == "true" ]]; then
+      rm -rf "${dst}"
+      pprint success "Removed ${dst}"
     fi
 
-    if [ "$backup" == "true" ]; then
-      mv "$dst" "${dst}.backup"
-      pprint success "Moved $dst to ${dst}.backup"
+    if [[ "${backup}" == "true" ]]; then
+      mv "${dst}" "${dst}.backup"
+      pprint success "Moved ${dst} to ${dst}.backup"
     fi
 
-    if [ "$skip" == "true" ]; then
-      pprint success "Skipped $src"
+    if [[ "${skip}" == "true" ]]; then
+      pprint success "Skipped ${src}"
     fi
   fi
 
-  # "false" or empty
-  if [ "$skip" != "true" ]; then
-    ln -s "$1" "$2"
-    pprint success "Linked $1 to $2"
+  if [[ "${skip}" != "true" ]]; then
+    ln -s "${src}" "${dst}"
+    pprint success "Linked ${src} to ${dst}"
   fi
 }
-
 
 link_dotfiles() {
-  pprint intro "LINKING DOTFILES TO HOME FOLDER"
-
   local overwrite_all=false backup_all=false skip_all=false
-
-  for src in $(find "$DOT" -maxdepth 2 -name '*.symlink')
-  do
+  for src in $(find "$DOT" -maxdepth 2 -name '*.symlink'); do
     dst="$HOME/.$(basename "${src%.*}")"
-    link_file "$src" "$dst"
+    link_file "${src}" "${dst}"
   done
-  pprint success "All dotfiles linked"
-  pprint flush
 }
 
-
+pprint intro "LINKING DOTFILES TO HOME FOLDER"
 link_dotfiles
+pprint success "All dotfiles linked"
+pprint flush
