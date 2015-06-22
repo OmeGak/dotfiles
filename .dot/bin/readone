@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Reads a single normal character
+# Useful to avoid accidental keybinding input e.g. backspace, arrows, etc.
+
+while [[ ! ${char} =~ ^[a-zA-Z1-9]$ ]]; do
+  read -s -n 1 char
+  read -s -t 1 -n 255
+done
+echo ${char}
