@@ -29,8 +29,6 @@ install_ntfs() {
     pprint info-warn "  $ brew info ntfs-3g"
     pprint info-warn "  $ sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.orig"
     pprint info-warn "  $ sudo ln -s <path_to_ntfs_version>/sbin/mount_ntfs /sbin/mount_ntfs"
-  else
-    pprint info-ok "NTFS is enabled"
   fi
 }
 
