@@ -5,14 +5,14 @@
 source $HOME/.dotfiles/.dot/util/env
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
-  pprint fail "This is not a Mac"
-  pprint flush
+  pprint step-error "This is not a Mac"
+  pprint newline
   exit 1
 fi
 
-pprint intro "Installing apps"
-pprint flush
+pprint section "Installing apps"
+pprint newline
 
 $DOT/cask/apps.sh
-pprint flush
+pprint newline
 exit 0

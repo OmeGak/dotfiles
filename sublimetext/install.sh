@@ -10,7 +10,7 @@ else
 fi
 
 if [[ ! -d ${sublime_dir} ]]; then
-  pprint warning "SublimeText doesn't seem to be installed"
+  pprint info-warn "SublimeText doesn't seem to be installed"
   exit 0
 fi
 
@@ -19,14 +19,14 @@ sublime_pkgs_dir="${sublime_dir}/Packages"
 
 # Install Package Control if necessary
 if [[ ! -e "${sublime_pkgcontrol}" ]]; then
-  pprint step "Installing Package control"
+  pprint info-go "Installing Package control"
   server_url="https://packagecontrol.io/Package%20Control.sublime-package"
   curl -fsSL -o "${sublime_pkgcontrol}" "${server_url}"
 fi
 
 # Link ST settings if necessary
 if [[ ! -d "${sublime_pkgs_dir}/User.bak" ]]; then
-  pprint step "Installing your preferences"
+  pprint info-go "Installing your preferences"
   mv "${sublime_pkgs_dir}/User" "${sublime_pkgs_dir}/User.bak"
   rm -rf "${sublime_pkgs_dir}/User"
   ln -snf "$DOT/sublimetext/User" "${sublime_pkgs_dir}/User"

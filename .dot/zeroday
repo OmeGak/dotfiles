@@ -6,23 +6,22 @@ set -e
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-pprint intro "PREPARING SHELL"
+pprint section "PREPARING SHELL"
 
 # Make ZSH the default login shell
 if [[ $(basename $SHELL) != 'zsh' ]]; then
-  pprint user "Setting ZSH as your shell"
-  pprint flush
-  pprint flush
+  pprint step-user "Setting ZSH as your shell"
+  pprint newline
+  pprint newline
   chsh -s $(which zsh)
 fi
 
 # Activate root user in Mac
 if [ "$(uname -s)" == "Darwin" ]; then
-  pprint user "Activating root user now (you will need \`sudo\` later)"
-  pprint flush
+  pprint step-user "Activating root user now (you will need \`sudo\` later)"
+  pprint newline
   sudo echo > /dev/null
 fi
 
-pprint success "Your shell is properly configured"
-pprint flush
-exit 0
+pprint step-ok "Your shell is properly configured"
+pprint newline

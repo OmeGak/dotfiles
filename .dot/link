@@ -12,7 +12,7 @@ link_file() {
 
   if [ -f "${dst}" -o -d "${dst}" -o -L "${dst}" ]; then
     if [[ "${overwrite_all}" == "false" ]] && [[ "${backup_all}" == "false" ]] && [[ "${skip_all}" == "false" ]]; then
-      pprint user "File already exists: $(basename "${src}"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      pprint step-user "File already exists: $(basename "${src}"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
       action=$(readone)
 
       case "${action}" in
@@ -37,22 +37,22 @@ link_file() {
 
     if [[ "${overwrite}" == "true" ]]; then
       rm -rf "${dst}"
-      pprint success "Removed ${dst}"
+      pprint step-ok "Removed ${dst}"
     fi
 
     if [[ "${backup}" == "true" ]]; then
       mv "${dst}" "${dst}.backup"
-      pprint success "Moved ${dst} to ${dst}.backup"
+      pprint step-ok "Moved ${dst} to ${dst}.backup"
     fi
 
     if [[ "${skip}" == "true" ]]; then
-      pprint success "Skipped ${src}"
+      pprint step-ok "Skipped ${src}"
     fi
   fi
 
   if [[ "${skip}" != "true" ]]; then
     ln -s "${src}" "${dst}"
-    pprint success "Linked ${src} to ${dst}"
+    pprint step-ok "Linked ${src} to ${dst}"
   fi
 }
 
@@ -64,7 +64,7 @@ link_dotfiles() {
   done
 }
 
-pprint intro "LINKING DOTFILES TO HOME FOLDER"
+pprint section "LINKING DOTFILES TO HOME FOLDER"
 link_dotfiles
-pprint success "All dotfiles linked"
-pprint flush
+pprint step-ok "All dotfiles linked"
+pprint newline

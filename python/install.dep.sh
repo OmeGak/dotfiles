@@ -3,5 +3,5 @@
 set -e
 
 pinstall brew python
-pprint ok "Python is ready to fly"
+pprint info-ok "Python is ready to fly"
 exit 0

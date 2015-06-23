@@ -4,56 +4,63 @@
 progname=$(basename $0)
 
 
-# -- Status prints -------------------------------------------------------------
+# -- Top-level prints ----------------------------------------------------------
 
-pp_fail() {
-  printf "$1  [\033[0;31mFAIL\033[0m] $2"
-}
-
-pp_info() {
-  printf "$1  [ \033[00;94m>>\033[0m ] $2"
-}
-
-pp_success() {
-  printf "$1  [ \033[00;32mOK\033[0m ] $2"
-}
-
-pp_user() {
-  printf "$1  [ \033[0;33m??\033[0m ] $2 "
-}
-
-
-# -- Step prints ---------------------------------------------------------------
-
-pp_error() {
-  printf "$1      \033[0;31m><\033[0m $2"
-}
-
-pp_ok() {
-  printf "$1      \033[00;32m::\033[0m $2"
-}
-
-pp_step() {
-  printf "$1      .. $2"
-}
-
-pp_warning() {
-  printf "$1      \033[0;33m !\033[0m $2"
-}
-
-
-# -- Helpers -------------------------------------------------------------------
-
-pp_intro() {
-  pad=$(printf '%0.1s' '-'{1..80})
-  padlength=74
-  string=$2
+pp_section() {
+  local pad=$(printf '%0.1s' '-'{1..80})
+  local padlength=74
+  local string=$2
   printf "$1\n# -- %s " "${string}"
   printf '%*.*s' 0 $((${padlength} - ${#string})) "${pad}"
   printf '%s\n'
 }
 
-pp_flush() {
+
+# -- Step prints ---------------------------------------------------------------
+
+pp_step_error() {
+  printf "$1  [\033[0;31mFAIL\033[0m] $2"
+}
+
+pp_step_go() {
+  printf "$1  [ \033[00;94m>>\033[0m ] $2"
+}
+
+pp_step_ok() {
+  printf "$1  [ \033[00;32mOK\033[0m ] $2"
+}
+
+pp_step_user() {
+  printf "$1  [ \033[0;33m??\033[0m ] $2 "
+}
+
+
+# -- Info prints ---------------------------------------------------------------
+
+pp_info_error() {
+  printf "$1      \033[0;31m><\033[0m $2"
+}
+
+pp_info_ok() {
+  printf "$1      \033[00;32m::\033[0m $2"
+}
+
+pp_info_go() {
+  printf "$1      .. $2"
+}
+
+pp_info_warn() {
+  printf "$1      \033[0;33m !\033[0m $2"
+}
+
+
+# -- Tools ---------------------------------------------------------------------
+
+pp_remove() {
+  printf '\r\033[2K'
+}
+
+pp_newline() {
   printf '\n'
 }
 
@@ -62,40 +69,45 @@ pp_flush() {
 
 usage() {
   echo "usage: ${progname} type [-r] [string]"
-  echo "  type:   fail info success user"
-  echo "          error ok step warning"
-  echo "          flush intro"
+  echo "  type:   section"
+  echo "          step-error step-go step-ok step-user"
+  echo "          info-error info-go info-ok info-warn"
+  echo "          newline remove"
   echo "  -r:     remove previous line break"
   echo "  string: string to be printed"
 }
 
 # Print type check
 case "$1" in
-  # Status
-  fail)
-    TYPE="pp_fail";;
-  info)
-    TYPE="pp_info";;
-  success)
-    TYPE="pp_success";;
-  user)
-    TYPE="pp_user";;
+  # Top-level
+  section)
+    TYPE="pp_section";;
 
   # Steps
-  error)
-    TYPE="pp_error";;
-  ok)
-    TYPE="pp_ok";;
-  step)
-    TYPE="pp_step";;
-  warning)
-    TYPE="pp_warning";;
+  step-error)
+    TYPE="pp_step_error";;
+  step-go)
+    TYPE="pp_step_go";;
+  step-ok)
+    TYPE="pp_step_ok";;
+  step-user)
+    TYPE="pp_step_user";;
 
-  # Helpers
-  flush)
-    TYPE="pp_flush";;
-  intro)
-    TYPE="pp_intro";;
+  # Steps
+  info-error)
+    TYPE="pp_info_error";;
+  info-go)
+    TYPE="pp_info_go";;
+  info-ok)
+    TYPE="pp_info_ok";;
+  info-warn)
+    TYPE="pp_info_warn";;
+
+  # Tools
+  newline)
+    TYPE="pp_newline";;
+  remove)
+    TYPE="pp_remove";;
 
   *)
     usage
@@ -107,16 +119,15 @@ shift
 if [[ $# > 1 ]]; then
   case "$1" in
     -r)
-      SOF="\r\033[2K"
+      SOL="\r\033[2K"
       shift;;
     *)
       usage
       exit 1;;
   esac
 else
-  SOF="\n"
+  SOL="\n"
 fi
 
 # Print call
-$TYPE $SOF "$1"
-exit 0
+${TYPE} ${SOL} "$1"

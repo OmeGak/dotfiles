@@ -4,11 +4,11 @@
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-pprint intro   "EVERYTHING READY!"
-pprint success "What to do now?"
-pprint step    "1) Open a new terminal"
-pprint step    "2) Antigen will download some plugins for ZSH"
-pprint step    "3) Run \`dot osxsetup\` if you want to set up your Mac"
-pprint ok      "4) PROFIT! Enjoy your system now ;)"
-pprint flush
-pprint flush
+pprint section "EVERYTHING READY!"
+pprint step-ok "What to do now?"
+pprint info-go "1) Open a new terminal"
+pprint info-go "2) Antigen will download some plugins for ZSH"
+pprint info-go "3) Run \`dot osxsetup\` if you want to set up your Mac"
+pprint info-ok "4) PROFIT! Enjoy your system now ;)"
+pprint newline
+pprint newline

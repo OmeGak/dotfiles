@@ -4,7 +4,7 @@
 # Init environment
 source $HOME/.dotfiles/.dot/util/env
 
-pprint intro 'CHECKING DEPENDENCIES'
+pprint section 'CHECKING DEPENDENCIES'
 
 # Prepare logs
 logsuffix='.install.dep.dot.log'
@@ -15,19 +15,19 @@ find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logf
 for script in $(find $DOT -maxdepth 2 -name install.dep.sh); do
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
-  pprint info "Checking dependencies from ${topic}..."
+  pprint step-go "Checking dependencies from ${topic}..."
   sh -c "${script}"
-  [[ $? == 0 ]] && pprint ok "All is ready"
-  [[ $? != 0 ]] && errors+=(${topic}) && pprint error "Missing"
-  pprint flush
+  [[ $? == 0 ]] && pprint info-ok "All is ready"
+  [[ $? != 0 ]] && errors+=(${topic}) && pprint info-error "Missing"
+  pprint newline
 done
 
 # Show summary
 if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
 else
-  pprint success "All dependencies are ready"
+  pprint step-ok "All dependencies are ready"
 fi
 
-pprint flush
+pprint newline
 exit 0

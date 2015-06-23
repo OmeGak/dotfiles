@@ -3,5 +3,5 @@
 set -e
 
 pinstall brew node
-pprint ok "NodeJS is ready to rock"
+pprint info-ok "NodeJS is ready to rock"
 exit 0

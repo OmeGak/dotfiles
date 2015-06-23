@@ -8,16 +8,16 @@ if [[ -f git/gitconfig.symlink ]]; then
   exit 0
 fi
 
-pprint intro 'SETTING UP GITCONFIG'
+pprint section 'SETTING UP GITCONFIG'
 
 git_credential='cache'
 if [ "$(uname -s)" == "Darwin" ]; then
   git_credential='osxkeychain'
 fi
 
-pprint user 'What is your github author name?'
+pprint step-user 'What is your github author name?'
 read -e git_authorname
-pprint user -r 'What is your github author email?'
+pprint step-user -r 'What is your github author email?'
 read -e git_authoremail
 
 s_authorname="s/AUTHORNAME/${git_authorname}/g"
@@ -25,5 +25,5 @@ s_authormail="s/AUTHOREMAIL/${git_authoremail}/g"
 s_credential="s/GIT_CREDENTIAL_HELPER/${git_credential}/g"
 sed -e "${s_authorname}" -e "${s_authormail}" -e "${s_credential}" git/gitconfig.symlink.sample > git/gitconfig.symlink
 
-pprint success -r 'gitconfig generated'
-pprint flush
+pprint step-ok -r 'gitconfig generated'
+pprint newline

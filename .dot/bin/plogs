@@ -6,10 +6,10 @@ source $DOT/functions/join
 
 function print_error_logs() {
   msg="There were some errors in: ${failing_topics[@]}"
-  pprint fail "${msg}"
+  pprint step-error "${msg}"
   joined_topics=$(join \| ${failing_topics[@]})
   error_logs=$(find -E -L /tmp -maxdepth 1 -regex ".*(${joined_topics})${logfile_suffix}")
-  for logfile in ${error_logs}; do pprint error "${logfile}"; done
+  for logfile in ${error_logs}; do pprint info-error "${logfile}"; done
 }
 
 function usage() {
@@ -27,5 +27,5 @@ logfile_suffix=$1; shift
 failing_topics=("$@")
 
 print_error_logs ${logfile_suffix} "${failing_topics}"
-pprint flush
+pprint newline
 exit 0

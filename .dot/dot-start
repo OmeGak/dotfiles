@@ -14,11 +14,10 @@ echo "   ██   ██ ██    ██    ██    ██      ██ ██
 echo "██ ██████   ██████     ██    ██      ██ ███████ ███████ ███████"
 echo "                                              Let's do(t) this!"
 
-pprint intro "READY TO START?"
+pprint section "READY TO START?"
 
 git submodule init
 git submodule update
-pprint success "All submodules in place"
 
-pprint flush
-exit 0
+pprint step-ok "All submodules in place"
+pprint newline

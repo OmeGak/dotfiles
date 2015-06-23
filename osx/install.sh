@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
-  pprint warning "Step skipped: This is not a Mac"
+  pprint info-warn "Step skipped: This is not a Mac"
   exit 0
 fi
 
@@ -11,7 +11,7 @@ install_keyboard_layout() {
 
   # Check if keyboard layout is not installed
   if [[ ! -d ${target_bundle} ]]; then
-    pprint step "Installing US-ES-Keybouard layout"
+    pprint info-go "Installing US-ES-Keybouard layout"
     cp -r "${source_bundle}" "${target_bundle}"
     # Apparently, symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
     # ln -snf "${source_bundle}" "${target_bundle}"
@@ -24,13 +24,13 @@ install_ntfs() {
 
   # Check if mount_ntfs is symlinked
   if [[ ! -L "/sbin/mount_ntfs" ]]; then
-    pprint warning "NTFS-3g is ready but you still need to replace the automounter manually"
-    pprint warning "This is a DANGEROUS operation, so proceed with care:"
-    pprint warning "  $ brew info ntfs-3g"
-    pprint warning "  $ sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.orig"
-    pprint warning "  $ sudo ln -s <path_to_ntfs_version>/sbin/mount_ntfs /sbin/mount_ntfs"
+    pprint info-warn "NTFS-3g is ready but you still need to replace the automounter manually"
+    pprint info-warn "This is a DANGEROUS operation, so proceed with care:"
+    pprint info-warn "  $ brew info ntfs-3g"
+    pprint info-warn "  $ sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.orig"
+    pprint info-warn "  $ sudo ln -s <path_to_ntfs_version>/sbin/mount_ntfs /sbin/mount_ntfs"
   else
-    pprint ok "NTFS is enabled"
+    pprint info-ok "NTFS is enabled"
   fi
 }
 
