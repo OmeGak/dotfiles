@@ -26,7 +26,7 @@ if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
 else
   pprint step-ok "Everything installed"
+  pprint newline
 fi
 
-pprint newline
 exit 0

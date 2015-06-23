@@ -25,9 +25,9 @@ done
 # Show summary
 if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
+  exit 1
 else
   pprint step-ok "All dependencies are ready"
+  pprint newline
+  exit 0
 fi
-
-pprint newline
-exit 0
