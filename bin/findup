@@ -1,7 +1,5 @@
-#!/bin/bash
+#!/bin/bash -e
 # Upward find a file by name ($1) from current dir to root or up to other dir ($2).
-
-set -e
 
 path="$1"
 up_to="$2"

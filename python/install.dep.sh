@@ -1,7 +1,4 @@
-#!/bin/bash
-
-set -e
+#!/bin/bash -e
 
 pinstall brew python
 pprint info-ok "Python is ready to fly"
-exit 0
