@@ -1,10 +1,6 @@
 #!/bin/bash
+source $DOT/functions/try
 
-pinstall pip virtualenv
-[[ $? != 0 ]] && errors=true
-
-pinstall pip virtualenvwrapper
-[[ $? != 0 ]] && errors=true
-
-[[ ${errors} == "true" ]] && exit 1
-exit 0
+try pinstall pip virtualenv
+try pinstall pip virtualenvwrapper
+exit $TRY_CODE

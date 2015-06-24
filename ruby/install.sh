@@ -1,10 +1,6 @@
 #!/bin/bash
+source $DOT/functions/try
 
-pinstall brew rbenv
-[[ $? != 0 ]] && errors=true
-
-pinstall brew ruby-build
-[[ $? != 0 ]] && errors=true
-
-[[ ${errors} == "true" ]] && exit 1
-exit 0
+try pinstall brew rbenv
+try pinstall brew ruby-build
+exit $TRY_CODE

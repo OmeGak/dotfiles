@@ -1,10 +1,6 @@
 #!/bin/bash
+source $DOT/functions/try
 
-pinstall brew git
-[[ $? != 0 ]] && errors=true
-
-pinstall brew hub
-[[ $? != 0 ]] && errors=true
-
-[[ ${errors} == "true" ]] && exit 1
-exit 0
+try pinstall brew git
+try pinstall brew hub
+exit $TRY_CODE

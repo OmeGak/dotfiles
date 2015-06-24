@@ -1,9 +1,8 @@
 #!/bin/bash
+source $DOT/functions/try
 
-syspip install pip ipython tmuxp wdb.server > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-if [[ $? != 0 ]]; then
-  pprint info-error "Failed to install some packages"
-  exit 1
-fi
-
-exit 0
+try pinstall pip pip
+try pinstall pip ipython
+try pinstall pip tmuxp
+try pinstall pip wdb.server
+exit $TRY_CODE

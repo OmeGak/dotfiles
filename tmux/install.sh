@@ -1,7 +1,5 @@
 #!/bin/bash
+source $DOT/functions/try
 
-pinstall pip tmuxp
-[[ $? != 0 ]] && errors=true
-
-[[ ${errors} == "true" ]] && exit 1
-exit 0
+try pinstall pip tmuxp
+exit $TRY_CODE
