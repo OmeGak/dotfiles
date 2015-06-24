@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # osxfuse installer can fuck up the owner of pkgconfig
 pkgconfig_owner=`ls -ld /usr/local/lib/pkgconfig | awk '{print $3}'`

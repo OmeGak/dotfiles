@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Entry point to control dotfiles operations
 
 # -- Helpers ------------------------------------------------------------------

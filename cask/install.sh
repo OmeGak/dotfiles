@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   pprint info-warn "Step skipped: This is not a Mac"

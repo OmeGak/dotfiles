@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Wrapper for p4merge based on Gregory Pakosz's (gpakosz) solution
 # Source: http://pempek.net/articles/2014/04/18/git-p4merge/

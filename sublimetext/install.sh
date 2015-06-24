@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   sublime_dir="$HOME/Library/Application Support/Sublime Text 3"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 repo='install/master/install'
 [[ "$(uname -s)" == "Linux" ]] && repo='linuxbrew/go/install'

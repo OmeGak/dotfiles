@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # /etc/init.d/minecraft
 # version 0.3.9 2012-08-13 (YYYY-MM-DD)
 

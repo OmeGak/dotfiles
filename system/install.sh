@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source $DOT/functions/try
 
 fonts_dir="$HOME/Library/Fonts"

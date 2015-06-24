@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source $DOT/functions/try
 
 try pinstall pip pip

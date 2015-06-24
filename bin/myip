@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Prints your IPv4
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
