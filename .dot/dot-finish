@@ -6,7 +6,7 @@ pprint section "EVERYTHING READY!"
 pprint step-ok "What to do now?"
 pprint info-go "1) Open a new terminal"
 pprint info-go "2) Antigen will download some plugins for ZSH"
-pprint info-go "3) Run \`dot osxsetup\` if you want to set up your Mac"
+pprint info-go "3) Run \`dot osxrun\` if you want to set up your Mac"
 pprint info-ok "4) PROFIT! Enjoy your system now ;)"
 pprint newline
 pprint newline

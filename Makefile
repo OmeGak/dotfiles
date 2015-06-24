@@ -1,19 +1,19 @@
 .SILENT:
 .PHONY: dot
-.PHONY: bootstrap ossetup
+.PHONY: run osxrun
 .PHONY: zeroday link install defaults apps
 .PHONY: _dot-start _dot-finish
 
 
 # -- Make dot -----------------------------------------------------------------
 
-dot: _dot-start zeroday bootstrap _dot-finish
+dot: _dot-start zeroday run _dot-finish
 
 
 # -- Workflows ----------------------------------------------------------------
 
-bootstrap: link install
-osxsetup: apps install defaults
+run: link install
+osxrun: apps install defaults
 
 
 # -- Steps --------------------------------------------------------------------
