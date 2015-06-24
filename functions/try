@@ -1,0 +1,8 @@
+# Tries to run a passed command and sets flag if it fails
+# Usage: try command
+
+export TRY_CODE=0
+
+try() {
+  "$@" || TRY_CODE=1
+}
