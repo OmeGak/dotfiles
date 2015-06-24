@@ -15,10 +15,7 @@ _pretty_install() {
   if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
     pprint info-go "Installing ${package} from ${system}"
     ${cmd_install} ${package} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
-    if [[ $? != 0 ]]; then
-      pprint info-error "Failed to install ${package}"
-      exit 1
-    fi
+    [[ $? != 0 ]] && pprint info-error "Failed to install ${package}" && exit 1
   fi
 }
 
