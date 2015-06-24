@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Checks and install dependencies for the install step
-
-# Init environment
 source $HOME/.dotfiles/.dot/util/env
 
 pprint section 'CHECKING DEPENDENCIES'

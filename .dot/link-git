@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Generates .gitconfig.symlink
-
-# Init environment
 source $HOME/.dotfiles/.dot/util/env
 
 if [[ -f git/gitconfig.symlink ]]; then

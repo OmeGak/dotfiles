@@ -1,7 +1,5 @@
 #!/usr/bin/env bash -e
 # Applies default preferences for OSX and some apps.
-
-# Init environment
 source $HOME/.dotfiles/.dot/util/env
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
@@ -12,4 +10,3 @@ fi
 pprint section "Applying system defaults"
 
 $DOT/osx/defaults.sh
-exit 0

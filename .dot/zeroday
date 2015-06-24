@@ -1,7 +1,5 @@
 #!/usr/bin/env bash -e
-# Configures your shell on a clean SO install.
-
-# Init environment
+# Configures your shell on a clean SO install
 source $HOME/.dotfiles/.dot/util/env
 
 pprint section "PREPARING SHELL"
