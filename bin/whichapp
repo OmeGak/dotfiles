@@ -2,7 +2,7 @@
 # Locates Mac OSX applications by either name or bundle ID
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
-  echo "Oops! This is not a Mac..."
+  echo "Oops! This is not a Mac..." 1>&2
   exit 1
 fi
 
