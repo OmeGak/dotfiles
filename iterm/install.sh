@@ -14,17 +14,19 @@ plist_name="com.googlecode.iterm2.plist"
 plist_source="$DOT/iterm/${plist_name}"
 plist_target="$HOME/Library/Preferences/${plist_name}"
 
-# Check if preferences were ever imported
-if [[ ! -f ${plist_target}.backup ]]; then
-  if [[ $TERM_PROGRAM = 'iTerm.app' ]]; then
-    pprint info-warn "iTerm can't overwrite its own preferences"
-    pprint info-warn "Run \`$ dot install\` from Terminal instead"
+# Check if preferences were already imported
+if [[ $(readlink "${plist_target}") != "${plist_source}" ]]; then
+  if [[ "$(rnapp iterm)" ]]; then
+    pprint info-warn "iTerm is running"
+    pprint info-warn "Do \`$ dot run\` from Terminal when iTerm is not running"
     exit 1
   fi
-  pprint info-go "Backing up prefs and importing yours"
-  killall cfprefsd  # Clean prefs cache
-  mv "${plist_target}" "${plist_target}.backup"
-  cp "${plist_source}" "${plist_target}"
+  pprint info-go "Importing preferences"
+  # Clean prefs cache
+  killall cfprefsd
+  # Backup and link
+  [[ -f "${plist_target}" ]] && mv "${plist_target}" "${plist_target}.bak"
+  ln -snf "${plist_source}" "${plist_target}"
 fi
 
 exit 0
