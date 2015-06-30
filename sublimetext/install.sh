@@ -6,8 +6,8 @@ if [[ "$(uname -s)" == "Linux" ]]; then
 fi
 
 pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
-prefs_source="$DOT/sublimetext/User"
-prefs_target="${sublime_dir}/Packages/User"
+settings_source="$DOT/sublimetext/User"
+settings_target="${sublime_dir}/Packages/User"
 
 # Install Package Control
 if [[ ! -e "${pkgcontrol}" ]]; then
@@ -16,10 +16,10 @@ if [[ ! -e "${pkgcontrol}" ]]; then
   curl -fsSL --create-dirs -o "${pkgcontrol}" "${server_url}"
 fi
 
-# Link ST settings if necessary
-if [[ ! $(checklink "${prefs_target}" "${prefs_source}") ]]; then
-  pprint info-go "Importing your preferences"
-  createlink "${prefs_source}" "${prefs_target}"
+# Link settings
+if [[ ! $(checklink "${settings_target}" "${settings_source}") ]]; then
+  pprint info-go "Installing settings"
+  createlink "${settings_source}" "${settings_target}"
 fi
 
 pinstall pip flake8
