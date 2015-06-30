@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Puts dotfiles in their place
-source $HOME/.dotfiles/.dot/util/env
+source $HOME/.dotfiles/.dot/env
 
 link_file() {
   local src=$1 dst=$2

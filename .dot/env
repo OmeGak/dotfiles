@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#
 # Sets up the minimum environment for dot steps
 
 export DOT=$HOME/.dotfiles

@@ -19,27 +19,27 @@ osxrun: apps defaults
 # -- Steps --------------------------------------------------------------------
 
 zeroday:
-	.dot/zeroday
+	.dot/script/zeroday
 
 link:
-	.dot/link-git
-	.dot/link
+	.dot/script/link-git
+	.dot/script/link
 
 install:
-	.dot/install-deps
-	.dot/install
+	.dot/script/install-deps
+	.dot/script/install
 
 defaults:
-	.dot/defaults
+	.dot/script/defaults
 
 apps:
-	.dot/apps
+	.dot/script/apps
 
 
 # -- Helpers ------------------------------------------------------------------
 
 _dot-start:
-	.dot/dot-start
+	.dot/script/dot-start
 
 _dot-finish:
-	.dot/dot-finish
+	.dot/script/dot-finish
