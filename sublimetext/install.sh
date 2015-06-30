@@ -1,35 +1,28 @@
 #!/usr/bin/env bash
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  sublime_dir="$HOME/Library/Application Support/Sublime Text 3"
-elif [[ "$(uname -s)" == "Linux" ]]; then
+sublime_dir="$HOME/Library/Application Support/Sublime Text 3"
+if [[ "$(uname -s)" == "Linux" ]]; then
   sublime_dir="$HOME/.config/sublime-text-3"
-else
-  print error "Unrecognized OS"
-  exit 0
 fi
 
-if [[ ! -d ${sublime_dir} ]]; then
-  pprint info-warn "SublimeText doesn't seem to be installed"
-  exit 0
-fi
+pkg_dir="${sublime_dir}/Packages"
+pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
+prefs_source="$DOT/sublimetext/User"
+prefs_target="${sublime_dir}/Packages/User"
 
-sublime_pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
-sublime_pkgs_dir="${sublime_dir}/Packages"
-
-# Install Package Control if necessary
-if [[ ! -e "${sublime_pkgcontrol}" ]]; then
+# Install Package Control
+if [[ ! -e "${pkgcontrol}" ]]; then
   pprint info-go "Installing Package control"
   server_url="https://packagecontrol.io/Package%20Control.sublime-package"
-  curl -fsSL -o "${sublime_pkgcontrol}" "${server_url}"
+  curl -fsSL --create-dirs -o "${pkgcontrol}" "${server_url}"
 fi
 
 # Link ST settings if necessary
-if [[ ! -d "${sublime_pkgs_dir}/User.bak" ]]; then
-  pprint info-go "Installing your preferences"
-  mv "${sublime_pkgs_dir}/User" "${sublime_pkgs_dir}/User.bak"
-  rm -rf "${sublime_pkgs_dir}/User"
-  ln -snf "$DOT/sublimetext/User" "${sublime_pkgs_dir}/User"
+if [[ $(readlink "${prefs_target}") != "${prefs_source}" ]]; then
+  pprint info-go "Importing your preferences"
+  [[ -f "${prefs_target}" ]] && mv "${prefs_target}" "${prefs_target}.bak"
+  mkdir -p "${pkg_dir}"
+  ln -snf "${prefs_source}" "${prefs_target}"
 fi
 
 pinstall pip flake8
