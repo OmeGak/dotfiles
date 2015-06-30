@@ -5,11 +5,6 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
   exit 0
 fi
 
-if [[ ! "$(whichapp iterm 2> /dev/null)" ]]; then
-  pprint info-warn "iTerm doesn't seem to be installed"
-  exit 0
-fi
-
 plist_name="com.googlecode.iterm2.plist"
 plist_source="$DOT/iterm/${plist_name}"
 plist_target="$HOME/Library/Preferences/${plist_name}"

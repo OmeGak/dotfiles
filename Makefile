@@ -13,7 +13,7 @@ dot: _dot-start zeroday run _dot-finish
 # -- Workflows ----------------------------------------------------------------
 
 run: link install
-osxrun: apps install defaults
+osxrun: apps defaults
 
 
 # -- Steps --------------------------------------------------------------------
