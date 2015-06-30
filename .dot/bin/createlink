@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Creates symlink with backup and creating directories
+
+set -e
+progname=$(basename $0)
+
+create_link() {
+  src=$1
+  target=$2
+  # Make sure directory exists
+  mkdir -p "$(dirname "${target}")"
+  # Backup existing file
+  [[ -e "${target}" ]] && mv "${target}" "${target}.bak"
+  # Create symlink
+  ln -snf "${src}" "${target}"
+}
+
+usage() {
+  echo "usage: ${progname} src target"
+}
+
+[[ $# != 2 ]] && usage && exit 1
+create_link "$@"

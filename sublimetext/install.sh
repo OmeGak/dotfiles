@@ -5,7 +5,6 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   sublime_dir="$HOME/.config/sublime-text-3"
 fi
 
-pkg_dir="${sublime_dir}/Packages"
 pkgcontrol="${sublime_dir}/Installed Packages/Package Control.sublime-package"
 prefs_source="$DOT/sublimetext/User"
 prefs_target="${sublime_dir}/Packages/User"
@@ -20,9 +19,7 @@ fi
 # Link ST settings if necessary
 if [[ ! $(checklink "${prefs_target}" "${prefs_source}") ]]; then
   pprint info-go "Importing your preferences"
-  [[ -f "${prefs_target}" ]] && mv "${prefs_target}" "${prefs_target}.bak"
-  mkdir -p "${pkg_dir}"
-  ln -snf "${prefs_source}" "${prefs_target}"
+  createlink "${prefs_source}" "${prefs_target}"
 fi
 
 pinstall pip flake8

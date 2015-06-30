@@ -17,11 +17,8 @@ if [[ ! $(checklink "${plist_target}" "${plist_source}") ]]; then
     exit 1
   fi
   pprint info-go "Importing preferences"
-  # Clean prefs cache
-  killall cfprefsd
-  # Backup and link
-  [[ -f "${plist_target}" ]] && mv "${plist_target}" "${plist_target}.bak"
-  ln -snf "${plist_source}" "${plist_target}"
+  killall cfprefsd  # Clean prefs cache
+  createlink "${plist_source}" "${plist_target}"
 fi
 
 exit 0
