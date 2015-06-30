@@ -10,7 +10,7 @@ plist_source="$DOT/iterm/${plist_name}"
 plist_target="$HOME/Library/Preferences/${plist_name}"
 
 # Check if preferences were already imported
-if [[ $(readlink "${plist_target}") != "${plist_source}" ]]; then
+if [[ ! $(checklink "${plist_target}" "${plist_source}") ]]; then
   if [[ "$(rnapp iterm)" ]]; then
     pprint info-warn "iTerm is running"
     pprint info-warn "Do \`$ dot run\` from Terminal when iTerm is not running"

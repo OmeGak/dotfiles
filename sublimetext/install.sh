@@ -18,7 +18,7 @@ if [[ ! -e "${pkgcontrol}" ]]; then
 fi
 
 # Link ST settings if necessary
-if [[ $(readlink "${prefs_target}") != "${prefs_source}" ]]; then
+if [[ ! $(checklink "${prefs_target}" "${prefs_source}") ]]; then
   pprint info-go "Importing your preferences"
   [[ -f "${prefs_target}" ]] && mv "${prefs_target}" "${prefs_target}.bak"
   mkdir -p "${pkg_dir}"
