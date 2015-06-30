@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Determines whether a Mac OSX application is runing or not
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
