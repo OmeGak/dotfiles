@@ -1,5 +1,7 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 # Welcomes and initializes submodules
+
+set -e
 source $HOME/.dotfiles/.dot/env
 
 echo
