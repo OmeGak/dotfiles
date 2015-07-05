@@ -6,6 +6,15 @@ source $HOME/.dotfiles/.dot/env
 
 pprint section "PREPARING SHELL"
 
+
+# Install ZSH in Linux
+if [[ "$(uname -s)" == "Linux" ]] && [[ ! $(which zsh) ]]; then
+  pprint step-user "Installing ZSH"
+  pprint newline
+  pprint newline
+  sudo apt-get install -q -y zsh
+fi
+
 # Make ZSH the default login shell
 if [[ $(basename $SHELL) != 'zsh' ]]; then
   pprint step-user "Setting ZSH as your shell"
@@ -15,7 +24,7 @@ if [[ $(basename $SHELL) != 'zsh' ]]; then
 fi
 
 # Activate root user in Mac
-if [ "$(uname -s)" == "Darwin" ]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
   pprint step-user "Activating root user now (you will need \`sudo\` later)"
   pprint newline
   sudo echo > /dev/null
