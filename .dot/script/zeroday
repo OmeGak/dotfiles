@@ -23,6 +23,14 @@ if [[ $(basename $SHELL) != 'zsh' ]]; then
   chsh -s $(which zsh)
 fi
 
+# Install Ruby in Linux
+if [[ "$(uname -s)" == "Linux" ]] && [[ ! $(which ruby) ]]; then
+  pprint step-user "Installing Ruby"
+  pprint newline
+  pprint newline
+  sudo apt-get install -q -y ruby
+fi
+
 # Activate root user in Mac
 if [[ "$(uname -s)" == "Darwin" ]]; then
   pprint step-user "Activating root user now (you will need \`sudo\` later)"
