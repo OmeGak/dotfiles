@@ -10,7 +10,7 @@ find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logf
 
 # TODO: define order of dependencies (e.g. python depends on homebrew)
 # Find and run dependency install scripts
-for script in $(find $DOT -maxdepth 2 -name install.dep.sh); do
+for script in $(find $DOT -maxdepth 2 -name install.dep.sh | sort); do
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Checking dependencies from ${topic}..."
