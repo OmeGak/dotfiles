@@ -7,28 +7,12 @@ source $HOME/.dotfiles/.dot/env
 pprint section "PREPARING SHELL"
 
 
-# Install development tools in Linux
-if [[ "$(uname -s)" == "Linux" ]] && [[ ! $(dpkg -s build-essential 2> /dev/null) ]]; then
-  pprint step-user "Installing development tools"
-  pprint newline
-  pprint newline
-  sudo apt-get install -q -y build-essential
-fi
-
-# Install ZSH in Linux
-if [[ "$(uname -s)" == "Linux" ]] && [[ ! $(which zsh) ]]; then
-  pprint step-user "Installing ZSH"
-  pprint newline
-  pprint newline
-  sudo apt-get install -q -y zsh
-fi
-
-# Install Ruby in Linux
-if [[ "$(uname -s)" == "Linux" ]] && [[ ! $(which ruby) ]]; then
-  pprint step-user "Installing Ruby"
-  pprint newline
-  pprint newline
-  sudo apt-get install -q -y ruby
+# Install stuff for Linux
+if [[ "$(uname -s)" == "Linux" ]]; then
+  pprint step-user "Preparing Linux"
+  pinstall apt build-essential
+  pinstall apt ruby
+  pinstall apt zsh
 fi
 
 # Make ZSH the default login shell
