@@ -12,6 +12,10 @@ _pretty_install() {
   local system=$2
   local cmd_install=$3
   local cmd_check=$4
+  if [[ ! $(which "${system}") ]]; then
+    "Error: ${system} is not available" 1>&2
+    exit 1
+  fi
   if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
     pprint info-go "Installing ${package} from ${system}"
     ${cmd_install} ${package} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
@@ -33,6 +37,10 @@ _is_installed() {
 
 # -- System calls --------------------------------------------------------------
 
+papt() {
+  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s"
+}
+
 pbrew() {
   _pretty_install $1 "brew" "brew install" "brew ls --versions"
 }
@@ -50,11 +58,13 @@ ppip() {
 
 usage() {
   echo "usage: ${progname} system package"
-  echo "  system:  package system to use: (brew | npm | pip)"
+  echo "  system:  package system to use: (apt | brew | npm | pip)"
   echo "  package: the package to be installed"
 }
 
 case "$1" in
+  apt)
+    fn="papt";;
   brew)
     fn="pbrew";;
   npm)
