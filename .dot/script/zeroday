@@ -18,6 +18,9 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   pinstall apt build-essential
   pinstall apt ruby
   pinstall apt zsh
+  # Needed for brew-git
+  pinstall apt libx11-dev
+  pinstall apt libcurl4-gnutls-dev
   pprint newline
 fi
 
