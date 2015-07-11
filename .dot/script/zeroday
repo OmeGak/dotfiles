@@ -3,31 +3,29 @@
 
 set -e
 source $HOME/.dotfiles/.dot/env
+source $DOT/functions/keepsudo
 
 pprint section "PREPARING SHELL"
 
+if [[ $(sudo -n true 2>&1) ]]; then
+  pprint step-user "Can I has sudo? "
+  keepsudo
+fi
 
 # Install stuff for Linux
 if [[ "$(uname -s)" == "Linux" ]]; then
-  pprint step-user "Preparing Linux"
+  pprint step-go "Preparing Linux essentials"
   pinstall apt build-essential
   pinstall apt ruby
   pinstall apt zsh
+  pprint newline
 fi
 
 # Make ZSH the default login shell
 if [[ $(basename $SHELL) != 'zsh' ]]; then
-  pprint step-user "Setting ZSH as your shell"
+  sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
+  pprint step-ok "ZSH set as your shell"
   pprint newline
-  pprint newline
-  chsh -s $(which zsh)
-fi
-
-# Activate root user in Mac
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  pprint step-user "Activating root user now (you will need \`sudo\` later)"
-  pprint newline
-  sudo echo > /dev/null
 fi
 
 pprint step-ok "Your shell is properly configured"
