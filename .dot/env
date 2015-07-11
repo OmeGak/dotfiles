@@ -3,3 +3,7 @@
 
 export DOT=$HOME/.dotfiles
 export PATH="$DOT/.dot/bin:$DOT/bin:$PATH"
+
+if [[ "$(uname -s)" == "Linux" ]]; then
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
+fi
