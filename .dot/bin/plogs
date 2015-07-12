@@ -5,10 +5,12 @@ progname=$(basename $0)
 source $DOT/functions/join
 
 function print_error_logs() {
+  [[ $(uname -s) == 'Darwin' ]] && mac_params='-E -L'
+  [[ $(uname -s) == 'Linux' ]] && linux_params='-regextype posix-extended'
   msg="There were some errors in: ${failing_topics[@]}"
   pprint step-error "${msg}"
   joined_topics=$(join \| ${failing_topics[@]})
-  error_logs=$(find -E -L /tmp -maxdepth 1 -regex ".*(${joined_topics})${logfile_suffix}")
+  error_logs=$(find ${mac_params} /tmp -maxdepth 1 ${linux_params} -regex ".*(${joined_topics})${logfile_suffix}")
   for logfile in ${error_logs}; do pprint info-error "${logfile}"; done
 }
 
