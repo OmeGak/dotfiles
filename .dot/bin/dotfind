@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Finds in dotfiles topics
+
+progname=$(basename $0)
+
+find_in_topics() {
+  local filename="$1"; shift
+  local topic_paths="$@"
+  local priority_results=$(find ${topic_paths} -maxdepth 2 -name "${filename}")
+  local results=$(find $DOT -maxdepth 2 -name "${filename}" | sort)
+  # awk removes duplicates
+  echo -e "${priority_results}\n${results}" | awk '!a[$0]++'
+}
+
+build_topic_paths() {
+  for topic in "$@"; do
+    local path="$DOT/${topic}"
+    [[ -d "${path}" ]] && echo "${path}"
+  done
+}
+
+usage() {
+  echo "usage: ${progname} filename [--priority [topic ...]]"
+  echo "  filename:   filename to find"
+  echo "  --priority: gives priority to a list of topics"
+}
+
+filename="$1"; shift
+
+if [[ $# > 0 ]]; then
+  case "$1" in
+    --priority)
+      shift
+      topic_paths=$(build_topic_paths "$@");;
+    *)
+      usage
+      exit 1;;
+  esac
+fi
+
+find_in_topics "${filename}" "${topic_paths}"
