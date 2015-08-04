@@ -64,6 +64,10 @@ pp_newline() {
   printf '\n'
 }
 
+pp_text() {
+  printf "$1         $2"
+}
+
 # ------------------------------------------------------------------------------
 
 
@@ -72,7 +76,7 @@ usage() {
   echo "  type:   section"
   echo "          step-error step-go step-ok step-user"
   echo "          info-error info-go info-ok info-warn"
-  echo "          newline remove"
+  echo "          newline remove text"
   echo "  -r:     remove previous line break"
   echo "  string: string to be printed"
 }
@@ -108,6 +112,8 @@ case "$1" in
     TYPE="pp_newline";;
   remove)
     TYPE="pp_remove";;
+  text)
+    TYPE="pp_text";;
 
   *)
     usage
