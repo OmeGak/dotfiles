@@ -8,9 +8,8 @@ pprint section 'CHECKING DEPENDENCIES'
 logsuffix='.install.dep.dot.log'
 find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
 
-# TODO: define order of dependencies (e.g. python depends on homebrew)
 # Find and run dependency install scripts
-for script in $(find $DOT -maxdepth 2 -name install.dep.sh | sort); do
+for script in $(dotfind install.dep.sh --priority homebrew); do
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Checking dependencies from ${topic}..."
