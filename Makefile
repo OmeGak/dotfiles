@@ -1,13 +1,13 @@
 .SILENT:
 .PHONY: dot
 .PHONY: run osxrun
-.PHONY: zeroday link install defaults apps
+.PHONY: link install setshell defaults apps
 .PHONY: _dot-start _dot-finish
 
 
 # -- Make dot -----------------------------------------------------------------
 
-dot: _dot-start zeroday run _dot-finish
+dot: _dot-start run setshell _dot-finish
 
 
 # -- Workflows ----------------------------------------------------------------
@@ -18,9 +18,6 @@ osxrun: apps defaults
 
 # -- Steps --------------------------------------------------------------------
 
-zeroday:
-	.dot/script/zeroday
-
 link:
 	.dot/script/link-git
 	.dot/script/link
@@ -28,6 +25,9 @@ link:
 install:
 	.dot/script/install-deps
 	.dot/script/install
+
+setshell:
+	.dot/script/setshell
 
 defaults:
 	.dot/script/defaults

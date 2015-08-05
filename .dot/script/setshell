@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Configures your shell
+
+set -e
+source $HOME/.dotfiles/.dot/env
+
+pprint section "PREPARING SHELL"
+
+if [[ $(basename $SHELL) != 'zsh' ]]; then
+  pprint step-go "Setting ZSH as your shell..."
+  sudoplz
+
+  if [[ $? == 0 ]]; then
+    sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
+    pprint info-ok "She sells z shells"
+    pprint newline
+  fi
+fi
+
+pprint step-ok "Your shell is properly configured"
+pprint newline
