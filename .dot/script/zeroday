@@ -8,7 +8,7 @@ pprint section "PREPARING SHELL"
 
 # Make ZSH the default login shell
 if [[ $(basename $SHELL) != 'zsh' ]]; then
-  sudoplz
+  sudoplz --step
   sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
   pprint step-ok "ZSH set as your shell"
   pprint newline

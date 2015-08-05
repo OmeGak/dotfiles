@@ -3,7 +3,7 @@ source $DOT/functions/try
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   source $DOT/functions/keepsudo
-  sudoplz -i
+  sudoplz
 
   pinstall apt build-essential
   pinstall apt ruby

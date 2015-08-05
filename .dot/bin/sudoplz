@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Asks for sudo and keeps it
-# Usage: sudoplz [-i]
+# Usage: sudoplz [--step]
 
 source $DOT/functions/keepsudo
 source $DOT/functions/try
 
-pprint_type='step-user'
-[[ "$1" == '-i' ]] && pprint_type='info-warn'
+pprint_type='info-warn'
+[[ "$1" == '--step' ]] && pprint_type='step-user'
 
 if [[ $(sudo -n true 2>&1) ]]; then
   pprint "${pprint_type}" "Can I haz sudo?"
@@ -14,7 +14,7 @@ if [[ $(sudo -n true 2>&1) ]]; then
   try keepsudo -p "$(pprint text -r 'Password: ')"
   [[ $TRY_CODE == 0 ]] && pprint text -r "\033[0;32mkthxbye\033[0m"
   [[ $TRY_CODE != 0 ]] && pprint text -r "\033[0;31mnope\033[0m"
-  pprint newline
+  [[ "$1" == '--step' ]] && pprint newline
 fi
 
 exit $TRY_CODE
