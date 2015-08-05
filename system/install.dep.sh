@@ -3,11 +3,7 @@ source $DOT/functions/try
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   source $DOT/functions/keepsudo
-
-  if [[ $(sudo -n true 2>&1) ]]; then
-    pprint info-warn "Can I has sudo? "
-    keepsudo
-  fi
+  sudoplz -i
 
   pinstall apt build-essential
   pinstall apt ruby

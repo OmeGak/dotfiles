@@ -3,17 +3,12 @@
 
 set -e
 source $HOME/.dotfiles/.dot/env
-source $DOT/functions/keepsudo
 
 pprint section "PREPARING SHELL"
 
-if [[ $(sudo -n true 2>&1) ]]; then
-  pprint step-user "Can I has sudo? "
-  keepsudo
-fi
-
 # Make ZSH the default login shell
 if [[ $(basename $SHELL) != 'zsh' ]]; then
+  sudoplz
   sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
   pprint step-ok "ZSH set as your shell"
   pprint newline
