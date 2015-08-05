@@ -1,9 +1,21 @@
 # Keeps sudo alive until the script invoking it finishes
-# Usage: keepsudo
+# Usage: keepsudo [-p custom_prompt]
 
 keepsudo() {
-    sudo -v 2> /dev/null
+  local option="$1"
+  local prompt="$2"
+  local code=
 
-    # Keep-alive: update existing `sudo` time stamp until the script has finished
-    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2> /dev/null &
+  # Prompt for password
+  if [[ "${option}" == "-p" ]]; then
+    sudo -v -p "${prompt}" 2> /dev/null
+  else
+    sudo -v 2> /dev/null
+  fi
+  code=$?
+
+  # Keep-alive: update existing `sudo` time stamp until the script has finished
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2> /dev/null &
+
+  return ${code}
 }
