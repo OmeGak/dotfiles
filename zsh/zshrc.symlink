@@ -1,6 +1,5 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
-export DOT=$ZSH
+# shortcut to this dotfiles path is $DOT
+export DOT=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=$HOME/Code
@@ -13,7 +12,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+config_files=($DOT/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}; do
@@ -26,7 +25,7 @@ for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/zsh/antigen/*}
 done
 
 # load antigen
-source $ZSH/zsh/antigen/antigenrc
+source $DOT/zsh/antigen/antigenrc
 
 # load completions after antigen
 for file in ${(M)config_files:#*/completion.zsh}; do

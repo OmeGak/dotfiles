@@ -1,5 +1,5 @@
 export PROJECT_HOME=$PROJECTS
-export VIRTUALENVWRAPPER_HOOK_DIR=$ZSH/virtualenv/hooks
+export VIRTUALENVWRAPPER_HOOK_DIR=$DOT/virtualenv/hooks
 
 source virtualenvwrapper.sh
 

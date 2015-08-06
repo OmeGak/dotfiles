@@ -1,5 +1,5 @@
 # Load antigen framework
-source "$ZSH/.antigen/antigen.zsh"
+source "$DOT/.antigen/antigen.zsh"
 
 # Load antigen modules
 antigen bundles <<EOBUNDLES
@@ -14,7 +14,7 @@ antigen apply
 
 # All antigen zsh files
 typeset -U antigen_files
-antigen_files=($ZSH/zsh/antigen/*.zsh)
+antigen_files=($DOT/zsh/antigen/*.zsh)
 
 # Load antigen plugin specific configuration files
 for file in ${antigen_files}; do

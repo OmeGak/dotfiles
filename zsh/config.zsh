@@ -8,9 +8,9 @@ export CLICOLOR=true
 export LSCOLORS="ExGxFxdxCxDxDxBxBxExEx"
 export GREP_OPTIONS='--color=auto'
 
-fpath=($ZSH/functions $fpath)
+fpath=($DOT/functions $fpath)
 
-autoload -U $ZSH/functions/*(:t)
+autoload -U $DOT/functions/*(:t)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

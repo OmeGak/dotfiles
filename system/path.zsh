@@ -1,4 +1,4 @@
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$ZSH/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$DOT/bin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 if [[ "$(uname -s)" == "Linux" ]]; then
