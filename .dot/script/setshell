@@ -12,10 +12,8 @@ if [[ $(basename $SHELL) != 'zsh' ]]; then
 
   if [[ $? == 0 ]]; then
     sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
-    pprint info-ok "She sells z shells"
-    pprint newline
+    pprint info-ok -n "She sells z shells"
   fi
 fi
 
-pprint step-ok "Your shell is properly configured"
-pprint newline
+pprint step-ok -n "Your shell is properly configured"

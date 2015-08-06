@@ -64,5 +64,4 @@ link_dotfiles() {
 
 pprint section "LINKING DOTFILES TO HOME FOLDER"
 link_dotfiles
-pprint step-ok "All dotfiles linked"
-pprint newline
+pprint step-ok -n "All dotfiles linked"

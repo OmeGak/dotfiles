@@ -17,5 +17,4 @@ pprint section "READY TO START?"
 git submodule init
 git submodule update
 
-pprint step-ok "All submodules in place"
-pprint newline
+pprint step-ok -n "All submodules in place"
