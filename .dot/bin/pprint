@@ -2,6 +2,8 @@
 # Pretty prints for dotfiles scripts
 
 progname=$(basename $0)
+SOL='\n'
+EOL=
 
 
 # -- Top-level prints ----------------------------------------------------------
@@ -12,45 +14,46 @@ pp_section() {
   local string=$2
   printf "$1\n# -- %s " "${string}"
   printf '%*.*s' 0 $((${padlength} - ${#string})) "${pad}"
-  printf '%s\n'
+  printf "%s\n$3"
 }
 
 
 # -- Step prints ---------------------------------------------------------------
 
 pp_step_error() {
-  printf "$1  [\033[0;31mFAIL\033[0m] $2"
+  printf "$1  [\033[0;31mFAIL\033[0m] $2$3"
 }
 
 pp_step_go() {
-  printf "$1  [\033[0;94m == \033[0m] $2"
+  printf "$1  [\033[0;94m == \033[0m] $2$3"
 }
 
 pp_step_ok() {
-  printf "$1  [\033[0;32m OK \033[0m] $2"
+  printf "$1  [\033[0;32m OK \033[0m] $2$3"
 }
 
 pp_step_user() {
-  printf "$1  [\033[0;33m ?? \033[0m] $2 "
+  printf "$1  [\033[0;33m ?? \033[0m] $2$3 "
 }
 
 
 # -- Info prints ---------------------------------------------------------------
 
 pp_info_error() {
-  printf "$1      \033[0;31m!!\033[0m $2"
+  printf "$1      \033[0;31m!!\033[0m $2$3"
 }
 
 pp_info_ok() {
-  printf "$1      \033[0;32m>>\033[0m $2"
+  printf "$1      \033[0;32m>>\033[0m $2$3"
+  # echo -e $3
 }
 
 pp_info_go() {
-  printf "$1      .. $2"
+  printf "$1      .. $2$3"
 }
 
 pp_info_warn() {
-  printf "$1      \033[0;33m!?\033[0m $2"
+  printf "$1      \033[0;33m!?\033[0m $2$3"
 }
 
 
@@ -65,18 +68,19 @@ pp_newline() {
 }
 
 pp_text() {
-  printf "$1         $2"
+  printf "$1         $2$3"
 }
 
 # ------------------------------------------------------------------------------
 
 
 usage() {
-  echo "usage: ${progname} type [-r] [string]"
+  echo "usage: ${progname} type [-n | -r] [string]"
   echo "  type:   section"
   echo "          step-error step-go step-ok step-user"
   echo "          info-error info-go info-ok info-warn"
   echo "          newline remove text"
+  echo "  -n:     end with a line break"
   echo "  -r:     remove previous line break"
   echo "  string: string to be printed"
 }
@@ -124,6 +128,9 @@ shift
 # Start of line option
 if [[ $# > 1 ]]; then
   case "$1" in
+    -n)
+      EOL='\n'
+      shift;;
     -r)
       SOL="\r\033[2K"
       shift;;
@@ -131,9 +138,7 @@ if [[ $# > 1 ]]; then
       usage
       exit 1;;
   esac
-else
-  SOL="\n"
 fi
 
 # Print call
-${TYPE} ${SOL} "$1"
+${TYPE} "${SOL}" "$1" "${EOL}"
