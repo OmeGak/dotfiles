@@ -17,9 +17,9 @@ for script in $(dotfind install.dep.sh --priority ${topics}); do
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Checking dependencies from ${topic}..."
   sh -c "${script}"
-  [[ $? == 0 ]] && pprint info-ok "All is ready"
-  [[ $? != 0 ]] && errors+=(${topic}) && pprint info-error "Missing"
-  pprint newline
+  [[ $? == 0 ]] && pprint info-ok "All is ready" && pprint newline
+  [[ $? != 0 ]] && errors+=(${topic}) && pprint info-error "Missing" \
+                                      && pprint newline && break
 done
 
 # Show summary
