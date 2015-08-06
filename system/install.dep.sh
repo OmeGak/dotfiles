@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source $DOT/functions/try
+
+set -e
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   source $DOT/functions/keepsudo
@@ -21,5 +22,3 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   # Needed for brew-ruby-build
   pinstall apt m4
 fi
-
-exit $TRY_CODE
