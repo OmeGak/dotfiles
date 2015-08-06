@@ -6,8 +6,10 @@ progname=$(basename $0)
 find_in_topics() {
   local filename="$1"; shift
   local topic_paths="$@"
-  local priority_results=$(find ${topic_paths} -maxdepth 2 -name "${filename}")
   local results=$(find $DOT -maxdepth 2 -name "${filename}" | sort)
+  if [[ "${topic_paths}" ]]; then
+    local priority_results=$(find ${topic_paths} -maxdepth 2 -name "${filename}")
+  fi
   # awk removes duplicates
   echo -e "${priority_results}\n${results}" | awk '!a[$0]++'
 }
