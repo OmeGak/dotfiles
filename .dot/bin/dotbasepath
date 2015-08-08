@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Returns the path portion within dotfiles of pathname
+# Usage: dotbasepath pathname
+
+original_file="$1"
+eval echo \${original_file##*$DOT/}
