@@ -19,4 +19,4 @@ pprint section "READY TO START?"
 pprint step-ok -n "All submodules in place"
 
 # Ask for sudo early on so that the rest is unattended
-sudoplz -s || true
+sudoplz -s -r "For unattended install (optional)" || true
