@@ -2,6 +2,9 @@
 # Puts dotfiles in their place
 source $HOME/.dotfiles/.dot/env
 
+u=`tput smul`
+offu=`tput sgr0`
+
 link_file() {
   local src=$1 dst=$2
 
@@ -10,7 +13,7 @@ link_file() {
 
   if [ -f "${dst}" -o -d "${dst}" -o -L "${dst}" ]; then
     if [[ "${overwrite_all}" == "false" ]] && [[ "${backup_all}" == "false" ]] && [[ "${skip_all}" == "false" ]]; then
-      pprint step-user "File already exists: $(basename "${src}"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      pprint info-warn "$(basename "${src}") already exists: [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
       action=$(readone)
 
       case "${action}" in
@@ -32,30 +35,33 @@ link_file() {
     overwrite=${overwrite:-$overwrite_all}
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
+    overwritten=
+    backedup=
 
     if [[ "${overwrite}" == "true" ]]; then
       rm -rf "${dst}"
-      pprint step-ok "Removed ${dst}"
+      overwritten=' (overwritten)'
     fi
 
     if [[ "${backup}" == "true" ]]; then
       mv "${dst}" "${dst}.backup"
-      pprint step-ok "Moved ${dst} to ${dst}.backup"
+      backedup=' (backed up)'
     fi
 
     if [[ "${skip}" == "true" ]]; then
-      pprint step-ok "Skipped ${src}"
+      pprint info-ok "Skipped ${u}$(dotbasepath ${src})${offu}"
     fi
   fi
 
   if [[ "${skip}" != "true" ]]; then
     ln -s "${src}" "${dst}"
-    pprint step-ok "Linked ${src} to ${dst}"
+    pprint info-ok "Linked ${u}$(dotbasepath ${src})${offu} to ${u}$(basename ${dst})${offu}${overwritten}${backedup}"
   fi
 }
 
 link_dotfiles() {
   local overwrite_all=false backup_all=false skip_all=false
+  pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME${offu}:"
   for src in $(find "$DOT" -maxdepth 2 -name '*.symlink'); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "${src}" "${dst}"
@@ -64,4 +70,5 @@ link_dotfiles() {
 
 pprint section "LINKING DOTFILES TO HOME FOLDER"
 link_dotfiles
+pprint newline
 pprint step-ok -n "All dotfiles linked"
