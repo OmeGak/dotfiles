@@ -4,6 +4,9 @@
 set -e
 source $HOME/.dotfiles/.dot/env
 
+git submodule init
+git submodule update
+
 echo
 echo "   ██████   ██████  ████████ ███████ ██ ██      ███████ ███████"
 echo "   ██   ██ ██    ██    ██    ██      ██ ██      ██      ██     "
@@ -13,8 +16,4 @@ echo "██ ██████   ██████     ██    ██      �
 echo "                                              Let's do(t) this!"
 
 pprint section "READY TO START?"
-
-git submodule init
-git submodule update
-
 pprint step-ok -n "All submodules in place"
