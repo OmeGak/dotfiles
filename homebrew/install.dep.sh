@@ -7,7 +7,8 @@ repo='install/master/install'
 if test ! $(which brew); then
   pprint info-go "Installing Homebrew"
   sudoplz
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/${repo})" < /dev/null > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+  script="def at_exit(*); end; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/${repo})"
+  ruby -e "${script}" < /dev/null > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
   [[ $? != 0 ]] && pprint info-error "Failed to install Homebrew" && exit 1
 fi
 
