@@ -7,3 +7,7 @@ export PATH="$DOT/.dot/bin:$DOT/bin:$PATH"
 if [[ "$(uname -s)" == "Linux" ]]; then
   export PATH="$HOME/.linuxbrew/bin:$PATH"
 fi
+
+if [[ $MAKELEVEL ]]; then
+  export MAKEPID=$PPID
+fi
