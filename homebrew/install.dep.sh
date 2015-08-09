@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $DOT/functions/keepsudo
+
 repo='install/master/install'
 [[ "$(uname -s)" == "Linux" ]] && repo='linuxbrew/go/install'
 
@@ -10,6 +12,8 @@ if test ! $(which brew); then
   script="def at_exit(*); end; $(curl -fsSL https://raw.githubusercontent.com/Homebrew/${repo})"
   ruby -e "${script}" < /dev/null > /tmp/$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
   [[ $? != 0 ]] && pprint info-error "Failed to install Homebrew" && exit 1
+  # Disables `sudo -k` during the install so that keepsudo can keep sudo
+  _brew_disable_sudo_k
 fi
 
 pprint info-ok "Homebrew is ready to brew -- Choo, choo!"
