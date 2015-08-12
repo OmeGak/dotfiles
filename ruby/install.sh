@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source $DOT/functions/try
+source $DOT/.dot/functions/try
 
 try pinstall brew rbenv
 try pinstall brew ruby-build

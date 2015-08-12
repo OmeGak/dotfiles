@@ -4,8 +4,8 @@
 #   -r    Specify the reason why sudo is needed
 #   -s    For step-user style pprint
 
-source $DOT/functions/keepsudo
-source $DOT/functions/try
+source $DOT/.dot/functions/keepsudo
+source $DOT/.dot/functions/try
 
 while getopts “sr:t:” OPTION; do
   case $OPTION in

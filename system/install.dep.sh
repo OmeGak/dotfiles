@@ -3,7 +3,6 @@
 set -e
 
 if [[ "$(uname -s)" == "Linux" ]]; then
-  source $DOT/functions/keepsudo
   sudoplz
 
   pinstall apt build-essential

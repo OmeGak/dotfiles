@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $DOT/functions/keepsudo
+source $DOT/.dot/functions/keepsudo
 
 repo='install/master/install'
 [[ "$(uname -s)" == "Linux" ]] && repo='linuxbrew/go/install'
