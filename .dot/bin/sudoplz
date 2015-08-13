@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# Asks for sudo and keeps it alive until dot script is finished
+# Asks for sudo
 # Options:
+#   -k    Keeps sudo alive until dot script is finished
 #   -r    Specify the reason why sudo is needed
 #   -s    For step-user style pprint
 
 source $DOT/.dot/functions/keepsudo
 source $DOT/.dot/functions/try
 
-while getopts “sr:t:” OPTION; do
+while getopts “ksr:t:” OPTION; do
   case $OPTION in
+    k)
+      keep=true;;
     r)
       reason="${OPTARG}";;
     s)
@@ -22,7 +25,12 @@ pprint_type='info-warn'
 
 if [[ $(sudo -n true 2>&1) ]]; then
   pprint "${pprint_type}" -n "Can I haz sudo? ${reason}"
-  try keepsudo -p "$(pprint text -r '.. Password: ')" ${pid}
+  prompt="$(pprint text -r '.. Password: ')"
+  if [[ ${keep} ]]; then
+    try keepsudo -p "${prompt}" ${pid}
+  else
+    try sudo -v -p "${prompt}" 2> /dev/null
+  fi
   [[ $TRY_CODE == 0 ]] && pprint text -r ".. \033[0;32mkthxbye\033[0m"
   [[ $TRY_CODE != 0 ]] && pprint text -r ".. \033[0;31mnope\033[0m"
   [[ $TRY_CODE != 0 ]] || [[ ${pprint_step} ]] && pprint newline
