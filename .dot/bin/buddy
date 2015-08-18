@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# PlistBuddy wrapper for convenience
+
+set -e
+progname=$(basename $0)
+buddy='/usr/libexec/PlistBuddy -c'
+
+_usage() {
+  echo "usage: ${progname} action plist [entry] [type] [value]"
+  echo "  action  Avaliable options: add, delete, print, set, put"
+  echo "  plist   Plist name of the plist file to apply the action"
+  echo "  entry   Plist entry to apply the action, root otherwise"
+  echo "  type    Type of the value"
+  echo "  value   Value to instert"
+}
+
+_needs_entry() {
+  echo "Error: '${action}' requires a plist entry" 1>&2
+}
+
+_needs_type() {
+  echo "Error: '${action}' requires a type" 1>&2
+}
+
+_needs_value() {
+  echo "Error: '${action}' requires a value" 1>&2
+}
+
+# -- Primitives ----------------------------------------------------------------
+
+_add() {
+  ${buddy} "Add \"${entry}\" \"${value_type}\" \"${value}\"" "${plist}"
+}
+
+_delete() {
+  ${buddy} "Delete \"${entry}\"" "${plist}"
+}
+
+_print() {
+  ${buddy} "Print \"${entry}\"" "${plist}"
+}
+
+_set() {
+  ${buddy} "Set \"${entry}\" \"${value}\"" "${plist}"
+}
+
+
+# -- Composites ----------------------------------------------------------------
+
+_put() {
+  [[ $(_print 2> /dev/null) ]] && _delete; _add
+}
+
+# ------------------------------------------------------------------------------
+
+
+# Select function
+action=$1
+case "${action}" in
+  add)
+    FUNC='_add'
+    needs_type=true;;
+  delete)
+    FUNC='_delete';;
+  print)
+    FUNC='_print';;
+  set)
+    FUNC='_set'
+    needs_value=true;;
+  put)
+    FUNC='_put'
+    needs_type=true;;
+  -h|--help|*)
+    _usage
+    exit 1;;
+esac
+shift
+
+# Build plist
+[[ $# < 1 ]] && _usage && exit 1
+plist="$HOME/Library/Preferences/$1.plist"; shift
+
+# Get entry
+if [[ ${action} != 'print' ]]; then
+  [[ $# < 1 ]] && _needs_entry && exit 1
+  entry=$1; shift
+fi
+
+# Check for necessary arguments
+if [[ "${needs_type}" ]]; then
+  [[ $# < 1 ]] && _needs_type && exit 1
+  value_type=$1
+  value=$2
+elif [[ "${needs_value}" ]]; then
+  [[ $# < 1 ]] && _needs_value && exit 1
+  value=$1
+fi
+
+# Go buddy, go!
+$FUNC
