@@ -8,7 +8,7 @@ keepsudo() {
   local pid=$$
   local OPTIND OPTION
 
-  while getopts “a:p:” OPTION; do
+  while getopts 'a:p:' OPTION; do
     case $OPTION in
       a)
         pid="${OPTARG}";;

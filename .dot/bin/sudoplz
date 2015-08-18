@@ -8,7 +8,7 @@
 source $DOT/.dot/functions/keepsudo
 source $DOT/.dot/functions/try
 
-while getopts “ksr:t:” OPTION; do
+while getopts 'ksr:t:' OPTION; do
   case $OPTION in
     k)
       keep=true;;
