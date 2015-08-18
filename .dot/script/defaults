@@ -7,6 +7,10 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
   exit 1
 fi
 
-pprint section "Applying system defaults"
+pprint section "SETTING OSX DEFAULTS"
+
+# Ask for the administrator password upfront
+sudoplz -k -s -r "Needed not to bother you later"
+pprint newline
 
 $DOT/osx/defaults.sh

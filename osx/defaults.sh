@@ -12,12 +12,6 @@
 # The original idea (and a couple settings) were grabbed from:
 #   https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
-# Ask for the administrator password upfront
-sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 
 # -----------------------------------------------------------------------------
 # General & UI/UX
@@ -167,31 +161,31 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 
 # Disable annoying/dangerous/unnecessary global Shortcuts
 # Shortcuts: Disable "Turn Dock Hiding On/Off"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:52:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:52:enabled' 'bool' 'false'
 # Shortcuts: Disable "Change the way Tab moves focus"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:13:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:13:enabled' 'bool' 'false'
 # Shortcuts: Disable "Show Mission Control"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:32:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:34:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:32:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:34:enabled' 'bool' 'false'
 # Shortcuts: Disable "Application windows"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:33:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:35:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:33:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:35:enabled' 'bool' 'false'
 # Shortcuts: Disable "Show Desktop"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:36:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:37:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:36:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:37:enabled' 'bool' 'false'
 # Shortcuts: Disable "Mission Control controls"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:79:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:80:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:81:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:82:enabled' 'bool' 'false'
 # Shortcuts: Disable Dictation shortcut
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:value:type standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Delete AppleSymbolicHotKeys:164:value:parameters" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:0 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:1 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:2 integer 0" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:enabled' 'bool' 'false'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value' 'dict'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value:type' 'string' 'standard'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value:parameters' 'array'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value:parameters:0' 'integer' '65535'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value:parameters:1' 'integer' '65535'
+buddy put com.apple.symbolichotkeys 'AppleSymbolicHotKeys:164:value:parameters:2' 'integer' '0'
 
 
 # -----------------------------------------------------------------------------
@@ -393,26 +387,26 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Keep view settings for icons as default on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
+buddy put com.apple.finder 'FK_StandardViewSettings:IconViewSettings:gridSpacing' 'integer' '54'
+buddy set com.apple.finder 'FK_StandardViewSettings:IconViewSettings:iconSize' 'integer' '64'
+buddy set com.apple.finder 'FK_StandardViewSettings:IconViewSettings:textSize' 'integer' '12'
 
 # Enable snap-to-grid for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+buddy set com.apple.finder 'FK_StandardViewSettings:IconViewSettings:arrangeBy' 'string' 'grid'
 
 # Use column view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # Sort files by kind in column view
-/usr/libexec/PlistBuddy -c "Set StandardViewOptions:ColumnViewOptions:ArrangeBy kipl" ~/Library/Preferences/com.apple.finder.plist
+buddy put com.apple.finder 'StandardViewOptions:ColumnViewOptions:ArrangeBy' 'string' 'kipl'
 
 # Arrange by kind in Open/Save dialogs
 defaults write com.apple.finder FK_ArrangeBy -string "Kind"
@@ -440,9 +434,9 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool 
 defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
 
 # Sidebar: Don't show shared elements
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
+buddy put com.apple.sidebarlists 'networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled' 'bool' 'false'
+buddy set com.apple.sidebarlists 'networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled' 'bool' 'false'
+buddy set com.apple.sidebarlists 'networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled' 'bool' 'false'
 
 # Sidebar: Don't show tags
 defaults write com.apple.finder ShowRecentTags -bool false
@@ -539,14 +533,13 @@ defaults write com.apple.sidebarlists favoriteitems '
 '
 
 # Toolbar: Set a very minimal toolbar
-/usr/libexec/PlistBuddy -c "Delete 'NSToolbar Configuration Browser':'TB Item Identifiers'" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers' array" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':0 string com.apple.finder.BACK" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':3 string com.apple.finder.SWCH" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':4 string com.apple.finder.ARNG" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':5 string com.apple.finder.NFLD" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':6 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':7 string com.apple.finder.SRCH" ~/Library/Preferences/com.apple.finder.plist
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers'" 'array'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':0" 'string' 'com.apple.finder.BACK'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':3" 'string' 'com.apple.finder.SWCH'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':4" 'string' 'com.apple.finder.ARNG'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':5" 'string' 'com.apple.finder.NFLD'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':6" 'string' 'NSToolbarFlexibleSpaceItem'
+buddy put com.apple.finder "'NSToolbar Configuration Browser':'TB Item Identifiers':7" 'string' 'com.apple.finder.SRCH'
 
 
 # -----------------------------------------------------------------------------
