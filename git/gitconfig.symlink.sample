@@ -5,6 +5,8 @@
     email = AUTHOREMAIL
 [credential]
     helper = GIT_CREDENTIAL_HELPER
+[init]
+    templatedir = ~/.git-templates
 [alias]
     br = branch
     ci = commit

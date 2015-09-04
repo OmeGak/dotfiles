@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+clean() {
+  # Change dir to root of project
+  cd ./$(git rev-parse --show-cdup)
+
+  # Delete .pyc files
+  local find_pyc='find . -name "*.pyc" -type f -not -path "./.git/*"'
+  local NUM_PYC_FILES=$(eval "${find_pyc}" | wc -l | tr -d ' ')
+  if [[ ${NUM_PYC_FILES} > 0 ]]; then
+      eval "${find_pyc} -delete"
+      printf "\e[00;31mDeleted ${NUM_PYC_FILES} .pyc files\e[00m\n"
+  fi
+
+  # Delete __pycache__ directories
+  local find_pycache='find . -name "__pycache__" -type d -not -path "./.git/*"'
+  local NUM_PYCACHE_DIRS=$(eval "${find_pycache}" | wc -l | tr -d ' ')
+  if [[ ${NUM_PYCACHE_DIRS} > 0 ]]; then
+      eval "${find_pycache} -exec rm -rf {} +"
+      printf "\e[00;31mDeleted ${NUM_PYCACHE_DIRS} __pycache__ directories\e[00m\n"
+  fi
+
+  # Delete empty directories
+  local find_emptydir='find . -depth -type d -empty -not -path "./.git/*"'
+  local NUM_EMPTY_DIRS=$(eval "${find_emptydir}" | wc -l | tr -d ' ')
+  if [[ ${NUM_EMPTY_DIRS} > 0 ]]; then
+      eval "${find_emptydir} -delete"
+      printf "\e[00;31mDeleted ${NUM_EMPTY_DIRS} empty directories\e[00m\n"
+  fi
+}
+
+
+clean
