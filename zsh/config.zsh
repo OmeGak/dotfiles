@@ -38,4 +38,8 @@ setopt HIST_REDUCE_BLANKS
 #   like: git comm-[tab]
 setopt complete_aliases
 
+# Disable XON/XOFF (C-s/C-q to stop/start tty)
+stty stop undef
+stty start undef
+
 zle -N newtab
