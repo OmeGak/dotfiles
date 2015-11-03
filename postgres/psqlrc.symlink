@@ -1,0 +1,12 @@
+\set QUIET ON
+
+-- Extended view only when needed
+\x auto
+
+-- Autocomplete keywords in uppercase
+\set COMP_KEYWORD_CASE upper
+
+-- Render NULL values as ¤
+\pset null NULL
+
+\set QUIET OFF
