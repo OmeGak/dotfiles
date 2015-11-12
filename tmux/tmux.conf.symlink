@@ -51,6 +51,9 @@ set -g visual-bell on
     setw -g allow-rename off
     # Make unnamed windows to show the name of the running command
     setw -g automatic-rename on
+    # Prevent tmux freezing on fast output
+    setw -g c0-change-trigger 250
+    setw -g c0-change-interval 100
 
 # Pane tweaks
 # -----------
