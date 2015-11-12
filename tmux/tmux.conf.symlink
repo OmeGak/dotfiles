@@ -12,17 +12,38 @@ set -g visual-activity off
 set -g bell-action any
 set -g visual-bell on
 
+# Spawns (session/window/pane)
+# ----------------------------
+    bind N new-session
+    bind n new-window -c ~
+    bind | split-window -v -c '#{pane_current_path}'
+    bind \ split-window -h -c '#{pane_current_path}'
+    bind C-c respawn-pane -k \; display-message "Restarted pane #P"
 
-# Session tweaks
-# --------------
-    # Switch between multiple sessions
-    bind -r C-l switch-client -l
+# Kills (server/session/window/pane)
+# ----------------------------------
+    bind K confirm-before -p "Kill server? (y/n)" "run-shell 'tmux kill-server'"
+    bind k confirm-before -p "Kill session #S? (y/n)" "run-shell 'tmux switch-client -n \\\; kill-session -t \"#S\"'"
+    bind q confirm-before -p "Kill window #W? (y/n)" kill-window
+    bind -r w kill-pane
+
+# Navigation
+# ----------
+    # Show tmux panel
+    bind C-space choose-tree
+    # Sessions
+    bind C-s switch-client -l
     bind -r { switch-client -p
     bind -r } switch-client -n
-    # Bindings
-    bind N new-session
-    bind C-s choose-tree
-
+    # Windows
+    bind C-a last-window
+    bind -r ] next-window
+    bind -r [ previous-window
+    # Panes
+    bind Down select-pane -D
+    bind Left select-pane -L
+    bind Right select-pane -R
+    bind Up select-pane -U
 
 # Window tweaks
 # -------------
@@ -30,41 +51,15 @@ set -g visual-bell on
     setw -g allow-rename off
     # Make unnamed windows to show the name of the running command
     setw -g automatic-rename on
-    # Bindings
-    bind C-a last-window
-    bind n new-window -c ~
-    bind -r ] next-window
-    bind -r [ previous-window
-
 
 # Pane tweaks
 # -----------
     # Don't fuckup the layout easily
     unbind Space
-    # Full-screen (useful to copy multiple lines)
-    bind C-f resize-pane -Z
+    # Display panes numbers
+    bind i display-panes
     # Print in all panes
-    bind C-p setw synchronize-panes
-    # Bindings
-    bind \ split-window -v -c '#{pane_current_path}'
-    bind | split-window -h -c '#{pane_current_path}'
-    bind Down select-pane -D
-    bind Left select-pane -L
-    bind Right select-pane -R
-    bind Up select-pane -U
-
-
-# Other bindings
-# --------------
-    bind C-d detach
-    # Kill server
-    bind K confirm-before -p "Kill server (y/n)?" "run-shell 'tmux kill-server'"
-    # Kill session and select another
-    bind-key k confirm-before -p "Kill session #S (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"\$(tmux display-message -p \"#S\")\"'"
-    # Closing things
-    bind -r q kill-window
-    bind -r w kill-pane
-
+    bind / setw synchronize-panes \; run-shell 'tmux display-message "Set option: synchronize-panes -> $(tmux showw -v synchronize-panes)"'
 
 # Mouse tweaks
 # ------------
@@ -72,7 +67,6 @@ set -g visual-bell on
     set -g mouse-select-pane on
     set -g mouse-select-window on
     set -g mouse-utf8 off
-
 
 # Fixes
 # -----
@@ -83,7 +77,8 @@ set -g visual-bell on
     set -g pane-base-index 1
     # Fix ESC key delay
     set -s escape-time 0
-
+    # Messages stay longer on status bar
+    set -g display-time 1000
 
 # Style
 # -----
