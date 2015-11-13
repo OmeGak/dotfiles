@@ -1,10 +1,7 @@
-atom.symlink/.node-gyp
-atom.symlink/.storage
-atom.symlink/compile-cache
-atom.symlink/packages
-atom.symlink/storage
-atom.symlink/themes
-
-sublime2/User/Package\ Control.sublime-settings
-sublime2/User/Package Control.last-run
 git/gitconfig.symlink
+sublime/User/Package\ Control.sublime-settings
+sublime/User/Package Control.last-run
+
+# Track ssh config only
+ssh/ssh.symlink/*
+!ssh/ssh.symlink/config

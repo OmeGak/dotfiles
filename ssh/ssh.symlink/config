@@ -1,0 +1,6 @@
+# CERN Indico cluster
+Host *indico* jabber* indic8r* burotel
+    User root
+    GSSAPITrustDNS yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
