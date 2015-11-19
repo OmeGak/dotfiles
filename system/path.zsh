@@ -1,8 +1,8 @@
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$DOT/bin:$PATH"
+export PATH="$DOT/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 if [[ "$(uname -s)" == "Linux" ]]; then
-  export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
   export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 fi
 
