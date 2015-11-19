@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Sets up the minimum environment for dot steps
+# Sets up the minimum sanitized environment for dot steps
+
+unset LD_LIBRARY_PATH PKG_CONFIG_PATH
 
 export DOT=$HOME/.dotfiles
-export PATH="$DOT/.dot/bin:$DOT/bin:$PATH"
+export PATH="$DOT/.dot/bin:$DOT/bin:/usr/local/bin:/usr/bin:/bin"
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export HOMEBREW_CC=gcc
 fi
 
 if [[ $MAKELEVEL ]]; then

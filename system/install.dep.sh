@@ -5,19 +5,24 @@ set -e
 if [[ "$(uname -s)" == "Linux" ]]; then
   sudoplz
 
+  pprint info-go "Updating apt-get"
+  sudo apt-get update -y -qq 2> /dev/null || true
+  sudo apt-get update --fix-missing -y -qq 2> /dev/null || true
+
+  # Linuxbrew system dependencies
   pinstall apt build-essential
-  pinstall apt ruby
-  pinstall apt zsh
-
-  # Needed for python to compile with sugar
-  pinstall apt libbz2-dev
-  pinstall apt libreadline-dev
-  pinstall apt libsqlite3-dev
-
-  # Needed for brew-git
-  pinstall apt libx11-dev
-  pinstall apt libcurl4-gnutls-dev
-
-  # Needed for brew-ruby-build
+  pinstall apt curl
+  pinstall apt g++
   pinstall apt m4
+  pinstall apt ruby
+  pinstall apt texinfo
+  pinstall apt libbz2-dev
+  pinstall apt libcurl4-openssl-dev
+  pinstall apt libexpat1-dev
+  pinstall apt libncurses5-dev
+  pinstall apt zlib1g-dev
+  pinstall apt gawk
+  pinstall apt make
+  pinstall apt patch
+  pinstall apt tcl
 fi

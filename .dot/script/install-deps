@@ -13,6 +13,8 @@ topics='system homebrew'
 
 # Find and run dependency install scripts
 for script in $(dotfind install.dep.sh --priority ${topics}); do
+  # Refresh environment before each topic
+  source $HOME/.dotfiles/.dot/env
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Checking dependencies from ${topic}..."
