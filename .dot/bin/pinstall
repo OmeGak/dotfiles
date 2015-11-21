@@ -12,13 +12,14 @@ _pretty_install() {
   local system=$2
   local cmd_install=$3
   local cmd_check=$4
+  local args=${@:5}
   if [[ ! $(which "${system}") ]]; then
     "Error: ${system} is not available" 1>&2
     exit 1
   fi
   if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
     pprint info-go "Installing ${package} from ${system}"
-    ${cmd_install} ${package} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+    ${cmd_install} ${package} ${args} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
     [[ $? != 0 ]] && pprint info-error "Failed to install ${package}" && exit 1
   fi
 }
@@ -38,28 +39,29 @@ _is_installed() {
 # -- System calls --------------------------------------------------------------
 
 papt() {
-  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s"
+  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s" ${@:2}
 }
 
 pbrew() {
-  _pretty_install $1 "brew" "brew install" "brew ls --versions"
+  _pretty_install $1 "brew" "brew install" "brew ls --versions" ${@:2}
 }
 
 pnpm() {
-  _pretty_install $1 "npm" "npm -g install" "npm -g list"
+  _pretty_install $1 "npm" "npm -g install" "npm -g list" ${@:2}
 }
 
 ppip() {
-  _pretty_install $1 "pip" "syspip install --upgrade" "syspip show"
+  _pretty_install $1 "pip" "syspip install --upgrade" "syspip show" ${@:2}
 }
 
 
 # ------------------------------------------------------------------------------
 
 usage() {
-  echo "usage: ${progname} system package"
+  echo "usage: ${progname} system package args"
   echo "  system:  package system to use: (apt | brew | npm | pip)"
   echo "  package: the package to be installed"
+  echo "  args:    additional args to pass to the pkg manager"
 }
 
 case "$1" in
@@ -81,5 +83,5 @@ if [[ $# < 2 ]]; then
   exit 1
 fi
 
-${fn} "$2"
+${fn} "$2" ${@:3}
 exit 0
