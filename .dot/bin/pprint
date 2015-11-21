@@ -45,7 +45,6 @@ pp_info_error() {
 
 pp_info_ok() {
   printf "$1      \033[0;32m>>\033[0m $2$3"
-  # echo -e $3
 }
 
 pp_info_go() {
