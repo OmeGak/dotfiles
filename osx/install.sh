@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+source $DOT/.dot/functions/try
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   pprint info-warn "Step skipped: This is not a Mac"
@@ -19,16 +20,18 @@ install_keyboard_layout() {
 }
 
 install_ntfs() {
-  pinstall brew ntfs-3g
-  [[ $? != 0 ]] && exit 1
+  try brew tap homebrew/fuse > /dev/null 2>&1
+  try pinstall brew ntfs-3g
+  [[ $TRY_CODE != 0 ]] && exit 1
 
   # Check if mount_ntfs is symlinked
-  if [[ ! -L "/sbin/mount_ntfs" ]]; then
-    pprint info-warn "NTFS-3g is ready but you still need to replace the automounter manually"
-    pprint info-warn "This is a DANGEROUS operation, so proceed with care:"
-    pprint info-warn "  $ brew info ntfs-3g"
+  if [[ "$(readlink /sbin/mount_ntfs)" != "$(brew --prefix)/sbin/mount_ntfs" ]]; then
+    pprint info-warn "NTFS-3g is ready but you still need to do some things manually."
+    pprint info-warn "Disable SIP filesystem lockdown from system recovery:"
+    pprint info-warn "  $ csrutil enable --without fs"
+    pprint info-warn "Replace the automounter. This is DANGEROUS. Proceed with care:"
     pprint info-warn "  $ sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.orig"
-    pprint info-warn "  $ sudo ln -s <path_to_ntfs_version>/sbin/mount_ntfs /sbin/mount_ntfs"
+    pprint info-warn "  $ sudo ln -s `brew --prefix`/sbin/mount_ntfs /sbin/mount_ntfs"
   fi
 }
 
