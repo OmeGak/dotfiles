@@ -26,6 +26,7 @@ openemu
 
 # Messaging
 gitter
+messenger
 skype
 slack
 
@@ -34,14 +35,13 @@ audiobookbinder
 calibre
 handbrake
 insomniax
-iexplorer
 scroll-reverser
 the-unarchiver
 ukelele
 virtualbox
 
 # Drivers
-d235j-xbox360-controller-driver
+xbox360-controller-driver
 logitech-unifying
 osxfuse
 wacom-bamboo-tablet
