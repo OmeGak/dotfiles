@@ -5,6 +5,10 @@ try pinstall brew ack
 try pinstall brew coreutils
 try pinstall brew grc
 
+if [[ "$(uname -s)" == "Linux" ]]; then
+  try pinstall apt xclip
+fi
+
 fonts_dir="$HOME/Library/Fonts"
 if [[ "$(uname -s)" == "Linux" ]]; then
   fonts_dir="$HOME/.fonts"
