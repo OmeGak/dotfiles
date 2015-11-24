@@ -6,7 +6,6 @@ fi
 
 export CLICOLOR=true
 export LSCOLORS="ExGxFxdxCxDxDxBxBxExEx"
-export GREP_OPTIONS='--color=auto'
 
 fpath=($DOT/functions $fpath)
 
