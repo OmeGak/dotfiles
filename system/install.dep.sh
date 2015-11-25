@@ -25,4 +25,7 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   pinstall apt make
   pinstall apt patch
   pinstall apt tcl
+
+  # Needed for Python
+  pinstall apt libsqlite3-dev
 fi
