@@ -1,4 +1,4 @@
-#!/bin/zsh -f
+#!usr/bin/env bash
 #
 # Set correct keybindings
 # Idea borrowed from: https://github.com/gregf/dotfiles/blob/master/zsh/zkbd.zsh

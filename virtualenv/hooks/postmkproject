@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # This hook is run after a new project is activated.
 
 # Generates .venv file used for activating virtualenv on cd
