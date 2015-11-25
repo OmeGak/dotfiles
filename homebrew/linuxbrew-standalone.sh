@@ -55,7 +55,7 @@ pinstall brew gawk
 pinstall brew gnu-sed
 pinstall brew gnu-which
 pinstall brew grep
-# pinstall brew libpng
+pinstall brew libpng
 pinstall brew libxml2
 pinstall brew libxslt
 pinstall brew make
