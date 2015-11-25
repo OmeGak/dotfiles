@@ -95,8 +95,9 @@ defaults write com.apple.CrashReporter DialogType -string "none"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-# Disable guest account
+# Hide guest/other account
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
+sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWOTHERUSERS_MANAGED -bool false
 
 # Disable autorun
 defaults write com.apple.digihub com.apple.digihub.blank.cd.appeared -dict action 1
