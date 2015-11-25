@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Quick access for tmuxp load
+
+if [[ $# == 1 ]]; then
+  tmuxp load "$TMUXP_DIR/$1.yaml"
+fi
