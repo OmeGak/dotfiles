@@ -62,7 +62,7 @@ link_file() {
 link_dotfiles() {
   local overwrite_all=false backup_all=false skip_all=false
   pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME${offu}:"
-  for src in $(find -H "$DOT" -maxdepth 2 -name '*.symlink'); do
+  for src in $(find -H "$DOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "${src}" "${dst}"
   done
