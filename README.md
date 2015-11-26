@@ -10,7 +10,6 @@
 ```
 
 
-## dotfiles
 Your dotfiles are how you personalize your system. These are mine.
 
 This framework was forked from [Zach Holman](https://github.com/holman)'s
