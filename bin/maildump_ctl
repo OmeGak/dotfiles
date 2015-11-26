@@ -2,15 +2,14 @@
 
 pidfile="/tmp/maildump.pid"
 ip="127.0.0.1"
-command="/opt/maildump/bin/maildump"
 command_args="-n -p $pidfile --http-ip $ip --db /tmp/maildump.sqlite --http-port 5000"
 
 start() {
-    $command $command_args
+    maildump $command_args
 }
 
 stop() {
-    $command "-p $pidfile --stop"
+    maildump "-p $pidfile --stop"
 }
 
 case "$1" in
