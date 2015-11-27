@@ -18,7 +18,7 @@ if [[ ! $(checklink "${plist_target}" "${plist_source}") ]]; then
   fi
   pprint info-go "Installing preferences"
   killall cfprefsd  # Clean prefs cache
-  createlink "${plist_source}" "${plist_target}"
+  mksymlink "${plist_source}" "${plist_target}"
 fi
 
 exit 0

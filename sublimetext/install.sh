@@ -19,7 +19,7 @@ fi
 # Link settings
 if [[ ! $(checklink "${settings_target}" "${settings_source}") ]]; then
   pprint info-go "Installing settings"
-  createlink "${settings_source}" "${settings_target}"
+  mksymlink "${settings_source}" "${settings_target}"
 fi
 
 pinstall pip flake8
