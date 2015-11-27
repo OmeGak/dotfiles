@@ -3,26 +3,40 @@ session_name: indico
 shell_command_before: kstart; workon indico
 windows:
   - window_index: 0
-    window_name: local
-    layout: 'c92b,319x79,0,0[319x15,0,0,0,319x63,0,16{159x63,0,16[159x32,0,16,1,159x30,0,49,3],159x63,160,16,2}]'
-    focus: true
     panes:
-      - ndc-init; ndc
-      - focus: true
-        shell_command: git st
-      - indico shell
-      - tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
+      - pwd
 
-  - window_name: dev
+  - window_name: local
+    focus: true
+    layout: '6880,318x80,0,0[318x15,0,0,2,318x64,0,16{159x64,0,16,4,158x64,160,16,6}]'
+    panes:
+      - focus: true
+        shell_command: ndc-init; ndc
+      - git st
+      - indico shell -q
+
+  - window_name: logs
     layout: even-horizontal
     panes:
-      - ssh root@indico-dev1
-      - ssh root@indico-dev2
+      - tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
+      - python bin/utils/db_log.py
 
   - window_name: prod
     layout: tiled
     panes:
-      - ssh root@indico-wk1
-      - ssh root@indico-wk2
-      - ssh root@indico-wk3
-      - ssh root@indico-scheduler
+      - ssh indico-wk1
+      - ssh indico-wk2
+      - ssh indico-wk3
+      - ssh indico-scheduler
+
+  - window_name: dev
+    layout: even-horizontal
+    panes:
+      - ssh indico-dev1
+      - ssh indico-dev2
+
+  - window_name: lbs
+    layout: even-horizontal
+    panes:
+      - ssh indico-lb1
+      - ssh indico-lb2
