@@ -1,3 +1,9 @@
+Host lxplus*
+    User aavilesd
+    GSSAPITrustDNS yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
+
 # CERN Indico cluster
 Host *indico* jabber* indic8r* burotel
     User root
