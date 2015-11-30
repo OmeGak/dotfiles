@@ -1,0 +1,8 @@
+# Shortcut to dotfiles folder
+export DOT=$HOME/.dotfiles
+
+# Project folder that to allow `c [tab]` to it
+export PROJECTS=$HOME/Code
+
+# Initial path extension
+source $DOT/system/path.zsh
