@@ -1,4 +1,4 @@
-function indico_dbdiff() {
+ndc-dbdiff() {
     createdb indico_dbdiff && \
         psql indico_dbdiff -c 'CREATE EXTENSION unaccent; CREATE EXTENSION pg_trgm;' >/dev/null && \
         INDICO_CONF_OVERRIDE='{"SQLAlchemyDatabaseURI": "postgresql:///indico_dbdiff"}' indico db prepare 2>/dev/null >/dev/null && \
@@ -8,7 +8,7 @@ function indico_dbdiff() {
         rm /tmp/indico_dbdiff.sql /tmp/indico_dbdiff_dbdiff.sql
 }
 
-function indico_dbdiff_2() {
+ndc-dbdiff2() {
     createdb indico_dbdiff && \
         psql indico_dbdiff -c 'CREATE EXTENSION unaccent; CREATE EXTENSION pg_trgm;' >/dev/null && \
         INDICO_CONF_OVERRIDE='{"SQLAlchemyDatabaseURI": "postgresql:///indico_dbdiff"}' indico db prepare 2>/dev/null >/dev/null && \
@@ -20,6 +20,6 @@ function indico_dbdiff_2() {
         rm /tmp/indico_dbdiff.sql /tmp/indico_dbdiff_dbdiff.sql
 }
 
-function pyg() {
+pyg() {
     pygmentize -l $1 -f terminal256 -O style=native,bg=dark
 }
