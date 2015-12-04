@@ -19,7 +19,7 @@ windows:
     layout: even-horizontal
     panes:
       - tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
-      - python bin/utils/db_log.py
+      - ndc-dblog
 
   - window_name: prod
     layout: tiled
