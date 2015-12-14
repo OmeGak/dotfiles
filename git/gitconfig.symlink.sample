@@ -20,6 +20,10 @@
     wtf     = !$DOT/bin/git-wtf
     rank-contributors = !$DOT/bin/git-rank-contributors
     count   = !git shortlog -sn
+    # Hide files
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    hidden = !git ls-files -v | grep '^h' | cut -c3-
 [core]
     editor = vim
     excludesfile = ~/.gitignore
