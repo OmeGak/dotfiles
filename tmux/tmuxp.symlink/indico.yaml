@@ -1,6 +1,6 @@
 ---
 session_name: indico
-shell_command_before: kstart; workon indico
+shell_command_before: ktstart; workon indico
 windows:
   - window_index: 0
     panes:
