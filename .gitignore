@@ -8,5 +8,5 @@ ssh/ssh.symlink/*
 
 # Track weechat config only
 weechat/weechat.symlink/*
-!weechat/weechat.symlink/*.config
+!weechat/weechat.symlink/*.conf
 !weechat/weechat.symlink/perl
