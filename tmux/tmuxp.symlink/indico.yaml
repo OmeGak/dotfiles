@@ -18,7 +18,7 @@ windows:
   - window_name: logs
     layout: even-horizontal
     panes:
-      - ndc-dblog
+      - ndc-dblog -S
       - tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
 
   - window_name: prod
