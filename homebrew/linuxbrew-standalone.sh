@@ -4,6 +4,7 @@
 
 set -e
 BREWDIR="$(brew --prefix)"
+BREWCELLAR="$(brew --cellar)"
 LIB64DIR="/usr/lib/x86_64-linux-gnu"
 
 # Check for gcc
@@ -24,7 +25,7 @@ if [[ -z "$(brew ls --versions gcc 2> /dev/null || true)" ]]; then
   yes no | ln -is $BREWDIR/lib $BREWDIR/lib64 > /dev/null 2>&1
   yes no | ln -is $LIB64DIR/libstdc++.so.6 $BREWDIR/lib/ > /dev/null 2>&1
   yes no | ln -is $LIB64DIR/libgcc_s.so.1 $BREWDIR/lib/ > /dev/null 2>&1
-  yes no | sudo ln -is /usr/lib/x86_64-linux-gnu /usr/lib64 > /dev/null 2>&1
+  yes no | sudo ln -is $LIB64DIR /usr/lib64 > /dev/null 2>&1
 
   # Prepare environment
   unset HOMEBREW_CC
@@ -43,6 +44,11 @@ if [[ -z "$(brew ls --versions gcc 2> /dev/null || true)" ]]; then
   rm -f $BREWDIR/lib/{libstdc++.so.6,libgcc_s.so.1}
   rm -f $HOME/.linuxbrew/lib/{libstdc++.so.6,libgcc_s.so.1}
   brew unlink gcc && brew link gcc
+
+  # Make dbus libraries available in brew realm
+  mkdir -p $BREWCELLAR/dbus/host/lib/
+  ln -s /lib/x86_64-linux-gnu/libdbus* $BREWCELLAR/dbus/host/lib/
+  brew link dbus
 fi
 
 export HOMEBREW_CC=gcc
