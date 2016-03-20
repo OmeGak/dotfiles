@@ -11,3 +11,4 @@ weechat/weechat.symlink/*
 !weechat/weechat.symlink/*.conf
 !weechat/weechat.symlink/perl
 !weechat/weechat.symlink/python
+!weechat/weechat.symlink/weechat.png
