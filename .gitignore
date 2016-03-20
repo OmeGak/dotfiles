@@ -6,7 +6,8 @@ sublime/User/Package Control.last-run
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/config
 
-# Track weechat config only
+# Track weechat config/plugins only
 weechat/weechat.symlink/*
 !weechat/weechat.symlink/*.conf
 !weechat/weechat.symlink/perl
+!weechat/weechat.symlink/python
