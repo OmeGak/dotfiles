@@ -1,28 +1,22 @@
 #!usr/bin/env bash
 #
-# Set correct keybindings
+# Set cross-terminal keybindings
 # Idea borrowed from: https://github.com/gregf/dotfiles/blob/master/zsh/zkbd.zsh
 
-# -----------------------------------------------------------------------------
-# Load keys from a zkbd mapping
-#
-# Generate it running 'zsh /usr/share/zsh/functions/Misc/zkbd'.
-# The location of this script on your system may vary.
-# -----------------------------------------------------------------------------
+
+# -- Load keys from system zkbd mapping ---------------------------------------
 
 autoload -Uz zkbd
 if [[ -f ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
     source ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
 else
-    echo "WARNING: zkbd key mapping not found for your current configuration."
+    echo "WARNING: zkbd key mapping not found for your current terminal."
     echo "Execute \`zkbd\` to map keys."
 fi
 
-# -----------------------------------------------------------------------------
-# Set keybindings
-# -----------------------------------------------------------------------------
 
-# Bind the keys that zkbd set up to some widgets
+# -- Keybindings --------------------------------------------------------------
+
 [[ -n "${key[Home]}" ]]      && bindkey "${key[Home]}"      beginning-of-line
 [[ -n "${key[End]}" ]]       && bindkey "${key[End]}"       end-of-line
 [[ -n "${key[Delete]}" ]]    && bindkey "${key[Delete]}"    delete-char
@@ -37,8 +31,14 @@ fi
 [[ -n "${key[Alt-Left]}" ]]  && bindkey "${key[Alt-Left]}"  backward-word
 [[ -n "${key[Alt-Right]}" ]] && bindkey "${key[Alt-Right]}" forward-word
 
-# Pipe through $PAGER and execute
-bindkey -s '^P' "|$PAGER\n"
+
+# -- Special keybindings ------------------------------------------------------
+
+# Pipe through pager
+bindkey -s '^P' "|less\n"
+
+
+# -- Magic keybindings --------------------------------------------------------
 
 # Show dots while waiting to complete. Useful for systems with slow net access,
 # like those places where they use giant, slow NFS solutions. (Hint.)
@@ -50,14 +50,13 @@ expand-or-complete-with-dots() {
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
 
-# This inserts a tab after completing a redirect. You want this.
-# (Source: http://www.zsh.org/mla/users/2006/msg00690.html)
-self-insert-redir() {
-    integer l=$#LBUFFER
-    zle self-insert
-    (( $l >= $#LBUFFER )) && LBUFFER[-1]=" $LBUFFER[-1]"
+# Ensure whitespaces around pipe.
+# Based on: http://www.zsh.org/mla/users/2006/msg00690.html
+self-insert-padded() {
+  setopt localoptions noksharrays
+  zle self-insert
+  [[ $LBUFFER[-2] != " " ]] && LBUFFER[-1]=" $LBUFFER[-1]"
+  LBUFFER[-1]="$LBUFFER[-1] "
 }
-zle -N self-insert-redir
-for op in \| \< \> \& ; do
-    bindkey "$op" self-insert-redir
-done
+zle -N self-insert-padded
+bindkey "|" self-insert-padded
