@@ -6,6 +6,9 @@ sublime/User/Package Control.last-run
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/config
 
+# Ignore vim plugins
+vim/vim.symlink/plugged
+
 # Track weechat config/plugins only
 weechat/weechat.symlink/*
 !weechat/weechat.symlink/*.conf
