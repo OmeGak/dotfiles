@@ -6,6 +6,14 @@
 "              on this file is still a good idea.
 
 "------------------------------------------------------------
+" Plugins {{{1
+
+call plug#begin()
+Plug 'altercation/vim-colors-solarized'
+call plug#end()
+
+
+"------------------------------------------------------------
 " Features {{{1
 "
 " These options and commands enable some very useful features in Vim, that
@@ -167,5 +175,3 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 set background=dark
 colorscheme solarized
-
-"------------------------------------------------------------
