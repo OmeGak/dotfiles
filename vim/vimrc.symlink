@@ -8,6 +8,8 @@ call plug#begin()
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 
@@ -56,6 +58,9 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
 
+" Enable spell check for git
+autocmd FileType gitcommit setlocal spell
+
 
 " -- Indentation --------------------------------------------------------------
 
@@ -63,6 +68,12 @@ set pastetoggle=<F11>
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+
+" -- Mappings -----------------------------------------------------------------
+
+" Map Y to act like D and C, i.e. to yank until EOL
+map Y y$
 
 
 " -- Color scheme -------------------------------------------------------------
@@ -73,14 +84,17 @@ set background=dark
 :silent! colorscheme solarized
 
 
-" -- Mappings -----------------------------------------------------------------
+" -- Airline ------------------------------------------------------------------
 
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-" which is the default
-map Y y$
+" Enable powerline fonts
+let g:airline_powerline_fonts = 1
 
+" Disable file encoding section
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [ 'x', 'z', 'error', 'warning' ]
+      \ ]
 
-" -- Misc ---------------------------------------------------------------------
-
-" Enable spell only for git
-autocmd FileType gitcommit setlocal spell
+" Disable triangles
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
