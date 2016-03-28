@@ -6,6 +6,7 @@
 
 call plug#begin()
 Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 call plug#end()
 
