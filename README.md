@@ -117,5 +117,5 @@ I forked [Zach Holman](https://github.com/holman)'s minimalistic
 [framework](https://github.com/holman/dotfiles) and kept on tweaking it until my
 changes were too big to keep up with upstream and decided to maintain my own.
 Holman's dotfiles were an easy way to get into shell customization and system
-automation and a decent amount of the code in these dotfiles stem or are
+automation and a decent amount of the code in these dotfiles stems or is
 inspired from his original project.
