@@ -64,6 +64,14 @@ set softtabstop=2
 set expandtab
 
 
+" -- Color scheme -------------------------------------------------------------
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+set background=dark
+colorscheme solarized
+
+
 " -- Mappings -----------------------------------------------------------------
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
@@ -71,9 +79,7 @@ set expandtab
 map Y y$
 
 
-" -- Color scheme -------------------------------------------------------------
+" -- Misc ---------------------------------------------------------------------
 
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-set background=dark
-colorscheme solarized
+" Enable spell only for git
+autocmd FileType gitcommit setlocal spell
