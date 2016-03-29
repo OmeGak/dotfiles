@@ -14,3 +14,14 @@ forward-word-end() {
 }
 zle -N forward-word-end
 unset forward-word-end
+
+
+# -- Plugins ------------------------------------------------------------------
+
+# For zsh-autosuggest
+next-suggested-word() {
+  [[ $RBUFFER[1] == ' ' ]] && zle .forward-word
+  zle .forward-word
+}
+zle -N next-suggested-word
+unset next-suggested-word

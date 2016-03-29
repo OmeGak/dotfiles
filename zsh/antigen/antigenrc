@@ -5,6 +5,7 @@ source "$DOT/.antigen/antigen.zsh"
 antigen bundles <<EOBUNDLES
   brew-cask
   pip
+  zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions src
   zsh-users/zsh-syntax-highlighting
 EOBUNDLES
