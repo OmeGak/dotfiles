@@ -87,5 +87,5 @@ set -g visual-bell on
     set -g status-fg white
     set -g window-status-current-bg white
     set -g window-status-current-fg colour27
-    set -g pane-border-fg blue
+    set -g pane-border-fg colour27
     set -g pane-active-border-fg green
