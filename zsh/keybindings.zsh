@@ -29,6 +29,10 @@ fi
 [[ -n "${key[Alt-Left]}" ]]  && bindkey "${key[Alt-Left]}"  backward-word-end
 [[ -n "${key[Alt-Right]}" ]] && bindkey "${key[Alt-Right]}" forward-word-end
 
+# Prevent ~ if tmux didn't handle PageUp/PageDown
+[[ -n "${key[PageUp]}" ]]    && bindkey "${key[PageUp]}"    beep
+[[ -n "${key[PageDown]}" ]]  && bindkey "${key[PageDown]}"  beep
+
 
 # -- Special keybindings ------------------------------------------------------
 
