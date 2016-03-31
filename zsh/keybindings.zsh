@@ -62,3 +62,9 @@ self-insert-padded() {
 }
 zle -N self-insert-padded
 bindkey "|" self-insert-padded
+
+
+# -- Cleanup ------------------------------------------------------------------
+
+unset expand-or-complete-with-dots
+unset self-insert-padded
