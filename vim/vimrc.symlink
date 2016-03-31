@@ -58,6 +58,9 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
 
+" Navigate to next line with arrows
+set whichwrap=<,>,[,]
+
 " Enable spell check for git
 autocmd FileType gitcommit setlocal spell
 
