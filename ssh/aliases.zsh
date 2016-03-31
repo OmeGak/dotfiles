@@ -1,2 +1,9 @@
-# Pipe my public key to clipboard
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo 'Public key copied to clipboard'"
+# Pipe ssh public key to clipboard
+ssh-key() {
+  SSH_KEY=~/.ssh/id_rsa.pub
+  if [[ -e $SSH_KEY ]]; then
+    more $SSH_KEY | pbcopy | echo 'SSH public key copied to clipboard'
+  else
+    echo 'No SSH key found'
+  fi
+}
