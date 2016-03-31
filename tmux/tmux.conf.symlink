@@ -63,15 +63,15 @@ set -g visual-bell on
     # Print in all panes
     bind / setw synchronize-panes \; run-shell 'tmux display-message "Set option: synchronize-panes -> $(tmux showw -v synchronize-panes)"'
 
-# Mouse tweaks
+# Input tweaks
 # ------------
     set -g mouse on
     set -g mouse-utf8 off
+    # Always use xterm special keys
+    set -g xterm-keys on
 
-# Fixes
-# -----
-    # Fix colors in vim (http://www.economyofeffort.com/2014/07/04/zsh/)
-    set -g default-terminal 'screen-256color'
+# Misc
+# ----
     # Fix 0-indexes (0 is too far from `)
     set -g base-index 1
     set -g pane-base-index 1
