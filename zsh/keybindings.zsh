@@ -1,5 +1,3 @@
-#!usr/bin/env bash
-#
 # Set cross-terminal keybindings
 # Idea borrowed from: https://github.com/gregf/dotfiles/blob/master/zsh/zkbd.zsh
 
@@ -28,8 +26,8 @@ fi
 [[ -n "${key[C-Down]}" ]]    && bindkey "${key[C-Down]}"    history-beginning-search-forward
 [[ -n "${key[C-Left]}" ]]    && bindkey "${key[C-Left]}"    backward-word
 [[ -n "${key[C-Right]}" ]]   && bindkey "${key[C-Right]}"   forward-word
-[[ -n "${key[Alt-Left]}" ]]  && bindkey "${key[Alt-Left]}"  backward-word
-[[ -n "${key[Alt-Right]}" ]] && bindkey "${key[Alt-Right]}" forward-word
+[[ -n "${key[Alt-Left]}" ]]  && bindkey "${key[Alt-Left]}"  backward-word-end
+[[ -n "${key[Alt-Right]}" ]] && bindkey "${key[Alt-Right]}" forward-word-end
 
 
 # -- Special keybindings ------------------------------------------------------
