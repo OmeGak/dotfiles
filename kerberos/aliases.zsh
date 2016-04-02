@@ -1,12 +1,11 @@
 alias ktinit="kinit -kt $HOME/.keytab"
-alias ktstart="k5start -f $HOME/.keytab -U -b -K 10"
+alias ktstart="k5start -f $HOME/.keytab -U -b -K 10 -k $HOME/.keytab-cache"
+[[ $(uname -s) == 'Darwin' ]] && alias ktutil="ktutil -k $HOME/.keytab"
 
 if [[ $(uname -s) == 'Darwin' ]]; then
-  alias ktutil="ktutil -k $HOME/.keytab"
-
-  # Add a keytab for a principal
   ktadd() {
     local principal
+    local password
     echo -n "Principal: "
     read principal
     echo -n "Password: "
