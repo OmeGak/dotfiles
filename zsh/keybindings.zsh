@@ -36,38 +36,9 @@ fi
 
 # -- Special keybindings ------------------------------------------------------
 
-# Show zle buffers
+bindkey '^I' expand-or-complete-with-dots
 bindkey '^O' show-buffers
+bindkey '|' self-insert-padded
 
 # Pipe through pager
 bindkey -s '^P' "|less\n"
-
-
-# -- Magic keybindings --------------------------------------------------------
-
-# Show dots while waiting to complete. Useful for systems with slow net access,
-# like those places where they use giant, slow NFS solutions. (Hint.)
-expand-or-complete-with-dots() {
-  echo -n "\e[31m...\e[0m"
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
-
-# Ensure whitespaces around pipe.
-# Based on: http://www.zsh.org/mla/users/2006/msg00690.html
-self-insert-padded() {
-  setopt localoptions noksharrays
-  zle self-insert
-  [[ $LBUFFER[-2] != " " ]] && LBUFFER[-1]=" $LBUFFER[-1]"
-  LBUFFER[-1]="$LBUFFER[-1] "
-}
-zle -N self-insert-padded
-bindkey "|" self-insert-padded
-
-
-# -- Cleanup ------------------------------------------------------------------
-
-unset expand-or-complete-with-dots
-unset self-insert-padded
