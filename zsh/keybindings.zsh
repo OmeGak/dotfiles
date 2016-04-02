@@ -36,6 +36,9 @@ fi
 
 # -- Special keybindings ------------------------------------------------------
 
+# Show zle buffers
+bindkey '^O' show-buffers
+
 # Pipe through pager
 bindkey -s '^P' "|less\n"
 
