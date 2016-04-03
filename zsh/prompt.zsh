@@ -91,3 +91,6 @@ precmd() {
   title "zsh" "%m" "%55<...<%~"
   set_prompt
 }
+
+# powerline-daemon -q
+# source $POWERLINE_DIR/bindings/zsh/powerline.zsh

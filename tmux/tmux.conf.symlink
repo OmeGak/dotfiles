@@ -15,6 +15,7 @@ set -g visual-bell on
 
 # Style
 # -----
+    # source ${POWERLINE_DIR}/bindings/tmux/powerline.conf
     TMUX_BORDER_FG="white"
     TMUX_ACTIVE_BORDER_FG="colour27"
     TMUX_WINDOW_FORMAT=" #I:#W#F "
