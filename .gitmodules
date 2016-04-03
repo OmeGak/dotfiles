@@ -5,7 +5,7 @@
 	path = sublimetext/User
 	url = https://github.com/OmeGak/sublime-text-user-settings.git
 [submodule ".antigen"]
-	path = .antigen
+	path = zsh/.antigen
 	url = https://github.com/zsh-users/antigen.git
 [submodule "vim/.vim-plug"]
 	path = vim/.vim-plug

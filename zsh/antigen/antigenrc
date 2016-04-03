@@ -1,5 +1,5 @@
 # Load antigen framework
-source "$DOT/.antigen/antigen.zsh"
+source "$DOT/zsh/.antigen/antigen.zsh"
 
 # Load antigen modules
 antigen bundles <<EOBUNDLES
