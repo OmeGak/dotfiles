@@ -53,6 +53,15 @@ zle -N expand-or-complete-with-dots
 unset expand-or-complete-with-dots
 
 
+# -- History control ----------------------------------------------------------
+
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+
 # -- Misc ---------------------------------------------------------------------
 
 # Enter white spaces around the inserted key

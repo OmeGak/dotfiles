@@ -18,12 +18,12 @@ fi
 [[ -n "${key[Home]}" ]]      && bindkey "${key[Home]}"      beginning-of-line
 [[ -n "${key[End]}" ]]       && bindkey "${key[End]}"       end-of-line
 [[ -n "${key[Delete]}" ]]    && bindkey "${key[Delete]}"    delete-char
-[[ -n "${key[Up]}" ]]        && bindkey "${key[Up]}"        up-line-or-search
-[[ -n "${key[Down]}" ]]      && bindkey "${key[Down]}"      down-line-or-search
+[[ -n "${key[Up]}" ]]        && bindkey "${key[Up]}"        up-line-or-beginning-search
+[[ -n "${key[Down]}" ]]      && bindkey "${key[Down]}"      down-line-or-beginning-search
 [[ -n "${key[Left]}" ]]      && bindkey "${key[Left]}"      backward-char
 [[ -n "${key[Right]}" ]]     && bindkey "${key[Right]}"     forward-char
-[[ -n "${key[C-Up]}" ]]      && bindkey "${key[C-Up]}"      history-beginning-search-backward
-[[ -n "${key[C-Down]}" ]]    && bindkey "${key[C-Down]}"    history-beginning-search-forward
+[[ -n "${key[C-Up]}" ]]      && bindkey "${key[C-Up]}"      up-line-or-history
+[[ -n "${key[C-Down]}" ]]    && bindkey "${key[C-Down]}"    down-line-or-history
 [[ -n "${key[C-Left]}" ]]    && bindkey "${key[C-Left]}"    backward-word
 [[ -n "${key[C-Right]}" ]]   && bindkey "${key[C-Right]}"   forward-word
 [[ -n "${key[Alt-Left]}" ]]  && bindkey "${key[Alt-Left]}"  backward-word-end
