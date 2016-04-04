@@ -28,6 +28,4 @@ if [[ "$(uname -s)" == "Linux" ]]; then
 
   # Needed for Python
   pinstall apt libsqlite3-dev
-  pinstall apt libdbus-1-dev
-  pinstall apt libdbus-glib-1-dev
 fi

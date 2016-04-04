@@ -10,8 +10,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 
 if [[ "$(uname -s)" == "Linux" ]]; then
-  # Necessary since dbus-1 and dbus-glib-1 are outside of brew
-  export PKG_CONFIG_PATH=$(/usr/bin/pkg-config --variable pc_path pkg-config)
+  try pinstall brew dbus
   try pinstall pip dbus-python
   try pinstall pip notify2
 fi
