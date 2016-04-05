@@ -18,3 +18,6 @@ ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
 
 # Accept suggestion with C-Space
 [[ -n "${key[C-Space]}" ]] && bindkey "${key[C-Space]}" next-suggested-word
+
+# Fix for IGNORE_EOF causing completion menu on EOF
+bindkey '^D' beep
