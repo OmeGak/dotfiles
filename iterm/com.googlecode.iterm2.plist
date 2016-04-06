@@ -999,6 +999,13 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
+				<key>0x7f-0x40000</key>
+				<dict>
+					<key>Action</key>
+					<integer>16</integer>
+					<key>Text</key>
+					<string></string>
+				</dict>
 				<key>0x9-0x40000</key>
 				<dict>
 					<key>Action</key>
@@ -1731,6 +1738,13 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
+				<key>0x7f-0x40000</key>
+				<dict>
+					<key>Action</key>
+					<integer>16</integer>
+					<key>Text</key>
+					<string></string>
+				</dict>
 				<key>0x9-0x40000</key>
 				<dict>
 					<key>Action</key>
@@ -2225,7 +2239,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-04-05T19:24:45Z</date>
+	<date>2016-04-06T19:54:23Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
