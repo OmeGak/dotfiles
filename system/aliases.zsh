@@ -26,4 +26,9 @@ if [[ "$(uname -s)" == "Linux" ]]; then
   alias pbpaste="xclip -selection clipboard -o"
 fi
 
+# OSX fixes
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  alias tac='tail -r'
+fi
+
 unset LS
