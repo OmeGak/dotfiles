@@ -45,7 +45,7 @@ set -g visual-bell on
     bind Right select-pane -R
     bind Up select-pane -U
     # Term
-    bind -n Pageup copy-mode -eu
+    bind -n M-Pageup copy-mode -eu
 
 # Window tweaks
 # -------------
