@@ -4,8 +4,6 @@ else
   export PS1='%3~$(git_info_for_prompt)%# '
 fi
 
-export CLICOLOR=true
-export LSCOLORS="ExGxFxdxCxDxDxBxBxExEx"
 
 fpath=($DOT/functions $fpath)
 
