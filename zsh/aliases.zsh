@@ -1,6 +1,9 @@
 alias cddot='cd $DOT'
 alias reload!='. ~/.zshrc'
 
+# Refresh history from file
+alias histr='fc -RI'
+
 
 # -- Directory stack navigation -----------------------------------------------
 
