@@ -4,6 +4,7 @@ sublime/User/Package Control.last-run
 
 # Track ssh config only
 ssh/ssh.symlink/*
+!ssh/ssh.symlink/authorized_keys
 !ssh/ssh.symlink/config
 
 # Ignore vim plugins

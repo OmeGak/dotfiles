@@ -1,3 +1,8 @@
+Host ansible
+    Hostname ansible.cern.ch
+    User omegak
+    ProxyCommand ssh aavilesd@lxplus.cern.ch -W %h:%p
+
 Host lxplus*
     User aavilesd
     GSSAPITrustDNS yes
