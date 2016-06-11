@@ -1,0 +1,25 @@
+"*":
+  "autohide-tree-view":
+    showDelay: 100
+  core:
+    disabledPackages: [
+      "latextools"
+    ]
+    projectHome: "/Users/omegak/Code"
+  editor:
+    invisibles: {}
+    scrollPastEnd: true
+    showIndentGuide: true
+  "exception-reporting":
+    userId: "38d73c0a-97ef-b336-ef00-e34dfad68a7c"
+  latex:
+    alwaysOpenResultInAtom: true
+    buildOnSave: true
+    outputDirectory: "build"
+  "pdf-view":
+    fitToWidthOnOpen: true
+  "tree-view":
+    focusOnReveal: false
+    showOnRightSide: true
+  welcome:
+    showOnStartup: false
