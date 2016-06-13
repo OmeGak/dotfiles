@@ -1,0 +1,19 @@
+env:
+  browser: true
+  es6: true
+extends: 'eslint:recommended'
+rules:
+  indent:
+    - error
+    - 4
+  linebreak-style:
+    - error
+    - unix
+  quotes: off
+  semi:
+    - error
+    - always
+
+  # Indico friendly
+  no-undef: off
+  no-unused-vars: off

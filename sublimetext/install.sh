@@ -25,7 +25,7 @@ fi
 pinstall pip flake8
 [[ $? != 0 ]] && errors=true
 
-pinstall npm jshint
+pinstall npm eslint
 [[ $? != 0 ]] && errors=true
 
 [[ ${errors} == "true" ]] && exit 1
