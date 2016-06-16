@@ -34,6 +34,8 @@
     prompt = false
 [remote]
     pushdefault = origin
+[rerere]
+    enabled = true
 
 
 # -- Action flags -------------------------------------------------------------
