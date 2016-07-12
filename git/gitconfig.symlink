@@ -42,6 +42,8 @@
 
 [fetch]
     prune = true
+[merge]
+    ff = only
 [pull]
     rebase = true
 [push]
