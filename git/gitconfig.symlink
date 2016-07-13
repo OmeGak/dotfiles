@@ -32,8 +32,6 @@
 [mergetool]
     keepBackup = false
     prompt = false
-[remote]
-    pushdefault = origin
 [rerere]
     enabled = true
 
@@ -46,8 +44,17 @@
     ff = only
 [pull]
     rebase = true
-[push]
-    default = current
 [rebase]
     autosquash = true
     autostash = true
+
+
+# -- Triangular workflow ------------------------------------------------------
+
+# Pull from upstream push to origin
+# Source: https://github.com/blog/2042-git-2-5-including-multiple-worktrees-and-triangular-workflows
+
+[remote]
+    pushdefault = origin
+[push]
+    default = current
