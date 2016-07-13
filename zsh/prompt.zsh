@@ -38,7 +38,10 @@ git_prompt_info () {
 }
 
 unpushed () {
-  $git cherry -v @{upstream} 2>/dev/null
+  local revision
+  revision="$($git rev-parse --symbolic-full-name @{push} 2> /dev/null)"
+  [[ $? != 0 ]] && revision="$($git rev-parse --symbolic-full-name @{upstream} 2> /dev/null)"
+  $git cherry -v ${revision} 2> /dev/null
 }
 
 need_push () {
