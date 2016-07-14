@@ -15,6 +15,7 @@
     wtf     = !$DOT/bin/git-wtf
     rank-contributors = !$DOT/bin/git-rank-contributors
     count   = !git shortlog -sn
+    triangulate = !$DOT/bin/git-triangulate
 [core]
     editor = vim
     excludesfile = ~/.gitignore
