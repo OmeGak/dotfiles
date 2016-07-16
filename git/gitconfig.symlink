@@ -2,20 +2,6 @@
     path = ~/.gitconfig.local
 [hub]
     protocol = https
-[alias]
-    br = branch
-    ci = commit
-    cia = commit -a
-    co = checkout
-    cob = checkout -b
-    df = diff
-    st = status -sb
-    last = log -1 HEAD
-    promote = !$DOT/bin/git-promote
-    wtf     = !$DOT/bin/git-wtf
-    rank-contributors = !$DOT/bin/git-rank-contributors
-    count   = !git shortlog -sn
-    triangulate = !$DOT/bin/git-triangulate
 [core]
     editor = vim
     excludesfile = ~/.gitignore
@@ -37,7 +23,18 @@
     enabled = true
 
 
-# -- Action flags -------------------------------------------------------------
+# -- Triangular workflow ------------------------------------------------------
+
+# Pull from upstream push to origin
+# Source: https://github.com/blog/2042-git-2-5-including-multiple-worktrees-and-triangular-workflows
+
+[remote]
+    pushdefault = origin
+[push]
+    default = current
+
+
+# -- Command flags ------------------------------------------------------------
 
 [fetch]
     prune = true
@@ -48,14 +45,27 @@
 [rebase]
     autosquash = true
     autostash = true
+[status]
+    short = true
+    branch = true
 
 
-# -- Triangular workflow ------------------------------------------------------
+# -- Pretty formats -----------------------------------------------------------
 
-# Pull from upstream push to origin
-# Source: https://github.com/blog/2042-git-2-5-including-multiple-worktrees-and-triangular-workflows
+[pretty]
+    onelinecolor = %Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset
 
-[remote]
-    pushdefault = origin
-[push]
-    default = current
+
+# -- Aliases ------------------------------------------------------------------
+
+[alias]
+    br = branch
+    ch = checkout
+    cm = commit
+    df = diff
+    lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
+    mk = checkout -b
+    rb = rebase
+    st = status
+    count = shortlog -sn
+    last = log -1 HEAD
