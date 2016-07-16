@@ -12,6 +12,8 @@
     ui = true
 [difftool]
     prompt = false
+[interactive]
+    diffFilter = diff-highlight
 [help]
     autocorrect = 1
 [merge]
@@ -19,6 +21,10 @@
 [mergetool]
     keepBackup = false
     prompt = false
+[pager]
+    diff = diff-highlight | less
+    log = diff-highlight | less
+    show = diff-highlight | less
 [rerere]
     enabled = true
 
