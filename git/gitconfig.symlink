@@ -69,6 +69,7 @@
     ch = checkout
     cm = commit
     df = diff
+    dfb = diff-blame
     lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
     mk = checkout -b
     rb = rebase
