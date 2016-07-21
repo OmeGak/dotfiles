@@ -2,7 +2,7 @@
 # Generates .gitconfig.symlink
 source $HOME/.dotfiles/.dot/env
 
-if [[ -f git/gitconfig.symlink ]]; then
+if [[ -f git/gitconfig.local.symlink ]]; then
   exit 0
 fi
 
