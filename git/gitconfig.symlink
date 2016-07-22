@@ -68,6 +68,7 @@
     br = branch
     ch = checkout
     cm = commit
+    cp = cherry-pick
     df = diff
     dfb = diff-blame
     lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
