@@ -5,6 +5,7 @@ try pinstall brew ack
 try pinstall brew coreutils
 try pinstall brew grc
 try pinstall brew unrar
+try pinstall pip httpie
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   try pinstall apt xclip
