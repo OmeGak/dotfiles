@@ -1,0 +1,10 @@
+#!/bin/sh
+# Fetch a pull request from upstream
+# Usage: git-pr-fetch <pull-request-id>
+
+if [ $# -eq 0 ]; then
+  echo "No pull request ID given"
+  exit 1
+fi
+
+git fetch upstream pull/$1/head:refs/remotes/upstream/pr/$1
