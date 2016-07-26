@@ -6,3 +6,7 @@ export PROJECTS=$HOME/Code
 
 # Initial path extension
 source $DOT/system/path.zsh
+
+# Load functions used in .zsh files
+fpath=($DOT/zsh/functions $fpath)
+autoload -U $DOT/zsh/functions/*(:t)
