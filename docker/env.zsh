@@ -1,2 +1,4 @@
 # Configure Docker client
-eval $(docker-machine env 2> /dev/null)
+if exists docker-machine; then
+  eval $(docker-machine env 2> /dev/null)
+fi
