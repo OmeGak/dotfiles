@@ -67,14 +67,18 @@
 
 [alias]
     br = branch
-    ch = checkout
     cm = commit
+    co = checkout
     cp = cherry-pick
     df = diff
     dfb = diff-blame
     lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
     mk = checkout -b
+    mt = mergetool
     rb = rebase
+    rbi = rebase -i
+    rba = rebase --abort
+    rbc = rebase --continue
     st = status
     count = shortlog -sn
     last = log -1 HEAD
