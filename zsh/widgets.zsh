@@ -64,6 +64,10 @@ zle -N down-line-or-beginning-search
 
 # -- Misc ---------------------------------------------------------------------
 
+# Automatically escape URLs as you type
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
 # Enter white spaces around the inserted key
 # Based on: http://www.zsh.org/mla/users/2006/msg00690.html
 self-insert-padded() {
