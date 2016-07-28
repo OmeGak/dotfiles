@@ -33,7 +33,7 @@ unsetopt LIST_BEEP         # Shhh
 
 # -- Globbing ---------------------------------------------------
 
-# setopt   EXTENDED_GLOB      # Enable nice globbing features (doesn't play well with git :\)
+setopt   EXTENDED_GLOB      # Enable nice globbing features (watch out! It doesn't play well with git)
 setopt   MARK_DIRS          # Append a trailing '/' to all directory names resulting from globbing
 setopt   NUMERIC_GLOB_SORT  # Sort glob results numerically rather than lexically
 setopt   RC_EXPAND_PARAM    # Enable `foo${xx}bar`-like globbing for generating variations
