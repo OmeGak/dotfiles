@@ -42,6 +42,7 @@ fi
 
 bindkey '^I' expand-or-complete-with-dots
 bindkey '^O' show-buffers
+bindkey '^[f' forget-history
 bindkey '|' self-insert-padded
 
 # Pipe through pager
