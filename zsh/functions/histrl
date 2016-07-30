@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+# Overwrites local history with contents of $HISTFILE
+
+histrl() {
+  # Clear current history list
+  fc -p $HISTFILE
+  # Load $HISTFILE
+  fc -R
+}
