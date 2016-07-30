@@ -13,6 +13,7 @@ vim/vim.symlink/plugged
 # Track weechat config/plugins only
 weechat/weechat.symlink/*
 !weechat/weechat.symlink/*.conf
+!weechat/weechat.symlink/certs
 !weechat/weechat.symlink/perl
 !weechat/weechat.symlink/python
 !weechat/weechat.symlink/weechat.png
