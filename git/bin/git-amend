@@ -1,21 +1,42 @@
 #!/bin/sh
 # Amend any commit keeping original message
-# Usage: git-amend [<commit>]
+# Usage: git-amend [-i] [<commit>]
+#   -i: interactive mode
 
 amend_head() {
-  git commit --amend -C HEAD
+  if (! $1); then
+    local reuse='--reuse-message HEAD'
+  fi
+  git commit --amend ${reuse}
 }
 
 amend_past() {
-  commit=$(git rev-parse $1)
+  local commit=$(git rev-parse $1)
+  local interactive=$2
+  local cmd="git rebase -i --autosquash ${commit}^"
   git commit --fixup ${commit}
   if [ $? -eq 0 ]; then
-    GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash ${commit}^
+    if (${interactive}); then
+      sh -c "${cmd}"
+    else
+      GIT_SEQUENCE_EDITOR=true sh -c "${cmd}"
+    fi
   fi
 }
 
+
+interactive=false
+
+while getopts 'i' opt; do
+  case ${opt} in
+    i)
+      interactive=true
+      shift;;
+  esac
+done
+
 if [ -z $1 ]; then
-  amend_head
+  amend_head ${interactive}
 else
-  amend_past $1
+  amend_past $1 ${interactive}
 fi
