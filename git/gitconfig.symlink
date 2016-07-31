@@ -24,7 +24,7 @@
     prompt = false
 [pager]
     diff = diff-highlight | less
-    log = diff-highlight | less
+    log = diff-highlight | least
     show = diff-highlight | less
 [rerere]
     enabled = true
