@@ -8,6 +8,7 @@ ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
 # Bind to widgets
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(end-of-line vi-end-of-line)
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(delete-char)
+ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=(forget-history show-buffers)
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
   forward-char
   vi-forward-char

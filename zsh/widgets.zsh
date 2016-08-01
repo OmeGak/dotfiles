@@ -63,17 +63,16 @@ zle -N down-line-or-beginning-search
 
 # Remove input/suggestion from history
 forget-history() {
-  local cmd=$BUFFER
-  if exists _zsh_autosuggest_suggestion; then
-    cmd=$(_zsh_autosuggest_suggestion "$BUFFER")
-  fi
+  local cmd=$BUFFER$POSTDISPLAY
   # Trim trailing whitespace
   cmd=${cmd//[[:space:]]%/}
+  # Clean buffer
   region_highlight=("0 ${#cmd} bold,standout")
-  BUFFER="${cmd}"
+  BUFFER=${cmd}
+  zle send-break
+  # Forget history
   histrm "${cmd}"
   histrl
-  zle send-break
 }
 zle -N forget-history
 unset forget-history
