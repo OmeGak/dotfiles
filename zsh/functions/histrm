@@ -5,5 +5,5 @@ histrm() {
   # Source: http://stackoverflow.com/a/29613573/1901977
   local escaped=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$1")
   [[ "$(uname -s)" == "Darwin" ]] && macos="''"
-  LC_ALL=C sed -i ${macos} "/${escaped}$/d" $HISTFILE
+  LC_ALL=C sed -i ${macos} "/;${escaped}$/d" $HISTFILE
 }
