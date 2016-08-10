@@ -1,42 +1,55 @@
 ---
 session_name: indico
-shell_command_before: ktstart; workon indico
 windows:
   - window_index: 0
     panes:
-      - pwd
+      - null
 
-  - window_name: local
+  - window_name: repos
     focus: true
-    layout: '6880,318x80,0,0[318x15,0,0,2,318x64,0,16{159x64,0,16,4,158x64,160,16,6}]'
+    layout: 5235,318x80,0,0[318x70,0,0,2,318x9,0,71{79x9,0,71,3,79x9,80,71,4,79x9,160,71,5,78x9,240,71,6}]
+    shell_command_before: workon --no-cd indico && clear
     panes:
       - focus: true
-        shell_command: ndc-init; ndc
-      - git st
-      - indico shell -q
+        # XXX: `workon --no-cd` actually cds in tmuxp if project dir matches current
+        shell_command: cd $PROJECTS/indico && git status
+      - start_directory: $PROJECTS/indico-plugins
+      - start_directory: $PROJECTS/indico-plugins-cern
+      - start_directory: $PROJECTS/indico.github.io
+      - tmux select-pane -d -t.5 && echo 'Git gud or git rekt' | cowsay -y | lolcat -f -S 1 | less -R
 
-  - window_name: logs
-    layout: even-horizontal
+  - window_name: local
+    layout: 6f3b,318x80,0,0[318x12,0,0,7,318x54,0,13{159x54,0,13,8,158x54,160,13,9},318x12,0,68,10]
+    shell_command_before: workon indico
     panes:
-      - ndc-dblog -S
-      - tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
+      - focus: true
+        shell_command: clear && ndc-init && wdb.server.py && ndc
+      - clear && tail -f $VIRTUAL_ENV/log/indico.log | grep -v flask-session
+      - clear && ndc-dblog -S
+      - clear && indico shell -q
 
   - window_name: prod
     layout: tiled
+    shell_command_before: ktinit aavilesd && clear
     panes:
-      - ssh indico-wk1
+      - focus: true
+        shell_command: ssh indico-wk1
       - ssh indico-wk2
       - ssh indico-wk3
       - ssh indico-scheduler
 
   - window_name: dev
     layout: even-horizontal
+    shell_command_before: ktinit aavilesd && clear
     panes:
-      - ssh indico-dev1
-      - ssh indico-dev2
+      - focus: true
+        shell_command: ssh indico-staging
+      - ssh indico-prev
 
   - window_name: lbs
     layout: even-horizontal
+    shell_command_before: ktinit aavilesd && clear
     panes:
-      - ssh indico-lb1
+      - focus: true
+        shell_command: ssh indico-lb1
       - ssh indico-lb2
