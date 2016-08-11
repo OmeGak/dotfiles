@@ -18,13 +18,15 @@ set -g visual-bell on
     bind n new-window -c ~
     bind | split-window -v -c '#{pane_current_path}'
     bind \ split-window -h -c '#{pane_current_path}'
-    bind C-c respawn-pane -k \; display-message "Restarted pane #P"
+    bind C-c respawn-pane -k\; display-message "Restarted pane #P"
 
 # Kills (server/session/window/pane)
 # ----------------------------------
-    bind K confirm-before -p "Kill server? (y/n)" "run-shell 'tmux kill-server'"
-    bind k confirm-before -p "Kill session #S? (y/n)" "run-shell 'tmux switch-client -n \\\; kill-session -t \"#S\"'"
-    bind q confirm-before -p "Kill window #W? (y/n)" kill-window
+    bind K confirm -p "Kill server? (y/n)" \
+                      "run-shell 'tmux kill-server'"
+    bind k confirm -p "Kill session #S? (y/n)" \
+                      "run-shell '[ $(tmux list-sessions | wc -l) -gt 1 ] && tmux switch-client -n; tmux kill-session -t \"\"'"
+    bind q confirm -p "Kill window #W? (y/n)" kill-window
     bind -r w kill-pane
 
 # Navigation
@@ -61,7 +63,8 @@ set -g visual-bell on
     # Display panes numbers
     bind i display-panes
     # Print in all panes
-    bind / setw synchronize-panes \; run-shell 'tmux display-message "Set option: synchronize-panes -> $(tmux showw -v synchronize-panes)"'
+    bind = setw synchronize-panes\; \
+                run-shell 'tmux display-message "Set option: synchronize-panes -> $(tmux showw -v synchronize-panes)"'
 
 # Input tweaks
 # ------------
