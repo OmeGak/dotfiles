@@ -1,8 +1,9 @@
 # ^A prefix like screen
 set -g prefix C-a
+unbind C-b
 
 # Reload settings
-bind C-r source-file ~/.tmux.conf \; display-message "Config reloaded"
+bind C-r source-file ~/.tmux.conf\; display-message "Config reloaded"
 
 # Ignore activity notifications
 setw -g monitor-activity off
@@ -11,6 +12,29 @@ set -g visual-activity off
 # Visual bells
 set -g bell-action any
 set -g visual-bell on
+
+# Style
+# -----
+    TMUX_BORDER_FG="colour27"
+    TMUX_ACTIVE_BORDER_FG="green"
+    set -g status-bg colour27
+    set -g status-fg white
+    set -g window-status-current-bg white
+    set -g window-status-current-fg colour27
+    set -g pane-border-fg $TMUX_BORDER_FG
+    set -g pane-active-border-fg $TMUX_ACTIVE_BORDER_FG
+
+# Unbind duplicates and not-used
+# ------------------------------
+    unbind '$'; unbind %; unbind &; unbind (; unbind )
+    unbind "'"; unbind '"'; unbind :; unbind \;
+    unbind ,; unbind .; unbind '~';
+    unbind r; unbind t; unbind i; unbind o; unbind p
+    unbind s; unbind d; unbind f; unbind l
+    unbind z; unbind x; unbind c; unbind m
+    unbind D; unbind L; unbind M
+    unbind PPage
+    unbind M-o
 
 # Spawns (session/window/pane)
 # ----------------------------
@@ -32,49 +56,67 @@ set -g visual-bell on
 # Navigation
 # ----------
     # Show tmux panel
-    bind C-space choose-tree
+    bind Enter resize-pane -Z\; choose-tree -u -b "resize-pane -Z\; switch-client -t '%%'"
     # Sessions
     bind C-s switch-client -l
-    bind -r { switch-client -p
-    bind -r } switch-client -n
+    bind Tab switch-client -n
+    bind @ command-prompt -p "Rename session @#S:" "rename-session '%%'"
     # Windows
     bind C-a last-window
     bind -r ] next-window
     bind -r [ previous-window
+    bind -r { swap-window -t -1
+    bind -r } swap-window -t +1
+    bind -r Space next-window -a
+    bind '#' command-prompt -p "Rename window ##I:" "rename-window '%%'"
     # Panes
     bind Down select-pane -D
     bind Left select-pane -L
     bind Right select-pane -R
     bind Up select-pane -U
-    # Term
-    bind -n M-Pageup copy-mode -eu
+
+# Client tweaks
+# -------------
+    bind / command-prompt
+    bind C-d detach-client
+    # Prevent suspending client
+    unbind C-z
 
 # Window tweaks
 # -------------
-    # Prevent commands to permanently rename windows
+    # Prevent commands from permanently renaming windows
     setw -g allow-rename off
     # Make unnamed windows to show the name of the running command
     setw -g automatic-rename on
+    # Prevent messing layout
+    unbind M-1; unbind M-2; unbind M-3; unbind M-4; unbind M-5;
+    unbind C-o; unbind !; # unbind Space;
 
 # Pane tweaks
 # -----------
-    # Don't fuckup the layout easily
-    unbind Space
-    # Display panes numbers
-    bind i display-panes
+    bind C-z resize-pane -Z
+    bind C-t clock-mode
+    # Display pane IDs
+    bind . display-panes
+    # Lock/unlock input
+    bind - run-shell '[ $(tmux display-message -p "#{pane_input_off}") = 0 ] && (tmux select-pane -d && tmux display-message "Input in pane #P -> off") \
+                                                                             || (tmux select-pane -e && tmux display-message "Input in pnae #P -> on")'
     # Print in all panes
     bind = setw synchronize-panes\; \
-                run-shell 'tmux display-message "Set option: synchronize-panes -> $(tmux showw -v synchronize-panes)"'
+                run-shell 'tmux display-message "Panes synchronized: $(tmux showw -v synchronize-panes)"'\; \
+                run-shell '[ $(tmux showw -v synchronize-panes) = "on" ] && (tmux setw pane-border-fg colour11 && tmux setw pane-active-border-fg colour9) \
+                                                                         || (tmux setw pane-border-fg $TMUX_BORDER_FG && tmux setw pane-active-border-fg $TMUX_ACTIVE_BORDER_FG)'
 
 # Input tweaks
 # ------------
+    bind -n M-Pageup copy-mode
     set -g mouse on
-    set -g mouse-utf8 off
     # Always use xterm special keys
     set -g xterm-keys on
 
-# Misc
-# ----
+# Miscellaneous
+# -------------
+    bind , show-messages
     # Fix 0-indexes (0 is too far from `)
     set -g base-index 1
     set -g pane-base-index 1
@@ -82,13 +124,3 @@ set -g visual-bell on
     set -s escape-time 0
     # Messages stay longer on status bar
     set -g display-time 1000
-
-# Style
-# -----
-    # Theme
-    set -g status-bg colour27
-    set -g status-fg white
-    set -g window-status-current-bg white
-    set -g window-status-current-fg colour27
-    set -g pane-border-fg colour27
-    set -g pane-active-border-fg green
