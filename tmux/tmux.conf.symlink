@@ -15,14 +15,18 @@ set -g visual-bell on
 
 # Style
 # -----
-    TMUX_BORDER_FG="colour27"
-    TMUX_ACTIVE_BORDER_FG="green"
+    TMUX_BORDER_FG="white"
+    TMUX_ACTIVE_BORDER_FG="colour27"
+    TMUX_WINDOW_FORMAT=" #I:#W#F "
     set -g status-bg colour27
     set -g status-fg white
     set -g window-status-current-bg white
     set -g window-status-current-fg colour27
     set -g pane-border-fg $TMUX_BORDER_FG
     set -g pane-active-border-fg $TMUX_ACTIVE_BORDER_FG
+    set -g window-status-format $TMUX_WINDOW_FORMAT
+    set -g window-status-current-format $TMUX_WINDOW_FORMAT
+    set -g status-right '#{?client_prefix, #[bg=colour9] PREFIX ,}'
 
 # Unbind duplicates and not-used
 # ------------------------------
