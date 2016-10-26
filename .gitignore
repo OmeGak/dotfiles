@@ -1,3 +1,13 @@
+# Atom sync
+atom/atom.symlink/.apm
+atom/atom.symlink/.node-gyp
+atom/atom.symlink/blob-store
+atom/atom.symlink/compile-cache
+atom/atom.symlink/nohup.out
+atom/atom.symlink/packages
+atom/atom.symlink/recovery
+atom/atom.symlink/storage
+
 git/gitconfig.local.symlink
 sublime/User/Package\ Control.sublime-settings
 sublime/User/Package Control.last-run
