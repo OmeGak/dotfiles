@@ -4,22 +4,68 @@
   core:
     disabledPackages: [
       "latextools"
+      "language-python"
+      "wrap-guide"
     ]
-    projectHome: "/Users/omegak/Code"
+    projectHome: "~/Code"
+    telemetryConsent: "limited"
   editor:
     invisibles: {}
+    preferredLineLength: 120
     scrollPastEnd: true
     showIndentGuide: true
+    softWrap: true
+    softWrapHangingIndent: 2
+    zoomFontWhenCtrlScrolling: false
   "exception-reporting":
     userId: "38d73c0a-97ef-b336-ef00-e34dfad68a7c"
+  "file-icons":
+    coloured: false
+    onChanges: true
+  "highlight-selected": {}
   latex:
-    alwaysOpenResultInAtom: true
-    buildOnSave: true
+    engine: "xelatex"
+    opener: "pdf-view"
     outputDirectory: "build"
+  linter:
+    ignoreVCSIgnoredFiles: false
+    showErrorPanel: false
+    showErrorTabFile: false
+    showErrorTabProject: false
+    showProviderName: false
+    statusIconScope: "File"
+  "linter-flake8":
+    maxLineLength: 120
+  minimap: {}
+  "multi-wrap-guide":
+    columns: [
+      80
+      120
+    ]
+    icons: false
+    locked: true
+  "package-sync":
+    createOnChange: true
+    forceOverwrite: true
   "pdf-view":
     fitToWidthOnOpen: true
+  "spell-check":
+    grammars: [
+      "source.asciidoc"
+      "source.gfm"
+      "text.git-commit"
+      "text.plain"
+      "text.plain.null-grammar"
+      "text.tex.latex"
+    ]
+  tabs:
+    addNewTabsAtEnd: true
+    enableVcsColoring: true
   "tree-view":
     focusOnReveal: false
+    hideVcsIgnoredFiles: true
     showOnRightSide: true
   welcome:
     showOnStartup: false
+  whitespace:
+    ignoreWhitespaceOnCurrentLine: false
