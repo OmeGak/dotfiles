@@ -1,0 +1,2 @@
+# Swap CapsLock with Escape
+XKBOPTIONS="caps:swapescape"
