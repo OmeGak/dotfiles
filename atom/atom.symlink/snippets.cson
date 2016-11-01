@@ -1,0 +1,5 @@
+# Python
+'.source.python':
+  'wdb.set_trace()':
+    'prefix': 'wdb'
+    'body': 'import wdb; wdb.set_trace()'
