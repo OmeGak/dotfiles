@@ -25,6 +25,9 @@ fi
 pinstall pip flake8
 [[ $? != 0 ]] && errors=true
 
+pinstall pip flake8-docstrings
+[[ $? != 0 ]] && errors=true
+
 pinstall npm eslint
 [[ $? != 0 ]] && errors=true
 
