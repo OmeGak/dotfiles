@@ -1,0 +1,8 @@
+# Replace previous/next word key bindings to use boundaries instead
+'.platform-darwin atom-workspace atom-text-editor':
+  'alt-left': 'editor:move-to-previous-word-boundary'
+  'alt-right': 'editor:move-to-next-word-boundary'
+  'alt-shift-left': 'editor:select-to-previous-word-boundary'
+  'alt-shift-right': 'editor:select-to-next-word-boundary'
+  'alt-backspace': 'editor:delete-to-previous-word-boundary'
+  'alt-delete': 'editor:delete-to-next-word-boundary'
