@@ -34,6 +34,8 @@
     showErrorTabProject: false
     showProviderName: false
     statusIconScope: "File"
+  "linter-eslint":
+    useGlobalEslint: true
   "linter-flake8":
     maxLineLength: 120
   minimap: {}

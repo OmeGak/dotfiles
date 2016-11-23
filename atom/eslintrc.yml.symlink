@@ -1,0 +1,10 @@
+extends: 'standard'
+rules:
+  space-before-function-paren:
+    - error
+    - never
+  no-multiple-empty-lines:
+    - error
+    - max: 2
+      maxBOF: 0
+      maxEOF: 0
