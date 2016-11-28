@@ -1,9 +1,11 @@
 packages: [
   "atom-jinja2"
+  "emmet"
   "file-icons"
   "highlight-selected"
   "language-gitignore"
   "language-latex"
+  "language-nunjucks"
   "last-cursor-position"
   "latex"
   "linter"
