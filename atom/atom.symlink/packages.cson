@@ -9,6 +9,7 @@ packages: [
   "linter"
   "linter-eslint"
   "linter-flake8"
+  "linter-sass-lint"
   "MagicPython"
   "markdown-preview-plus"
   "minimap"

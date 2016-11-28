@@ -38,6 +38,8 @@
     useGlobalEslint: true
   "linter-flake8":
     maxLineLength: 120
+  "linter-sass-lint":
+    globalSassLint: true
   minimap: {}
   "multi-wrap-guide":
     columns: [
