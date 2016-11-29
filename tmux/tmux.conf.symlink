@@ -104,7 +104,7 @@ set -g visual-bell on
     bind . display-panes
     # Lock/unlock input
     bind - run-shell '[ $(tmux display-message -p "#{pane_input_off}") = 0 ] && (tmux select-pane -d && tmux display-message "Input in pane #P -> off") \
-                                                                             || (tmux select-pane -e && tmux display-message "Input in pnae #P -> on")'
+                                                                             || (tmux select-pane -e && tmux display-message "Input in pane #P -> on")'
     # Print in all panes
     bind = setw synchronize-panes\; \
                 run-shell 'tmux display-message "Panes synchronized: $(tmux showw -v synchronize-panes)"'\; \
