@@ -12,6 +12,10 @@ unset LS
 # path
 alias path='echo $PATH | tr : "\n"'
 
+# fattest directories
+alias fatd="du -sh *(/D) | sort -rh | head -10"
+alias fatdr="du -Sh | sort -rh | head -10"
+
 # Linux fixes
 if [[ "$(uname -s)" == "Linux" ]]; then
   alias pbcopy="xclip -selection clipboard"
