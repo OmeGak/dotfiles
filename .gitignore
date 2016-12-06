@@ -17,6 +17,9 @@ ssh/ssh.symlink/*
 !ssh/ssh.symlink/authorized_keys
 !ssh/ssh.symlink/config
 
+# Ignore compiled hack
+system/keyboard/disable-capslock-delay
+
 # Ignore vim plugins
 vim/vim.symlink/plugged
 
