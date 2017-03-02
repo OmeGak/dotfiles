@@ -3,21 +3,21 @@ google-chrome
 totalfinder
 dropbox
 google-drive
-1password
 backblaze
 
 # Working tools
 iterm2
-sublime-text3
 atom
 evernote
+grammarly
+mendeley-desktop
 p4merge
 
 # Media
+plex-media-player
+plex-media-server
 spotify
 vlc
-vlc-remote
-utorrent
 
 # Games
 steam
@@ -27,17 +27,20 @@ openemu
 # Messaging
 gitter
 messenger
+riot
 skype
 slack
 
 # Misc
-audiobookbinder
 calibre
 handbrake
+keybase
 insomniax
+qlmarkdown
 scroll-reverser
 the-unarchiver
 ukelele
+utorrent
 virtualbox
 
 # Drivers
@@ -45,7 +48,6 @@ xbox360-controller-driver
 logitech-unifying
 osxfuse
 wacom-bamboo-tablet
-wjoy
 
 # Others
 basictex
