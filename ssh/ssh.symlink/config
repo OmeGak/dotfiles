@@ -15,3 +15,7 @@ Host *indico* jabber* indic8r* burotel lcagenda
     GSSAPITrustDNS yes
     GSSAPIAuthentication yes
     GSSAPIDelegateCredentials yes
+ 
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
