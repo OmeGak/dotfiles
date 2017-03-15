@@ -1,21 +1,3 @@
-Host ansible
-    Hostname ansible.cern.ch
-    User omegak
-    ProxyCommand ssh aavilesd@lxplus.cern.ch -W %h:%p
-
-Host lxplus* aiadm*
-    User aavilesd
-    GSSAPITrustDNS yes
-    GSSAPIAuthentication yes
-    GSSAPIDelegateCredentials yes
-
-# CERN Indico cluster
-Host *indico* jabber* indic8r* burotel lcagenda
-    User root
-    GSSAPITrustDNS yes
-    GSSAPIAuthentication yes
-    GSSAPIDelegateCredentials yes
- 
 Host *
     AddKeysToAgent yes
     UseKeychain yes
