@@ -46,6 +46,10 @@ pbrew() {
   _pretty_install $1 "brew" "brew install" "brew ls --versions" ${@:2}
 }
 
+pgem() {
+  _pretty_install $1 "gem" "gem install" "gem list -i" ${@:2}
+}
+
 pnpm() {
   _pretty_install $1 "npm" "npm -g install" "npm -g list" ${@:2}
 }
@@ -59,7 +63,7 @@ ppip() {
 
 usage() {
   echo "usage: ${progname} system package args"
-  echo "  system:  package system to use: (apt | brew | npm | pip)"
+  echo "  system:  package system to use: (apt | brew | gem | npm | pip)"
   echo "  package: the package to be installed"
   echo "  args:    additional args to pass to the pkg manager"
 }
@@ -69,6 +73,8 @@ case "$1" in
     fn="papt";;
   brew)
     fn="pbrew";;
+  gem)
+    fn="pgem";;
   npm)
     fn="pnpm";;
   pip)
