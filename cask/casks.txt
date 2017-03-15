@@ -42,6 +42,7 @@ the-unarchiver
 ukelele
 utorrent
 virtualbox
+vagrant
 
 # Drivers
 xbox360-controller-driver
