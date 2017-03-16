@@ -6,3 +6,7 @@
   'alt-shift-right': 'editor:select-to-next-word-boundary'
   'alt-backspace': 'editor:delete-to-previous-word-boundary'
   'alt-delete': 'editor:delete-to-next-word-boundary'
+
+# Focus on tree view like in Linux
+'.platform-darwin':
+  'alt-\\': 'tree-view:toggle-focus'
