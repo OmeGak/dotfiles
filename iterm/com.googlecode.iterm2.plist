@@ -488,11 +488,25 @@
 		<key>0xf700-0x300000</key>
 		<dict>
 			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Select Pane Above</string>
+		</dict>
+		<key>0xf700-0x320000</key>
+		<dict>
+			<key>Action</key>
 			<integer>7</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
 		<key>0xf701-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Select Pane Below</string>
+		</dict>
+		<key>0xf701-0x320000</key>
 		<dict>
 			<key>Action</key>
 			<integer>6</integer>
@@ -502,11 +516,18 @@
 		<key>0xf702-0x300000</key>
 		<dict>
 			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Select Pane Left</string>
+		</dict>
+		<key>0xf702-0x380000</key>
+		<dict>
+			<key>Action</key>
 			<integer>2</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf702-0x320000</key>
+		<key>0xf702-0x3a0000</key>
 		<dict>
 			<key>Action</key>
 			<integer>33</integer>
@@ -516,11 +537,18 @@
 		<key>0xf703-0x300000</key>
 		<dict>
 			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Select Pane Right</string>
+		</dict>
+		<key>0xf703-0x380000</key>
+		<dict>
+			<key>Action</key>
 			<integer>0</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf703-0x320000</key>
+		<key>0xf703-0x3a0000</key>
 		<dict>
 			<key>Action</key>
 			<integer>34</integer>
@@ -534,7 +562,7 @@
 			<key>Text</key>
 			<string>[5D</string>
 		</dict>
-		<key>0xf729-0x100000</key>
+		<key>0xf729-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>5</integer>
@@ -548,35 +576,21 @@
 			<key>Text</key>
 			<string>[5C</string>
 		</dict>
-		<key>0xf72b-0x100000</key>
+		<key>0xf72b-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>4</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf72c-0x100000</key>
+		<key>0xf72c-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>9</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf72c-0x20000</key>
-		<dict>
-			<key>Action</key>
-			<integer>9</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0xf72d-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>8</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0xf72d-0x20000</key>
+		<key>0xf72d-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>8</integer>
@@ -2284,10 +2298,12 @@
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.60000002384185791</real>
-	<key>SwitchTabModifier</key>
+	<key>SwitchPaneModifier</key>
 	<integer>4</integer>
-	<key>SwitchWindowModifier</key>
+	<key>SwitchTabModifier</key>
 	<integer>6</integer>
+	<key>SwitchWindowModifier</key>
+	<integer>9</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
