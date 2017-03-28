@@ -1,5 +1,8 @@
 # Python
 '.source.python':
+  'ipdb.set_trace()':
+    'prefix': 'ipdb'
+    'body': 'import ipdb; ipdb.set_trace()'
   'wdb.set_trace()':
     'prefix': 'wdb'
     'body': 'import wdb; wdb.set_trace()'
