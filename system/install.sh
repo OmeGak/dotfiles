@@ -4,8 +4,10 @@ source $DOT/.dot/functions/try
 try pinstall brew ack
 try pinstall brew coreutils
 try pinstall brew grc
+try pinstall brew pass
 try pinstall brew unrar
 try pinstall pip httpie
+try pinstall pip xkcdpass
 
 if [[ "$(uname -s)" == "Linux" ]]; then
   try pinstall apt xclip
