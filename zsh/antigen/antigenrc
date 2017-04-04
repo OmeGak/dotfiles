@@ -3,7 +3,7 @@ source "$DOT/zsh/.antigen/antigen.zsh"
 
 # Load antigen modules
 antigen bundles <<EOBUNDLES
-  brew-cask
+  gem
   pass
   pip
   zsh-users/zsh-autosuggestions
