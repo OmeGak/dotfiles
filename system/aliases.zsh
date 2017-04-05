@@ -28,10 +28,14 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 
 
-# -- Snippets -----------------------------------------------------------------
+# -- Snippets ------------------------------------------------------------------
 
 # Download website for full offline navigation
 # Source: http://www.kossboss.com/linux---wget-full-website
 if [[ $(which wget) ]]; then
   alias wget-full="wget --limit-rate=200k --no-clobber --convert-links --random-wait -r -p -E -e robots=off -U mozilla -N"
+fi
+
+if [[ $(which xkcdpass) ]]; then
+  alias xkcdpass="xkcdpass --interactive --numwords=4 --valid-chars='[a-z]' --max=8 --delimiter='-'"
 fi
