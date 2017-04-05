@@ -12,6 +12,10 @@ git/gitconfig.local.symlink
 sublime/User/Package\ Control.sublime-settings
 sublime/User/Package Control.last-run
 
+# Track gpg config only
+gpg/gnupg.symlink/*
+!gpg/gnupg.symlink/gpg.conf
+
 # Track ssh config only
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/authorized_keys
