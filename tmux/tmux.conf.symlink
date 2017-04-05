@@ -117,6 +117,8 @@ set -g visual-bell on
     set -g mouse on
     # Always use xterm special keys
     set -g xterm-keys on
+    # Fix pbcopy/pbpaste in macOS
+    set -g default-command "reattach-to-user-namespace -l $SHELL"
 
 # Miscellaneous
 # -------------
