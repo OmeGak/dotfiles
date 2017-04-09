@@ -1,4 +1,11 @@
 "*":
+  Zen: {}
+  "atom-beautify":
+    general:
+      _analyticsUserId: "0375ed6e-60c8-4e0e-bdc1-4fa64bf2fb56"
+    json:
+      indent_size: 2
+  "autocomplete-plus": {}
   "autohide-tree-view":
     showDelay: 100
   core:
@@ -10,12 +17,12 @@
     projectHome: "~/Code"
     telemetryConsent: "limited"
   editor:
-    fontSize: 13
     invisibles: {}
     preferredLineLength: 120
     scrollPastEnd: true
     showIndentGuide: true
     softWrap: true
+    softWrapAtPreferredLineLength: true
     softWrapHangingIndent: 2
     zoomFontWhenCtrlScrolling: false
   "exception-reporting":
@@ -23,24 +30,28 @@
   "file-icons":
     coloured: false
     onChanges: true
+  "git-blame":
+    ignoreWhiteSpaceDiffs: true
   "highlight-selected": {}
+  kite:
+    showKiteTourOnStatup: false
   latex:
     engine: "xelatex"
     opener: "pdf-view"
     outputDirectory: "build"
   linter:
-    ignoreVCSIgnoredFiles: false
-    showErrorPanel: false
-    showErrorTabFile: false
-    showErrorTabProject: false
-    showProviderName: false
-    statusIconScope: "File"
+    lintOnChange: false
+  "linter-docker": {}
   "linter-eslint":
     useGlobalEslint: true
   "linter-flake8":
     maxLineLength: 120
   "linter-sass-lint":
     globalSassLint: true
+  "linter-ui-default":
+    decorateOnTreeView: "None"
+    tooltipFollows: "Keyboard"
+    useBusySignal: false
   minimap: {}
   "multi-wrap-guide":
     columns: [
@@ -54,6 +65,10 @@
     forceOverwrite: true
   "pdf-view":
     fitToWidthOnOpen: true
+  "project-manager":
+    alwaysOpenInSameWindow: true
+    savePathsRelativeToHome: true
+    showPath: false
   "spell-check":
     grammars: [
       "source.asciidoc"
@@ -63,10 +78,12 @@
       "text.plain.null-grammar"
       "text.tex.latex"
     ]
+  "status-bar": {}
   tabs:
     addNewTabsAtEnd: true
     enableVcsColoring: true
   "tree-view":
+    autoReveal: true
     focusOnReveal: false
     hideVcsIgnoredFiles: true
     showOnRightSide: true
