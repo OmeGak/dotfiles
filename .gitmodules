@@ -1,9 +1,6 @@
 [submodule "osx/US-ES-Keyboard"]
 	path = osx/US-ES-Keyboard
 	url = https://github.com/OmeGak/US-ES-Keyboard.git
-[submodule "sublimetext/User"]
-	path = sublimetext/User
-	url = https://github.com/OmeGak/sublime-text-user-settings.git
 [submodule ".antigen"]
 	path = zsh/.antigen
 	url = https://github.com/zsh-users/antigen.git

@@ -9,8 +9,6 @@ atom/atom.symlink/recovery
 atom/atom.symlink/storage
 
 git/gitconfig.local.symlink
-sublime/User/Package\ Control.sublime-settings
-sublime/User/Package Control.last-run
 
 # Track gpg config only
 gpg/gnupg.symlink/*
