@@ -13,8 +13,8 @@ unset LS
 alias path='echo $PATH | tr : "\n"'
 
 # fattest directories
-alias fatd="du -sh *(/D) | sort -rh | head -10"
-alias fatdr="du -Sh | sort -rh | head -10"
+alias fatd="gdu -sh *(/D) | gsort -rh | head -10"
+alias fatdr="gdu -Sh | gsort -rh | head -10"
 
 # Linux fixes
 if [[ "$(uname -s)" == "Linux" ]]; then
