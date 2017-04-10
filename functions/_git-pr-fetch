@@ -1,0 +1,18 @@
+#compdef git-pr-fetch
+
+_git-pr-fetch() {
+  _arguments \
+    '1:: :__git_remotes'
+}
+
+# shellcheck disable=SC2154
+(( ${+functions[__git_remotes]} )) ||
+__git_remotes() {
+  # shellcheck disable=SC2034
+  local expl
+  # shellcheck disable=SC2046
+  _wanted remotes expl remote \
+    compadd "$@" - $(_call_program remotes 'git remote')
+}
+
+_git-pr-fetch "$@"

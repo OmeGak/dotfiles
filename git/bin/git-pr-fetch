@@ -1,10 +1,47 @@
 #!/bin/sh
-# Fetch a pull request from upstream
-# Usage: git-pr-fetch <pull-request-id>
+# Fetch a pull request from a remote hosted in GitHub
+# Usage: git-pr-fetch [<remote>] <pull-request-id>
 
-if [ $# -eq 0 ]; then
-  echo "No pull request ID given"
+_usage() {
+  echo "usage: git pr-fetch [<remote>] <pull-request-id>"
+}
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+  _usage
   exit 1
 fi
 
-git fetch upstream pull/$1/head:refs/remotes/upstream/pr/$1
+export pr
+export remote
+if [ $# -eq 1 ]; then
+  pr=$1
+  if git remote | grep upstream > /dev/null; then
+    remote='upstream'
+  else
+    remote='origin'
+  fi
+else
+  remote=$1
+  pr=$2
+fi
+
+if ! git remote | grep ${remote} > /dev/null; then
+  echo "Remote '${remote}' does not exist"
+  exit 1
+fi
+
+if ! git remote get-url ${remote} | grep --extended-regexp "git@github.com" > /dev/null; then
+  echo "Remote '${remote}' does not seem to be pointing at GitHub"
+  exit 1
+fi
+
+case ${pr} in
+  '')
+    _usage
+    exit 1;;
+  *[!0-9]*)
+    echo "'${pr}' doesn't look like a pull request ID"
+    exit 1;;
+esac
+
+git fetch ${remote} refs/pull/${pr}/head:refs/remotes/${remote}-pull/${pr}
