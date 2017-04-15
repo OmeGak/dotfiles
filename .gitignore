@@ -13,11 +13,12 @@ atom/atom.symlink/projects.cson
 
 git/gitconfig.local.symlink
 
-# Track gpg config only
+# gpg: track config only
 gpg/gnupg.symlink/*
 !gpg/gnupg.symlink/gpg.conf
+!gpg/gnupg.symlink/gpg-agent.conf
 
-# Track ssh config only
+# ssh: track config only
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/authorized_keys
 !ssh/ssh.symlink/config
