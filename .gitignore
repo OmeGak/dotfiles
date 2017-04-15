@@ -13,6 +13,10 @@ atom/atom.symlink/projects.cson
 
 git/gitconfig.local.symlink
 
+# duply: ignore gpg keys
+duply/**/*.gpg
+duply/**/*.asc
+
 # gpg: track config only
 gpg/gnupg.symlink/*
 !gpg/gnupg.symlink/gpg.conf
