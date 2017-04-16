@@ -4,9 +4,9 @@ alias code="cd $HOME/Code"
 
 # ls
 [[ $(which gls) ]] && LS="gls" || LS="ls"
-alias ls="$LS -F --color"
-alias ll="$LS -lh --group-directories-first --color"
-alias lla="$LS -lhA --group-directories-first --color"
+alias ls="$LS -FH --color"
+alias ll="$LS -lhH --group-directories-first --color"
+alias lla="$LS -lhAH --group-directories-first --color"
 unset LS
 
 # path
