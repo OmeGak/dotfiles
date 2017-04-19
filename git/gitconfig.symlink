@@ -82,11 +82,11 @@
     mk = checkout -b
     mt = mergetool
     rb = rebase
-    rbi = rebase -i
+    rbi = rebase --interactive
     rba = rebase --abort
     rbc = rebase --continue
     rbs = rebase --skip
     st = status
     ts = tag --sign --message=''
-    count = shortlog -sn
+    count = shortlog --summary --numbered
     last = log -1 HEAD
