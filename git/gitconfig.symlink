@@ -51,12 +51,16 @@
     ff = only
 [pull]
     rebase = true
+[push]
+    followTags = true
 [rebase]
     autosquash = true
     autostash = true
 [status]
     short = true
     branch = true
+[tag]
+    sort = version:refname
 
 
 # -- Pretty formats -----------------------------------------------------------
@@ -83,5 +87,6 @@
     rbc = rebase --continue
     rbs = rebase --skip
     st = status
+    ts = tag --sign --message=''
     count = shortlog -sn
     last = log -1 HEAD
