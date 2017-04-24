@@ -1,3 +1,6 @@
 Host *
-    AddKeysToAgent yes
-    UseKeychain yes
+  AddKeysToAgent yes
+  UseKeychain yes
+
+# For sensitive config
+Include config.local
