@@ -2,5 +2,9 @@ Host *
   AddKeysToAgent yes
   UseKeychain yes
 
+# Change iterm profile in SSH
+PermitLocalCommand yes
+LocalCommand phook -e "it2prof Danger" -a "it2prof"
+
 # For sensitive config
 Include config.local
