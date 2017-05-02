@@ -5,8 +5,8 @@ progname=$(basename $0)
 source $DOT/.dot/functions/join
 
 print_error_logs() {
-  [[ $(uname -s) == 'Darwin' ]] && mac_params='-E -L'
-  [[ $(uname -s) == 'Linux' ]] && linux_params='-regextype posix-extended'
+  [[ $OS == 'Darwin' ]] && mac_params='-E -L'
+  [[ $OS == 'Linux' ]] && linux_params='-regextype posix-extended'
   msg="There were some errors in: ${failing_topics[@]}"
   pprint step-error "${msg}"
   joined_topics=$(join \| ${failing_topics[@]})

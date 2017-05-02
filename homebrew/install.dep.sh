@@ -3,7 +3,7 @@
 source $DOT/.dot/functions/keepsudo
 
 repo='install/master/install'
-[[ "$(uname -s)" == "Linux" ]] && repo='linuxbrew/go/install'
+[[ "$OS" == "Linux" ]] && repo='linuxbrew/go/install'
 
 # Check for Homebrew
 if test ! $(which brew); then
@@ -19,7 +19,7 @@ fi
 pprint info-ok "Homebrew is ready to brew -- Choo, choo!"
 
 # Prepare Linuxbrew standalone
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   sh -c "$DOT/homebrew/linuxbrew-standalone.sh"
   [[ $? != 0 ]] && pprint info-error "Failed to make Homebrew standalone" && exit 1
 fi

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
-if [[ $(uname -s) == 'Linux' ]]; then
+if [[ $OS == 'Linux' ]]; then
   try pinstall apt krb5-user
   try pinstall apt kstart
 else

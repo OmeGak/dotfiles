@@ -2,7 +2,7 @@
 # Installs your apps from Homebrew Cask
 source $HOME/.dotfiles/.dot/env
 
-if [[ "$(uname -s)" != "Darwin" ]]; then
+if [[ "$OS" != "Darwin" ]]; then
   pprint step-error "This is not a Mac"
   pprint newline
   exit 1

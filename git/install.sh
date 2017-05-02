@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   args="--with-brewed-curl --with-brewed-openssl --without-tcl-tk"
 fi
 

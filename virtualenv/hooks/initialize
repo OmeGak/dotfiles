@@ -26,3 +26,6 @@ function workon_venv {
         workon `cat $venv`
     fi
 }
+
+# enable checking for virtualenv on cd
+workon_venv

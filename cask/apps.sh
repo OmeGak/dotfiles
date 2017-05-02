@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$(uname -s)" != "Darwin" ]]; then
+if [[ "$OS" != "Darwin" ]]; then
   pprint step-error "This is not a Mac"
   exit 1
 fi

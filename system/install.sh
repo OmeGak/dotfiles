@@ -10,7 +10,7 @@ try pinstall brew unrar
 try pinstall pip httpie
 try pinstall pip xkcdpass
 
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   try pinstall apt xclip
 fi
 
@@ -18,7 +18,7 @@ fi
 # -- Install missing fonts ----------------------------------------------------
 
 fonts_dir="$HOME/Library/Fonts"
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   fonts_dir="$HOME/.fonts"
   refresh='pprint info-go "Refreshing fonts"; fc-cache -f 2>&1'
 fi

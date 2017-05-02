@@ -3,7 +3,7 @@
 # Wrapper for p4merge based on Gregory Pakosz's (gpakosz) solution
 # Source: http://pempek.net/articles/2014/04/18/git-p4merge/
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if [[ "$OS" == "Darwin" ]]; then
   p4merge_dir="/Applications/p4merge.app/Contents/Resources/launchp4merge"
 else
   p4merge_dir="/opt/p4v/bin/p4merge"

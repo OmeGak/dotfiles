@@ -1,6 +1,6 @@
 # Use `hub` as git wrapper
 if exists hub; then
-  eval "$(hub alias -s)"
+  alias git='hub'
 fi
 
 alias gl="git lg"

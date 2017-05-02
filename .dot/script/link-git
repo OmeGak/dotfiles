@@ -9,7 +9,7 @@ fi
 pprint section 'SETTING UP GITCONFIG'
 
 git_credential='cache'
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$OS" == "Darwin" ]; then
   git_credential='osxkeychain'
 fi
 

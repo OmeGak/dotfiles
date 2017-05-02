@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   sudoplz
 
   pprint info-go "Updating apt-get"

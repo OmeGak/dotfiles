@@ -17,13 +17,13 @@ alias fatd="gdu -sh *(/D) | gsort -rh | head -10"
 alias fatdr="gdu -Sh | gsort -rh | head -10"
 
 # Linux fixes
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   alias pbcopy="xclip -selection clipboard"
   alias pbpaste="xclip -selection clipboard -o"
 fi
 
 # OSX fixes
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if [[ "$OS" == "Darwin" ]]; then
   alias tac='tail -r'
 fi
 

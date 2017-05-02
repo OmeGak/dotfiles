@@ -1,8 +1,8 @@
 alias ktinit="kinit -kt $HOME/.keytab"
 alias ktstart="k5start -f $HOME/.keytab -U -b -K 10 -k $HOME/.keytab-cache"
-[[ $(uname -s) == 'Darwin' ]] && alias ktutil="ktutil -k $HOME/.keytab"
+[[ $OS == 'Darwin' ]] && alias ktutil="ktutil -k $HOME/.keytab"
 
-if [[ $(uname -s) == 'Darwin' ]]; then
+if [[ $OS == 'Darwin' ]]; then
   ktadd() {
     local principal
     local password

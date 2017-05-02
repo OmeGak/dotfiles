@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
-if [[ "$(uname -s)" != "Darwin" ]]; then
+if [[ "$OS" != "Darwin" ]]; then
   pprint info-warn "Step skipped: This is not a Mac"
   exit 0
 fi

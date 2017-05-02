@@ -2,7 +2,7 @@
 # Applies default preferences for OSX and some apps.
 source $HOME/.dotfiles/.dot/env
 
-if [[ "$(uname -s)" != "Darwin" ]]; then
+if [[ "$OS" != "Darwin" ]]; then
   pprint step-error "This is not a Mac"
   exit 1
 fi

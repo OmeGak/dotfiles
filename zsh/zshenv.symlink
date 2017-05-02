@@ -1,8 +1,15 @@
+# Get OS name
+export OS=$(uname -s)
+
 # Shortcut to dotfiles folder
 export DOT=$HOME/.dotfiles
 
 # Project folder that to allow `c [tab]` to it
 export PROJECTS=$HOME/Code
+
+# Hardcoded homebrew prefix to avoid expensive calls
+[[ "$OS" == 'Darwin' ]] && export BREWDIR='/usr/local' \
+                        || export BREWDIR='$HOME/.linuxbrew'
 
 # Initial path extension
 source $DOT/system/path.zsh

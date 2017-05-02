@@ -1,2 +1,2 @@
 # diff-highlight
-PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH"
+PATH="$BREWDIR/opt/git/share/git-core/contrib/diff-highlight:$PATH"

@@ -1,5 +1,5 @@
 TERMINFO_DIR="/usr/share/terminfo"
-[[ "$(uname -s)" == "Linux" ]] && TERMINFO_DIR="/lib/terminfo"
+[[ "$OS" == "Linux" ]] && TERMINFO_DIR="/lib/terminfo"
 
 # Always use screen on tmux
 [[ -z $TMUX ]] && TERM_TYPE='xterm' || TERM_TYPE='screen'
