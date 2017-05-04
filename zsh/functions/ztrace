@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+# Enables tracing zsh scripts
+# Usage:
+#   Wrap commands to be traced between `ztrace` and `ztraceoff`.
+#   The trace is redirected to /tmp/ztrace.<pid>.log.
+# Inspired by:
+#   https://kev.inburke.com/kevin/profiling-zsh-startup-time/
+
+ztrace() {
+  # Enables zsh printing commands before they are actually run
+  trap 'setopt xtrace prompt_subst' EXIT
+  # The PS4 variable controls how zsh print commands
+  PS4=$'%D{%H}:%D{%M}:%D{%S}.%D{%.} %N:%i> '
+  # The trace is printed to file descriptor 3
+  exec 3>&2 2>/tmp/ztrace.$$.log
+}

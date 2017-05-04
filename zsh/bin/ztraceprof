@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+# Shows slow commands from a ztrace log
+# Inspired by:
+#   https://kev.inburke.com/kevin/profiling-zsh-startup-time/
+
+from __future__ import print_function
+
+import argparse
+import re
+import sys
+from glob import glob
+
+
+def find_file():
+    files = glob('/tmp/ztrace.*.log')
+    if not files:
+        return None
+    return files[-1]
+
+
+def parse_line(line):
+    timestr, cmd = line.strip('\n').split(' ', 1)
+    ts = re.sub(r':|\.', '', timestr)
+    return int(ts), cmd
+
+
+def print_info(cmd, delta, slowdown, slow=True):
+    delta_str = u'\033[1;36m\u0394{}ms\033[0;0m'.format(delta)
+    slowdown_str = '\033[1;31m+{}ms\033[0;0m'.format(slowdown) if slow else '+{}ms'.format(slowdown)
+    cmd_str = (cmd[:77] + '...') if len(cmd) > 77 else cmd
+    print(u'{} {} {}'.format(delta_str, slowdown_str, cmd_str))
+
+
+def main(filename, threshold):
+    with open(filename) as f:
+        start_ts, cmd = parse_line(f.readline())
+        prev_cmd = cmd
+        prev_start_ts = start_ts
+        delta = 0
+        for line_count, line in enumerate(f.readlines(), 1):
+            if len(line) == 0 or line == '\n':
+                continue
+            if not line[0].isdigit():
+                continue
+            try:
+                ts, cmd = parse_line(line)
+            except ValueError:
+                continue
+            delta = ts - start_ts
+            slowdown = ts - prev_start_ts
+            slow = slowdown > threshold
+            if slow or line_count == 1:
+                print_info(prev_cmd, delta, slowdown, slow=slow)
+            prev_start_ts = ts
+            prev_cmd = cmd
+        print_info(cmd, delta, '0', slow=False)
+        print(u"{} commands profiled (\u0394{}ms)".format(line_count, delta))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', nargs='?', help="a ztrace log file")
+    parser.add_argument('-t', '--threshold', nargs='?', type=int, default=7, help="command slowdown threshold (in ms)")
+    args = parser.parse_args()
+    filename = args.file if args.file else find_file()
+    if not filename:
+        print("No ztrace log file found in /tmp", file=sys.stderr)
+        sys.exit(1)
+    main(filename, args.threshold)

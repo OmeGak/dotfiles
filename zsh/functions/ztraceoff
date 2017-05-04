@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+# Disables tracing zsh scripts
+# Inspired by:
+#   https://kev.inburke.com/kevin/profiling-zsh-startup-time/
+
+ztraceoff() {
+  trap 'unsetopt xtrace; exec 2>&3 3>&-' EXIT
+}
