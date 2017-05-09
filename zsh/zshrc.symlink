@@ -1,3 +1,6 @@
+# Enable tracing for debuging
+[[ $DOT_ZTRACE = true ]] && ztrace
+
 # Stash your environment variables in ~/.localrc
 if [[ -a ~/.localrc ]]; then
   source ~/.localrc
@@ -26,3 +29,6 @@ for file in ${(M)config_files:#*/completion.zsh}; do
 done
 
 unset config_files
+
+# Disable tracing for debugging
+[[ $DOT_ZTRACE = true ]] && ztraceoff

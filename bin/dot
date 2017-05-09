@@ -7,9 +7,17 @@ edit() {
   e $DOT
 }
 
+profile() {
+  DOT_ZTRACE=true zsh -ci exit
+  ztraceprof
+}
+
 case "$1" in
   edit)
     edit
+    exit 0;;
+  profile)
+    profile
     exit 0;;
   *)
     ;;
