@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
-try pinstall brew docker
-try pinstall brew docker-compose
-try pinstall brew docker-machine
+if [[ $OS == 'Darwin' ]]; then
+  try pinstall cask docker
+else
+  try pinstall brew docker
+  try pinstall brew docker-compose
+fi
+
 exit $TRY_CODE
