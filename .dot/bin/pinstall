@@ -46,6 +46,10 @@ pbrew() {
   _pretty_install $1 "brew" "brew install" "brew ls --versions" ${@:2}
 }
 
+pcask() {
+  _pretty_install $1 "brew" "brew cask install" "brew cask ls --versions" ${@:2}
+}
+
 pgem() {
   _pretty_install $1 "gem" "gem install" "gem list -i" ${@:2}
 }
@@ -73,6 +77,8 @@ case "$1" in
     fn="papt";;
   brew)
     fn="pbrew";;
+  cask)
+    fn="pcask";;
   gem)
     fn="pgem";;
   npm)
