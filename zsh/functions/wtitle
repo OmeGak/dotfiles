@@ -1,6 +1,8 @@
-# From http://dotfiles.org/~_why/.zshrc
+#!/usr/bin/env zsh
 # Sets the window title nicely no matter where you are
-function title() {
+# Source: http://dotfiles.org/~_why/.zshrc
+
+wtitle() {
   # escape '%' chars in $1, make nonprintables visible
   a=${(V)1//\%/\%\%}
 
@@ -16,4 +18,3 @@ function title() {
     ;;
   esac
 }
-
