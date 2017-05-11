@@ -1,0 +1,1 @@
+compdef dcompose='docker-compose'
