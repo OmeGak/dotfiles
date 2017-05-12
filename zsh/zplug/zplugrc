@@ -1,0 +1,37 @@
+# Load zplug framework
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug "$DOT", from:local, \
+  use:"*/path.zsh", ignore:"system/path.zsh", \
+  defer:0
+
+zplug "$DOT", from:local, \
+  use:"*/*.zsh", ignore:"{*/{completion,path}.zsh,zsh/config.zsh}", \
+  defer:1
+
+zplug "$DOT", from:local, \
+  use:"*/completion.zsh", \
+  defer:2
+
+# External packages
+zplug "plugins/gem", from:oh-my-zsh
+zplug "plugins/pass", from:oh-my-zsh
+zplug "plugins/pip", from:oh-my-zsh
+zplug "plugins/yarn", from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions", use:src
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "knu/zsh-git-escape-magic", use:git-escape-magic
+
+# Tweaks in packages
+zplug "$DOT/zsh/zplug", from:local, \
+  use:"*.zsh", \
+  defer:3
+
+if ! zplug check; then
+  zplug install
+  zplug clear
+fi
+
+zplug load

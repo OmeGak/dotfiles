@@ -5,7 +5,7 @@ source $HOME/.dotfiles/.dot/env
 pprint section "EVERYTHING READY!"
 pprint step-ok "What to do now?"
 pprint text    "1) Open a new terminal"
-pprint text    "2) Antigen will download some plugins for ZSH (dont panic!)"
+pprint text    "2) Zplug will download some plugins for ZSH (dont panic!)"
 pprint text    "3) Run \`dot osxrun\` if you want to set up your Mac"
 pprint text    "4) PROFIT! Enjoy your system now ;)"
 pprint newline

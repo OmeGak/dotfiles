@@ -2,6 +2,7 @@
 source $DOT/.dot/functions/try
 
 try pinstall brew zsh
+try pinstall brew zplug
 
 if [[ ! "$(zgrep "`which zsh`" /etc/shells)" ]]; then
   sudoplz -r "For adding zsh to valid shells"

@@ -1,9 +1,6 @@
 [submodule "osx/US-ES-Keyboard"]
 	path = osx/US-ES-Keyboard
 	url = https://github.com/OmeGak/US-ES-Keyboard.git
-[submodule ".antigen"]
-	path = zsh/.antigen
-	url = https://github.com/zsh-users/antigen.git
 [submodule "vim/.vim-plug"]
 	path = vim/.vim-plug
 	url = https://github.com/junegunn/vim-plug.git
