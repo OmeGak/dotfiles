@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$OS" != "Darwin" ]]; then
-  pprint step-error "This is not a Mac"
-  exit 1
-fi
-
-if [[ ! $(which brew-cask) ]]; then
-  pprint step-error "Cask is not installed"
+  pprint step-error "Cask is only for Mac"
   exit 1
 fi
 
