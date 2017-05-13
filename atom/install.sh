@@ -8,6 +8,7 @@ fi
 try pinstall brew ctags
 
 # Linters
+try pinstall npm dockerlint
 try pinstall npm eslint
 try pinstall npm eslint-plugin-promise
 try pinstall npm eslint-config-standard

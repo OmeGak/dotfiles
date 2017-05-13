@@ -10,9 +10,8 @@
     showDelay: 100
   core:
     disabledPackages: [
-      "latextools"
-      "language-python"
       "wrap-guide"
+      "MagicPython"
     ]
     projectHome: "~/Code"
     telemetryConsent: "limited"
@@ -31,6 +30,7 @@
     coloured: false
     onChanges: true
   "git-blame":
+    columnWidth: 331
     ignoreWhiteSpaceDiffs: true
   "highlight-selected": {}
   kite:
@@ -42,8 +42,7 @@
   linter:
     lintOnChange: false
   "linter-docker": {}
-  "linter-eslint":
-    useGlobalEslint: true
+  "linter-eslint": {}
   "linter-flake8":
     maxLineLength: 120
   "linter-sass-lint":
@@ -69,6 +68,9 @@
     alwaysOpenInSameWindow: true
     savePathsRelativeToHome: true
     showPath: false
+  "project-plus":
+    autoDiscover: false
+    notifications: false
   "spell-check":
     grammars: [
       "source.asciidoc"
@@ -83,10 +85,10 @@
     addNewTabsAtEnd: true
     enableVcsColoring: true
   "tree-view":
-    autoReveal: true
     focusOnReveal: false
     hideVcsIgnoredFiles: true
     showOnRightSide: true
+  "typewriter-scroll": {}
   welcome:
     showOnStartup: false
   whitespace:
