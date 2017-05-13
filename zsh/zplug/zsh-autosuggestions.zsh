@@ -2,8 +2,7 @@
 ZSH_AUTOSUGGEST_STRATEGY=match_prev_cmd
 
 # Style
-[[ $OS == 'Darwin' ]] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=236
-[[ $OS == 'Linux' ]] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=240
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=239
 
 # Bind to widgets
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(end-of-line vi-end-of-line)
