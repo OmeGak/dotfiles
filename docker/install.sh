@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
-if [[ $OS == 'Darwin' ]]; then
-  try pinstall cask docker
-else
-  try pinstall brew docker
-  try pinstall brew docker-compose
+if [[ $OS == 'Linux' ]]; then
+  pprint info-warn "Step skipped: Better not install in Linux"
+  exit 0
 fi
 
+try pinstall cask docker
 exit $TRY_CODE

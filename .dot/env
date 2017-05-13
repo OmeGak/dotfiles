@@ -3,12 +3,12 @@
 
 unset LD_LIBRARY_PATH PKG_CONFIG_PATH
 
+export OS=$(uname -s)
 export DOT=$HOME/.dotfiles
 export PATH="$DOT/.dot/bin:$DOT/bin:/usr/local/bin:/usr/bin:/bin"
 
 if [[ "$OS" == "Linux" ]]; then
   export PATH="$HOME/.linuxbrew/bin:$PATH"
-  export HOMEBREW_CC=gcc
 fi
 
 if [[ $MAKELEVEL ]]; then
