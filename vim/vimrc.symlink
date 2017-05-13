@@ -64,6 +64,9 @@ set whichwrap=<,>,[,]
 " Enable spell check for git
 autocmd FileType gitcommit setlocal spell
 
+" Color the 73rd column (extended limit)
+autocmd FileType gitcommit set colorcolumn=73
+
 
 " -- Indentation --------------------------------------------------------------
 

@@ -32,6 +32,7 @@ system/keyboard/disable-capslock-delay
 
 # Ignore vim plugins
 vim/vim.symlink/plugged
+vim/vim.symlink/plugin
 
 # Track weechat config/plugins only
 weechat/weechat.symlink/*
