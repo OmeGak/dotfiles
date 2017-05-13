@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 source $DOT/.dot/functions/try
 
+if [[ "$OS" == "Darwin" ]]; then
+  try pinstall cask atom
+fi
+
 try pinstall brew ctags
 
 # Linters

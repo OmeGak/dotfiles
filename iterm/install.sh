@@ -5,6 +5,9 @@ if [[ "$OS" != "Darwin" ]]; then
   exit 0
 fi
 
+source $DOT/.dot/functions/try
+try pinstall cask iterm2
+
 plist_name="com.googlecode.iterm2.plist"
 plist_source="$DOT/iterm/${plist_name}"
 plist_target="$HOME/Library/Preferences/${plist_name}"
@@ -21,4 +24,4 @@ if [[ ! $(checklink "${plist_target}" "${plist_source}") ]]; then
   mksymlink "${plist_source}" "${plist_target}"
 fi
 
-exit 0
+exit $TRY_CODE

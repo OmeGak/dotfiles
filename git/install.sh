@@ -8,4 +8,9 @@ fi
 try pinstall brew git ${args}
 try pinstall brew hub
 try pinstall npm git-standup
+
+if [[ "$OS" == "Darwin" ]]; then
+  try pinstall cask p4merge
+fi
+
 exit $TRY_CODE

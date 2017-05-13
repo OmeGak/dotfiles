@@ -6,12 +6,9 @@ google-drive
 backblaze
 
 # Work
-iterm2
-atom
 evernote
 grammarly
 mendeley-desktop
-p4merge
 
 # Media
 plex-media-player
