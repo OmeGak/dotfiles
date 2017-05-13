@@ -1,0 +1,1 @@
+alias itmux='tmux -CC'
