@@ -1,4 +1,1 @@
-#!/usr/bin/env bash
-# Install pip global packages
-
-PIP_REQUIRE_VIRTUALENV="" pip "$@"
+../python/bin/syspip
