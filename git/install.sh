@@ -7,4 +7,5 @@ fi
 
 try pinstall brew git ${args}
 try pinstall brew hub
+try pinstall npm git-standup
 exit $TRY_CODE
