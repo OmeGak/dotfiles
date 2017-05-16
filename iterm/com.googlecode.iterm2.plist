@@ -477,12 +477,124 @@
 	<real>0.69404298067092896</real>
 	<key>GlobalKeyMap</key>
 	<dict>
+		<key>0x2e-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Find Cursor</string>
+		</dict>
+		<key>0x2e-0x180000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Show Timestamps</string>
+		</dict>
+		<key>0x2f-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Add Annotation at Cursor</string>
+		</dict>
+		<key>0x2f-0x180000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Show Annotations</string>
+		</dict>
+		<key>0x3b-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x3b-0x180000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x3c-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Edit Session…</string>
+		</dict>
+		<key>0x3e-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Show Cursor Guide</string>
+		</dict>
+		<key>0x3f-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Set Mark</string>
+		</dict>
+		<key>0x4c-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Clear Scrollback Buffer</string>
+		</dict>
+		<key>0x54-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x5b-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x5c-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Show Toolbelt</string>
+		</dict>
+		<key>0x5d-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x6c-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Clear Buffer</string>
+		</dict>
 		<key>0x70-0x100000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
 			<key>Text</key>
 			<string>Open Quickly</string>
+		</dict>
+		<key>0x72-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
 		</dict>
 		<key>0x74-0x100000</key>
 		<dict>
@@ -491,6 +603,20 @@
 			<key>Text</key>
 			<string>New Tab with Current Profile</string>
 		</dict>
+		<key>0x75-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>13</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x7c-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Start Instant Replay</string>
+		</dict>
 		<key>0x9-0x40000</key>
 		<dict>
 			<key>Action</key>
@@ -498,35 +624,56 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf700-0x300000</key>
+		<key>0xd-0x100000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
 			<key>Text</key>
-			<string>Select Pane Above</string>
+			<string>Maximize Active Pane</string>
 		</dict>
-		<key>0xf700-0x320000</key>
+		<key>0xd-0x120000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Broadcast Input to All Panes in Current Tab</string>
+		</dict>
+		<key>0xf700-0x300000</key>
 		<dict>
 			<key>Action</key>
 			<integer>7</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf701-0x300000</key>
+		<key>0xf700-0x320000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
 			<key>Text</key>
-			<string>Select Pane Below</string>
+			<string>Select Pane Above</string>
 		</dict>
-		<key>0xf701-0x320000</key>
+		<key>0xf701-0x300000</key>
 		<dict>
 			<key>Action</key>
 			<integer>6</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xf701-0x320000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Select Pane Below</string>
+		</dict>
 		<key>0xf702-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Previous Mark/Annotation</string>
+		</dict>
+		<key>0xf702-0x320000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
@@ -548,6 +695,13 @@
 			<string></string>
 		</dict>
 		<key>0xf703-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Text</key>
+			<string>Next Mark/Annotation</string>
+		</dict>
+		<key>0xf703-0x320000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
@@ -575,12 +729,26 @@
 			<key>Text</key>
 			<string>[5D</string>
 		</dict>
+		<key>0xf729-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>5</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
 		<key>0xf72b-0x0</key>
 		<dict>
 			<key>Action</key>
 			<integer>10</integer>
 			<key>Text</key>
 			<string>[5C</string>
+		</dict>
+		<key>0xf72b-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>4</integer>
+			<key>Text</key>
+			<string></string>
 		</dict>
 		<key>0xf72c-0x100000</key>
 		<dict>
@@ -589,24 +757,10 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xf72c-0x120000</key>
-		<dict>
-			<key>Action</key>
-			<integer>5</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
 		<key>0xf72d-0x100000</key>
 		<dict>
 			<key>Action</key>
 			<integer>8</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
-		<key>0xf72d-0x120000</key>
-		<dict>
-			<key>Action</key>
-			<integer>4</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
