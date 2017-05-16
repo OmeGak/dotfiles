@@ -1,0 +1,17 @@
+{
+  "Profiles": [
+    {
+      "Name" : "Danger",
+      "Guid" : "0DC14D6A-9C9E-418C-8173-112BCCFCEC57",
+      "Smart Cursor Color" : false,
+      "Cursor Boost" : 0,
+      "Cursor Color" : {
+        "Red Component" : 0.792156862745098,
+        "Color Space" : "Calibrated",
+        "Blue Component" : 0.07058823529411765,
+        "Alpha Component" : 1,
+        "Green Component" : 0.09019607843137255
+      },
+    }
+  ]
+}
