@@ -41,7 +41,6 @@ fi
 # -- Special keybindings ------------------------------------------------------
 
 bindkey '^I' expand-or-complete-with-dots
-bindkey '^X^_' redo
 bindkey '^[b' show-buffers
 bindkey '^[f' forget-history
 
