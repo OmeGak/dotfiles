@@ -865,7 +865,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>515 141 599 502 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>316 321 918 512 0 0 1440 877 </string>
+	<string>316 258 796 473 0 0 1440 900 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -3223,9 +3223,13 @@
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
+	<key>NoSyncSuppressBroadcastInputWarning</key>
+	<true/>
+	<key>NoSyncSuppressBroadcastInputWarning_selection</key>
+	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>486854506.89546102</real>
 	<key>NoSyncTimeOfLastPromo</key>
@@ -3310,11 +3314,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-05-13T13:02:22Z</date>
+	<date>2017-05-16T21:24:59Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
-	<false/>
+	<true/>
 	<key>Show Toolbelt</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -3346,6 +3350,8 @@
 	<key>ToolbeltTools</key>
 	<array>
 		<string>Jobs</string>
+		<string>Paste History</string>
+		<string>Notes</string>
 	</array>
 	<key>TraditionalVisualBell</key>
 	<false/>
@@ -3378,6 +3384,10 @@
 	<integer>0</integer>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
+	<key>findIgnoreCase_iTerm</key>
+	<true/>
+	<key>findRegex_iTerm</key>
+	<false/>
 	<key>iTerm Version</key>
 	<string>3.0.15</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
