@@ -10,3 +10,7 @@
 # Focus on tree view like in Linux
 '.platform-darwin':
   'alt-\\': 'tree-view:toggle-focus'
+
+'body.platform-darwin':
+  'alt-shift-cmd-left': 'pane:move-item-left'
+  'alt-shift-cmd-right': 'pane:move-item-right'
