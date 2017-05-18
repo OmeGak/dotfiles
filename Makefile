@@ -23,6 +23,7 @@ link:
 	.dot/script/link
 
 install:
+	.dot/script/install-deps-core
 	.dot/script/install-deps
 	.dot/script/install
 

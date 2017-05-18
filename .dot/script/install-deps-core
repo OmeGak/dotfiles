@@ -4,20 +4,23 @@
 # shellcheck source=../env
 source $HOME/.dotfiles/.dot/env
 
-pprint section 'CHECKING DEPENDENCIES'
+pprint section 'CHECKING CORE DEPENDENCIES'
 
 # Prepare logs
 logsuffix='.install.dep.dot.log'
 find -L /tmp -maxdepth 1 -name "*${logsuffix}" | while read logfile; do rm "${logfile}"; done
 
+# Order of topic dependencies
+topics='system brew'
+
 # Find and run dependency install scripts
-for script in $(dotfind $DOT install.dep.sh); do
+for script in $(dotfind $DOT/.dot install.dep.sh --priority ${topics}); do
   # Refresh environment before each topic
   # shellcheck source=../env
   source $HOME/.dotfiles/.dot/env
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
-  pprint step-go "Checking dependencies from ${topic}..."
+  pprint step-go "Checking core dependencies from ${topic}..."
   sh -c "${script}"
   [[ $? == 0 ]] && pprint info-ok -n "All is ready"
   [[ $? != 0 ]] && errors+=(${topic}) && pprint info-error -n "Missing" && break
@@ -28,6 +31,6 @@ if [[ ${errors} ]]; then
   plogs ${logsuffix} ${errors[@]}
   exit 1
 else
-  pprint step-ok -n "All dependencies are ready"
+  pprint step-ok -n "All core dependencies are ready"
   exit 0
 fi
