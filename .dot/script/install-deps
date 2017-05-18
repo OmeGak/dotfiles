@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 # Checks and install dependencies for the install step
+
+# shellcheck source=../env
 source $HOME/.dotfiles/.dot/env
 
 pprint section 'CHECKING DEPENDENCIES'
 
 # Prepare logs
 logsuffix='.install.dep.dot.log'
-find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
+find -L /tmp -maxdepth 1 -name "*${logsuffix}" | while read logfile; do rm "${logfile}"; done
 
 # Order of topic dependencies
-topics='system homebrew'
+topics='system brew'
 
 # Find and run dependency install scripts
-for script in $(dotfind $DOT install.dep.sh --priority ${topics}); do
+for script in $(dotfind $DOT/.dot install.dep.sh --priority ${topics}); do
   # Refresh environment before each topic
+  # shellcheck source=../env
   source $HOME/.dotfiles/.dot/env
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
