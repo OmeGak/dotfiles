@@ -12,7 +12,7 @@ find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logf
 topics='system homebrew'
 
 # Find and run dependency install scripts
-for script in $(dotfind install.dep.sh --priority ${topics}); do
+for script in $(dotfind $DOT install.dep.sh --priority ${topics}); do
   # Refresh environment before each topic
   source $HOME/.dotfiles/.dot/env
   topic=`basename $(dirname ${script})`

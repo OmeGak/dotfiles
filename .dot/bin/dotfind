@@ -1,43 +1,51 @@
 #!/usr/bin/env bash
 # Finds in dotfiles topics
 
+set -e
 progname=$(basename $0)
 
 find_in_topics() {
-  local filename="$1"; shift
-  local topic_paths="$@"
-  local results=$(find $DOT -maxdepth 2 -name "${filename}" | sort)
+  local path filename topic_paths results
+  path="$1"; shift
+  filename="$1"; shift
+  topic_paths="$*"
+  results=$(find "$path" -maxdepth 2 -name "${filename}" | sort)
   if [[ "${topic_paths}" ]]; then
-    local priority_results=$(find ${topic_paths} -maxdepth 2 -name "${filename}")
+    local priority_results
+    priority_results=$(find ${topic_paths} -maxdepth 2 -name "${filename}")
   fi
   # awk removes duplicates
   echo -e "${priority_results}\n${results}" | awk '!a[$0]++'
 }
 
 build_topic_paths() {
+  local path fullpath
+  path="$1"; shift
   for topic in "$@"; do
-    local path="$DOT/${topic}"
-    [[ -d "${path}" ]] && echo "${path}"
+    fullpath="${path}/${topic}"
+    [[ -d "${fullpath}" ]] && echo "${fullpath}"
   done
 }
 
 usage() {
-  echo "usage: ${progname} filename [--priority [topic ...]]"
+  echo "usage: ${progname} path filename [--priority [topic ...]]"
+  echo "  path:       the path where to find"
   echo "  filename:   filename to find"
   echo "  --priority: gives priority to a list of topics"
 }
 
+path="$1"; shift
 filename="$1"; shift
 
-if [[ $# > 0 ]]; then
+if [[ $# -gt 0 ]]; then
   case "$1" in
     --priority)
       shift
-      topic_paths=$(build_topic_paths "$@");;
+      topic_paths=$(build_topic_paths "${path}" "$@");;
     *)
       usage
       exit 1;;
   esac
 fi
 
-find_in_topics "${filename}" "${topic_paths}"
+find_in_topics "${path}" "${filename}" "${topic_paths}"

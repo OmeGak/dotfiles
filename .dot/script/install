@@ -9,7 +9,7 @@ logsuffix='.install.dot.log'
 find -L /tmp -maxdepth 1 -name *${logsuffix} | while read logfile; do rm "${logfile}"; done
 
 # Find and run install scripts
-for script in $(dotfind install.sh); do
+for script in $(dotfind $DOT install.sh); do
   topic=`basename $(dirname ${script})`
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Installing stuff for ${topic}..."
