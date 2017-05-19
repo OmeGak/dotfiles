@@ -1,0 +1,23 @@
+# Set loading path files first (defer: 0)
+zplug "$DOT", from:local, \
+  use:"*/path.zsh", \
+  defer:0
+
+# Set loading everything but path, config, and completion (defer: 1)
+zplug "$DOT", from:local, \
+  use:"*/*.zsh", ignore:"{*/{completion,path}.zsh,zsh/config.zsh}", \
+  defer:1
+
+# Set loading completion files after compinit (defer: 2)
+zplug "$DOT", from:local, \
+  use:"*/completion.zsh", \
+  defer:2
+
+# Install missing packages if needed
+if ! zplug check; then
+  zplug install
+  zplug clear
+fi
+
+# Load everthing!
+zplug load

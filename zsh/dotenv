@@ -1,0 +1,6 @@
+# Project folder that to allow `c [tab]` to it
+export PROJECTS=$HOME/Code
+
+# Load useful functions for .zsh files
+fpath=($DOT/zsh/functions $fpath)
+autoload -U $DOT/zsh/functions/*(:t)

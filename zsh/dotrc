@@ -1,0 +1,7 @@
+# Configure ZSH before anything else
+# shellcheck source=$DOT/zsh/config.zsh
+source $DOT/zsh/config.zsh
+
+# Load external packages
+# shellcheck source=$DOT/zsh/zplug/zplugrc
+source $DOT/zsh/zplug/zplugrc

@@ -1,0 +1,19 @@
+# Enable tracing for debuging
+[[ $DOT_ZTRACE = true ]] && ztrace
+
+# Load zplug framework
+# shellcheck source=/dev/null
+source $ZPLUG/init.zsh
+
+# Load user zshrc
+if [[ -a $DOT/zsh/dotrc ]]; then
+  # shellcheck source=/dev/null
+  source $DOT/zsh/dotrc
+fi
+
+# Load dotfiles topics
+# shellcheck source=zplugrc
+source $DOT/.dot/zsh/zplugrc
+
+# Disable tracing for debugging
+[[ $DOT_ZTRACE = true ]] && ztraceoff

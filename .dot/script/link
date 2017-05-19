@@ -59,6 +59,15 @@ link_file() {
   fi
 }
 
+link_dotcore() {
+  local overwrite_all=false backup_all=false skip_all=false
+  pprint step-go "Linking core dotfiles from ${u}$DOT/.dot${offu} to ${u}$HOME${offu}:"
+  for src in $(find -H "$DOT/.dot" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
+    dst="$HOME/.$(basename "${src%.*}")"
+    link_file "${src}" "${dst}"
+  done
+}
+
 link_dotfiles() {
   local overwrite_all=false backup_all=false skip_all=false
   pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME${offu}:"
@@ -69,6 +78,8 @@ link_dotfiles() {
 }
 
 pprint section "LINKING DOTFILES TO HOME FOLDER"
+link_dotcore
+pprint newline
 link_dotfiles
 pprint newline
 pprint step-ok -n "All dotfiles linked"

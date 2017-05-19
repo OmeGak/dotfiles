@@ -1,0 +1,27 @@
+# Shortcut to dotfiles folder
+export DOT=$HOME/.dotfiles
+
+# Get OS name
+export OS
+OS=$(uname -s)
+
+# Hardcoded homebrew prefix to avoid expensive calls
+[[ "$OS" == 'Darwin' ]] && export BREWDIR='/usr/local' \
+                        || export BREWDIR='$HOME/.linuxbrew'
+
+# ZPLUG home folder
+export ZPLUG=$BREWDIR/opt/zplug
+
+# Load core path extension
+# shellcheck source=path.zsh
+source $DOT/.dot/zsh/path.zsh
+
+# Load useful functions for .zsh files
+fpath=($DOT/.dot/zsh/functions $fpath)
+autoload -U $DOT/.dot/zsh/functions/*(:t)
+
+# Load user environment
+if [[ -a $DOT/zsh/dotenv ]]; then
+  # shellcheck source=/dev/null
+  source $DOT/zsh/dotenv
+fi
