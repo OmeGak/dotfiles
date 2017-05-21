@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Installs your apps from Homebrew Cask
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 if [[ "$OS" != "Darwin" ]]; then
   pprint step-error "This is not a Mac"

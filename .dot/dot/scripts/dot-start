@@ -2,7 +2,7 @@
 # Welcomes and initializes submodules
 
 set -e
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 git submodule init
 git submodule update

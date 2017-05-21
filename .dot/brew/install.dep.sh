@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $DOT/.dot/functions/keepsudo
+source $DOT/.dot/dot/functions/keepsudo
 
 [[ "$OS" == "Darwin" ]] && repo='Homebrew' \
                         || repo='Linuxbrew'

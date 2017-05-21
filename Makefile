@@ -19,28 +19,28 @@ osxrun: apps defaults
 # -- Steps --------------------------------------------------------------------
 
 link:
-	.dot/script/link-git
-	.dot/script/link
+	.dot/dot/scripts/link-git
+	.dot/dot/scripts/link
 
 install:
-	.dot/script/install-deps-core
-	.dot/script/install-deps
-	.dot/script/install
+	.dot/dot/scripts/install-deps-core
+	.dot/dot/scripts/install-deps
+	.dot/dot/scripts/install
 
 setshell:
-	.dot/script/setshell
+	.dot/dot/scripts/setshell
 
 defaults:
-	.dot/script/defaults
+	.dot/dot/scripts/defaults
 
 apps:
-	.dot/script/apps
+	.dot/dot/scripts/apps
 
 
 # -- Helpers ------------------------------------------------------------------
 
 _dot-start:
-	.dot/script/dot-start
+	.dot/dot/dot-start
 
 _dot-finish:
-	.dot/script/dot-finish
+	.dot/dot/dot-finish

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Puts dotfiles in their place
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 u=`tput smul`
 offu=`tput sgr0`

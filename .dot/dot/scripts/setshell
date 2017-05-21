@@ -2,7 +2,7 @@
 # Configures your shell
 
 set -e
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 pprint section "PREPARING SHELL"
 

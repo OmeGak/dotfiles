@@ -1,6 +1,6 @@
 #!/usr/bin/env bash -e
 # Applies default preferences for OSX and some apps.
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 if [[ "$OS" != "Darwin" ]]; then
   pprint step-error "This is not a Mac"

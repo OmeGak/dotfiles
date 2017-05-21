@@ -2,7 +2,7 @@
 # Pretty print error report for failed topics
 
 progname=$(basename $0)
-source $DOT/.dot/functions/join
+source $DOT/.dot/dot/functions/join
 
 print_error_logs() {
   [[ $OS == 'Darwin' ]] && mac_params='-E -L'

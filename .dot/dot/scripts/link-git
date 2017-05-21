@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Generates .gitconfig.symlink
-source $HOME/.dotfiles/.dot/env
+source $HOME/.dotfiles/.dot/dot/env
 
 if [[ -f git/gitconfig.local.symlink ]]; then
   exit 0
