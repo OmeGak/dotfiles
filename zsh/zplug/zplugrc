@@ -6,7 +6,10 @@ zplug "plugins/yarn", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions", use:src
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "knu/zsh-git-escape-magic", use:git-escape-magic
+
+zplug "knu/zsh-git-escape-magic", \
+  use:"git-escape-magic", \
+  defer:2
 
 # Tweaks in packages
 zplug "$DOT/zsh/zplug", from:local, \
