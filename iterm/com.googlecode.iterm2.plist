@@ -629,14 +629,14 @@
 			<key>Action</key>
 			<integer>25</integer>
 			<key>Text</key>
-			<string>Maximize Active Pane</string>
+			<string>Broadcast Input to All Panes in Current Tab</string>
 		</dict>
 		<key>0xd-0x120000</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
 			<key>Text</key>
-			<string>Broadcast Input to All Panes in Current Tab</string>
+			<string>Maximize Active Pane</string>
 		</dict>
 		<key>0xf700-0x300000</key>
 		<dict>
@@ -1494,7 +1494,7 @@
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
-			<integer>2</integer>
+			<integer>0</integer>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
@@ -2000,6 +2000,13 @@
 					<string>0x1f</string>
 				</dict>
 				<key>0x7f-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x18 0x7f</string>
+				</dict>
+				<key>0x7f-0x120000</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -2777,6 +2784,13 @@
 					<key>Action</key>
 					<integer>11</integer>
 					<key>Text</key>
+					<string>0x18 0x7f</string>
+				</dict>
+				<key>0x7f-0x120000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
 					<string>0x15</string>
 				</dict>
 				<key>0x7f-0x40000</key>
@@ -3321,7 +3335,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-05-16T21:24:59Z</date>
+	<date>2017-05-27T00:40:56Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
