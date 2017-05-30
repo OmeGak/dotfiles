@@ -19,7 +19,6 @@ show-buffers() {
   zle -M "$buffers"
 }
 zle -N show-buffers
-unset show-buffers
 
 
 # -- Movement -----------------------------------------------------------------
@@ -30,14 +29,12 @@ backward-word-end() {
   [[ $#LBUFFER != 0 ]] && zle forward-char
 }
 zle -N backward-word-end
-unset backward-word-end
 
 forward-word-end() {
   zle vi-forward-blank-word-end
   zle forward-char
 }
 zle -N forward-word-end
-unset forward-word-end
 
 
 # -- Completion ---------------------------------------------------------------
@@ -50,7 +47,6 @@ expand-or-complete-with-dots() {
   zle redisplay
 }
 zle -N expand-or-complete-with-dots
-unset expand-or-complete-with-dots
 
 
 # -- History control ----------------------------------------------------------
@@ -75,7 +71,6 @@ forget-history() {
   histrl
 }
 zle -N forget-history
-unset forget-history
 
 
 # -- Misc ---------------------------------------------------------------------
@@ -93,7 +88,6 @@ self-insert-padded() {
   LBUFFER[-1]="$LBUFFER[-1] "
 }
 zle -N self-insert-padded
-unset self-insert-padded
 
 
 # -- Plugins ------------------------------------------------------------------
@@ -103,4 +97,3 @@ next-suggested-word() {
   zle .forward-word
 }
 zle -N next-suggested-word
-unset next-suggested-word
