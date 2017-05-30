@@ -40,7 +40,7 @@ apps:
 # -- Helpers ------------------------------------------------------------------
 
 _dot-start:
-	.dot/dot/dot-start
+	.dot/dot/scripts/dot-start
 
 _dot-finish:
-	.dot/dot/dot-finish
+	.dot/dot/scripts/dot-finish
