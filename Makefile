@@ -23,9 +23,9 @@ link:
 	.dot/dot/scripts/link
 
 install:
-	.dot/dot/scripts/install-deps-core
-	.dot/dot/scripts/install-deps
-	.dot/dot/scripts/install
+	env -i HOME="${HOME}" .dot/dot/scripts/install-deps-core
+	env -i HOME="${HOME}" .dot/dot/scripts/install-deps
+	env -i HOME="${HOME}" .dot/dot/scripts/install
 
 setshell:
 	.dot/dot/scripts/setshell

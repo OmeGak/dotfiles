@@ -59,7 +59,7 @@ pnpm() {
 }
 
 ppip() {
-  _pretty_install $1 "pip" "pipg install --upgrade" "pipg show" ${@:2}
+  _pretty_install $1 "pip" "pip install --upgrade" "pip show" ${@:2}
 }
 
 
