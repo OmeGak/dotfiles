@@ -36,7 +36,8 @@ unsetopt LIST_BEEP         # Shhh
 setopt   EXTENDED_GLOB      # Enable nice globbing features (watch out! It doesn't play well with git)
 setopt   MARK_DIRS          # Append a trailing '/' to all directory names resulting from globbing
 setopt   NUMERIC_GLOB_SORT  # Sort glob results numerically rather than lexically
-setopt   RC_EXPAND_PARAM    # Enable `foo${xx}bar`-like globbing for generating variations
+# TODO: reenable once zplug output is fixed
+# setopt   RC_EXPAND_PARAM    # Enable `foo${xx}bar`-like globbing for generating variations
 
 
 # -- History ------------------------------------------------------------------
@@ -83,7 +84,8 @@ setopt   PROMPT_SUBST   # Enable command substitution in the prompt
 # -- Scripts ------------------------------------------------------------------
 
 setopt   C_BASES        # Output hexadecimal numbers as 0xFF i.e. `$(( [#16]255 ))`
-setopt   LOCAL_OPTIONS  # Restore changed zsh options on function return
+# TODO: reenable once zplug output is fixed
+# setopt   LOCAL_OPTIONS  # Restore changed zsh options on function return
 setopt   LOCAL_TRAPS    # Restore changed trap values on function return
 
 
