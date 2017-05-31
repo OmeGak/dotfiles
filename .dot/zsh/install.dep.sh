@@ -2,7 +2,7 @@
 
 set -e
 
-pinstall brew zsh
+pinstall brew omegak/brewery/zsh
 pinstall brew zplug
 
 if [[ ! "$(zgrep "`which zsh`" /etc/shells)" ]]; then
