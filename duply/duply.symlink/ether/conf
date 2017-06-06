@@ -1,5 +1,5 @@
-SOURCE="$HOME/.password-store"
-TARGET="file://$HOME/Google Drive/Backups/pass"
+SOURCE="$HOME/Library/Ethereum/keystore"
+TARGET="file://$HOME/Google Drive/Backups/ether"
 MAX_FULL_BACKUPS=3
 
 # XXX: Workaround for bug in duplicity that it only takes the last 16 characters of key for decrypting
