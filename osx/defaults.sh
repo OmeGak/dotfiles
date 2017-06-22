@@ -1,4 +1,4 @@
-# Sets shit how I like in OS X.
+# Sets shit how I like in macOS.
 #
 # To find other settings:
 #   $ defaults read > a
@@ -24,10 +24,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # -----------------------------------------------------------------------------
 
 # Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName "oBook"
-#sudo scutil --set HostName "oBook"
-#sudo scutil --set LocalHostName "oBook"
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "oBook"
+#sudo scutil --set ComputerName "OmeBook"
+#sudo scutil --set HostName "OmeBook"
+#sudo scutil --set LocalHostName "OmeBook"
+#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "OmeBook"
 
 # Set sleep delay on charger (-c) and on battery (-b) in minutes
 sudo pmset -c sleep 30
@@ -39,11 +39,6 @@ sudo pmset -b displaysleep 2
 
 # Slightly dim the display when on battery
 sudo pmset -b lessbright 1
-
-# Disable/reset the sound effects on boot
-# FIXME: couldn't make it work consistently :(
-sudo nvram SystemAudioVolume=%00
-# sudo nvram -d SystemAudioVolume
 
 # Menu bar: hide unwanted icons
 for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
@@ -81,15 +76,15 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Disable Resume for native apps
+# Disable "Resume" (automatic re-open) for native apps
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # Disable automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
 # Disable/enable the crash reporter
-defaults write com.apple.CrashReporter DialogType -string "none"
-# defaults write com.apple.CrashReporter DialogType -string "crashreport"
+# defaults write com.apple.CrashReporter DialogType -string "none"
+defaults write com.apple.CrashReporter DialogType -string "crashreport"
 
 # Disable smart quotes and dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -118,6 +113,18 @@ sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Aut
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 5
 
+# Configure Night Shift
+# Hot config reload:
+#   sudo killall cfprefsd
+#   sudo killall corebrightnessd
+currentUserUID=$(dscl . -read /Users/"$(whoami)"/ GeneratedUID) # Get the GeneratedUID for the current user
+currentUserUID=$(echo $currentUserUID | cut -d' ' -f2) # Remove the "GeneratedUID: " part
+currentUserUID="CBUser-"$currentUserUID # Append the prefix
+sudo /usr/libexec/PlistBuddy -c "Set :${currentUserUID}:CBBlueReductionStatus:BlueReductionEnabled 1" \
+  private/var/root/Library/Preferences/com.apple.CoreBrightness.plist
+sudo /usr/libexec/PlistBuddy -c "Set :${currentUserUID}:CBBlueReductionStatus:BlueReductionMode 1" \
+  private/var/root/Library/Preferences/com.apple.CoreBrightness.plist
+
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "${HOME}/Desktop"
 
@@ -129,42 +136,78 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 
 # -----------------------------------------------------------------------------
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input
+# Trackpad, mouse, keyboard, touchbar, etc.
 # -----------------------------------------------------------------------------
 
 # Trackpad: Set tracking speed
-defaults write -g com.apple.trackpad.scaling 0.6875
+defaults write -g com.apple.trackpad.scaling 0.875
 
 # Make sure "natural" scrolling is enabled
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+defaults write -g com.apple.swipescrolldirection -bool true
 
 # Enable Tab in modal dialogs
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+defaults write -g AppleKeyboardUIMode -int 2
 
 # Enable press-and-hold for keys instead of key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
+defaults write -g ApplePressAndHoldEnabled -bool true
 
 # Set a decently fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 2
-defaults write NSGlobalDomain InitialKeyRepeat -int 25
+defaults write -g KeyRepeat -int 2
+defaults write -g InitialKeyRepeat -int 25
 
 # Adjust keyboard brightness in low light
 sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Keyboard Enabled" -bool true
 sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Keyboard Dim Time" -int 30
 
-# Set language and text formats
-defaults write NSGlobalDomain AppleLanguages -array "en" "es" "fr"
-defaults write NSGlobalDomain AppleLocale -string "en_ES"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+# Configure Control Strip (TouchBar)
+defaults write com.apple.controlstrip MiniCustomized \
+  '(com.apple.system.media-play-pause, com.apple.system.volume, com.apple.system.mute, com.apple.system.brightness)'
+defaults write com.apple.controlstrip FullCustomized \
+  '(com.apple.system.screencapture, NSTouchBarItemIdentifierFlexibleSpace, com.apple.system.group.brightness,
+    com.apple.system.group.keyboard-brightness, com.apple.system.group.media, com.apple.system.group.volume,
+    NSTouchBarItemIdentifierFlexibleSpace, com.apple.system.screen-lock)'
 
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# Set language and text formats
+defaults write -g AppleLanguages -array "en-US" "es-ES" "fr-CH"
+defaults write -g AppleLocale -string "en_ES"
+defaults write -g AppleMeasurementUnits -string "Centimeters"
+defaults write -g AppleMetricUnits -bool true
+
+# Disable auto-correct and the sort
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Stop/enable iTunes from responding to the keyboard media keys
 # (It's the only way to stop it from opening when no other media app is running)
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 # launchctl load -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
+
+# Shortcuts: Move left a space with Cmd-Alt-[
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:enabled true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:value:parameters:0 integer 91" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:value:parameters:1 integer 33" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:value:parameters:2 integer 1572864" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:enabled true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:value:parameters:0 integer 91" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:value:parameters:1 integer 33" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:value:parameters:2 integer 1703936" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Shortcuts: Move right a space with Cmd-Alt-]
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:enabled true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:value:parameters:0 integer 93" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:value:parameters:1 integer 30" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:value:parameters:2 integer 1572864" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:enabled true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:value:parameters:0 integer 93" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:value:parameters:1 integer 30" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:value:parameters:2 integer 1703936" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Shortcuts: Move to main space with Cmd-Alt-\
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:118:enabled true" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:118:value:parameters:0 integer 92" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:118:value:parameters:1 integer 42" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:118:value:parameters:2 integer 1572864" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
 # Disable annoying/dangerous/unnecessary global Shortcuts
 # Shortcuts: Disable "Turn Dock Hiding On/Off"
@@ -180,19 +223,18 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 # Shortcuts: Disable "Show Desktop"
 /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:36:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
 /usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:37:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-# Shortcuts: Disable "Mission Control controls"
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:79:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:80:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:81:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:82:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-# Shortcuts: Disable Dictation shortcut
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:164:value:type standard" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Delete AppleSymbolicHotKeys:164:value:parameters" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters array" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:0 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:1 integer 65535" ~/Library/Preferences/com.apple.symbolichotkeys.plist
-/usr/libexec/PlistBuddy -c "Add AppleSymbolicHotKeys:164:value:parameters:2 integer 0" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+# Shortcuts: Disable "Show Dashboard"
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:62:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:63:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+# Shortcuts: Disable accessibility shortcuts
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:59:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c "Set AppleSymbolicHotKeys:162:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
+# Configure custom keyboard layout
+defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
+  '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>16383</integer><key>KeyboardLayout Name</key><string>US-ES International</string></dict>'
+defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string \
+  'org.sil.ukelele.keyboardlayout.custom-keyboard.us-esinternational'
 
 
 # -----------------------------------------------------------------------------
@@ -294,9 +336,6 @@ defaults write com.apple.finder FK_ArrangeBy -string "Kind"
 # Enable AirDrop over every interface, not only ethernet
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
-# Enable the MacBook Air SuperDrive on any Mac
-sudo nvram boot-args="mbasd=1"
-
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
@@ -313,104 +352,8 @@ defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable -bool 
 defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -bool false
 defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -bool true
 
-# Sidebar: Don't show shared elements
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.backToMyMacEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.bonjourEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
-/usr/libexec/PlistBuddy -c "Set networkbrowser:CustomListProperties:com.apple.NetworkBrowser.connectedEnabled false" ~/Library/Preferences/com.apple.sidebarlists.plist
-
 # Sidebar: Don't show tags
 defaults write com.apple.finder ShowRecentTags -bool false
-
-# Sidebar: Favorites
-defaults write com.apple.sidebarlists favoriteitems '
-    {
-        Controller = CustomListItems;
-        CustomListItems =     (
-                    {
-                Alias = <00000000 00920003 00010000 d1251ac4 0000482b 00000000 000293ef 000621e0 0000d125 23fb0000 00000920 fffe0000 00000000 0000ffff ffff0001 00040002 93ef000e 000e0006 006f006d 00650067 0061006b 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 000c5573 6572732f 6f6d6567 616b0013 00012f00 00150002 000dffff 0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 646c6675 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935820909;
-                };
-                Name = Home;
-            },
-                    {
-                Alias = <00000000 00a00003 00010000 d1251ac4 0000482b 00000000 000621e0 000621f1 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00100007 00440065 0073006b 0074006f 0070000f 001a000c 004d0061 00630069 006e0074 006f0073 00680020 00480044 00120014 55736572 732f6f6d 6567616b 2f446573 6b746f70 00130001 2f000015 0002000d ffff0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 6b736564 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819892;
-                };
-                Name = Desktop;
-            },
-                    {
-                Alias = <00000000 009e0003 00010000 d1251ac4 0000482b 00000000 000621e0 000621e3 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00140009 0044006f 0077006e 006c006f 00610064 0073000f 00120008 0055006e 00740069 0074006c 00650064 00120016 55736572 732f6f6d 6567616b 2f446f77 6e6c6f61 64730013 00012f00 00150002 000dffff 0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 666e7764 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819884;
-                };
-                Name = Downloads;
-            },
-                    {
-                Alias = <00000000 00a00003 00010000 d1251ac4 0000482b 00000000 000621e0 000ad731 0000d127 f7bd0000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00100007 00440072 006f0070 0062006f 0078000f 001a000c 004d0061 00630069 006e0074 006f0073 00680020 00480044 00120014 55736572 732f6f6d 6567616b 2f44726f 70626f78 00130001 2f000015 0002000d ffff0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 72646c66 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935820388;
-                };
-                Name = Dropbox;
-            },
-                    {
-                Alias = <00000000 00b00003 00010000 d1251ac4 0000482b 00000000 000621e0 000b3a39 0000d127 fa020000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 001a000c 0047006f 006f0067 006c0065 00200044 00720069 00760065 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 00195573 6572732f 6f6d6567 616b2f47 6f6f676c 65204472 69766500 00130001 2f000015 0002000d ffff0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 04000000 00000000 00000000 00000000 00000000 1d000000 00000000 2d000000 00000000 66696c65 3a2f2f6c 6f63616c 686f7374 2f557365 72732f6f 6d656761 6b2f476f 6f676c65 25323044 72697665 2f000000 0281b2ba 41300000 00000000 00646e69 62000000 00010000 00000000 00000000 00000000 00000000 00000000 00000000 0072646c 66120000 00000000 00>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1061109567;
-                };
-                Name = "Google Drive";
-            },
-                    {
-                Alias = <00000000 00940003 00010000 d1251ac4 0000482b 00000000 00000002 00000093 0000d021 2e3b0000 00000920 fffe0000 00000000 0000ffff ffff0001 0000000e 001a000c 00410070 0070006c 00690063 00610074 0069006f 006e0073 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 000c4170 706c6963 6174696f 6e730013 00012f00 ffff0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 73707061 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935819120;
-                };
-                Name = Applications;
-            },
-                    {
-                Alias = <00000000 009e0003 00010000 d1251ac4 0000482b 00000000 000621e0 00062219 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 000e0006 004d006f 00760069 00650073 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 00135573 6572732f 6f6d6567 616b2f4d 6f766965 73000013 00012f00 00150002 000dffff 0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 636f7666 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935822198;
-                };
-                Name = Movies;
-            },
-                    {
-                Alias = <00000000 009a0003 00010000 d1251ac4 0000482b 00000000 000621e0 0006221b 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 000c0005 004d0075 00730069 0063000f 001a000c 004d0061 00630069 006e0074 006f0073 00680020 00480044 00120012 55736572 732f6f6d 6567616b 2f4d7573 69630013 00012f00 00150002 000dffff 0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 696b7073 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935822195;
-                };
-                Name = Music;
-            },
-                    {
-                Alias = <00000000 00a40003 00010000 d1251ac4 0000482b 00000000 000621e0 0006221d 0000d125 20140000 00000920 fffe0000 00000000 0000ffff ffff0001 00080006 21e00002 93ef000e 00120008 00500069 00630074 00750072 00650073 000f001a 000c004d 00610063 0069006e 0074006f 00730068 00200048 00440012 00155573 6572732f 6f6d6567 616b2f50 69637475 72657300 00130001 2f000015 0002000d ffff0000>;
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.Binding" = <646e6962 00000000 01000000 00000000 00000000 00000000 00000000 00000000 00000000 c4726f6d 02000000 00000000>;
-                    "com.apple.LSSharedFileList.TemplateSystemSelector" = 1935822947;
-                };
-                Name = Pictures;
-            },
-                    {
-                CustomItemProperties =             {
-                    "com.apple.LSSharedFileList.SpecialItemIdentifier" = "com.apple.LSSharedFileList.IsMeetingRoom";
-                };
-                Name = "domain-AirDrop";
-                URL = "nwnode://domain-AirDrop";
-            }
-        );
-        CustomListProperties =     {
-            "com.apple.LSSharedFileList.Restricted.upgraded" = 9027;
-        };
-    }
-'
 
 # Toolbar: Set a very minimal toolbar
 /usr/libexec/PlistBuddy -c "Delete 'NSToolbar Configuration Browser':'TB Item Identifiers'" ~/Library/Preferences/com.apple.finder.plist
@@ -536,8 +479,5 @@ for app in "Activity Monitor" "Calendar" "Contacts" "cfprefsd" \
   "Dock" "Finder" "SystemUIServer" "TotalFinder"; do
   killall "${app}" > /dev/null 2>&1
 done
-
-# Re-launch TotalFinder
-open /Applications/TotalFinder.app
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
