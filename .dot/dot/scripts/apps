@@ -11,6 +11,6 @@ fi
 pprint section "Installing apps"
 pprint newline
 
-$DOT/cask/apps.sh
+$DOT/brew/apps.sh
 pprint newline
 exit 0
