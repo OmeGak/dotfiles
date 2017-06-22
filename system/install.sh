@@ -40,7 +40,7 @@ if [[ -n ${missing_fonts} ]]; then
   pprint info-go "Installing missing fonts into ${fonts_dir}"
   mkdir -p "${fonts_dir}"
   for font_src in ${missing_fonts[@]}; do
-    # Symlinking fonts is not supported in OSX
+    # Symlinking fonts is not supported in macOS
     cp "${font_src}" "$(target "${font_src}")"
   done
   sh -c "${refresh}"

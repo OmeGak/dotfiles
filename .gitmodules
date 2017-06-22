@@ -1,5 +1,5 @@
 [submodule "osx/US-ES-Keyboard"]
-	path = osx/US-ES-Keyboard
+	path = macos/US-ES-Keyboard
 	url = https://github.com/OmeGak/US-ES-Keyboard.git
 [submodule "vim/.vim-plug"]
 	path = vim/.vim-plug

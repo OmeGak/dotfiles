@@ -1,5 +1,5 @@
 #!/bin/sh
-# Locates Mac OSX applications by either name or bundle ID
+# Locates macOS applications by either name or bundle ID
 
 if [[ "$OS" != "Darwin" ]]; then
   echo "Oops! This is not a Mac..." 1>&2

@@ -7,7 +7,7 @@ if [[ "$OS" != "Darwin" ]]; then
 fi
 
 install_keyboard_layout() {
-  local source_bundle="$DOT/osx/US-ES-Keyboard/US-ES-International.bundle"
+  local source_bundle="$DOT/macos/US-ES-Keyboard/US-ES-International.bundle"
   local target_bundle="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
 
   # Check if keyboard layout is not installed

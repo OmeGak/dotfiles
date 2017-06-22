@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Determines whether a Mac OSX application is runing or not
+# Determines whether a macOS application is runing or not
 
 if [[ "$OS" != "Darwin" ]]; then
   echo "Oops! This is not a Mac..." 1>&2

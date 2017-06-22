@@ -52,7 +52,7 @@ gives access to some common actions.
 
 * `dot run` will symlink new files into your home directory and run topic
   installers.
-* `dot osxrun` will install OS X applications and apply setting defaults.
+* `dot macosrun` will install OS X applications and apply setting defaults.
 * `dot edit` will open an editor on your `~/.dotfiles` folder.
 
 

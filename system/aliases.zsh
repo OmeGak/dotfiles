@@ -22,7 +22,7 @@ if [[ "$OS" == "Linux" ]]; then
   alias pbpaste="xclip -selection clipboard -o"
 fi
 
-# OSX fixes
+# macOS fixes
 if [[ "$OS" == "Darwin" ]]; then
   alias tac='tail -r'
 fi

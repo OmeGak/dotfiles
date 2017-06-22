@@ -1,6 +1,6 @@
 .SILENT:
 .PHONY: dot
-.PHONY: run osxrun
+.PHONY: run macosrun
 .PHONY: link install setshell defaults apps
 .PHONY: _dot-start _dot-finish
 
@@ -13,7 +13,7 @@ dot: _dot-start run setshell _dot-finish
 # -- Workflows ----------------------------------------------------------------
 
 run: link install
-osxrun: apps defaults
+macosrun: apps defaults
 
 
 # -- Steps --------------------------------------------------------------------

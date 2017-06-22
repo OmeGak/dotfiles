@@ -1,5 +1,5 @@
 #!/usr/bin/env bash -e
-# Applies default preferences for OSX and some apps.
+# Applies default preferences for macOS and some apps.
 source $HOME/.dotfiles/.dot/dot/env
 
 if [[ "$OS" != "Darwin" ]]; then
@@ -9,4 +9,4 @@ fi
 
 pprint section "Applying system defaults"
 
-$DOT/osx/defaults.sh
+$DOT/macos/defaults.sh
