@@ -4,22 +4,7 @@ totalfinder
 dropbox
 google-drive
 backblaze
-
-# Work
-evernote
-grammarly
-mendeley-desktop
-
-# Media
-plex-media-player
-plex-media-server
-spotify
-vlc
-
-# Games
-steam
-minecraft
-openemu
+keybase
 
 # Messaging
 gitter
@@ -28,18 +13,36 @@ riot
 skype
 slack
 
+# Media
+plex-media-player
+plex-media-server
+spotify
+vlc
+
+# Research
+evernote
+grammarly
+mendeley-desktop
+
+# Virtualization
+vagrant
+virtualbox
+vmware-fusion
+
+# Games
+steam
+minecraft
+openemu
+
 # Misc
+bittorrent
 calibre
 handbrake
-keybase
 insomniax
 qlmarkdown
 scroll-reverser
 the-unarchiver
 ukelele
-utorrent
-virtualbox
-vagrant
 
 # Drivers
 xbox360-controller-driver
@@ -48,5 +51,5 @@ osxfuse
 wacom-bamboo-tablet
 
 # Others
-basictex
+mactex
 java
