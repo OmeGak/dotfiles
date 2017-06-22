@@ -461,13 +461,8 @@ defaults write com.binaryage.totalfinder TotalFinderVisorOnDockLevel -bool false
 # Visor: Disable free form window
 defaults write com.binaryage.totalfinder TotalFinderVisorFreeForm -int 0
 
-# Browser: Folders on top
-defaults write com.binaryage.totalfinder TotalFinderFoldersOnTop -bool true
-
 # Browser: Automatically adjust width in column view
 defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthEnabled -bool true
-defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMaxColumnWidth -int 250
-defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMinColumnWidth -int 200
 
 # Tabs: Use narrow tabs bar
 defaults write com.binaryage.totalfinder TotalFinderNarrowTabsBar -bool true
@@ -488,8 +483,6 @@ defaults write com.binaryage.totalfinder TotalFinderNewTabsWithCurrentTarget -bo
 /usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:PinVisor:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
 /usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:NarrowTabsBar:Modifiers 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
 /usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:NarrowTabsBar:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
-/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:FoldersOnTop:Modifiers 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
-/usr/libexec/PlistBuddy -c "Set TotalFinderShortcuts:FoldersOnTop:KeyCode 0" ~/Library/Preferences/com.binaryage.totalfinder.plist
 
 
 # -----------------------------------------------------------------------------
