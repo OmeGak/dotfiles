@@ -418,11 +418,12 @@ defaults write com.apple.sidebarlists favoriteitems '
 /usr/libexec/PlistBuddy -c "Delete 'NSToolbar Configuration Browser':'TB Item Identifiers'" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers' array" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':0 string com.apple.finder.BACK" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':3 string com.apple.finder.SWCH" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':4 string com.apple.finder.ARNG" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':5 string com.apple.finder.NFLD" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':6 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':7 string com.apple.finder.SRCH" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':1 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':2 string com.apple.finder.SWCH" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':3 string com.apple.finder.ARNG" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':4 string com.apple.finder.NFLD" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':5 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add 'NSToolbar Configuration Browser':'TB Item Identifiers':6 string com.apple.finder.SRCH" ~/Library/Preferences/com.apple.finder.plist
 
 
 # -----------------------------------------------------------------------------
