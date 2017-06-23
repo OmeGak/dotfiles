@@ -407,7 +407,11 @@ defaults write com.binaryage.totalfinder TotalFinderVisorOnDockLevel -bool false
 defaults write com.binaryage.totalfinder TotalFinderVisorFreeForm -int 0
 
 # Browser: Automatically adjust width in column view
-defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthEnabled -bool true
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthEnabled -bool false
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMaxColumnWidthEnabled -int 1
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMaxColumnWidth -int 250
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMinColumnWidthEnabled -int 1
+defaults write com.binaryage.totalfinder TotalFinderColumnViewAutoWidthMinColumnWidth -int 200
 
 # Tabs: Use narrow tabs bar
 defaults write com.binaryage.totalfinder TotalFinderNarrowTabsBar -bool true
