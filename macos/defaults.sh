@@ -173,6 +173,9 @@ defaults write -g AppleLocale -string "en_ES"
 defaults write -g AppleMeasurementUnits -string "Centimeters"
 defaults write -g AppleMetricUnits -bool true
 
+# Configure spelling
+defaults write -g NSPreferredSpellServers -array '(en, Apple)' '(es, Apple)' '(fr, Apple)'
+
 # Disable auto-correct and the sort
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write -g NSAutomaticCapitalizationEnabled -bool false
