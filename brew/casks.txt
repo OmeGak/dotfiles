@@ -53,3 +53,8 @@ wacom-bamboo-tablet
 # Others
 mactex
 java
+
+# App Store
+# iStats Mini
+# Spark
+# Todoist
