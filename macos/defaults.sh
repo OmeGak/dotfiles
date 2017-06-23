@@ -161,7 +161,7 @@ sudo defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Key
 
 # Configure Control Strip (TouchBar)
 defaults write com.apple.controlstrip MiniCustomized \
-  '(com.apple.system.media-play-pause, com.apple.system.volume, com.apple.system.mute, com.apple.system.brightness)'
+  '(com.apple.system.brightness, com.apple.system.volume, com.apple.system.mute, com.apple.system.media-play-pause)'
 defaults write com.apple.controlstrip FullCustomized \
   '(com.apple.system.screencapture, NSTouchBarItemIdentifierFlexibleSpace, com.apple.system.group.brightness,
     com.apple.system.group.keyboard-brightness, com.apple.system.group.media, com.apple.system.group.volume,
