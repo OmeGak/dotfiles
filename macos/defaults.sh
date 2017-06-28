@@ -239,6 +239,12 @@ defaults write com.apple.HIToolbox AppleEnabledInputSources -array-add \
 defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string \
   'org.sil.ukelele.keyboardlayout.custom-keyboard.us-esinternational'
 
+# Remove official keyboard layout
+# Print the list of enabled layouts
+# /usr/libexec/PlistBuddy -c "Print AppleEnabledInputSources" ~/Library/Preferences/com.apple.HIToolbox.plist
+# Delete the one you don't want by passing the index in the 0-indexed array printed with the previous command
+# /usr/libexec/PlistBuddy -c "Delete AppleEnabledInputSources:<index>" ~/Library/Preferences/com.apple.HIToolbox.plist
+
 
 # -----------------------------------------------------------------------------
 # Dock, Dashboard, and spaces
