@@ -78,6 +78,7 @@
     cp = cherry-pick
     df = diff
     dfb = diff-blame
+    fr = fetch-request
     lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
     mk = checkout -b
     mt = mergetool

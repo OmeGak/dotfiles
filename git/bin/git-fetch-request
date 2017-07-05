@@ -1,0 +1,52 @@
+#!/bin/sh
+# Fetch a pull/merge request from a remote hosted in GitHub or GitLab
+# Usage: git-fetch-request [<remote>] <request-id>
+
+_usage() {
+  echo "usage: git fetch-request [<remote>] <request-id>"
+}
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+  _usage
+  exit 1
+fi
+
+export pr
+export remote
+if [ $# -eq 1 ]; then
+  pr=$1
+  if git remote | grep upstream > /dev/null; then
+    remote='upstream'
+  else
+    remote='origin'
+  fi
+else
+  remote=$1
+  pr=$2
+fi
+
+if ! git remote | grep ${remote} > /dev/null; then
+  echo "Remote '${remote}' does not exist"
+  exit 1
+fi
+
+export src
+if git remote get-url ${remote} | grep "github" > /dev/null; then
+  src="refs/pull/${pr}/head"
+elif git remote get-url ${remote} | grep "gitlab" > /dev/null; then
+  src="refs/merge-requests/${pr}/head"
+else
+  echo "Remote '${remote}' does not seem to be pointing at GitHub nor Gitlab"
+  exit 1
+fi
+
+case ${pr} in
+  '')
+    _usage
+    exit 1;;
+  *[!0-9]*)
+    echo "'${pr}' doesn't look like a request ID"
+    exit 1;;
+esac
+
+git fetch ${remote} ${src}:refs/remotes/req-${remote}/${pr}

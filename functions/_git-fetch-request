@@ -1,6 +1,6 @@
-#compdef git-pr-fetch
+#compdef git-fetch-request
 
-_git-pr-fetch() {
+_git-fetch-request() {
   _arguments \
     '1:: :__git_remotes'
 }
@@ -15,4 +15,4 @@ __git_remotes() {
     compadd "$@" - $(_call_program remotes 'git remote')
 }
 
-_git-pr-fetch "$@"
+_git-fetch-request "$@"
