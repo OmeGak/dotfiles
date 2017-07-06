@@ -49,4 +49,4 @@ case ${pr} in
     exit 1;;
 esac
 
-git fetch ${remote} ${src}:refs/remotes/req-${remote}/${pr}
+git fetch --force ${remote} ${src}:refs/remotes/req-${remote}/${pr}
