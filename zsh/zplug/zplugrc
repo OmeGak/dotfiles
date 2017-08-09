@@ -16,12 +16,9 @@ zplug "knu/zsh-git-escape-magic", \
 
 zplug "zsh-users/zsh-completions", use:src
 
-zplug "moby/moby", \
-  use:"contrib/completion/zsh"
-
-zplug "docker/compose", \
-  use:"contrib/completion/zsh"
-
+zplug "/Applications/Docker.app", from:local, \
+  if:"[[ -d /Applications/Docker.app ]]", \
+  use:"Contents/Resources/etc"
 
 # -- Tweaks in packages --------------------------------------------------------
 
