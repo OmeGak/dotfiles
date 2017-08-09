@@ -33,7 +33,8 @@ fi
 # Download website for full offline navigation
 # Source: http://www.kossboss.com/linux---wget-full-website
 if [[ $(which wget) ]]; then
-  alias wget-full="wget --limit-rate=200k --no-clobber --convert-links --random-wait -r -p -E -e robots=off -U mozilla -N"
+  alias wget-full="wget --recursive --no-parent --page-requisites --adjust-extension --convert-links --timestamping \
+                        --user-agent=mozilla --limit-rate=200k --random-wait --execute robots=off"
 fi
 
 if [[ $(which xkcdpass) ]]; then
