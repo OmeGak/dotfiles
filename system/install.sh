@@ -15,6 +15,9 @@ if [[ "$OS" == "Linux" ]]; then
   try pinstall apt xclip
 fi
 
+# Create source directory
+mkdir -p ${HOME}/Code
+
 
 # -- Install missing fonts ----------------------------------------------------
 
