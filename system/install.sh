@@ -9,6 +9,7 @@ try pinstall brew lolcat
 try pinstall brew pass
 try pinstall brew wget
 try pinstall brew unrar
+try pinstall brew youtube-dl
 try pinstall pip xkcdpass
 
 if [[ "$OS" == "Linux" ]]; then
