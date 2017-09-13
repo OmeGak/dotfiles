@@ -1,11 +1,7 @@
 SOURCE="$HOME/.password-store"
 TARGET="file://$HOME/Google Drive/Backups/pass"
+GPG_KEY='0xC00AFB83D78F6DAE'
 MAX_FULL_BACKUPS=3
-
-# XXX: Workaround for bug in duplicity that it only takes the last 16 characters of key for decrypting
-#      https://lists.gnu.org/archive/html/duplicity-talk/2016-11/msg00023.html
-# GPG_KEY='2FE840228F32A65B01ED4C681065E1A178CE1B22'
-GPG_KEY='1065E1A178CE1B22'
 
 # XXX: Workaround for bug in duplicity:
 #      https://superuser.com/questions/606486/duplicity-can-only-restore-as-root-on-os-x
