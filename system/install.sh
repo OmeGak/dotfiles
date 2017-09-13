@@ -16,9 +16,10 @@ if [[ "$OS" == "Linux" ]]; then
   try pinstall apt xclip
 fi
 
-# Create source directory
-mkdir -p ${HOME}/Code
-
+if [[ "$OS" == "Darwin" ]]; then
+  # Make sure gnupg is not linked as it will collide with GPGTools
+  brew unlink gnupg > /dev/null 2>&1
+fi
 
 # -- Install missing fonts ----------------------------------------------------
 
@@ -49,5 +50,10 @@ if [[ -n ${missing_fonts} ]]; then
   done
   sh -c "${refresh}"
 fi
+
+
+# -- Create expected directories -----------------------------------------------
+
+mkdir -p ${HOME}/Code
 
 exit $TRY_CODE
