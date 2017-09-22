@@ -5,6 +5,16 @@
       "Guid" : "5B880134-5915-43C2-AE4E-83A334A0D891",
       "Space" : -1,
       "Window Type" : 1,
+      "HotKey Characters": "",
+      "HotKey Key Code": 50,
+      "HotKey Modifier Flags": 524288,
+      "HotKey Window AutoHides": 1,
+      "HotKey Window Reopens On Activation": 0,
+      "HotKey Window Animates": 1,
+      "HotKey Window Floats": 0,
+      "HotKey Window Dock Click Action": 2,
+      "HotKey Characters Ignoring Modifiers": "´",
+      "Has Hotkey": 1
     }
   ]
 }
