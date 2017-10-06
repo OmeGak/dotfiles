@@ -41,8 +41,8 @@ fi
 # -- Special keybindings ------------------------------------------------------
 
 bindkey '^I' expand-or-complete-with-dots
-bindkey '^[b' show-buffers
-bindkey '^[f' forget-history
+bindkey '^[s' show-buffers
+bindkey '^[k' forget-history
 
 # Always pad pipe with whitespace
 bindkey '|' self-insert-padded
