@@ -5,6 +5,7 @@ dropbox
 google-drive
 backblaze
 keybase
+gpgtools
 
 # Messaging
 gitter
