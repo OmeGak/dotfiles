@@ -6,8 +6,6 @@ if [[ $OS == 'Linux' ]]; then
   exit 0
 fi
 
-try pinstall cask docker
-
 # XXX: Workaround until the completion files are correctly named upstream
 # https://github.com/docker/for-mac/issues/1948
 completions_dir="/Applications/Docker.app/Contents/Resources/etc"

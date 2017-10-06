@@ -53,8 +53,9 @@ osxfuse
 wacom-bamboo-tablet
 
 # Others
-mactex
+docker
 java
+mactex
 
 # App Store
 # iStats Mini
