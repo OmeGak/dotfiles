@@ -24,6 +24,8 @@
     softWrapAtPreferredLineLength: true
     softWrapHangingIndent: 2
     zoomFontWhenCtrlScrolling: false
+  emmet:
+    extensionsPath: "~/.emmet"
   "exception-reporting":
     userId: "38d73c0a-97ef-b336-ef00-e34dfad68a7c"
   "file-icons":
