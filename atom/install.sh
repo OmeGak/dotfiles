@@ -17,5 +17,6 @@ try pinstall npm eslint-config-standard
 try pinstall npm eslint-plugin-standard
 try pinstall npm sass-lint
 try pinstall pip flake8
+try pinstall pip pylint
 
 exit $TRY_CODE
