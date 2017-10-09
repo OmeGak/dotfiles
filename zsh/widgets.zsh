@@ -62,13 +62,13 @@ forget-history() {
   local cmd=$BUFFER$POSTDISPLAY
   # Trim trailing whitespace
   cmd=${cmd//[[:space:]]%/}
+  # Forget history
+  histrm "${cmd}"
+  histrl
   # Clean buffer
   region_highlight=("0 ${#cmd} bold,standout")
   BUFFER=${cmd}
   zle send-break
-  # Forget history
-  histrm "${cmd}"
-  histrl
 }
 zle -N forget-history
 
