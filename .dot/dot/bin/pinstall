@@ -9,17 +9,17 @@ progname=$(basename $0)
 
 _pretty_install() {
   local package=$1
-  local system=$2
+  local manager=$2
   local cmd_install=$3
   local cmd_check=$4
   local args=${@:5}
-  if [[ ! $(which "${system}") ]]; then
-    "Error: ${system} is not available" 1>&2
+  if [[ ! $(which "${manager}") ]]; then
+    "Error: ${manager} is not available" 1>&2
     exit 1
   fi
   if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
-    pprint info-go "Installing ${package} from ${system}"
-    ${cmd_install} ${package} ${args} > /tmp/${package}.with-${system}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
+    pprint info-go "Installing ${package} from ${manager}"
+    ${cmd_install} ${package} ${args} > /tmp/${package}.with-${manager}.$DOT_TOPIC_LOGFILE_SUFFIX 2>&1
     [[ $? != 0 ]] && pprint info-error "Failed to install ${package}" && exit 1
   fi
 }
@@ -62,6 +62,10 @@ ppip() {
   _pretty_install $1 "pip" "pip install --upgrade" "pip show" ${@:2}
 }
 
+ppip3() {
+  _pretty_install $1 "pip" "pip3 install --upgrade" "pip3 show" ${@:2}
+}
+
 
 # ------------------------------------------------------------------------------
 
@@ -85,6 +89,8 @@ case "$1" in
     fn="pnpm";;
   pip)
     fn="ppip";;
+  pip3)
+    fn="ppip3";;
   *)
     usage
     exit 1;;
