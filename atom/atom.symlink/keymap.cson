@@ -1,5 +1,39 @@
-# Replace previous/next word key bindings to use boundaries instead
-'.platform-darwin atom-workspace atom-text-editor':
+# -- General hotkeys -----------------------------------------------------------
+
+'.platform-darwin':
+
+  # Focus on tree view like in Linux
+  'alt-\\': 'tree-view:toggle-focus'
+
+  # Pane control
+  'shift-alt-cmd-left': 'pane:move-item-left'
+  'shift-alt-cmd-right': 'pane:move-item-right'
+  'ctrl-alt-cmd-down': 'window:focus-pane-on-below'
+  'ctrl-alt-cmd-left': 'window:focus-pane-on-left'
+  'ctrl-alt-cmd-right': 'window:focus-pane-on-right'
+  'ctrl-alt-cmd-up': 'window:focus-pane-on-above'
+  'shift-ctrl-alt-cmd-down': 'window:move-active-item-to-pane-below'
+  'shift-ctrl-alt-cmd-left': 'window:move-active-item-to-pane-on-left'
+  'shift-ctrl-alt-cmd-right': 'window:move-active-item-to-pane-on-right'
+  'shift-ctrl-alt-cmd-up': 'window:move-active-item-to-pane-above'
+  'cmd-k down': 'pane:split-down'
+  'cmd-k left': 'pane:split-left'
+  'cmd-k right': 'pane:split-right'
+  'cmd-k up': 'pane:split-up'
+
+
+# -- Text editor hotkeys -------------------------------------------------------
+
+'.platform-darwin atom-text-editor':
+
+  # Enable soft-wrap toggle hotkey
+  'cmd-k cmd-s': 'editor:toggle-soft-wrap'
+
+  # Word navigation
+  'ctrl-left': 'editor:move-to-beginning-of-word'
+  'ctrl-right': 'editor:move-to-beginning-of-next-word'
+  'ctrl-shift-left': 'editor:select-to-beginning-of-word'
+  'ctrl-shift-right': 'editor:select-to-beginning-of-next-word'
   'alt-left': 'editor:move-to-previous-word-boundary'
   'alt-right': 'editor:move-to-next-word-boundary'
   'alt-shift-left': 'editor:select-to-previous-word-boundary'
@@ -7,10 +41,12 @@
   'alt-backspace': 'editor:delete-to-previous-word-boundary'
   'alt-delete': 'editor:delete-to-next-word-boundary'
 
-# Focus on tree view like in Linux
-'.platform-darwin':
-  'alt-\\': 'tree-view:toggle-focus'
+  # Atom Notes
+  'cmd-;': 'atom-notes:toggle'
+  'cmd-alt-;': 'atom-notes:interlink'
 
-'body.platform-darwin':
-  'alt-shift-cmd-left': 'pane:move-item-left'
-  'alt-shift-cmd-right': 'pane:move-item-right'
+  # Emmet overrides
+  'alt-up': 'line-jumper:move-up'
+  'alt-down': 'line-jumper:move-down'
+  'alt-shift-up': 'line-jumper:select-up'
+  'alt-shift-down': 'line-jumper:select-down'
