@@ -5,17 +5,24 @@
       _analyticsUserId: "0375ed6e-60c8-4e0e-bdc1-4fa64bf2fb56"
     json:
       indent_size: 2
+  "atom-notes":
+    directory: "/Users/omegak/Documents/Notes"
   "autocomplete-plus": {}
   "autohide-tree-view":
     showDelay: 100
   core:
+    destroyEmptyPanes: false
     disabledPackages: [
       "wrap-guide"
-      "MagicPython"
+      "git-blame"
+      "language-python"
     ]
     projectHome: "~/Code"
     telemetryConsent: "limited"
+  "disable-keybindings": {}
   editor:
+    atomicSoftTabs: false
+    fontSize: 15
     invisibles: {}
     preferredLineLength: 120
     scrollPastEnd: true
@@ -34,7 +41,8 @@
   "git-blame":
     columnWidth: 331
     ignoreWhiteSpaceDiffs: true
-  "highlight-selected": {}
+  "highlight-selected":
+    onlyHighlightWholeWords: false
   kite:
     showKiteTourOnStatup: false
   latex:
@@ -47,13 +55,30 @@
   "linter-eslint": {}
   "linter-flake8":
     maxLineLength: 120
+  "linter-pylint":
+    executablePath: "%p/.venv/bin/pylint"
   "linter-sass-lint":
     globalSassLint: true
   "linter-ui-default":
     decorateOnTreeView: "None"
-    tooltipFollows: "Keyboard"
-    useBusySignal: false
-  minimap: {}
+    panelHeight: 98
+    statusBarRepresents: "Current File"
+  "markdown-preview":
+    breakOnSingleNewline: true
+    grammars: [
+      "source.gfm"
+      "source.litcoffee"
+      "text.html.basic"
+      "text.md"
+      "text.plain"
+      "text.plain.null-grammar"
+      "source.gfm.notes"
+    ]
+  "markdown-preview-plus":
+    breakOnSingleNewline: true
+    enableLatexRenderingByDefault: true
+  minimap:
+    disablePythonDocLinks: true
   "multi-wrap-guide":
     columns: [
       80
@@ -66,8 +91,8 @@
     forceOverwrite: true
   "pdf-view":
     fitToWidthOnOpen: true
+  "pinned-tabs": {}
   "project-manager":
-    alwaysOpenInSameWindow: true
     savePathsRelativeToHome: true
     showPath: false
   "project-plus":
@@ -81,6 +106,7 @@
       "text.plain"
       "text.plain.null-grammar"
       "text.tex.latex"
+      "source.gfm.notes"
     ]
   "status-bar": {}
   tabs:
@@ -95,3 +121,9 @@
     showOnStartup: false
   whitespace:
     ignoreWhitespaceOnCurrentLine: false
+  wordcount:
+    hidechars: true
+    ignorecode: true
+".editorconfig.source":
+  editor:
+    autoIndent: true
