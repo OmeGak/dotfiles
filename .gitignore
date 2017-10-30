@@ -23,6 +23,11 @@ gpg/gnupg.symlink/*
 !gpg/gnupg.symlink/gpg.conf
 !gpg/gnupg.symlink/gpg-agent.conf
 
+# python: track profile config only
+python/ipython.symlink/**/**
+!python/ipython.symlink/**/
+!python/ipython.symlink/**/ipython_config.py
+
 # ssh: track config only
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/authorized_keys
