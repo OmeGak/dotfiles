@@ -5,9 +5,6 @@ if [[ "$OS" != "Darwin" ]]; then
   exit 0
 fi
 
-source $DOT/.dot/functions/try
-try pinstall cask iterm2
-
 failoniterm() {
   if [[ "$(rnapp iterm)" ]]; then
     pprint info-warn "iTerm is running"
