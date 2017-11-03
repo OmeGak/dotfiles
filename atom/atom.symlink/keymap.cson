@@ -34,6 +34,8 @@
   'ctrl-right': 'editor:move-to-beginning-of-next-word'
   'ctrl-shift-left': 'editor:select-to-beginning-of-word'
   'ctrl-shift-right': 'editor:select-to-beginning-of-next-word'
+  'ctrl-backspace': 'editor:delete-to-beginning-of-word'
+  'ctrl-delete': 'editor:delete-to-end-of-word'
   'alt-left': 'editor:move-to-previous-word-boundary'
   'alt-right': 'editor:move-to-next-word-boundary'
   'alt-shift-left': 'editor:select-to-previous-word-boundary'
