@@ -93,3 +93,7 @@
     ts = tag --sign --message=''
     count = shortlog --summary --numbered
     last = log -1 HEAD
+    # Stash variants
+    stsh = stash --keep-index
+    staash = stash --include-untracked
+    staaash = stash --all
