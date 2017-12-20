@@ -3,6 +3,7 @@ source $DOT/.dot/functions/try
 
 try pinstall brew ack
 try pinstall brew coreutils
+try pinstall brew exercism
 try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew lolcat
