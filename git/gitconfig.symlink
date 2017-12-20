@@ -93,7 +93,7 @@
     ts = tag --sign --message=''
     count = shortlog --summary --numbered
     last = log -1 HEAD
-    serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+    serve = !git daemon --reuseaddr --verbose --export-all --base-path=.git --strict-paths .git/
     # Stash variants
     stsh = stash --keep-index
     staash = stash --include-untracked

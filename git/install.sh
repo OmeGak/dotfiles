@@ -12,4 +12,7 @@ try pinstall brew hub
 try pinstall brew git-duet
 try pinstall npm git-standup
 
+# Required for git-ngrok
+try pinstall brew jq
+
 exit $TRY_CODE
