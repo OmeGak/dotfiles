@@ -6,6 +6,8 @@
     editor = vim
     excludesfile = ~/.gitignore
     hooksPath = ~/.githooks
+    # Use default ssh config to circumvent LocalCommand in my ssh config
+    sshCommand = ssh -F /etc/ssh/ssh_config
 [color]
     branch = auto
     diff = auto
