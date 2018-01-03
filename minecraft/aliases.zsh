@@ -1,7 +1,0 @@
-alias mci="minecraft start"
-alias mck="minecraft stop"
-alias mcr="minecraft restart"
-alias mcu="minecraft update"
-alias mcb="minecraf backup"
-alias mcs="minecraft status"
-alias mc="minecraft command"
