@@ -3,7 +3,12 @@ zplug "$DOT", from:local, \
   use:"*/path.zsh", \
   defer:0
 
-# Set loading general interactive files (defer: 1)
+# Set loading env files (defer: 1)
+zplug "$DOT", from:local, \
+  use:"*/env.zsh", \
+  defer:1
+
+# Set loading run command files (defer: 1)
 zplug "$DOT", from:local, \
   use:"*/*.rc.zsh", \
   defer:1

@@ -20,17 +20,8 @@ source $DOT/.dot/zsh/path.zsh
 fpath=($DOT/.dot/zsh/functions $fpath)
 autoload -U $DOT/.dot/zsh/functions/*(:t)
 
-# Load master env file
+# Load user env file
 if [[ -a $DOT/zsh/dotenv ]]; then
   # shellcheck source=/dev/null
   source $DOT/zsh/dotenv
 fi
-
-# Load all env files
-typeset -U env_files
-env_files=($DOT/**/env.zsh)
-for file in "${env_files[@]}"; do
-  # shellcheck source=/dev/null
-  source $file
-done
-unset env_files
