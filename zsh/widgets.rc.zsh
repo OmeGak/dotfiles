@@ -75,9 +75,9 @@ zle -N forget-history
 
 # -- Misc ---------------------------------------------------------------------
 
-# Automatically escape URLs as you type
-autoload -U url-quote-magic
-zle -N self-insert url-quote-magic
+# Automatically escape URLs when you paste
+autoload -U bracketed-paste-url-magic
+zle -N bracketed-paste bracketed-paste-url-magic
 
 # Enter white spaces around the inserted key
 # Based on: http://www.zsh.org/mla/users/2006/msg00690.html
