@@ -12,7 +12,7 @@ try pinstall npm eslint-plugin-promise
 try pinstall npm eslint-config-standard
 try pinstall npm eslint-plugin-standard
 try pinstall npm sass-lint
-try pinstall pip flake8
-try pinstall pip pylint
+try pinstall pip2 flake8
+try pinstall pip2 pylint
 
 exit $TRY_CODE

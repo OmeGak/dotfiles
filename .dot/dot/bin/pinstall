@@ -58,8 +58,8 @@ pnpm() {
   _pretty_install $1 "npm" "npm -g install" "npm -g list" ${@:2}
 }
 
-ppip() {
-  _pretty_install $1 "pip" "pip install --upgrade" "pip show" ${@:2}
+ppip2() {
+  _pretty_install $1 "pip" "pip2 install --upgrade" "pip2 show" ${@:2}
 }
 
 ppip3() {
@@ -87,8 +87,8 @@ case "$1" in
     fn="pgem";;
   npm)
     fn="pnpm";;
-  pip)
-    fn="ppip";;
+  pip2)
+    fn="ppip2";;
   pip3)
     fn="ppip3";;
   *)
