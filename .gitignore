@@ -32,6 +32,7 @@ python/ipython.symlink/**/**
 ssh/ssh.symlink/*
 !ssh/ssh.symlink/authorized_keys
 !ssh/ssh.symlink/config
+!ssh/ssh.symlink/config.git
 
 # Ignore compiled hack
 system/keyboard/disable-capslock-delay

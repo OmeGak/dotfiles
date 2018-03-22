@@ -7,7 +7,7 @@
     excludesfile = ~/.gitignore
     hooksPath = ~/.githooks
     # Use default ssh config to circumvent LocalCommand in my ssh config
-    sshCommand = ssh -F /etc/ssh/ssh_config
+    sshCommand = ssh -F ~/.ssh/config.git
 [color]
     branch = auto
     diff = auto
