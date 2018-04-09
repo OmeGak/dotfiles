@@ -13,6 +13,8 @@
     diff = auto
     status = auto
     ui = true
+[diff]
+    colorMoved = dimmed_zebra
 [difftool]
     prompt = false
 [interactive]
