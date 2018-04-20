@@ -1,0 +1,3 @@
+# Paths need to be rebuilt because /etc/zprofile scrambles it with /usr/libexec/path_helper
+# shellcheck source=path.zsh
+source $DOT/.dot/zsh/path.zsh
