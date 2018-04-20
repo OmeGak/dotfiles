@@ -11,7 +11,7 @@ try pinstall brew pass
 try pinstall brew wget
 try pinstall brew unrar
 try pinstall brew youtube-dl
-try pinstall pip2 xkcdpass
+try pinstall pip3 xkcdpass
 
 if [[ "$OS" == "Linux" ]]; then
   try pinstall apt xclip
