@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Install pip global packages
+
+case "$1" in
+  pip2|pip3)
+    bin="$1"
+    shift;;
+  *)
+    bin="pip";;
+esac
+
+PIP_REQUIRE_VIRTUALENV="" ${bin} "$@"
