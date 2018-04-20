@@ -8,6 +8,4 @@ export CLICOLOR=true
 export LSCOLORS='ExGxFxdxCxDxDxBxBxExEx'
 
 # Colorize grep
-GREP_OPTIONS=' --color=auto'
-alias grep="grep $GREP_OPTIONS"
-unset GREP_OPTIONS
+alias grep="grep --color=auto"
