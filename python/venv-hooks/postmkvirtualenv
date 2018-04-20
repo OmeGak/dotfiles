@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# This hook is run after a new virtualenv is activated.
-
-# Install common tools
-pip install ipdb ipython wdb

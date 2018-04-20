@@ -3,8 +3,6 @@ source $DOT/.dot/functions/try
 
 # Python 2 tools
 try pinstall pip2 pip
-try pinstall pip2 virtualenv
-try pinstall pip2 virtualenvwrapper
 
 # Python 3 tools
 try pinstall pip3 pip
