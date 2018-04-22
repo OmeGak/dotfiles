@@ -1,6 +1,9 @@
 # Shortcut to dotfiles folder
 export DOT=$HOME/.dotfiles
 
+# Default editor for .dotfiles
+export DOTEDITOR='vi'
+
 # Get OS name
 export OS
 OS=$(uname -s)
