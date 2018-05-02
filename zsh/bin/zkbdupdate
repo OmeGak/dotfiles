@@ -1,0 +1,79 @@
+#!/usr/bin/env zsh
+# Updates zkbd files for macOS
+
+set -e
+progname=$(basename $0)
+DRY=true
+
+usage() {
+  echo "usage: ${progname} [-a]"
+  echo '  -a: Apply changes'
+}
+
+init() {
+  # TODO: make more portable by not using ZSH globbing
+  setopt EXTENDED_GLOB
+  ZKBD=$HOME/.zkbd
+  files=($ZKBD/*apple*(^@))
+  symlinks=($ZKBD/*apple*(@))
+  cd $ZKBD
+}
+
+build_filepath() {
+  echo $(echo $1 | sed s/darwin.\*/$OSTYPE/)
+}
+
+build_sourcename() {
+  local filename=$(basename $1)
+  echo $(echo ${filename} | sed s/apple\*/256color-apple/)
+}
+
+update() {
+  local newname
+  local newtarget
+  local newsource
+
+  echo 'Renaming files:'
+  for file in ${files}; do
+    newpath="$(build_filepath ${file})"
+    if ! $DRY; then
+      mv ${file} ${newpath}
+    fi
+    echo "  ${file} -> ${newpath}"
+  done
+
+  echo 'Recreating symlinks:'
+  for symlink in ${symlinks}; do
+    newtargetpath="$(build_filepath ${symlink})"
+    newsourcename="$(build_sourcename ${newtargetpath})"
+    if ! $DRY; then
+      ln -s ${newsourcename} ${newtargetpath}
+      rm ${symlink}
+    fi
+    echo "  ${symlink} -> ${newtargetpath}"
+    echo "    -> ${newsourcename}"
+  done
+}
+
+main() {
+  if [[ ${#} > 0 ]]; then
+    case "${1}" in
+      -a)
+        DRY=false
+        shift;;
+      *)
+        usage
+        exit 1;;
+    esac
+  fi
+
+  if $DRY; then
+    echo "\033[0;31m${progname} is in dry-run mode and no file will be touched:\033[0m"
+    echo "\033[0;31m  pass -a to apply changes\033[0m"
+  fi
+
+  init
+  update
+}
+
+main ${@}
