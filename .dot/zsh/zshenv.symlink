@@ -10,7 +10,7 @@ OS=$(uname -s)
 
 # Hardcoded homebrew prefix to avoid expensive calls
 [[ "$OS" == 'Darwin' ]] && export BREWDIR='/usr/local' \
-                        || export BREWDIR='$HOME/.linuxbrew'
+                        || export BREWDIR='/home/linuxbrew/.linuxbrew'
 
 # ZPLUG home folder
 export ZPLUG=$BREWDIR/opt/zplug
