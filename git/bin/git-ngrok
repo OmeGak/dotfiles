@@ -14,9 +14,11 @@ if ! command -v jq > /dev/null 2>&1; then
 fi
 
 ngroklog='/tmp/ngrok.log'
+gitserve='git daemon --reuseaddr --verbose --export-all --base-path=.git --strict-paths .git/'
+
 echo 'Waiting for git daemon and ngrok to start...'
 ngrok tcp 9418 --log=stdout > ${ngroklog} &
-git serve > /dev/null 2>&1 &
+${gitserve} .git/ > /dev/null 2>&1 &
 sleep 3
 
 url=$(curl -s http://localhost:4040/api/tunnels/command_line | jq -r '.public_url')
