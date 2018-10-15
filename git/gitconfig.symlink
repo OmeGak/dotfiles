@@ -33,6 +33,8 @@
     show = diff-highlight | less
 [rerere]
     enabled = true
+[advice]
+  waitingForEditor = false
 
 
 # -- Triangular workflow ------------------------------------------------------
