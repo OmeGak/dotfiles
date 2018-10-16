@@ -1,0 +1,2 @@
+# Install global packages in userland
+prefix=${HOME}/.npm-packages
