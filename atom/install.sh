@@ -15,4 +15,13 @@ try pinstall npm sass-lint
 try pinstall pip3 flake8
 try pinstall pip3 pylint
 
+# FIXME: Must be installed locally in `~` with `npm install` until this issue is resolved
+#        https://github.com/remarkjs/remark-lint/issues/165
+# try pinstall npm remark-lint-list-item-indent
+# try pinstall npm remark-lint-maximum-line-length
+# try pinstall npm remark-lint-ordered-list-marker-value
+# try pinstall npm remark-preset-lint-consistent
+# try pinstall npm remark-preset-lint-recommended
+# try pinstall npm remark-preset-lint-markdown-style-guide
+
 exit $TRY_CODE

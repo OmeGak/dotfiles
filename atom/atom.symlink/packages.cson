@@ -31,6 +31,7 @@ packages: [
   "linter-flake8"
   "linter-htmlhint"
   "linter-js-yaml"
+  "linter-markdown"
   "linter-pylint"
   "linter-rubocop"
   "linter-sass-lint"
