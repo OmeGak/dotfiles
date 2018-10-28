@@ -19,6 +19,9 @@ zplug "zsh-users/zsh-completions", use:src
 zplug "exercism/cli-www", from:github, \
   use:"public/exercism_completion.zsh"
 
+zplug "omegak/boom", from:github, \
+  use:"completion/zsh"
+
 zplug "/Applications/Docker.app", from:local, \
   if:"[[ -d /Applications/Docker.app ]]", \
   use:"Contents/Resources/etc"
