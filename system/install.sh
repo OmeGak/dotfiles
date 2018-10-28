@@ -11,6 +11,7 @@ try pinstall brew pass
 try pinstall brew wget
 try pinstall brew unrar
 try pinstall brew youtube-dl
+try pinstall gem boom
 try pinstall pip3 xkcdpass
 
 if [[ "$OS" == "Linux" ]]; then
