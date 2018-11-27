@@ -126,3 +126,13 @@
 ".editorconfig.source":
   editor:
     autoIndent: true
+".gfm.source":
+  "bracket-matcher":
+    autocompleteCharacters: [
+      "()"
+      "[]"
+      "{}"
+      "<>"
+      "\"\""
+      "``"
+    ]
