@@ -16,17 +16,10 @@ alias path='echo $PATH | tr : "\n"'
 alias fatd="gdu -sh *(/D) | gsort -rh | head -10"
 alias fatdr="gdu -Sh | gsort -rh | head -10"
 
-# Linux fixes
-if [[ "$OS" == "Linux" ]]; then
-  alias pbcopy="xclip -selection clipboard"
-  alias pbpaste="xclip -selection clipboard -o"
-fi
-
-# macOS fixes
-if [[ "$OS" == "Darwin" ]]; then
-  alias tac='tail -r'
-fi
-
+# date
+[[ $(which gdate) ]] && DATE="gdate" || DATE="date"
+alias now="$DATE --rfc-3339=seconds"
+unset DATE
 
 # -- Snippets ------------------------------------------------------------------
 
@@ -39,4 +32,16 @@ fi
 
 if [[ $(which xkcdpass) ]]; then
   alias xkcdpass="xkcdpass --interactive --numwords=4 --valid-chars='[a-z]' --max=8 --delimiter='-'"
+fi
+
+
+# -- Compatibility -------------------------------------------------------------
+
+if [[ "$OS" == "Linux" ]]; then
+  alias pbcopy="xclip -selection clipboard"
+  alias pbpaste="xclip -selection clipboard -o"
+fi
+
+if [[ "$OS" == "Darwin" ]]; then
+  alias tac='tail -r'
 fi
