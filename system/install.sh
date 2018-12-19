@@ -8,8 +8,9 @@ try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew lolcat
 try pinstall brew pass
-try pinstall brew wget
+try pinstall brew speedtest-cli
 try pinstall brew unrar
+try pinstall brew wget
 try pinstall brew youtube-dl
 try pinstall gem boom
 try pinstall pip3 xkcdpass
