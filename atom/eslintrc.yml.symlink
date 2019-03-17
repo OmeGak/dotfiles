@@ -1,4 +1,15 @@
-extends: 'standard'
+extends:
+  - 'standard'
+  - 'plugin:react/recommended'
+plugins:
+  - 'react'
+settings:
+  react:
+    pragma: 'React'
+    version: '16.5.2'
+parserOptions:
+  ecmaVersion: 6
+  jsx: true
 rules:
   space-before-function-paren:
     - error

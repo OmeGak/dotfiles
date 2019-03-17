@@ -10,6 +10,7 @@ try pinstall gem rubocop
 try pinstall npm dockerlint
 try pinstall npm eslint
 try pinstall npm eslint-plugin-promise
+try pinstall npm eslint-plugin-react
 try pinstall npm eslint-config-standard
 try pinstall npm eslint-plugin-standard
 try pinstall npm sass-lint
