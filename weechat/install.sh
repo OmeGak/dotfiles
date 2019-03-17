@@ -3,7 +3,7 @@ source $DOT/.dot/functions/try
 
 try pinstall brew perl
 try pinstall brew aspell
-try pinstall brew weechat --with-aspell --with-perl --with-python
+try pinstall brew weechat
 
 if [[ "$OS" == "Darwin" ]]; then
   try pinstall pip3 pync
