@@ -4,6 +4,7 @@ source $DOT/.dot/functions/try
 try pinstall brew ctags
 
 # Linters
+try pinstall brew hlint
 try pinstall brew shellcheck
 try pinstall gem rubocop
 try pinstall npm dockerlint
