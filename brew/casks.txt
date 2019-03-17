@@ -1,23 +1,28 @@
 # Essentials
 google-chrome
-totalfinder
 dropbox
-google-drive
+google-backup-and-sync
 backblaze
+gpg-suite
+transmission
+tunnelblick
 keybase
-gpgtools
 
 # Development
 iterm2
 atom
-p4merge
+p4v
+devdocs
 
 # Messaging
+caprine
 gitter
-messenger-for-desktop
 riot
 skype
 slack
+signal
+telegram-desktop
+wire
 
 # Media
 plex-media-player
@@ -28,12 +33,11 @@ vlc
 # Research
 evernote
 grammarly
-mendeley-desktop
+mendeley
 
 # Virtualization
 vagrant
 virtualbox
-vmware-fusion
 
 # Games
 steam
@@ -41,7 +45,6 @@ minecraft
 openemu
 
 # Misc
-bittorrent
 calibre
 handbrake
 insomniax
@@ -52,7 +55,7 @@ the-unarchiver
 ukelele
 
 # Drivers
-xbox360-controller-driver
+xbox360-controller-driver-unofficial
 logitech-unifying
 osxfuse
 wacom-bamboo-tablet
