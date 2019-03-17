@@ -12,7 +12,7 @@ _pretty_install() {
   local manager=$2
   local cmd_install=$3
   local cmd_check=$4
-  local args=${@:5}
+  local args=${*:5}
   if [[ ! $(which "${manager}") ]]; then
     "Error: ${manager} is not available" 1>&2
     exit 1
@@ -39,31 +39,31 @@ _is_installed() {
 # -- System calls --------------------------------------------------------------
 
 papt() {
-  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s" ${@:2}
+  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s" "${@:2}"
 }
 
 pbrew() {
-  _pretty_install $1 "brew" "brew install" "brew ls --versions" ${@:2}
+  _pretty_install $1 "brew" "brew install" "brew ls --versions" "${@:2}"
 }
 
 pcask() {
-  _pretty_install $1 "brew" "brew cask install" "brew cask ls --versions" ${@:2}
+  _pretty_install $1 "brew" "brew cask install" "brew cask ls --versions" "${@:2}"
 }
 
 pgem() {
-  _pretty_install $1 "gem" "gem install" "gem list -i" ${@:2}
+  _pretty_install $1 "gem" "gem install" "gem list -i" "${@:2}"
 }
 
 pnpm() {
-  _pretty_install $1 "npm" "npm -g install" "npm -g list" ${@:2}
+  _pretty_install $1 "npm" "npm -g install" "npm -g list" "${@:2}"
 }
 
 ppip2() {
-  _pretty_install $1 "pip" "pip2 install --upgrade" "pip2 show" ${@:2}
+  _pretty_install $1 "pip" "pip2 install --upgrade" "pip2 show" "${@:2}"
 }
 
 ppip3() {
-  _pretty_install $1 "pip" "pip3 install --upgrade" "pip3 show" ${@:2}
+  _pretty_install $1 "pip" "pip3 install --upgrade" "pip3 show" "${@:2}"
 }
 
 
@@ -71,7 +71,7 @@ ppip3() {
 
 usage() {
   echo "usage: ${progname} system package args"
-  echo "  system:  package system to use: (apt | brew | gem | npm | pip)"
+  echo "  system:  package system to use: (apt | brew | gem | npm | pip2 | pip3)"
   echo "  package: the package to be installed"
   echo "  args:    additional args to pass to the pkg manager"
 }
@@ -96,10 +96,10 @@ case "$1" in
     exit 1;;
 esac
 
-if [[ $# < 2 ]]; then
+if [[ $# -lt 2 ]]; then
   usage
   exit 1
 fi
 
-${fn} "$2" ${@:3}
+${fn} "$2" "${@:3}"
 exit 0
