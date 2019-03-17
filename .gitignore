@@ -4,6 +4,7 @@ atom/atom.symlink/.node-gyp
 atom/atom.symlink/blob-store
 atom/atom.symlink/compile-cache
 atom/atom.symlink/dev
+atom/atom.symlink/github.cson
 atom/atom.symlink/nohup.out
 atom/atom.symlink/packages
 atom/atom.symlink/recovery

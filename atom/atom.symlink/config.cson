@@ -10,18 +10,17 @@
   "autocomplete-plus": {}
   "autohide-tree-view":
     showDelay: 100
+  "bracket-matcher": {}
   core:
     destroyEmptyPanes: false
     disabledPackages: [
       "wrap-guide"
-      "git-blame"
     ]
     projectHome: "~/Code"
     telemetryConsent: "limited"
   "disable-keybindings": {}
   editor:
     atomicSoftTabs: false
-    fontSize: 15
     invisibles: {}
     preferredLineLength: 120
     scrollPastEnd: true
@@ -51,19 +50,24 @@
   linter:
     lintOnChange: false
   "linter-docker": {}
-  "linter-eslint": {}
+  "linter-eslint":
+    global:
+      eslintrcPath: "~/.eslintrc"
+      globalNodePath: "/Users/omegak/.npm-packages"
+      useGlobalEslint: true
   "linter-flake8":
-    maxLineLength: 120
+    flake8:
+      maxLineLength: 120
   "linter-pylint":
     executablePath: "%p/.venv/bin/pylint"
   "linter-sass-lint":
     globalSassLint: true
   "linter-ui-default":
     decorateOnTreeView: "None"
-    panelHeight: 98
+    panelHeight: 171
+    showPanel: true
     statusBarRepresents: "Current File"
   "markdown-preview":
-    breakOnSingleNewline: true
     grammars: [
       "source.gfm"
       "source.litcoffee"
@@ -74,8 +78,10 @@
       "source.gfm.notes"
     ]
   "markdown-preview-plus":
-    breakOnSingleNewline: true
-    enableLatexRenderingByDefault: true
+    markdownItConfig:
+      breakOnSingleNewline: true
+    mathConfig:
+      enableLatexRenderingByDefault: true
   minimap:
     disablePythonDocLinks: true
   "multi-wrap-guide":
