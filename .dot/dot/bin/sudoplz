@@ -5,7 +5,9 @@
 #   -r    Specify the reason why sudo is needed
 #   -s    For step-user style pprint
 
+# shellcheck source=../../dot/functions/try
 source $DOT/.dot/dot/functions/keepsudo
+# shellcheck source=../../functions/try
 source $DOT/.dot/functions/try
 
 while getopts 'ksr:t:' OPTION; do
