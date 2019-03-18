@@ -1,7 +1,14 @@
 [include]
     path = ~/.gitconfig.local
+
+
+# -- General -------------------------------------------------------------------
+
 [hub]
     protocol = https
+[user]
+    # Require explicit user.name and user.email
+    useConfigOnly = true
 [core]
     editor = vim
     excludesfile = ~/.gitignore
@@ -34,7 +41,7 @@
 [rerere]
     enabled = true
 [advice]
-  waitingForEditor = false
+    waitingForEditor = false
 
 
 # -- Triangular workflow ------------------------------------------------------

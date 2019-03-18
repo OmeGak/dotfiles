@@ -13,15 +13,8 @@ if [ "$OS" == "Darwin" ]; then
   git_credential='osxkeychain'
 fi
 
-pprint step-user 'What is your github author name?'
-read -e git_authorname
-pprint step-user -r 'What is your github author email?'
-read -e git_authoremail
-
-s_authorname="s/AUTHORNAME/${git_authorname}/g"
-s_authormail="s/AUTHOREMAIL/${git_authoremail}/g"
 s_credential="s/GIT_CREDENTIAL_HELPER/${git_credential}/g"
-sed -e "${s_authorname}" -e "${s_authormail}" -e "${s_credential}" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+sed -e "${s_credential}" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
 pprint step-ok -r 'gitconfig generated'
 pprint newline
