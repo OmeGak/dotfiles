@@ -2,5 +2,5 @@
 
 set -e
 
-pinstall brew ruby
+pinstall brew ruby@2.5
 pprint info-ok "Ruby is ready to shine"
