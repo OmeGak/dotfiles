@@ -1,2 +1,2 @@
 [credential]
-  helper = GIT_CREDENTIAL_HELPER
+	helper = GIT_CREDENTIAL_HELPER

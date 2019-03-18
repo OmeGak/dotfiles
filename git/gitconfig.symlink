@@ -1,47 +1,47 @@
 [include]
-    path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
 
 # -- General -------------------------------------------------------------------
 
 [hub]
-    protocol = https
+	protocol = https
 [user]
-    # Require explicit user.name and user.email
-    useConfigOnly = true
+	# Require explicit user.name and user.email
+	useConfigOnly = true
 [core]
-    editor = vim
-    excludesfile = ~/.gitignore
-    hooksPath = ~/.githooks
-    # Use default ssh config to circumvent LocalCommand in my ssh config
-    sshCommand = ssh -F ~/.ssh/config.git
+	editor = vim
+	excludesfile = ~/.gitignore
+	hooksPath = ~/.githooks
+	# Use default ssh config to circumvent LocalCommand in my ssh config
+	sshCommand = ssh -F ~/.ssh/config.git
 [color]
-    branch = auto
-    diff = auto
-    status = auto
-    ui = true
+	branch = auto
+	diff = auto
+	status = auto
+	ui = true
 [diff]
-    colorMoved = dimmed_zebra
+	colorMoved = dimmed_zebra
 [difftool]
-    prompt = false
+	prompt = false
 [interactive]
-    diffFilter = diff-highlight
+	diffFilter = diff-highlight
 [help]
-    autocorrect = 1
+	autocorrect = 1
 [merge]
-    tool = p4merge
+	tool = p4merge
 [mergetool]
-    keepBackup = false
-    keepTemporaries = false
-    prompt = false
+	keepBackup = false
+	keepTemporaries = false
+	prompt = false
 [pager]
-    diff = diff-highlight | less
-    log = diff-highlight | least
-    show = diff-highlight | less
+	diff = diff-highlight | less
+	log = diff-highlight | least
+	show = diff-highlight | less
 [rerere]
-    enabled = true
+	enabled = true
 [advice]
-    waitingForEditor = false
+	waitingForEditor = false
 
 
 # -- Triangular workflow ------------------------------------------------------
@@ -50,73 +50,73 @@
 # Source: https://github.com/blog/2042-git-2-5-including-multiple-worktrees-and-triangular-workflows
 
 [remote]
-    pushdefault = origin
+	pushdefault = origin
 [push]
-    default = current
+	default = current
 
 
 # -- Command flags ------------------------------------------------------------
 
 [branch]
-    autosetupmerge = always
+	autosetupmerge = always
 [fetch]
-    prune = true
+	prune = true
 [merge]
-    ff = only
+	ff = only
 [pull]
-    rebase = true
+	rebase = true
 [push]
-    followTags = true
+	followTags = true
 [rebase]
-    autosquash = true
-    autostash = true
+	autosquash = true
+	autostash = true
 [status]
-    short = true
-    branch = true
+	short = true
+	branch = true
 [tag]
-    sort = version:refname
+	sort = version:refname
 
 
 # -- Pretty formats -----------------------------------------------------------
 
 [pretty]
-    onelinecolor = %Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset
+	onelinecolor = %Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset
 
 
 # -- Aliases ------------------------------------------------------------------
 
 [alias]
-    br = branch
-    cm = commit
-    co = checkout
-    cp = cherry-pick
-    dcm = duet-commit
-    df = diff
-    dfb = diff-blame
-    fr = fetch-request
-    lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
-    mk = checkout -b
-    mt = mergetool
-    rb = rebase
-    rbi = rebase --interactive
-    rba = rebase --abort
-    rbc = rebase --continue
-    rbs = rebase --skip
-    st = status
-    ts = tag --sign --message=''
-    count = shortlog --summary --numbered
-    last = log -1 HEAD
-    serve = !git daemon --reuseaddr --verbose --export-all --base-path=.git --strict-paths .git/
-    # Stash variants
-    stsh = stash --keep-index
-    staash = stash --include-untracked
-    staaash = stash --all
+	br = branch
+	cm = commit
+	co = checkout
+	cp = cherry-pick
+	dcm = duet-commit
+	df = diff
+	dfb = diff-blame
+	fr = fetch-request
+	lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
+	mk = checkout -b
+	mt = mergetool
+	rb = rebase
+	rbi = rebase --interactive
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbs = rebase --skip
+	st = status
+	ts = tag --sign --message=''
+	count = shortlog --summary --numbered
+	last = log -1 HEAD
+	serve = !git daemon --reuseaddr --verbose --export-all --base-path=.git --strict-paths .git/
+	# Stash variants
+	stsh = stash --keep-index
+	staash = stash --include-untracked
+	staaash = stash --all
 
 
 # -- Git LFS -------------------------------------------------------------------
 
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
