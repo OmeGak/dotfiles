@@ -88,6 +88,7 @@
 [alias]
 	br = branch
 	cm = commit
+	cmf = commit --fixup
 	co = checkout
 	cp = cherry-pick
 	dcm = duet-commit
