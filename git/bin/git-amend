@@ -3,17 +3,21 @@
 # Usage: git-amend [-i] [<commit>]
 #   -i: interactive mode
 
+get_usage() {
+  echo 'git-amend [-i] [<commit>]'
+}
+
 amend_head() {
   if (! $1); then
-    local reuse='--reuse-message HEAD'
+    reuse='--reuse-message HEAD'
   fi
   git commit --amend ${reuse}
 }
 
 amend_past() {
-  local commit=$(git rev-parse $1)
-  local interactive=$2
-  local cmd="git rebase -i --autosquash ${commit}^"
+  commit=$(git rev-parse $1)
+  interactive=$2
+  cmd="git rebase -i --autosquash ${commit}^"
   git commit --fixup ${commit}
   if [ $? -eq 0 ]; then
     if (${interactive}); then
@@ -32,6 +36,8 @@ while getopts 'i' opt; do
     i)
       interactive=true
       shift;;
+    *)
+      get_usage;;
   esac
 done
 
