@@ -1,0 +1,4 @@
+#!/bin/sh
+# Delete all merged branches that are not `master` or `devel`
+
+git branch --merged | egrep --invert-match "(^\*|master|devel)" | xargs git branch --delete
