@@ -1,5 +1,5 @@
 # Essentials
-google-chrome
+brave-browser
 dropbox
 google-backup-and-sync
 backblaze
@@ -33,7 +33,7 @@ vlc
 # Research
 evernote
 grammarly
-mendeley
+zotero
 
 # Virtualization
 vagrant
