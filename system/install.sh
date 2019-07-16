@@ -9,6 +9,7 @@ try pinstall brew exercism
 try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew lolcat
+try pinstall brew pandoc
 try pinstall brew pass
 try pinstall brew speedtest-cli
 try pinstall brew unrar
