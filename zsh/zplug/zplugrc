@@ -14,6 +14,9 @@ zplug "knu/zsh-git-escape-magic", \
 
 # -- Completions ---------------------------------------------------------------
 
+zplug "/usr/local/share/zsh", from:local, \
+  use:"site-functions"
+
 zplug "zsh-users/zsh-completions", use:src
 
 zplug "exercism/cli-www", from:github, \
@@ -25,6 +28,7 @@ zplug "omegak/boom", from:github, \
 zplug "/Applications/Docker.app", from:local, \
   if:"[[ -d /Applications/Docker.app ]]", \
   use:"Contents/Resources/etc"
+
 
 # -- Tweaks in packages --------------------------------------------------------
 
