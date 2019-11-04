@@ -11,6 +11,7 @@ keybase
 # Development
 iterm2
 atom
+vscodium
 p4v
 devdocs
 
