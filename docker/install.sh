@@ -12,13 +12,13 @@ fi
 completions_dir="/Applications/Docker.app/Contents/Resources/etc"
 completions=("docker" "docker-compose" "docker-machine")
 for completion in ${completions[*]}; do
-  completion_source="${completions_dir}/${completion}.zsh-completion"
-  completion_target="${completions_dir}/_${completion}"
-  if [[ ! $(checklink "${completion_source}" "${completion_target}") ]]; then
+  completion_bundled="${completions_dir}/${completion}.zsh-completion"
+  completion_fixed="${completions_dir}/_${completion}"
+  if [[ ! $(checklink "${completion_bundled}" "${completion_fixed}") ]]; then
     pprint info-go "Installing completions for ${completion}"
     # XXX: zsh seems not to load completion files if they are symlinks here
-    mv "${completion_source}" "${completion_target}"
-    mksymlink "${completion_target}" "${completion_source}"
+    mv "${completion_bundled}" "${completion_fixed}"
+    mksymlink "${completion_fixed}" "${completion_bundled}"
   fi
 done
 
