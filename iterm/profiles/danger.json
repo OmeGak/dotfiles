@@ -1,7 +1,7 @@
 {
   "Profiles": [
     {
-      "Name" : "Danger",
+      "Name" : "danger",
       "Guid" : "0DC14D6A-9C9E-418C-8173-112BCCFCEC57",
       "Smart Cursor Color" : false,
       "Cursor Boost" : 0,
