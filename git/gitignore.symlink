@@ -1,11 +1,10 @@
 .DS_Store
 
-# git duet
+# from: git-duet
 .git-authors
 
-# sublimetext
-*.sublime-project
-*.sublime-workspace
+# from: vscode
+.vscode
 
-# virtualenvironment
+# from: pipenv
 .venv
