@@ -1,11 +1,18 @@
+# Include local config
+Include config.local
+
+# Allow mixing host FQDN patterns and aliases in config
+CanonicalizeHostname yes
+
+Host *-stagging
+  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-caution" -a "iterm-profile"
+
+Host *-prod
+  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-danger" -a "iterm-profile"
+
 Host *
   AddKeysToAgent yes
   UseKeychain yes
-
-Host *.bity.com
-  # Change iterm profile in SSH
   PermitLocalCommand yes
-  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "it2prof Danger" -a "it2prof"
-
-# For sensitive config
-Include config.local
+  # Change iterm profile in SSH connections
+  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-awareness" -a "iterm-profile"
