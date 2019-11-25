@@ -1,0 +1,23 @@
+{
+  "Profiles": [
+    {
+      "Name" : "ssh-caution",
+      "Guid" : "266D7206-8A84-4F40-BA0B-0D0A96F04F9A",
+      "Smart Cursor Color" : false,
+      "Cursor Color" : {
+        "Red Component" : 1,
+        "Color Space" : "sRGB",
+        "Blue Component" : 0.33333333333333331,
+        "Alpha Component" : 1,
+        "Green Component" : 1
+      },
+      "Cursor Text Color" : {
+        "Red Component" : 0,
+        "Color Space" : "sRGB",
+        "Blue Component" : 0,
+        "Alpha Component" : 1,
+        "Green Component" : 0
+      }
+    }
+  ]
+}
