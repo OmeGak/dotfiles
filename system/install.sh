@@ -9,7 +9,6 @@ try pinstall brew exercism
 try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew jupyter
-try pinstall brew lolcat
 try pinstall brew make
 try pinstall brew pandoc
 try pinstall brew pass
