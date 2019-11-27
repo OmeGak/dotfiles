@@ -5,6 +5,7 @@ source $DOT/.dot/functions/try
 try pinstall brew ack
 try pinstall brew coreutils
 try pinstall brew direnv
+try pinstall brew dnsmasq
 try pinstall brew exercism
 try pinstall brew grc
 try pinstall brew httpie
@@ -65,7 +66,14 @@ if [[ -n ${missing_fonts} ]]; then
 fi
 
 
-# -- Fix quirks ----------------------------------------------------------------
+# -- Create other symlinks -----------------------------------------------------
+
+source="$DOT/system/dnsmasq.conf"
+target="/usr/local/etc/dnsmasq.conf"
+if [[ ! $(checklink "${target}" "${source}") ]]; then
+  pprint info-go "Installing dnsmasq configuration"
+  mksymlink "${source}" "${target}"
+fi
 
 # Install macOS keybindings to prevent undesired beeps
 # Source: https://github.com/adobe/brackets/issues/2419#issuecomment-186619537
