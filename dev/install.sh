@@ -2,8 +2,6 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
-try pinstall brew ctags
-
 # Linters
 try pinstall brew hlint
 try pinstall brew shellcheck
