@@ -20,7 +20,6 @@ duply/**/*.asc
 
 # gpg: track config only
 gpg/gnupg.symlink/*
-!gpg/gnupg.symlink/dirmngr.conf
 !gpg/gnupg.symlink/gpg.conf
 !gpg/gnupg.symlink/gpg-agent.conf
 
