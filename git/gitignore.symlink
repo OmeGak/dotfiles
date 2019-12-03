@@ -4,7 +4,11 @@
 .git-authors
 
 # from: vscode
-.vscode
+.vscode/
 
 # from: pipenv
-.venv
+.venv/
+
+# from: stack
+*.cabal
+.stack-work/
