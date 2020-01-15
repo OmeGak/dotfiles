@@ -93,7 +93,7 @@
 	cp = cherry-pick
 	dcm = duet-commit
 	df = diff
-	dfb = diff-blame
+	db = diff-blame
 	fr = fetch-request
 	lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
 	mk = checkout -b
@@ -103,6 +103,7 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbs = rebase --skip
+	sb = switch
 	st = status
 	ts = tag --sign --message=''
 	count = shortlog --summary --numbered
