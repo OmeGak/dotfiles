@@ -1,0 +1,6 @@
+#!/bin/sh
+# Amends last commit and force pushes
+# Usage: git yolo [<remote>]
+
+git amend
+git push -f $1
