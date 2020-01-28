@@ -1,1 +1,5 @@
 PATH="$BREWDIR/opt/make/libexec/gnubin:$PATH"
+PKG_CONFIG_PATH="$BREWDIR/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
+LD_LIBRARY_PATH="$BREWDIR/opt/openssl@1.1/lib:$LD_LIBRARY_PATH"
+LIBRARY_PATH="$BREWDIR/opt/openssl@1.1/lib:$LIBRARY_PATH"
+CPATH="$BREWDIR/opt/openssl@1.1/include:$CPATH"

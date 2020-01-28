@@ -11,6 +11,7 @@ try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew jupyter
 try pinstall brew make
+try pinstall brew openssl
 try pinstall brew pandoc
 try pinstall brew pass
 try pinstall brew speedtest-cli
