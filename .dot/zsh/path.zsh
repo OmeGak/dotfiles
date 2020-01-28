@@ -16,12 +16,15 @@ if [ -x /usr/libexec/path_helper ]; then
   PATH="" MANPATH="" eval $(/usr/libexec/path_helper -s)
 fi
 
-export PATH="$(buildpath):$PATH"
-export MANPATH="$(buildmanpath):$MANPATH"
+# Export paths and prevent duplicates on `reload!`
+export PATH="$(buildpath):$PATH"; typeset -U PATH
+export MANPATH="$(buildmanpath):$MANPATH"; typeset -U MANPATH
 
-# Keep path clean from duplicates
-typeset -U PATH
-typeset -U MANPATH
+# Export compiler paths
+export PKG_CONFIG_PATH=""
+export LD_LIBRARY_PATH=""
+export LIBRARY_PATH=""
+export CPATH=""
 
 # Clean up
 unset -f buildpath
