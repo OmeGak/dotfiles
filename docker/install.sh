@@ -10,7 +10,7 @@ fi
 # XXX: Workaround until the completion files are correctly named upstream
 # https://github.com/docker/for-mac/issues/1948
 completions_dir="/Applications/Docker.app/Contents/Resources/etc"
-completions=("docker" "docker-compose" "docker-machine")
+completions=("docker" "docker-compose")
 for completion in ${completions[*]}; do
   completion_bundled="${completions_dir}/${completion}.zsh-completion"
   completion_fixed="${completions_dir}/_${completion}"
