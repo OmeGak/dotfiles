@@ -1,0 +1,1 @@
+alias bli="bitcoin-cli"
