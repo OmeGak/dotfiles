@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Puts dotfiles in their place
+# Finds .symlink and .csymlink files and symlinks them to ~ and ~/.config respectively.
 source $HOME/.dotfiles/.dot/dot/env
 
 u=`tput smul`
@@ -55,7 +55,7 @@ link_file() {
 
   if [[ "${skip}" != "true" ]]; then
     ln -s "${src}" "${dst}"
-    pprint info-ok "Linked ${u}$(dotbasepath ${src})${offu} to ${u}$(basename ${dst})${offu}${overwritten}${backedup}"
+    pprint info-ok "Linked ${u}$(dotbasepath ${src})${offu} to ${u}${dst}${offu}${overwritten}${backedup}"
   fi
 }
 
@@ -70,9 +70,13 @@ link_dotcore() {
 
 link_dotfiles() {
   local overwrite_all=false backup_all=false skip_all=false
-  pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME${offu}:"
+  pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME[/.config]${offu}:"
   for src in $(find -H "$DOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
     dst="$HOME/.$(basename "${src%.*}")"
+    link_file "${src}" "${dst}"
+  done
+  for src in $(find -H "$DOT" -maxdepth 2 -name '*.csymlink' -not -path '*.git*'); do
+    dst="$HOME/.config/$(basename "${src%.*}")"
     link_file "${src}" "${dst}"
   done
 }
