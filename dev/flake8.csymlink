@@ -1,0 +1,6 @@
+[flake8]
+ignore =
+    ; max-line-length is taken care of by pylint
+    E501,
+    ; Allow line break before binary operator, as PEP8 recommends now (https://www.flake8rules.com/rules/W503.html)
+    W503,
