@@ -1,0 +1,15 @@
+[pydocstyle]
+convention = pep257
+add_ignore =
+    ; Don't require docstring in public modules/packages, as it ends up redundant in most cases.
+    D100, D104,
+    ; Don't require docstring in classes, as it ends up redundant in most cases.
+    D101, D106,
+    ; Don't require docstring in functions/methods, as it ends up redundant in most cases.
+    D102, D103,
+    ; Don't require docstring in magic/__init__ methods since their purpose is self-explanatory.
+    D105, D107,
+    ; Don't require white line before class docstring to keep class implementation compact.
+    D203,
+    ; Require white line between title and summary in multiline docstrings for readability.
+    D213,
