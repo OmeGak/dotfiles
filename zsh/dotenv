@@ -6,8 +6,8 @@ fpath=($DOT/zsh/functions $fpath)
 autoload -U $DOT/zsh/functions/*(:t)
 
 # Use VSCodium if possible to edit .dotfiles
-if (( ${+commands[atom]} )); then
-  DOTEDITOR='codium'
+if (( ${+commands[codium]} )); then
+  export DOTEDITOR='codium'
 fi
 
 # Project folder that to allow `c [tab]` to it
