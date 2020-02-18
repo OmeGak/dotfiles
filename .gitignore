@@ -1,22 +1,15 @@
-# Atom sync
-atom/atom.symlink/.apm
-atom/atom.symlink/.node-gyp
-atom/atom.symlink/blob-store
-atom/atom.symlink/compile-cache
-atom/atom.symlink/dev
-atom/atom.symlink/github.cson
-atom/atom.symlink/nohup.out
-atom/atom.symlink/packages
-atom/atom.symlink/recovery
-atom/atom.symlink/storage
-atom/atom.symlink/package-deps-state.json
-atom/atom.symlink/projects.cson
-
-git/gitconfig.local.symlink
+# dev: sync only VSCodium settings
+dev/vscodium/*
+!dev/vscodium/snippets/
+!dev/vscodium/settings.json
+!dev/vscodium/keybindings.json
 
 # duply: ignore gpg keys
 duply/**/*.gpg
 duply/**/*.asc
+
+# git: ignore local .gitconfig
+git/gitconfig.local.symlink
 
 # gpg: track config only
 gpg/gnupg.symlink/*
@@ -34,14 +27,14 @@ ssh/ssh.symlink/*
 !ssh/ssh.symlink/config
 !ssh/ssh.symlink/config.git
 
-# Ignore compiled hack
+# system: ignore compiled hack
 system/keyboard/disable-capslock-delay
 
-# Ignore vim plugins
+# vim: ignore plugins
 vim/vim.symlink/plugged
 vim/vim.symlink/plugin
 
-# Track weechat config/plugins only
+# weechat: Track config/plugins only
 weechat/weechat.symlink/*
 !weechat/weechat.symlink/*.conf
 !weechat/weechat.symlink/certs
