@@ -1,0 +1,11 @@
+#!/bin/sh
+# Show path of the repository root
+
+set -e
+
+root=$(git rev-parse --show-superproject-working-tree)
+if [ -z "${root}" ]; then
+    root=$(git rev-parse --show-toplevel)
+fi
+
+echo "${root}"
