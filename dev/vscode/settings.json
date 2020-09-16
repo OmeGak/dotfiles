@@ -23,7 +23,7 @@
     "emmet.includeLanguages": {
         "jinja-html": "html"
     },
-    "explorer.autoReveal": false,
+    "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
     "files.associations": {
         ".pylintrc": "ini"
@@ -56,7 +56,6 @@
     "materialTheme.accent": "Tomato",
     "problems.showCurrentInStatus": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.pydocstyleEnabled": true,
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "python.linting.pylintEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
@@ -64,7 +63,8 @@
     "scrolloff.alwaysCenter": true,
     "search.enableSearchEditorPreview": true,
     "search.exclude": {
-        "**/.venv": true
+        "**/.venv": true,
+        "**/*.code-search": false
     },
     "terminal.external.osxExec": "iTerm.app",
     "todohighlight.keywords": [
@@ -111,5 +111,14 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.tree.indent": 15
+    "workbench.tree.indent": 15,
+    "shellcheck.customArgs": [
+        "-x"
+    ],
+    "restructuredtext.linter.disabled": true,
+    "search.useGlobalIgnoreFiles": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "python.linting.pydocstyleEnabled": true,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "editor.useTabStops": false
 }

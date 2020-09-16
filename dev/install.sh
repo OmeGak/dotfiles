@@ -27,13 +27,22 @@ try pinstall pip3 pylint
 # try pinstall npm remark-preset-lint-recommended
 # try pinstall npm remark-preset-lint-markdown-style-guide
 
+link_vscode_settings() {
+  local build="$1"
+  local settings_target="$2"
+  local settings_source="$DOT/dev/vscode"
+  if [[ "$OS" != "Darwin" ]]; then
+    pprint info-warn "${build} settings not installed"
+    exit 1
+  fi
+  if [[ ! $(checklink "${settings_target}" "${settings_source}") ]]; then
+    pprint info-go "Installing ${build} settings"
+    mksymlink "${settings_source}" "${settings_target}"
+  fi
+}
+
 # Link VSCodium settings
-vscodium_settings_source="$DOT/dev/vscodium"
-[[ "$OS" == "Darwin" ]] && vscodium_settings_target="$HOME/Library/Application Support/VSCodium/User" \
-                        || (pprint info-warn "VSCodium settings not installed" && exit 1)
-if [[ ! $(checklink "${vscodium_settings_target}" "${vscodium_settings_source}") ]]; then
-  pprint info-go "Installing VSCodium settings"
-  mksymlink "${vscodium_settings_source}" "${vscodium_settings_target}"
-fi
+link_vscode_settings 'VSCode' "$HOME/Library/Application Support/Code/User"
+link_vscode_settings 'VSCodium' "$HOME/Library/Application Support/VSCodium/User"
 
 exit $TRY_CODE

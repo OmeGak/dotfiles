@@ -1,8 +1,8 @@
-# dev: sync only VSCodium settings
-dev/vscodium/*
-!dev/vscodium/snippets/
-!dev/vscodium/settings.json
-!dev/vscodium/keybindings.json
+# dev: sync only VSCode settings
+dev/vscode/*
+!dev/vscode/snippets/
+!dev/vscode/settings.json
+!dev/vscode/keybindings.json
 
 # duply: ignore gpg keys
 duply/**/*.gpg
