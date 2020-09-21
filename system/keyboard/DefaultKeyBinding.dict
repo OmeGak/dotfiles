@@ -1,6 +1,40 @@
+/*
+Rough cheatsheet for syntax.
+For a good reference see http://osxnotes.net/keybindings.html.
+
+Key modifiers
+^ : Ctrl
+$ : Shift
+~ : Option (Alt)
+@ : Command (Apple)
+# : Numeric Keypad
+
+Standard non-printable key codes
+Up Arrow:     \UF700        Backspace:    \U0008        F1:           \UF704
+Down Arrow:   \UF701        Tab:          \U0009        F2:           \UF705
+Left Arrow:   \UF702        Escape:       \U001B        F3:           \UF706
+Right Arrow:  \UF703        Enter:        \U000A        ...
+Insert:       \UF727        Page Up:      \UF72C
+Delete:       \UF728        Page Down:    \UF72D
+Home:         \UF729        Print Screen: \UF72E
+End:          \UF72B        Scroll Lock:  \UF72F
+Break:        \UF732        Pause:        \UF730
+SysReq:       \UF731        Menu:         \UF735
+Help:         \UF746
+
+macOS non-printable key codes
+delete:       \U007F
+*/
+
 {
-    "^." = "noop:";
+    "^/" = "noop:";
+
+    /* cmd + ctrl + arrows */
     "@^\UF701" = "noop:";
     "@^\UF702" = "noop:";
     "@^\UF703" = "noop:";
+
+    /* cmd + opt + ctrl + arrows */
+    "@^~\UF702" = "noop:";
+    "@^~\UF703" = "noop:";
 }
