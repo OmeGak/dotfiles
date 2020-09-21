@@ -2,8 +2,12 @@
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.language": "en,es-ES,fr",
     "cSpell.showStatus": false,
+    "customizeUI.stylesheet": {
+        ".editor-actions": "display: none !important;"
+    },
     "debug.showBreakpointsInOverviewRuler": true,
     "debug.toolBarLocation": "docked",
+    "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.renderSideBySide": true,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorBlinking": "smooth",
@@ -17,6 +21,7 @@
         80,
         120
     ],
+    "editor.useTabStops": false,
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 120,
     "editor.wrappingIndent": "indent",
@@ -56,21 +61,26 @@
     "materialTheme.accent": "Tomato",
     "problems.showCurrentInStatus": true,
     "python.linting.flake8Enabled": true,
+    "python.linting.pydocstyleEnabled": true,
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "python.linting.pylintEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
+    "restructuredtext.linter.disabled": true,
     "rewrap.wrappingColumn": 120,
     "scrolloff.alwaysCenter": true,
     "search.enableSearchEditorPreview": true,
     "search.exclude": {
-        "**/.venv": true,
-        "**/*.code-search": false
+        "**/*.code-search": false,
+        "**/.venv": true
     },
+    "search.useGlobalIgnoreFiles": true,
+    "shellcheck.customArgs": [
+        "-x"
+    ],
     "terminal.external.osxExec": "iTerm.app",
     "todohighlight.keywords": [
         "XXX:"
     ],
-    "vscodeWorkspaceSwitcher.codeExecutable": "codium",
     "vscodeWorkspaceSwitcher.paths": [
         "~/Code"
     ],
@@ -104,21 +114,20 @@
         "settings.modifiedItemIndicator": "#F44336",
         "statusBar.debuggingBackground": "#F44336",
         "tab.activeBorder": "#F44336",
-        "textLink.foreground": "#F44336"
+        "textLink.foreground": "#F44336",
+        "activityBar.activeBorder": "#F44336"
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.tabSizing": "shrink",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "shellcheck.customArgs": [
-        "-x"
-    ],
-    "restructuredtext.linter.disabled": true,
-    "search.useGlobalIgnoreFiles": true,
-    "workbench.editor.highlightModifiedTabs": true,
-    "python.linting.pydocstyleEnabled": true,
-    "diffEditor.ignoreTrimWhitespace": true,
-    "editor.useTabStops": false
+    "vscodeWorkspaceSwitcher.showTreeView": false,
+    "telemetry.enableTelemetry": false,
+    "liveshare.focusBehavior": "prompt",
+    "liveshare.presence": false,
+    "liveshare.guestApprovalRequired": true,
+    "liveshare.alwaysFollowHost": true
 }

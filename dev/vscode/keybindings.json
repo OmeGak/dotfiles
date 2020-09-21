@@ -195,7 +195,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+shift+cmd+\\",
+        "key": "cmd+\\",
         "command": "workbench.action.toggleActivityBarVisibility"
     },
     {
@@ -396,11 +396,11 @@
     },
     {
         "key": "ctrl+shift+w",
-        "command": "vscodeWorkspaceSwitcher.switchWorkspace"
+        "command": "vscodeWorkspaceSwitcher.openWorkspace"
     },
     {
         "key": "ctrl+k w",
-        "command": "-vscodeWorkspaceSwitcher.switchWorkspace"
+        "command": "-vscodeWorkspaceSwitcher.openWorkspace"
     },
     {
         "key": "enter",
@@ -420,10 +420,6 @@
         "key": "alt+cmd+g b",
         "command": "-gitlens.toggleFileBlame",
         "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
-    },
-    {
-        "key": "alt+cmd+b",
-        "command": "gitlens.toggleLineBlame"
     },
     {
         "key": "shift+alt+b",
@@ -465,13 +461,8 @@
         "command": "-workbench.action.zoomReset"
     },
     {
-        "key": "ctrl+shift+space",
+        "key": "ctrl+shift+backspace",
         "command": "workbench.action.focusFirstEditorGroup"
-    },
-    {
-        "key": "ctrl+space",
-        "command": "workbench.action.focusFirstEditorGroup",
-        "when": "terminalFocus"
     },
     {
         "key": "cmd+1",
@@ -496,11 +487,6 @@
     {
         "key": "cmd+t",
         "command": "-workbench.action.showAllSymbols"
-    },
-    {
-        "key": "ctrl+;",
-        "command": "breadcrumbs.focusAndSelect",
-        "when": "breadcrumbsPossible"
     },
     {
         "key": "shift+cmd+.",
@@ -658,7 +644,7 @@
         "when": "!editorFocus"
     },
     {
-        "key": "ctrl+shift+;",
+        "key": "ctrl+;",
         "command": "breadcrumbs.focus",
         "when": "breadcrumbsPossible"
     },
@@ -805,7 +791,7 @@
         "command": "-workbench.extensions.action.showRecommendedKeymapExtensions"
     },
     {
-        "key": "ctrl+alt+w",
+        "key": "alt+cmd+z",
         "command": "editor.action.toggleWordWrap"
     },
     {
@@ -855,5 +841,65 @@
         "key": "up",
         "command": "list.focusUp",
         "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "shift+cmd+,",
+        "command": "workbench.action.openSettingsJson"
+    },
+    {
+        "key": "cmd+d",
+        "command": "workbench.action.terminal.split",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "-workbench.action.terminal.split",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "ctrl+shift+space",
+        "command": "workbench.action.debug.start",
+        "when": "debuggersAvailable && !inDebugMode"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.start",
+        "when": "debuggersAvailable && !inDebugMode"
+    },
+    {
+        "key": "alt+cmd+b",
+        "command": "editor.debug.action.toggleBreakpoint",
+        "when": "debuggersAvailable && editorTextFocus"
+    },
+    {
+        "key": "f9",
+        "command": "-editor.debug.action.toggleBreakpoint",
+        "when": "debuggersAvailable && editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "gitlens.copyShaToClipboard"
+    },
+    {
+        "key": "alt+cmd+h",
+        "command": "liveshare.focusParticipants"
+    },
+    {
+        "key": "alt+b",
+        "command": "-gitlens.toggleFileBlame",
+        "when": "editorTextFocus && config.gitlens.keymap == 'alternate' && gitlens:activeFileStatus =~ /blameable/"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.view.extension.gitlens"
+    },
+    {
+        "key": "ctrl+shift+s",
+        "command": "workbench.view.extension.liveshare"
     }
 ]
