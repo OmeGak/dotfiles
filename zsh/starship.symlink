@@ -1,0 +1,57 @@
+[character]
+success_symbol = "[∴](bold green)"
+error_symbol = "[∴](bold red)"
+vicmd_symbol = "[∵](bold yellow)"
+
+[battery]
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 15
+style = "bold red"
+
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
+
+[directory]
+style = "white bold"
+read_only = " "
+
+[git_branch]
+symbol = " "
+style = "bold red"
+
+[git_commit]
+tag_disabled = false
+
+[git_status]
+diverged = "☿"
+style = "purple bold dimmed"
+
+[hostname]
+format = "[$hostname]($style) at "
+style = "black bold"
+
+[jobs]
+style = "blue yellow"
+format = "[\\[$symbol\\]]($style) "
+
+[nodejs]
+style = "bold green dimmed"
+
+[package]
+style = "bold 208 dimmed"
+
+[python]
+format = 'via [${symbol}${pyenv_prefix}(${version} )($virtualenv )]($style)'
+style = "yellow bold dimmed"
+
+[cmd_duration]
+format = "[\\[$duration\\]]($style) "
+style = "black bold dimmed"
+
+[shlvl]
+disabled = false
+threshold = 5
+symbol = "⎇ "
