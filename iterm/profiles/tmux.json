@@ -1,17 +1,17 @@
 {
-    "Profiles": [
-      {
-        "Name" : "tmux",
-        "Guid" : "6174EE8B-740B-458B-8202-0599551CB63E",
-        "Use Tab Color" : true,
-        "Tab Color" : {
-            "Red Component" : 0.90588235294117647,
-            "Color Space" : "sRGB",
-            "Blue Component" : 0.23529411764705882,
-            "Alpha Component" : 1,
-            "Green Component" : 0.29803921568627451
-        },
-      }
-    ]
-  }
-  
+  "Profiles": [
+    {
+      "Name" : "tmux",
+      "Guid" : "6174EE8B-740B-458B-8202-0599551CB63E",
+      "Use Tab Color" : true,
+      "Tab Color" : {
+          "Red Component" : 0.90588235294117647,
+          "Color Space" : "sRGB",
+          "Blue Component" : 0.23529411764705882,
+          "Alpha Component" : 1,
+          "Green Component" : 0.29803921568627451
+      },
+      "Window Type" : 15
+    }
+  ]
+}
