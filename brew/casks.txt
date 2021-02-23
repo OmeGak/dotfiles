@@ -55,9 +55,6 @@ scroll-reverser
 the-unarchiver
 ukelele
 
-#Fonts
-font-source-code-pro
-
 # Drivers
 xbox360-controller-driver-unofficial
 logitech-unifying
