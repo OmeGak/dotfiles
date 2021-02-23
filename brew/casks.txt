@@ -5,24 +5,20 @@ google-backup-and-sync
 backblaze
 gpg-suite
 transmission
-tunnelblick
 keybase
 
 # Development
 iterm2
-vscodium
-p4v
+visual-studio-code
 devdocs
 ngrok
 
 # Messaging
-caprine
-gitter
-riot
-skype
-slack
+discord
+element
+messenger
 signal
-telegram-desktop
+telegram
 wire
 
 # Media
@@ -33,7 +29,6 @@ vlc
 
 # Research
 evernote
-grammarly
 zotero
 
 # Virtualization
@@ -48,10 +43,8 @@ openemu
 # Misc
 calibre
 handbrake
-insomniax
 qlmarkdown
 qlvideo
-scroll-reverser
 the-unarchiver
 ukelele
 
@@ -59,14 +52,8 @@ ukelele
 xbox360-controller-driver-unofficial
 logitech-unifying
 osxfuse
-wacom-bamboo-tablet
 
 # Others
 docker
 java
 mactex
-
-# App Store
-# iStats Mini
-# Spark
-# Todoist
