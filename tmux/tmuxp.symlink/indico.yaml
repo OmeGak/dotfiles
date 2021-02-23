@@ -3,32 +3,31 @@ session_name: indico
 windows:
   - window_name: venv
     focus: true
-    start_directory: $INDICODEV/indico
+    start_directory: $INDICODEV/indico-un
     panes:
-      - shell_command: pipenv shell
+      - shell_command: mailcatcher; pipenv shell;
 
   - window_name: repos
-    layout: tiled
-    start_directory: $INDICODEV
+    layout: main-vertical
+    start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
-        shell_command: cd indico && git status
-      - shell_command: cd indico-un && git status
-      - shell_command: cd indico-plugins && git status
+        shell_command: git status
+      - shell_command: cd indico && git status
 
   - window_name: local
     layout: main-horizontal
-    start_directory: $INDICODEV/indico
+    start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
         shell_command: pipenv run -- indico shell
-      - shell_command: pipenv run -- indico run -h 127.0.0.1 -q --enable-evalex
-      - shell_command: pipenv run -- ./bin/maintenance/build-assets.py indico --dev --watch
-      - shell_command: pipenv run -- ./bin/maintenance/build-assets.py plugin --dev --watch $INDICODEV/indico-un
+      - shell_command: pipenv run -- indico run -q --enable-evalex
+      - shell_command: pipenv run -- make build
+      - shell_command: pipenv run -- make build-plugin
 
   - window_name: local-logs
     layout: main-horizontal
-    start_directory: $INDICODEV/indico
+    start_directory: $INDICODEV/indico-un
     panes:
-      - shell_command: pipenv run -- python ./bin/utils/db_log.py -S
+      - shell_command: pipenv run -- python indico/bin/utils/db_log.py -S
       - shell_command: tail -f $INDICOAPP/data/log/indico.log
