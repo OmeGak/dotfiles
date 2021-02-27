@@ -1,6 +1,3 @@
-# places
-alias ..="cd .."
-
 # path
 alias path='echo $PATH | tr : "\n"'
 

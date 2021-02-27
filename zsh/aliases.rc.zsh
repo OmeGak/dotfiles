@@ -1,17 +1,17 @@
 alias reload!='. ~/.zshrc'
 
 
-# -- Directory stack navigation -----------------------------------------------
+# -- Directory navigation ------------------------------------------------------
 
-# Show dir current/history
-alias /='pwd | sed "s:^$HOME:~:"'
-alias //='dirs -v | tail -n +2 | tac'
+alias ..="cd .."
+alias -- -='pushd'              # Switch to most recent dir
+alias -- --='popd 2> /dev/null' # Go back in history
 
-# Switch to most recent dir
-alias -- -='pushd'
-
-# Go back in history
-alias -- --='popd 2> /dev/null'
+# Show current directory and directory history
+SLASH='pwd | sed "s:^$HOME:~:"'
+alias /="${SLASH}"
+alias //="dirs -v | tail -n +2 | tac; echo \"0\t\$(${SLASH})\""
+unset SLASH
 
 # List cd linksc
 alias cdl="ls -1 ~/.cdlinks"
