@@ -5,10 +5,17 @@ alias path='echo $PATH | tr : "\n"'
 alias fatd="gdu -sh *(/D) | gsort -rh | head -10"
 alias fatdr="gdu -Sh | gsort -rh | head -10"
 
+# -- Replacements --------------------------------------------------------------
+
 # date
 [[ $(which gdate) ]] && DATE="gdate" || DATE="date"
 alias now="$DATE --rfc-3339=seconds"
 unset DATE
+
+# top
+if [[ $(which glances) ]]; then
+  alias top="glances -2"
+fi
 
 # -- Snippets ------------------------------------------------------------------
 

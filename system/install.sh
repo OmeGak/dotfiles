@@ -7,6 +7,7 @@ try pinstall brew coreutils
 try pinstall brew direnv
 try pinstall brew dnsmasq
 try pinstall brew exercism
+try pinstall brew glances
 try pinstall brew grc
 try pinstall brew httpie
 try pinstall brew jupyter
