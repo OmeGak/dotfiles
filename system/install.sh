@@ -35,11 +35,6 @@ if [[ "$OS" == "Darwin" ]]; then
 fi
 
 
-# -- Create expected directories -----------------------------------------------
-
-mkdir -p ${HOME}/Code
-
-
 # -- Create other symlinks -----------------------------------------------------
 
 source="$DOT/system/dnsmasq.conf"

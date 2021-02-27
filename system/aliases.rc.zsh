@@ -1,6 +1,5 @@
 # places
 alias ..="cd .."
-alias code="cd $HOME/Code"
 
 # path
 alias path='echo $PATH | tr : "\n"'

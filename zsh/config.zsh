@@ -5,6 +5,9 @@ autoload -U $DOT/functions/*(:t)
 
 # -- Changing directories -----------------------------------------------------
 
+# Follow symlinks when changing directory
+setopt   CHASE_LINKS
+
 setopt   AUTO_PUSHD         # Track history of directories for navigation
 setopt   PUSHD_IGNORE_DUPS  # Keep dir stack clean of dupes
 setopt   PUSHD_MINUS        # Make popd/pushd go back # dirs on `-#` instead of `+#`

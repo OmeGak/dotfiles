@@ -1,0 +1,1 @@
+CDPATH="${HOME}/.cdlinks"

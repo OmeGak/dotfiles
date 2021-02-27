@@ -1,4 +1,3 @@
-alias cddot='cd $DOT'
 alias reload!='. ~/.zshrc'
 
 
@@ -14,6 +13,8 @@ alias -- -='pushd'
 # Go back in history
 alias -- --='popd 2> /dev/null'
 
+# List cd linksc
+alias cdl="ls -1 ~/.cdlinks"
 
 # -- Directory listing ---------------------------------------------------------
 
