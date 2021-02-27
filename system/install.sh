@@ -2,7 +2,6 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
-try pinstall brew ack
 try pinstall brew coreutils
 try pinstall brew direnv
 try pinstall brew dnsmasq
@@ -15,6 +14,7 @@ try pinstall brew make
 try pinstall brew openssl
 try pinstall brew pandoc
 try pinstall brew pass
+try pinstall brew ripgrep
 try pinstall brew speedtest-cli
 try pinstall brew unrar
 try pinstall brew wget
