@@ -3,4 +3,5 @@
 source $DOT/.dot/functions/try
 
 try pinstall brew exa
+try pinstall brew fzf
 try pinstall brew starship
