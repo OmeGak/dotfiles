@@ -24,7 +24,4 @@ export FZF_DEFAULT_OPTS="
 export FZF_CTRL_T_OPTS="--color='query:013:bold,hl:013:bold,hl+:013:bold:underline'"
 export FZF_CTRL_R_OPTS="--color='query:010:bold,hl:010:bold,hl+:010:bold:underline'"
 export FZF_ALT_C_OPTS="--color='query:012:bold,hl:012:bold,hl+:012:bold:underline'"
-
-# Enable starship prompt
 export STARSHIP_CONFIG="${HOME}/.starship"
-eval "$(starship init zsh)"

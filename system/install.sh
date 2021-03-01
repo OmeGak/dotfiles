@@ -4,7 +4,6 @@ source $DOT/.dot/functions/try
 
 try pinstall brew bat
 try pinstall brew coreutils
-try pinstall brew direnv
 try pinstall brew dnsmasq
 try pinstall brew fd
 try pinstall brew glances

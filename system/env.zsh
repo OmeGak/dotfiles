@@ -7,6 +7,3 @@ export QUOTING_STYLE=literal
 # source: https://github.com/sharkdp/bat#man
 export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
 man 2 select
-
-# Enable direnv
-eval "$(direnv hook zsh)"
