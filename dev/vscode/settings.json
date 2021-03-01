@@ -12,9 +12,9 @@
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorBlinking": "smooth",
     "editor.emptySelectionClipboard": false,
-    "editor.fontFamily": "SourceCodePro-Medium, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "Source Code Pro",
+    "editor.fontLigatures": false,
     "editor.fontSize": 14,
-    "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderWhitespace": "selection",
     "editor.rulers": [
@@ -26,11 +26,14 @@
     "editor.wordWrapColumn": 120,
     "editor.wrappingIndent": "indent",
     "emmet.includeLanguages": {
-        "jinja-html": "html"
+        "jinja-html": "html",
+        "njk": "html"
     },
     "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
+    "extensions.ignoreRecommendations": true,
     "files.associations": {
+        ".html": "html",
         ".pylintrc": "ini"
     },
     "files.defaultLanguage": "markdown",
@@ -55,6 +58,12 @@
     "gitlens.views.search.location": "gitlens",
     "latex-workshop.view.pdf.viewer": "tab",
     "lineJumper.linesToJump": 5,
+    "liveshare.alwaysFollowHost": true,
+    "liveshare.focusBehavior": "prompt",
+    "liveshare.guestApprovalRequired": true,
+    "liveshare.presence": false,
+    "liveshare.sharedTerminalHeight": 100,
+    "liveshare.showInStatusBar": "whileCollaborating",
     "markdown-preview-enhanced.enableEmojiSyntax": false,
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
     "material-icon-theme.saturation": 0,
@@ -73,24 +82,27 @@
         "**/*.code-search": false,
         "**/.venv": true
     },
+    "search.followSymlinks": false,
     "search.useGlobalIgnoreFiles": true,
     "shellcheck.customArgs": [
         "-x"
     ],
+    "telemetry.enableTelemetry": false,
     "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "todohighlight.keywords": [
         "XXX:"
     ],
     "vscodeWorkspaceSwitcher.paths": [
         "~/Code"
     ],
-    "window.zoomLevel": 0,
+    "vscodeWorkspaceSwitcher.showTreeView": false,
     "wordcounter.languages": [
         "markdown",
         "plaintext"
     ],
-    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
+        "activityBar.activeBorder": "#F44336",
         "activityBarBadge.background": "#F44336",
         "breadcrumb.activeSelectionForeground": "#F44336",
         "editor.findMatchBorder": "#F44336",
@@ -114,20 +126,17 @@
         "settings.modifiedItemIndicator": "#F44336",
         "statusBar.debuggingBackground": "#F44336",
         "tab.activeBorder": "#F44336",
-        "textLink.foreground": "#F44336",
-        "activityBar.activeBorder": "#F44336"
+        "textLink.foreground": "#F44336"
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
     "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editor.tabSizing": "shrink",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "vscodeWorkspaceSwitcher.showTreeView": false,
-    "telemetry.enableTelemetry": false,
-    "liveshare.focusBehavior": "prompt",
-    "liveshare.presence": false,
-    "liveshare.guestApprovalRequired": true,
-    "liveshare.alwaysFollowHost": true
+    "terminal.integrated.copyOnSelection": true,
+    "workbench.activityBar.visible": false,
+    "terminal.integrated.fontSize": 13
 }

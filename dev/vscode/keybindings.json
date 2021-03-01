@@ -857,7 +857,7 @@
         "when": "terminalFocus && terminalProcessSupported"
     },
     {
-        "key": "shift+cmd+k",
+        "key": "cmd+w",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus && terminalProcessSupported"
     },
@@ -901,5 +901,65 @@
     {
         "key": "ctrl+shift+s",
         "command": "workbench.view.extension.liveshare"
+    },
+    {
+        "key": "alt+cmd+down",
+        "command": "-workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "shift+cmd+right",
+        "command": "workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+cmd+right",
+        "command": "-workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+cmd+up",
+        "command": "-workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "shift+cmd+left",
+        "command": "workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+cmd+left",
+        "command": "-workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "alt+cmd+j",
+        "command": "-liveshare.join",
+        "when": "liveshare:state != 'Joined' && liveshare:state != 'Shared'"
+    },
+    {
+        "key": "alt+cmd+j",
+        "command": "-latex-workshop.synctex",
+        "when": "editorTextFocus && !config.latex-workshop.bind.altKeymap.enabled && editorLangId == 'latex'"
+    },
+    {
+        "key": "alt+cmd+.",
+        "command": "closeTag.closeHTMLTag",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+.",
+        "command": "-closeTag.closeHTMLTag",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+cmd+.",
+        "command": "closeTag.closeHTMLTagInPlace",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+.",
+        "command": "-closeTag.closeHTMLTagInPlace",
+        "when": "editorTextFocus"
     }
 ]
