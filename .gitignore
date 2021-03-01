@@ -4,9 +4,9 @@ dev/vscode/*
 !dev/vscode/settings.json
 !dev/vscode/keybindings.json
 
-# duply: ignore gpg keys
-duply/**/*.gpg
-duply/**/*.asc
+# apps: ignore duply gpg keys
+apps/duply.symlink/**/*.gpg
+apps/duply.symlink/**/*.asc
 
 # git: ignore local .gitconfig
 git/gitconfig.local.symlink

@@ -6,23 +6,14 @@ try pinstall brew bat
 try pinstall brew coreutils
 try pinstall brew direnv
 try pinstall brew dnsmasq
-try pinstall brew exercism
 try pinstall brew fd
 try pinstall brew glances
 try pinstall brew grc
-try pinstall brew httpie
-try pinstall brew jupyter
 try pinstall brew make
 try pinstall brew openssl
-try pinstall brew pandoc
-try pinstall brew pass
 try pinstall brew ripgrep
-try pinstall brew speedtest-cli
 try pinstall brew unrar
 try pinstall brew wget
-try pinstall brew youtube-dl
-try pinstall gem boom
-try pinstall pip3 xkcdpass
 
 # fonts
 try pinstall brew font-sauce-code-pro-nerd-font
