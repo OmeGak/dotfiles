@@ -29,7 +29,7 @@
 [help]
 	autocorrect = 1
 [merge]
-	tool = p4merge
+	tool = code
 [mergetool]
 	keepBackup = false
 	keepTemporaries = false
@@ -64,6 +64,7 @@
 	defaultRemote=origin
 [fetch]
 	prune = true
+	recurseSubmodules = on-demand
 [merge]
 	ff = only
 [pull]
