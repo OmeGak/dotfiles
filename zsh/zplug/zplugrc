@@ -35,6 +35,10 @@ zplug "$BREWDIR/opt/fzf/", from:local, \
   use:"shell/completion.zsh", \
   defer:2  # needs loading after compinit
 
+zplug "$BREWDIR/opt/nvm/", from:local, \
+  if:"[[ -d $BREWDIR/opt/nvm/ ]]", \
+  use:"nvm.sh"
+
 zplug "zsh-users/zsh-completions", use:src
 
 zplug "exercism/cli-www", from:github, \
