@@ -4,10 +4,20 @@ zplug "plugins/gem", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/yarn", from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zdharma/fast-syntax-highlighting"
 
-zplug "knu/zsh-git-escape-magic", \
+# FIXME: breaks zsh-autosuggestions on accept/abort
+#        probably, due to wrong load order
+zplug "Aloxaf/fzf-tab", from:github, \
+  use:"fzf-tab.zsh", \
+  defer:2 # needs loading after compinit
+
+zplug "zsh-users/zsh-autosuggestions", from:github, \
+  defer:2 # needs loading after fzf-tab
+
+zplug "zdharma/fast-syntax-highlighting", from:github, \
+  defer:2  # needs loading after fzf-tab
+
+zplug "knu/zsh-git-escape-magic", from:github, \
   use:"git-escape-magic", \
   defer:2  # needs loading after compinit
 
