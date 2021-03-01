@@ -5,8 +5,8 @@ zplug "plugins/pass", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/yarn", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", \
-  defer:2  # needs loading after compinit
+zplug "zdharma/fast-syntax-highlighting"
+
 zplug "knu/zsh-git-escape-magic", \
   use:"git-escape-magic", \
   defer:2  # needs loading after compinit
