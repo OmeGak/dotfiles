@@ -5,10 +5,10 @@ windows:
     focus: true
     start_directory: $INDICODEV/indico-un
     panes:
-      - shell_command: mailcatcher; pipenv shell;
+      - shell_command: mailcatcher; pipenv shell
 
   - window_name: repos
-    layout: main-vertical
+    layout: even-horizontal
     start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
@@ -26,8 +26,19 @@ windows:
       - shell_command: pipenv run -- make build-plugin
 
   - window_name: local-logs
-    layout: main-horizontal
+    layout: even-vertical
     start_directory: $INDICODEV/indico-un
     panes:
       - shell_command: pipenv run -- python indico/bin/utils/db_log.py -S
       - shell_command: tail -f $INDICOAPP/data/log/indico.log
+
+  - window_name: prod
+    layout: main-vertical
+    start_directory: $INDICODEV/indico-un
+    panes:
+      - focus: true
+        shell_command: ssh indico-tasks
+      - shell_command: ssh indico-w1
+      - shell_command: ssh indico-w2
+      - shell_command: ssh indico-w3
+      - shell_command: ssh indico-w4
