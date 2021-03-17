@@ -11,6 +11,7 @@
 	useConfigOnly = true
 [core]
 	editor = vim
+	attributesfile = ~/.gitattributes
 	excludesfile = ~/.gitignore
 	hooksPath = ~/.githooks
 	# Use default ssh config to circumvent LocalCommand in my ssh config
@@ -22,6 +23,8 @@
 	ui = true
 [diff]
 	colorMoved = dimmed_zebra
+[diff "pandoc"]
+	textconv = pandoc --to=plain --wrap=none
 [difftool]
 	prompt = false
 [interactive]
