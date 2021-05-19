@@ -9,19 +9,11 @@ fi
 
 install_keyboard_layout() {
   local source_bundle="$DOT/macos/US-ES-Keyboard/US-ES-International.bundle"
-  local target_bundle_global="/Library/Keyboard Layouts/US-ES-International.bundle"
   local target_bundle_local="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
-
-  if [[ ! -d ${target_bundle_global} ]]; then
-    pprint info-go "Installing US-ES-Keyboard layout globally"
-    # XXX: symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
-    cp -r "${source_bundle}" "${target_bundle_global}"
-  fi
 
   if [[ ! -d ${target_bundle_local} ]]; then
     pprint info-go "Installing US-ES-Keyboard layout locally"
-    # XXX: symlinked keyboard layouts don't work on most of native Apple apps in Yosemite, at least
-    cp -r "${source_bundle}" "${target_bundle_local}"
+    mksymlink "${source_bundle}" "${target_bundle_local}"
   fi
 }
 
