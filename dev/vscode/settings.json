@@ -3,7 +3,7 @@
     "cSpell.language": "en,es-ES,fr",
     "cSpell.showStatus": false,
     "customizeUI.stylesheet": {
-        ".editor-actions": "display: none !important;"
+        ".actions-container[aria-label='Editor actions'] .action-item .action-label:not([title='More Actions...'])": "display: none !important;"
     },
     "debug.showBreakpointsInOverviewRuler": true,
     "debug.toolBarLocation": "docked",
@@ -48,14 +48,20 @@
     "git.checkoutType": "local",
     "git.enableStatusBarSync": false,
     "git.rebaseWhenSync": true,
-    "gitlens.advanced.telemetry.enabled": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressCreatePullRequestPrompt": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitDisabledWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressImproperWorkspaceCasingWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressRebaseSwitchToTextWarning": false
+    },
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
-    "gitlens.views.compare.location": "gitlens",
-    "gitlens.views.fileHistory.location": "gitlens",
-    "gitlens.views.lineHistory.location": "gitlens",
-    "gitlens.views.repositories.location": "gitlens",
-    "gitlens.views.search.location": "gitlens",
     "latex-workshop.view.pdf.viewer": "tab",
     "lineJumper.linesToJump": 5,
     "liveshare.alwaysFollowHost": true,
@@ -69,15 +75,16 @@
     "material-icon-theme.saturation": 0,
     "materialTheme.accent": "Tomato",
     "problems.showCurrentInStatus": true,
+    "python.languageServer": "Pylance",
     "python.linting.flake8Enabled": true,
     "python.linting.pydocstyleEnabled": true,
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "python.linting.pylintEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
+    "python.pythonPath": "/usr/local/bin/python3",
     "restructuredtext.linter.disabled": true,
     "rewrap.wrappingColumn": 120,
     "scrolloff.alwaysCenter": true,
-    "search.enableSearchEditorPreview": true,
     "search.exclude": {
         "**/*.code-search": false,
         "**/.venv": true
@@ -89,7 +96,9 @@
     ],
     "telemetry.enableTelemetry": false,
     "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
+    "terminal.integrated.fontSize": 13,
     "todohighlight.keywords": [
         "XXX:"
     ],
@@ -101,6 +110,7 @@
         "markdown",
         "plaintext"
     ],
+    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "activityBar.activeBorder": "#F44336",
         "activityBarBadge.background": "#F44336",
@@ -129,14 +139,21 @@
         "textLink.foreground": "#F44336"
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.editor.decorations.badges": false,
+    "workbench.editor.decorations.colors": false,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editor.tabSizing": "shrink",
+    "workbench.editorAssociations": [
+        {
+            "filenamePattern": "*.ipynb",
+            "viewType": "jupyter.notebook.ipynb"
+        }
+    ],
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "terminal.integrated.copyOnSelection": true,
-    "workbench.activityBar.visible": false,
-    "terminal.integrated.fontSize": 13
+    "markdown.extension.toc.levels": "2..6",
+    "editor.minimap.enabled": false
 }
