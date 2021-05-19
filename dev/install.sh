@@ -41,8 +41,13 @@ link_vscode_settings() {
   fi
 }
 
-# Link VSCodium settings
+# Link VSCode settings
 link_vscode_settings 'VSCode' "$HOME/Library/Application Support/Code/User"
-link_vscode_settings 'VSCodium' "$HOME/Library/Application Support/VSCodium/User"
+
+# Install extensions
+if [[ $(which code) ]]; then
+  pprint info-go "Installing VSCode extensions"
+  xargs -L 1 code --install-extension > /dev/null < "${DOT}/dev/vscode.ext"
+fi
 
 exit $TRY_CODE
