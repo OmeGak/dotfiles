@@ -12,10 +12,10 @@ try pinstall npm eslint-plugin-react
 try pinstall npm eslint-config-standard
 try pinstall npm eslint-plugin-standard
 try pinstall npm sass-lint
-try pinstall pip3 flake8
-try pinstall pip3 flake8-isort
-try pinstall pip3 pydocstyle
-try pinstall pip3 pylint
+try pinstall pip flake8
+try pinstall pip flake8-isort
+try pinstall pip pydocstyle
+try pinstall pip pylint
 
 # FIXME: Must be installed locally in `~` with `npm install` until this issue is resolved
 #        https://github.com/remarkjs/remark-lint/issues/165

@@ -7,13 +7,13 @@ try pinstall brew aspell
 try pinstall brew weechat
 
 if [[ "$OS" == "Darwin" ]]; then
-  try pinstall pip3 pync
+  try pinstall pip pync
 fi
 
 if [[ "$OS" == "Linux" ]]; then
   try pinstall brew dbus
-  try pinstall pip3 dbus-python
-  try pinstall pip3 notify2
+  try pinstall pip dbus-python
+  try pinstall pip notify2
 fi
 
 exit $TRY_CODE
