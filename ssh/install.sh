@@ -3,7 +3,6 @@
 source $DOT/.dot/functions/try
 
 try pinstall brew mosh
-try pinstall brew sshrc
 
 if [[ "$OS" == "Darwin" ]]; then
   try brew tap thefox/brewery > /dev/null 2>&1
