@@ -11,7 +11,7 @@ try pinstall brew grc
 try pinstall brew make
 try pinstall brew openssl
 try pinstall brew ripgrep
-try pinstall brew unrar
+try pinstall brew unar
 try pinstall brew wget
 
 # fonts
