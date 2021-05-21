@@ -7,6 +7,8 @@ if [[ "$OS" != "Darwin" ]]; then
   exit 0
 fi
 
+try pinstall brew mas
+
 install_keyboard_layout() {
   local source_bundle="$DOT/macos/US-ES-Keyboard/US-ES-International.bundle"
   local target_bundle_local="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
