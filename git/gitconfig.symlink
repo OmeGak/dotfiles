@@ -27,6 +27,8 @@
 	textconv = pandoc --to=plain --wrap=none
 [difftool]
 	prompt = false
+[init]
+	defaultBranch = master
 [interactive]
 	diffFilter = diff-highlight
 [help]
