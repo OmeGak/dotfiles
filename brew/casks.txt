@@ -1,27 +1,34 @@
 # Essentials
 brave-browser
+backblaze
 dropbox
 google-backup-and-sync
-backblaze
 gpg-suite
-transmission
-keybase
 
 # Development
 iterm2
 visual-studio-code
 devdocs
 ngrok
+docker
+java
+
+# Downloads
+homebrew/cask/transmission
+soulseek
 
 # Messaging
 discord
 element
+keybase
 messenger
 signal
 telegram
+whatsapp
 wire
 
 # Media
+calibre
 plex-media-player
 plex-media-server
 spotify
@@ -39,12 +46,15 @@ virtualbox
 steam
 minecraft
 openemu
+slippi-dolphin
 
 # Misc
-calibre
 handbrake
+losslesscut
+obs
 qlmarkdown
 qlvideo
+the-tagger
 the-unarchiver
 ukelele
 
@@ -53,7 +63,5 @@ xbox360-controller-driver-unofficial
 logitech-unifying
 osxfuse
 
-# Others
-docker
-java
+# Heavy!
 mactex
