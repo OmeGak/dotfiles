@@ -1,0 +1,42 @@
+[mypy]
+mypy_path = stubs
+incremental = true
+show_error_codes = true
+
+# Allows for checking specific modules without triggering errors in imported ones
+follow_imports = silent
+
+# Explicitly ignoring is better for keeping track of currently missing imports
+ignore_missing_imports = false
+
+# Decorators shouldn't transform functions to have have `Any` in their signature
+disallow_any_decorated = true
+
+# Enforces specifying parameters in collection types like in `List[...]`
+disallow_any_generics = true
+
+# Enforces type annotations in defined functions
+disallow_untyped_defs = true
+
+# Enforces declaring `Optional[...]` type for arguments with `None` as default
+no_implicit_optional = true
+
+# Enforces declaring `Optional[...]` return type for functions that can return `None`
+strict_optional = true
+
+# Prevents forgetting the return statement when a return type is expected
+warn_no_return = true
+
+# Prevents returning `Any` with non-`Any` return type
+warn_return_any = true
+
+# Prevents unnecesarily casting expressions to their inferred type
+warn_redundant_casts = true
+
+# Prevents leaving unnecessary `# type: ignore` around in the code
+warn_unused_ignores = true
+
+# Sometimes dynamic typing is used in Python ¯\_(ツ)_/¯
+disallow_any_explicit = false
+disallow_any_expr = false
+disallow_untyped_calls = false
