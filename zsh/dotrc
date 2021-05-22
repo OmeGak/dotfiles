@@ -1,7 +1,12 @@
 # Configure ZSH before anything else
 # shellcheck source=$DOT/zsh/config.zsh
-source $DOT/zsh/config.zsh
+source "$DOT/zsh/config.zsh"
 
 # Load external packages
 # shellcheck source=$DOT/zsh/zplug/zplugrc
 source $DOT/zsh/zplug/zplugrc
+
+# Load local stuff, not to be committed
+if [ -e $HOME/.dotrc ]; then
+    source "$HOME/.dotrc"
+fi
