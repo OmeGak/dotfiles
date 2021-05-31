@@ -44,7 +44,7 @@ style = "bold green dimmed"
 style = "bold 208 dimmed"
 
 [python]
-format = 'via [${symbol}${pyenv_prefix}(${version} )($virtualenv )]($style)'
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 style = "yellow bold dimmed"
 
 [cmd_duration]
