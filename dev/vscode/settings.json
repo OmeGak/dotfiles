@@ -81,7 +81,6 @@
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "python.linting.pylintEnabled": true,
     "python.linting.pylintUseMinimalCheckers": false,
-    "python.pythonPath": "/usr/local/bin/python3",
     "restructuredtext.linter.disabled": true,
     "rewrap.wrappingColumn": 120,
     "scrolloff.alwaysCenter": true,
@@ -110,7 +109,6 @@
         "markdown",
         "plaintext"
     ],
-    "workbench.activityBar.visible": false,
     "workbench.colorCustomizations": {
         "activityBar.activeBorder": "#F44336",
         "activityBarBadge.background": "#F44336",
@@ -144,16 +142,21 @@
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editor.tabSizing": "shrink",
-    "workbench.editorAssociations": [
-        {
-            "filenamePattern": "*.ipynb",
-            "viewType": "jupyter.notebook.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
     "markdown.extension.toc.levels": "2..6",
-    "editor.minimap.enabled": false
+    "python.showStartPage": false,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "editor.cursorSurroundingLines": 999,
+    "editor.cursorSurroundingLinesStyle": "all",
+    "workbench.activityBar.visible": false
 }

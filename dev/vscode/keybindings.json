@@ -961,5 +961,25 @@
         "key": "shift+alt+.",
         "command": "-closeTag.closeHTMLTagInPlace",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+cmd+up",
+        "command": "restructuredtext.editor.listEditing.onMoveLineUp",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId == 'restructuredtext'"
+    },
+    {
+        "key": "alt+up",
+        "command": "-restructuredtext.editor.listEditing.onMoveLineUp",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId == 'restructuredtext'"
+    },
+    {
+        "key": "ctrl+cmd+down",
+        "command": "restructuredtext.editor.listEditing.onMoveLineDown",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId == 'restructuredtext'"
+    },
+    {
+        "key": "alt+down",
+        "command": "-restructuredtext.editor.listEditing.onMoveLineDown",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId == 'restructuredtext'"
     }
 ]
