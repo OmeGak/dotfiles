@@ -117,6 +117,7 @@
 	ts = tag --sign --message=''
 	count = shortlog --summary --numbered
 	last = log -1 HEAD
+	pushy = push --force-with-lease
 	serve = !git daemon --reuseaddr --verbose --export-all --base-path=.git --strict-paths .git/
 	# Stash variants
 	stsh = stash --keep-index
