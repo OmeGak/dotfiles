@@ -89,7 +89,7 @@
 # -- Pretty formats -----------------------------------------------------------
 
 [pretty]
-	onelinecolor = %Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset
+	onelinecolor = %C(red)%h%C(reset) %s %C(bold blue)<%an>%C(reset) %C(green)[%cr]%C(reset)%C(yellow)%d%C(reset)
 
 
 # -- Aliases ------------------------------------------------------------------
