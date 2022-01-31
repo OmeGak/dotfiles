@@ -1,8 +1,0 @@
-SOURCE="$HOME/Library/Application Support/Bitcoin/wallet.dat"
-TARGET="file://$HOME/Google Drive/Backups/bitcoin"
-GPG_KEY='C00AFB83D78F6DAE'
-MAX_FULL_BACKUPS=3
-
-# XXX: Workaround for bug in duplicity:
-#      https://superuser.com/questions/606486/duplicity-can-only-restore-as-root-on-os-x
-TEMP_DIR="$HOME/.cache/tmp"
