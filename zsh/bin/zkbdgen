@@ -1,0 +1,62 @@
+#!/usr/bin/env zsh
+# Generates zkbd symlinks for macOS
+
+set -e
+progname=$(basename $0)
+screen_sourcepath="screen-apple-darwin"
+screen_filenames=("screen-256color-apple-darwin" "screen-apple-darwin")
+xterm_sourcepath="xterm-apple-darwin"
+xterm_filenames=("xterm-256color-apple-darwin" "xterm-apple-darwin")
+DRY=true
+
+usage() {
+  echo "usage: ${progname} [-a]"
+  echo '  -a: Apply changes'
+}
+
+init() {
+  ZKBD=$HOME/.zkbd
+  osversion=$(echo $OSTYPE | sed s/darwin//)
+  cd $ZKBD
+}
+
+make_symlinks() {
+  local sourcepath=$1; shift
+  local base_filenames=("$@")
+  for base_filename in ${base_filenames[@]}; do
+    targetpath="${base_filename}${osversion}"
+    if ! $DRY; then
+      ln -fs "${sourcepath}" "${targetpath}"
+    fi
+    echo "  ${targetpath} -> ${sourcepath}"
+  done
+}
+
+update() {
+  echo 'Creating symlinks:'
+  make_symlinks "${screen_sourcepath}" "${screen_filenames[@]}"
+  make_symlinks "${xterm_sourcepath}" "${xterm_filenames[@]}"
+}
+
+main() {
+  if [[ ${#} > 0 ]]; then
+    case "${1}" in
+      -a)
+        DRY=false
+        shift;;
+      *)
+        usage
+        exit 1;;
+    esac
+  fi
+
+  if $DRY; then
+    echo "\033[0;31m${progname} is in dry-run mode and no file will be touched:\033[0m"
+    echo "\033[0;31m  pass -a to apply changes\033[0m"
+  fi
+
+  init
+  update
+}
+
+main ${@}
