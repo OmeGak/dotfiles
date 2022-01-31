@@ -14,7 +14,7 @@ zplug "Aloxaf/fzf-tab", from:github, \
 zplug "zsh-users/zsh-autosuggestions", from:github, \
   defer:2 # needs loading after fzf-tab
 
-zplug "zdharma/fast-syntax-highlighting", from:github, \
+zplug "zdharma-continuum/fast-syntax-highlighting", from:github, \
   defer:2  # needs loading after fzf-tab
 
 zplug "knu/zsh-git-escape-magic", from:github, \
