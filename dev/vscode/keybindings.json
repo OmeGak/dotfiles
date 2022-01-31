@@ -619,7 +619,7 @@
         "when": "!editorFocus"
     },
     {
-        "key": "ctrl+up",
+        "key": "ctrl+down",
         "command": "editor.action.inPlaceReplace.down",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -629,7 +629,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "ctrl+down",
+        "key": "ctrl+up",
         "command": "editor.action.inPlaceReplace.up",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -981,5 +981,130 @@
         "key": "alt+down",
         "command": "-restructuredtext.editor.listEditing.onMoveLineDown",
         "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId == 'restructuredtext'"
+    },
+    {
+        "key": "shift+alt+cmd+k",
+        "command": "bracketeer.removeBrackets"
+    },
+    {
+        "key": "shift+alt+cmd+i",
+        "command": "-bracketeer.removeBrackets"
+    },
+    {
+        "key": "shift+alt+cmd+i",
+        "command": "bracketeer.swapBrackets"
+    },
+    {
+        "key": "shift+alt+cmd+k",
+        "command": "-bracketeer.swapBrackets"
+    },
+    {
+        "key": "shift+cmd+o",
+        "command": "gitlens.openFileOnRemoteFrom"
+    },
+    {
+        "key": "ctrl+cmd+c",
+        "command": "editor.action.dirtydiff.next",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+f3",
+        "command": "-editor.action.dirtydiff.next",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+cmd+c",
+        "command": "editor.action.dirtydiff.previous",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+f3",
+        "command": "-editor.action.dirtydiff.previous",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+cmd+p",
+        "command": "editor.action.marker.next",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+f8",
+        "command": "-editor.action.marker.next",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+cmd+p",
+        "command": "editor.action.marker.prev",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+alt+f8",
+        "command": "-editor.action.marker.prev",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+cmd+p",
+        "command": "-dendron.showPreviewV2"
+    },
+    {
+        "key": "shift+cmd+down",
+        "command": "-dendron.goDownHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "cmd+k cmd+p",
+        "command": "dendron.showPreview",
+        "when": "dendron:pluginActive && resourceExtname == '.md'"
+    },
+    {
+        "key": "ctrl+cmd+p",
+        "command": "-dendron.showPreview",
+        "when": "dendron:pluginActive && resourceExtname == '.md'"
+    },
+    {
+        "key": "cmd+k cmd+z",
+        "command": "workbench.action.toggleZenMode"
+    },
+    {
+        "key": "cmd+k z",
+        "command": "-workbench.action.toggleZenMode"
+    },
+    {
+        "key": "cmd+k cmd+g",
+        "command": "dendron.showNoteGraph"
+    },
+    {
+        "key": "ctrl+alt+up",
+        "command": "dendron.goUpHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "shift+cmd+up",
+        "command": "-dendron.goUpHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "ctrl+alt+]",
+        "command": "dendron.goNextHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "ctrl+shift+]",
+        "command": "-dendron.goNextHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "ctrl+alt+[",
+        "command": "dendron.goPrevHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "ctrl+shift+[",
+        "command": "-dendron.goPrevHierarchy",
+        "when": "dendron:pluginActive && editorFocus"
+    },
+    {
+        "key": "ctrl+shift+alt+enter",
+        "command": "dendron.treeView.focus"
     }
 ]

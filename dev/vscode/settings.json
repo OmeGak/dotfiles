@@ -1,4 +1,19 @@
 {
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.language.colorizedBracketPairs": [
+            [
+                "[",
+                "]"
+            ]
+        ],
+        "editor.quickSuggestions": false,
+        "editor.snippetSuggestions": "none",
+        "editor.tabSize": 2
+    },
+
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.language": "en,es-ES,fr",
     "cSpell.showStatus": false,
@@ -9,18 +24,24 @@
     "debug.toolBarLocation": "docked",
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.renderSideBySide": true,
+    "editor.bracketPairColorization.enabled": true,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorBlinking": "smooth",
+    "editor.cursorSurroundingLines": 999,
     "editor.emptySelectionClipboard": false,
     "editor.fontFamily": "Source Code Pro",
-    "editor.fontLigatures": false,
+    // XXX: Fixes Source Code Pro "l·l" ligature being incorrectly invoked
+    //      https://github.com/microsoft/vscode/issues/106583
+    "editor.fontLigatures": "'ccmp' off",
     "editor.fontSize": 14,
+    "editor.minimap.enabled": false,
     "editor.minimap.renderCharacters": false,
     "editor.renderWhitespace": "selection",
     "editor.rulers": [
         80,
         120
     ],
+    "editor.suggest.preview": true,
     "editor.useTabStops": false,
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 120,
@@ -45,7 +66,6 @@
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "git.alwaysShowStagedChangesResourceGroup": true,
-    "git.checkoutType": "local",
     "git.enableStatusBarSync": false,
     "git.rebaseWhenSync": true,
     "gitlens.advanced.messages": {
@@ -64,7 +84,6 @@
     "gitlens.currentLine.enabled": false,
     "latex-workshop.view.pdf.viewer": "tab",
     "lineJumper.linesToJump": 5,
-    "liveshare.alwaysFollowHost": true,
     "liveshare.focusBehavior": "prompt",
     "liveshare.guestApprovalRequired": true,
     "liveshare.presence": false,
@@ -72,28 +91,35 @@
     "liveshare.showInStatusBar": "whileCollaborating",
     "markdown-preview-enhanced.enableEmojiSyntax": false,
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "markdown.extension.toc.levels": "2..6",
     "material-icon-theme.saturation": 0,
-    "materialTheme.accent": "Tomato",
+    "materialTheme.accent": "Tomato", // #F44336
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
     "problems.showCurrentInStatus": true,
     "python.languageServer": "Pylance",
+    "python.linting.flake8Args": [
+        // Workaround for flake8-colors bug (https://github.com/microsoft/vscode-python/issues/14776#issuecomment-781997327)
+        "--color=always"
+    ],
     "python.linting.flake8Enabled": true,
     "python.linting.pydocstyleEnabled": true,
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "python.linting.pylintEnabled": true,
-    "python.linting.pylintUseMinimalCheckers": false,
-    "restructuredtext.linter.disabled": true,
     "rewrap.wrappingColumn": 120,
-    "scrolloff.alwaysCenter": true,
     "search.exclude": {
         "**/*.code-search": false,
         "**/.venv": true
     },
     "search.followSymlinks": false,
     "search.useGlobalIgnoreFiles": true,
+    "security.workspace.trust.untrustedFiles": "open",
     "shellcheck.customArgs": [
         "-x"
     ],
-    "telemetry.enableTelemetry": false,
+    "telemetry.telemetryLevel": "error",
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
@@ -102,9 +128,12 @@
         "XXX:"
     ],
     "vscodeWorkspaceSwitcher.paths": [
-        "~/Code"
+        "~/Code",
+        "~/Documents/Dendron"
     ],
+    "vscodeWorkspaceSwitcher.showInExplorer": false,
     "vscodeWorkspaceSwitcher.showTreeView": false,
+    "window.titleBarStyle": "native",
     "wordcounter.languages": [
         "markdown",
         "plaintext"
@@ -126,6 +155,8 @@
         "menubar.selectionForeground": "#F44336",
         "notificationLink.foreground": "#F44336",
         "panelTitle.activeBorder": "#F44336",
+        "peekView.border": "#F44336",
+        "peekViewResult.background": "#1a1a1a",
         "pickerGroup.foreground": "#F44336",
         "progressBar.background": "#F44336",
         "scrollbarSlider.activeBackground": "#F4433650",
@@ -133,15 +164,23 @@
         "settings.headerForeground": "#F44336",
         "settings.modifiedItemIndicator": "#F44336",
         "statusBar.debuggingBackground": "#F44336",
+        "statusBarItem.remoteBackground": "#C6FF00", //  material theme "acid lime"
         "tab.activeBorder": "#F44336",
         "textLink.foreground": "#F44336"
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.editor.autoLockGroups": {
+        "mainThreadWebview-markdown.preview": true,
+        "vscode.markdown.preview.editor": true
+    },
     "workbench.editor.decorations.badges": false,
     "workbench.editor.decorations.colors": false,
     "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.languageDetection": false,
     "workbench.editor.pinnedTabSizing": "compact",
+    "workbench.editor.splitInGroupLayout": "vertical",
     "workbench.editor.tabSizing": "shrink",
+    "workbench.editor.untitled.hint": "hidden",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
@@ -149,14 +188,7 @@
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "markdown.extension.toc.levels": "2..6",
-    "python.showStartPage": false,
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "left"
-    },
-    "workbench.editor.untitled.hint": "hidden",
-    "editor.cursorSurroundingLines": 999,
-    "editor.cursorSurroundingLinesStyle": "all",
-    "workbench.activityBar.visible": false
+    "workbench.activityBar.visible": false,
+    "editor.guides.bracketPairsHorizontal": true,
+    "bracket-pair-colorizer-2.depreciation-notice": false
 }

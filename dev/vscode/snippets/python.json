@@ -16,7 +16,7 @@
 		"prefix": "debugger",
 		"body": [
 			"import ptvsd; print(\"Waiting for debugger attach\")",
-			"ptvsd.enable_attach(address=('localhost', 5678)); ptvsd.wait_for_attach()",
+			"ptvsd.enable_attach(); ptvsd.wait_for_attach()",
 			"breakpoint()"
 		],
 	}
