@@ -6,12 +6,12 @@ if [[ "$OS" != "Darwin" ]]; then
 fi
 
 # Get list of new casks
-brew cask list > /tmp/cask-list
+brew list --cask > /tmp/cask-list
 new_casks=$(cat $DOT/brew/casks.txt | grep -v \# | grep -vwf /tmp/cask-list)
 
 # Install new casks
-if [[ ! -z "${new_casks}" ]]; then
-  brew cask install ${new_casks}
+if [[ -n "${new_casks}" ]]; then
+  echo "${new_casks}" | xargs -L 1 brew install
 fi
 
 # Cleanup
