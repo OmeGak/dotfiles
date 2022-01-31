@@ -52,8 +52,8 @@ slippi-dolphin
 handbrake
 losslesscut
 obs
-qlmarkdown
 qlvideo
+sbarex-qlmarkdown
 the-tagger
 the-unarchiver
 ukelele
