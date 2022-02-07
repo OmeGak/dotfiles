@@ -49,3 +49,6 @@ bindkey '|' self-insert-padded
 
 # Pipe through pager
 bindkey -s '^P' "|less\n"
+
+# Reset iTerm2 profile
+bindkey -s '^[r' 'iterm-profile^M'
