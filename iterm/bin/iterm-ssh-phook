@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Sets and unsets SSH profiles on iTerm2.
+# Useful to use alongside SSH LocalCommand.
+
+set -e
+progname=$(basename "$0")
+
+usage() {
+  echo "usage: ${progname} level"
+  echo "  level: the ssh risk level (info | warning | danger)"
+}
+
+ssh-phook() {
+  if [[ "$OS" == "Darwin" ]]; then
+    local level=$1
+    phook -e "iterm-profile ssh-$level${TMUX_ITERM_PROFILE_SUFFIX}" -a "iterm-profile"; sleep 0
+    sleep 0  # resolves occasional "kevent: No such process" error
+  fi
+}
+
+case "$1" in
+  info|warning|danger)
+    ssh-phook "$1";;
+  *)
+    usage
+    exit 1;;
+esac

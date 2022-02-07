@@ -15,4 +15,4 @@ Host *
   UseKeychain yes
   PermitLocalCommand yes
   # Change iterm profile in SSH connections
-  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-awareness" -a "iterm-profile"
+  LocalCommand iterm-ssh-phook info
