@@ -4,10 +4,7 @@ source $DOT/.dot/functions/try
 
 try pinstall brew mosh
 
-if [[ "$OS" == "Darwin" ]]; then
-  try brew tap thefox/brewery > /dev/null 2>&1
-  try pinstall brew phook
-else
+if [[ "$OS" == "Linux" ]]; then
   try pinstall apt openssh-server
 fi
 

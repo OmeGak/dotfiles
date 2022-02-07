@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# shellcheck source=../.dot/functions/try
+source $DOT/.dot/functions/try
+
+if [[ "$OS" == "Darwin" ]]; then
+  try pinstall brew phook
+fi
 
 if [[ "$OS" != "Darwin" ]]; then
   pprint info-warn "Step skipped: iTerm is only available for macOS"
