@@ -1603,7 +1603,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -1835,7 +1835,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Dynamic Profile Filename</key>
-			<string>/Users/omegak/.dotfiles/iterm/profiles/visor.json</string>
+			<string>/Users/ome/.dotfiles/iterm/profiles/visor.json</string>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -1866,11 +1866,11 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>HotKey Window Animates</key>
 			<integer>1</integer>
 			<key>HotKey Window AutoHides</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>HotKey Window Dock Click Action</key>
 			<integer>2</integer>
 			<key>HotKey Window Floats</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>HotKey Window Reopens On Activation</key>
 			<integer>0</integer>
 			<key>Idle Code</key>
@@ -2411,7 +2411,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>1</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -2651,7 +2651,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Dynamic Profile Filename</key>
-			<string>/Users/omegak/.dotfiles/iterm/profiles/ssh-awareness.json</string>
+			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-awareness.json</string>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -3207,7 +3207,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -3447,7 +3447,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Dynamic Profile Filename</key>
-			<string>/Users/omegak/.dotfiles/iterm/profiles/ssh-caution.json</string>
+			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-caution.json</string>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -4003,7 +4003,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -4243,7 +4243,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Dynamic Profile Filename</key>
-			<string>/Users/omegak/.dotfiles/iterm/profiles/ssh-danger.json</string>
+			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-danger.json</string>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -4799,7 +4799,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
@@ -5031,7 +5031,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Dynamic Profile Filename</key>
-			<string>/Users/omegak/.dotfiles/iterm/profiles/tmux.json</string>
+			<string>/Users/ome/.dotfiles/iterm/profiles/tmux.json</string>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -5602,7 +5602,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Window Type</key>
 			<integer>15</integer>
 			<key>Working Directory</key>
-			<string>/Users/omegak</string>
+			<string>/Users/ome</string>
 		</dict>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
@@ -5658,8 +5658,6 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
-	<key>PrefsCustomFolder</key>
-	<string>/Users/omegak/.dotfiles/iterm</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
