@@ -1,8 +1,9 @@
 {
   "Profiles": [
     {
-      "Name" : "tmux",
-      "Guid" : "6174EE8B-740B-458B-8202-0599551CB63E",
+      "Name" : "ssh-danger-tmux",
+      "Guid" : "3BFAC475-B386-44FD-93E9-110C64161691",
+      "Dynamic Profile Parent Name" : "ssh-danger",
       "Title Components" : 1,
       "Use Tab Color" : true,
       "Tab Color" : {
@@ -11,8 +12,7 @@
         "Blue Component" : 0.23529411764705882,
         "Alpha Component" : 1,
         "Green Component" : 0.29803921568627451
-      },
-      "Window Type" : 15
+      }
     }
   ]
 }

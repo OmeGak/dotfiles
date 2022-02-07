@@ -1,8 +1,9 @@
 {
   "Profiles": [
     {
-      "Name" : "tmux",
-      "Guid" : "6174EE8B-740B-458B-8202-0599551CB63E",
+      "Name" : "ssh-warning-tmux",
+      "Guid" : "4D0E6C94-05AA-4215-A53F-236AC359DE6B",
+      "Dynamic Profile Parent Name" : "ssh-warning",
       "Title Components" : 1,
       "Use Tab Color" : true,
       "Tab Color" : {
@@ -11,8 +12,7 @@
         "Blue Component" : 0.23529411764705882,
         "Alpha Component" : 1,
         "Green Component" : 0.29803921568627451
-      },
-      "Window Type" : 15
+      }
     }
   ]
 }

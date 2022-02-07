@@ -1,11 +1,11 @@
 {
   "Profiles": [
     {
-      "Name" : "ssh-awareness",
-      "Guid" : "71322930-D8A1-4727-857B-859490C1573A",
+      "Name" : "ssh-warning",
+      "Guid" : "266D7206-8A84-4F40-BA0B-0D0A96F04F9A",
       "Smart Cursor Color" : false,
       "Cursor Color" : {
-        "Red Component" : 0.33333333333333331,
+        "Red Component" : 1,
         "Color Space" : "sRGB",
         "Blue Component" : 0.33333333333333331,
         "Alpha Component" : 1,
