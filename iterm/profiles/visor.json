@@ -11,7 +11,7 @@
       "HotKey Window AutoHides": 1,
       "HotKey Window Reopens On Activation": 0,
       "HotKey Window Animates": 1,
-      "HotKey Window Floats": 0,
+      "HotKey Window Floats": 1,
       "HotKey Window Dock Click Action": 2,
       "HotKey Characters Ignoring Modifiers": "´",
       "Has Hotkey": 1
