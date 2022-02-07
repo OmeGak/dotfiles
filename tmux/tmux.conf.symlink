@@ -20,18 +20,17 @@ set -g visual-bell on
     TMUX_WINDOW_FORMAT=" #I:#W#F "
     set -g status-bg colour27
     set -g status-fg white
-    set -g window-status-current-bg white
-    set -g window-status-current-fg colour27
-    set -g pane-border-fg $TMUX_BORDER_FG
-    set -g pane-active-border-fg $TMUX_ACTIVE_BORDER_FG
+    set -g window-status-current-style bg=white,fg=colour27
+    set -g pane-border-style fg=$TMUX_BORDER_FG
+    set -g pane-active-border-style fg=$TMUX_ACTIVE_BORDER_FG
     set -g window-status-format $TMUX_WINDOW_FORMAT
     set -g window-status-current-format $TMUX_WINDOW_FORMAT
     set -g status-right '#{?client_prefix, #[bg=colour9] PREFIX ,}'
 
 # Unbind duplicates and not-used
 # ------------------------------
-    unbind '$'; unbind %; unbind &; unbind (; unbind )
-    unbind "'"; unbind '"'; unbind :; unbind \;
+    unbind '$'; unbind '%'; unbind '&'; unbind '('; unbind ')'
+    unbind "'"; unbind '"'; unbind ':'; unbind '\';
     unbind ,; unbind .; unbind '~';
     unbind r; unbind t; unbind i; unbind o; unbind p
     unbind s; unbind d; unbind f; unbind l
@@ -44,8 +43,8 @@ set -g visual-bell on
 # ----------------------------
     bind N new-session
     bind n new-window -c ~
-    bind | split-window -v -c '#{pane_current_path}'
-    bind \ split-window -h -c '#{pane_current_path}'
+    bind '|' split-window -v -c '#{pane_current_path}'
+    bind '\' split-window -h -c '#{pane_current_path}'
     bind C-c respawn-pane -k\; display-message "Restarted pane #P"
 
 # Kills (server/session/window/pane)
@@ -60,17 +59,17 @@ set -g visual-bell on
 # Navigation
 # ----------
     # Show tmux panel
-    bind Enter resize-pane -Z\; choose-tree -u -b "resize-pane -Z\; switch-client -t '%%'"
+    bind Enter choose-tree -swZ
     # Sessions
     bind C-s switch-client -l
     bind Tab switch-client -n
     bind @ command-prompt -p "Rename session @#S:" "rename-session '%%'"
     # Windows
     bind C-a last-window
-    bind -r ] next-window
-    bind -r [ previous-window
-    bind -r { swap-window -t -1
-    bind -r } swap-window -t +1
+    bind -r ']' next-window
+    bind -r '[' previous-window
+    bind -r '{' swap-window -t -1
+    bind -r '}' swap-window -t +1
     bind -r Space next-window -a
     bind '#' command-prompt -p "Rename window ##I:" "rename-window '%%'"
     # Panes
@@ -88,6 +87,9 @@ set -g visual-bell on
 
 # Window tweaks
 # -------------
+    # Set terminal window/tab name
+    set -g set-titles on
+    set -g set-titles-string "#{window_name}"
     # Prevent commands from permanently renaming windows
     setw -g allow-rename off
     # Make unnamed windows to show the name of the running command
