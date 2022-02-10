@@ -6,6 +6,7 @@ try pinstall brew bat
 try pinstall brew coreutils
 try pinstall brew dnsmasq
 try pinstall brew fd
+try pinstall brew ffmpeg
 try pinstall brew glances
 try pinstall brew grc
 try pinstall brew make

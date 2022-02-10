@@ -1,0 +1,7 @@
+# filesystem
+--output '%(release_date,upload_date|000000)s - %(title)s [%(id)s].%(ext)s'
+--paths '~/Downloads/ytdl/'
+
+# post-processing
+--embed-metadata
+--embed-thumbnail

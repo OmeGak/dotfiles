@@ -9,8 +9,9 @@ try pinstall brew httpie
 try pinstall brew pandoc
 try pinstall brew pass
 try pinstall brew speedtest-cli
-try pinstall brew youtube-dl
+try pinstall brew yt-dlp
 try pinstall gem boom
 try pinstall pip xkcdpass
+try pinstall pip ytmdl
 
 exit $TRY_CODE
