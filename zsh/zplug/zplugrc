@@ -3,7 +3,6 @@
 zplug "plugins/gem", from:oh-my-zsh
 zplug "plugins/pass", from:oh-my-zsh
 zplug "plugins/pip", from:oh-my-zsh
-zplug "plugins/yarn", from:oh-my-zsh
 
 # FIXME: breaks zsh-autosuggestions on accept/abort
 #        probably, due to wrong load order
