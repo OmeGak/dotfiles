@@ -26,13 +26,17 @@ key[Right]='^[[C'
 key[Menu]=''''
 
 # Special sequences
-key[C-Backspace]='^H'
-key[C-Space]='^@'
-key[C-Up]='^[[1;5A'
-key[C-Left]='^[[1;5D'
-key[C-Down]='^[[1;5B'
-key[C-Right]='^[[1;5C'
+key[Ctrl-Backspace]='^H'
+key[Ctrl-Space]='^@'
+key[Ctrl-Up]='^[[1;5A'
+key[Ctrl-Left]='^[[1;5D'
+key[Ctrl-Down]='^[[1;5B'
+key[Ctrl-Right]='^[[1;5C'
 key[Alt-Up]='^[[1;3A'
 key[Alt-Left]='^[b'
 key[Alt-Down]='^[[1;3B'
 key[Alt-Right]='^[f'
+
+# Modifiers
+key[Ctrl]='^'
+key[Alt]='^['
