@@ -41,14 +41,23 @@ fi
 # -- Special widget keybindings -----------------------------------------------
 
 bindkey '^I' expand-or-complete-with-dots
-bindkey "${key[Alt]}s" show-buffers
+bindkey "${key[Alt]}i" show-buffers
 bindkey "${key[Alt]}k" forget-history
 
 # Always pad pipe with whitespace
 bindkey '|' self-insert-padded
 
+
+# -- Hotkeys ------------------------------------------------------------------
+
+# Copy output
+bindkey -s "${key[Alt]}c" '|pbcopy^M'
+
 # Pipe through pager
-bindkey -s "${key[Ctrl]}p" "|less\n"
+bindkey -s "${key[Alt]}l" '|less^M'
 
 # Reset iTerm2 profile
-bindkey -s "${key[Alt]}r" 'iterm-profile^M'
+bindkey -s "${key[Alt]}p" '^Uiterm-profile^M'
+
+# Clear zplug cache
+bindkey -s "${key[Alt]}z" '^Uzplug clear^M'
