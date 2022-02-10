@@ -3,9 +3,9 @@
 
 set -e
 progname=$(basename $0)
-screen_sourcepath="screen-apple-darwin"
+screen_sourcepath="screen"
 screen_filenames=("screen-256color-apple-darwin" "screen-apple-darwin")
-xterm_sourcepath="xterm-apple-darwin"
+xterm_sourcepath="xterm"
 xterm_filenames=("xterm-256color-apple-darwin" "xterm-apple-darwin")
 DRY=true
 
