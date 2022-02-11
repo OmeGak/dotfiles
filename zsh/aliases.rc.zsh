@@ -23,14 +23,14 @@ alias cdl="ls -1 ~/.cdlinks"
 # -- Directory listing ---------------------------------------------------------
 
 LS_ARGS="--color --group-directories-first -FH"
-[[ $(which gls) ]] && LS="gls ${LS_ARGS}" || LS="ls ${LS_ARGS}"
+(( $+commands[gls] )) && LS="gls ${LS_ARGS}" || LS="ls ${LS_ARGS}"
 alias ls="$LS"
 alias ll="$LS -lh"
 alias la="$LS -lhA"
 unset LS_ARGS
 unset LS
 
-if [[ $(which exa) ]]; then
+if (( $+commands[exa] )); then
   EXA="exa --group-directories-first --git --time-style=long-iso -F"
   alias ls="${EXA}"
   alias ll="${EXA} -l"

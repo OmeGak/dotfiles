@@ -8,12 +8,12 @@ alias fatdr="gdu -Sh | gsort -rh | head -10"
 # -- Replacements --------------------------------------------------------------
 
 # date
-[[ $(which gdate) ]] && DATE="gdate" || DATE="date"
+(( $+commands[gdate] )) && DATE="gdate" || DATE="date"
 alias now="$DATE --rfc-3339=seconds"
 unset DATE
 
 # top
-if [[ $(which glances) ]]; then
+if (( $+commands[glances] )); then
   alias top="glances -2"
 fi
 
@@ -21,12 +21,12 @@ fi
 
 # Download website for full offline navigation
 # Source: http://www.kossboss.com/linux---wget-full-website
-if [[ $(which wget) ]]; then
+if (( $+commands[wget] )); then
   alias wget-full="wget --recursive --no-parent --page-requisites --adjust-extension --convert-links --timestamping \
                         --user-agent=mozilla --limit-rate=200k --random-wait --execute robots=off"
 fi
 
-if [[ $(which lsof) ]]; then
+if (( $+commands[lsof] )); then
   alias listening="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 fi
 
