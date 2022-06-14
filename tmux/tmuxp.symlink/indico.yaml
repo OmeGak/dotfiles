@@ -22,7 +22,7 @@ windows:
       - focus: true
         shell_command: pipenv run -- indico shell
       - shell_command: pipenv run -- indico run -q --enable-evalex
-      - shell_command: pipenv run -- make build
+      - shell_command: pipenv run -- make build-core
       - shell_command: pipenv run -- make build-plugin
 
   - window_name: local-logs
