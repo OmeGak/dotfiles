@@ -9,14 +9,33 @@
                 "]"
             ]
         ],
-        "editor.quickSuggestions": false,
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "other": "off",
+            "strings": "off"
+        },
         "editor.snippetSuggestions": "none",
         "editor.tabSize": 2
     },
-
+    "[restructuredtext]": {
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "other": "off",
+            "strings": "off"
+        }
+    },
+    "[shellscript]": {
+        "editor.tabSize": 2
+    },
+    "autoDocstring.docstringFormat": "sphinx-notypes",
+    "bracket-pair-colorizer-2.depreciation-notice": false,
     "cSpell.diagnosticLevel": "Hint",
     "cSpell.language": "en,es-ES,fr",
     "cSpell.showStatus": false,
+    "cSpell.userWords": [
+        "cryptoeconomic",
+        "cryptoeconomics"
+    ],
     "customizeUI.stylesheet": {
         ".actions-container[aria-label='Editor actions'] .action-item .action-label:not([title='More Actions...'])": "display: none !important;"
     },
@@ -34,7 +53,7 @@
     //      https://github.com/microsoft/vscode/issues/106583
     "editor.fontLigatures": "'ccmp' off",
     "editor.fontSize": 14,
-    "editor.minimap.enabled": false,
+    "editor.guides.bracketPairsHorizontal": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderWhitespace": "selection",
     "editor.rulers": [
@@ -50,8 +69,12 @@
         "jinja-html": "html",
         "njk": "html"
     },
+    "errorLens.enabled": true,
+    "errorLens.followCursor": "activeLine",
+    "errorLens.statusBarIconsAtZero": "hide",
     "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
+    "explorer.excludeGitIgnore": true,
     "extensions.ignoreRecommendations": true,
     "files.associations": {
         ".html": "html",
@@ -80,8 +103,24 @@
         "suppressNoRepositoryWarning": false,
         "suppressRebaseSwitchToTextWarning": false
     },
+    "gitlens.blame.highlight.locations": [
+        "gutter",
+        "line",
+        "overview"
+    ],
+    "gitlens.changes.locations": [
+        "gutter",
+        "overview"
+    ],
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
+    "gitlens.heatmap.locations": [
+        "overview",
+        "gutter"
+    ],
+    "gitlens.hovers.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.views.worktrees.showBranchComparison": "branch",
     "latex-workshop.view.pdf.viewer": "tab",
     "lineJumper.linesToJump": 5,
     "liveshare.focusBehavior": "prompt",
@@ -98,7 +137,6 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
-    "problems.showCurrentInStatus": true,
     "python.languageServer": "Pylance",
     "python.linting.flake8Args": [
         // Workaround for flake8-colors bug (https://github.com/microsoft/vscode-python/issues/14776#issuecomment-781997327)
@@ -124,6 +162,7 @@
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "terminal.integrated.fontSize": 13,
+    "timeline.excludeSources": [],
     "todohighlight.keywords": [
         "XXX:"
     ],
@@ -133,7 +172,6 @@
     ],
     "vscodeWorkspaceSwitcher.showInExplorer": false,
     "vscodeWorkspaceSwitcher.showTreeView": false,
-    "window.titleBarStyle": "native",
     "wordcounter.languages": [
         "markdown",
         "plaintext"
@@ -164,7 +202,7 @@
         "settings.headerForeground": "#F44336",
         "settings.modifiedItemIndicator": "#F44336",
         "statusBar.debuggingBackground": "#F44336",
-        "statusBarItem.remoteBackground": "#C6FF00", //  material theme "acid lime"
+        "statusBarItem.remoteBackground": "#C6FF00", // material theme "acid lime"
         "tab.activeBorder": "#F44336",
         "textLink.foreground": "#F44336"
     },
@@ -188,7 +226,19 @@
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
+    "editor.detectIndentation": false,
+    "todo-tree.general.tags": [
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX"
+    ],
+    "todo-tree.highlights.useColourScheme": true,
+    "todo-tree.tree.groupedByTag": true,
+    "todo-tree.tree.flat": true,
+    "todo-tree.tree.showBadges": false,
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.highlights.highlightDelay": 0,
     "workbench.activityBar.visible": false,
-    "editor.guides.bracketPairsHorizontal": true,
-    "bracket-pair-colorizer-2.depreciation-notice": false
+    "editor.minimap.enabled": false
 }

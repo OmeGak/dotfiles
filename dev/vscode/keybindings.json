@@ -295,7 +295,7 @@
         "command": "-workbench.action.togglePanel"
     },
     {
-        "key": "ctrl+shift+d",
+        "key": "ctrl+shift+r",
         "command": "workbench.view.debug"
     },
     {
@@ -1104,7 +1104,25 @@
         "when": "dendron:pluginActive && editorFocus"
     },
     {
-        "key": "ctrl+shift+alt+enter",
+        "key": "ctrl+shift+d",
         "command": "dendron.treeView.focus"
+    },
+    {
+        "key": "ctrl+shift+cmd+,",
+        "command": "workbench.action.openWorkspaceSettingsFile"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.view.extension.todo-tree-container"
+    },
+    {
+        "key": "shift+cmd+r",
+        "command": "editor.action.refactor",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "-editor.action.refactor",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     }
 ]
