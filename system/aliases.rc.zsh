@@ -1,10 +1,6 @@
 # path
 alias path='echo $PATH | tr : "\n"'
 
-# fattest directories
-alias fatd="gdu -sh *(/D) | gsort -rh | head -10"
-alias fatdr="gdu -Sh | gsort -rh | head -10"
-
 # -- Replacements --------------------------------------------------------------
 
 # date

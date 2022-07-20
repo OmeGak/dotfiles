@@ -5,13 +5,17 @@ source $DOT/.dot/functions/try
 try pinstall brew bat
 try pinstall brew coreutils
 try pinstall brew dnsmasq
+try pinstall brew dust
 try pinstall brew fd
 try pinstall brew ffmpeg
 try pinstall brew glances
 try pinstall brew grc
+try pinstall brew hyperfine
 try pinstall brew make
 try pinstall brew openssl
+try pinstall brew procs
 try pinstall brew ripgrep
+try pinstall brew tealdeer
 try pinstall brew unar
 try pinstall brew wget
 
