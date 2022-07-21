@@ -46,11 +46,6 @@ zplug "exercism/cli-www", from:github, \
 zplug "omegak/boom", from:github, \
   use:"completion/zsh"
 
-zplug "/Applications/Docker.app", from:local, \
-  if:"[[ -d /Applications/Docker.app ]]", \
-  use:"Contents/Resources/etc"
-
-
 # -- Tweaks in packages --------------------------------------------------------
 
 zplug "$DOT/zsh/zplug", from:local, \
