@@ -1,5 +1,5 @@
 # Use `hub` as git wrapper
-if exists hub; then
+if (( $+commands[hub] )); then
   alias git='hub'
 fi
 
