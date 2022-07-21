@@ -5,9 +5,27 @@
 # $1 - The full name of the author.
 # $2 - The email address of the author.
 #
-# Examples
-#
-#   git credit "Zach Holman" zach@example.com
-#
+# Examples:
+#   git credit
+#   git credit "John Doe" john.doe@example.com
 
-git commit --amend --author "$1 <$2>" -C HEAD
+if [ $# -eq 1 ]; then
+  echo 'Error: Invalid number of arguments'
+  exit 1
+fi
+
+author_name=$1
+author_email=$2
+
+if [ -n "${author_name}" ] && [ -n "${author_email}" ]; then
+  author_info="${author_name} <${author_email}>"
+else
+  result="$(git author)"
+  if [ $? -eq 1 ]; then
+    echo "${result}"
+    exit 1
+  fi
+  author_info="${result}"
+fi
+
+git commit --amend --reuse-message=HEAD --author="${author_info}"
