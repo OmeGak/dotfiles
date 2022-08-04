@@ -107,8 +107,8 @@
 	lg = log --graph --abbrev-commit --date=relative --pretty=onelinecolor
 	mk = checkout -b
 	mt = mergetool
-	rb = rebase
 	rbi = rebase --interactive
+	rbo = rebase --onto
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbs = rebase --skip
