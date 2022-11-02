@@ -19,22 +19,6 @@ install_keyboard_layout() {
   fi
 }
 
-install_ntfs() {
-  try brew tap homebrew/fuse > /dev/null 2>&1
-  try pinstall brew ntfs-3g
-  [[ $TRY_CODE != 0 ]] && exit 1
-
-  # Check if mount_ntfs is symlinked
-  if [[ "$(readlink /sbin/mount_ntfs)" != "$(brew --prefix)/sbin/mount_ntfs" ]]; then
-    pprint info-warn "NTFS-3g is ready but you still need to do some things manually."
-    pprint info-warn "Disable SIP filesystem lockdown from system recovery:"
-    pprint info-warn "  $ csrutil enable --without fs"
-    pprint info-warn "Replace the automounter. This is DANGEROUS. Proceed with care:"
-    pprint info-warn "  $ sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.orig"
-    pprint info-warn "  $ sudo ln -s `brew --prefix`/sbin/mount_ntfs /sbin/mount_ntfs"
-  fi
-}
-
 install_rectangle_prefs() {
   plist_name="com.knollsoft.Rectangle.plist"
   plist_source="$DOT/macos/${plist_name}"
@@ -47,7 +31,6 @@ install_rectangle_prefs() {
 }
 
 install_keyboard_layout
-install_ntfs
 install_rectangle_prefs
 
 exit 0

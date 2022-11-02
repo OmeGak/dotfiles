@@ -62,7 +62,7 @@ ukelele
 # Drivers
 xbox360-controller-driver-unofficial
 logitech-unifying
-osxfuse
+macfuse
 
 # Heavy!
 mactex
