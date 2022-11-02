@@ -53,6 +53,7 @@ handbrake
 losslesscut
 obs
 qlvideo
+rectangle
 sbarex-qlmarkdown
 the-tagger
 the-unarchiver

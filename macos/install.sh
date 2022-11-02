@@ -35,7 +35,19 @@ install_ntfs() {
   fi
 }
 
+install_rectangle_prefs() {
+  plist_name="com.knollsoft.Rectangle.plist"
+  plist_source="$DOT/macos/${plist_name}"
+  plist_target="$HOME/Library/Preferences/${plist_name}"
+
+  if [[ ! $(checklink "${plist_target}" "${plist_source}") ]]; then
+    pprint info-go "Installing Rectangle preferences"
+    mksymlink "${plist_source}" "${plist_target}"
+  fi
+}
+
 install_keyboard_layout
 install_ntfs
+install_rectangle_prefs
 
 exit 0
