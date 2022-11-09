@@ -22,7 +22,7 @@ setopt   AUTO_LIST
 setopt   AUTO_MENU
 
 unsetopt AUTO_NAME_DIRS    # Disable named dirs (ASDF=`pwd` would show ~ASDF in prompt)
-setopt   COMPLETE_ALIASES  # Don't expand aliases _before_ completion has finished (like: git comm-<TAB>)
+unsetopt COMPLETE_ALIASES  # Don't expand aliases _before_ completion has finished (like: git comm-<TAB>)
 setopt   GLOB_COMPLETE     # Show menu with options matching pattern (like: cd D*s<TAB>)
 unsetopt LIST_BEEP         # Shhh
 
