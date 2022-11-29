@@ -7,8 +7,9 @@ if [[ "$OS" == "Linux" ]]; then
 fi
 
 try pinstall brew git "${args}"
-try pinstall brew hub
+try pinstall brew git-interactive-rebase-tool
 try pinstall brew git-lfs
+try pinstall brew hub
 try pinstall brew tig
 
 # Required for git-ngrok

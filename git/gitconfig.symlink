@@ -47,6 +47,8 @@
 	show = diff-highlight | less
 [rerere]
 	enabled = true
+[sequence]
+	editor = interactive-rebase-tool
 [advice]
 	detachedHead = false
 	waitingForEditor = false
