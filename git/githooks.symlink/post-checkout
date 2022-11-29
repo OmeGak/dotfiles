@@ -1,31 +1,35 @@
 #!/usr/bin/env bash
 
 clean() {
+  local NUM_PYC_FILES
+  local NUM_PYCACHE_DIRS
+  local NUM_EMPTY_DIRS
+
   # Change dir to root of project
-  cd ./$(git rev-parse --show-cdup)
+  cd "./$(git rev-parse --show-cdup)"
 
   # Delete .pyc files
   local find_pyc='find . -name "*.pyc" -type f -not -path "./.git/*"'
-  local NUM_PYC_FILES=$(eval "${find_pyc}" | wc -l | tr -d ' ')
-  if [[ ${NUM_PYC_FILES} > 0 ]]; then
+  NUM_PYC_FILES=$(eval "${find_pyc}" | wc -l | tr -d ' ')
+  if [[ ${NUM_PYC_FILES} -gt 0 ]]; then
       eval "${find_pyc} -delete"
-      printf "\e[00;31mDeleted ${NUM_PYC_FILES} .pyc files\e[00m\n"
+      printf "\e[00;31mDeleted %s .pyc files\e[00m\n" "${NUM_PYC_FILES}"
   fi
 
   # Delete __pycache__ directories
   local find_pycache='find . -name "__pycache__" -type d -not -path "./.git/*"'
-  local NUM_PYCACHE_DIRS=$(eval "${find_pycache}" | wc -l | tr -d ' ')
-  if [[ ${NUM_PYCACHE_DIRS} > 0 ]]; then
+  NUM_PYCACHE_DIRS=$(eval "${find_pycache}" | wc -l | tr -d ' ')
+  if [[ ${NUM_PYCACHE_DIRS} -gt 0 ]]; then
       eval "${find_pycache} -exec rm -rf {} +"
-      printf "\e[00;31mDeleted ${NUM_PYCACHE_DIRS} __pycache__ directories\e[00m\n"
+      printf "\e[00;31mDeleted %s __pycache__ directories\e[00m\n" "${NUM_PYCACHE_DIRS}"
   fi
 
   # Delete empty directories
   local find_emptydir='find . -depth -type d -empty -not -path "./.git/*"'
-  local NUM_EMPTY_DIRS=$(eval "${find_emptydir}" | wc -l | tr -d ' ')
-  if [[ ${NUM_EMPTY_DIRS} > 0 ]]; then
+  NUM_EMPTY_DIRS=$(eval "${find_emptydir}" | wc -l | tr -d ' ')
+  if [[ ${NUM_EMPTY_DIRS} -gt 0 ]]; then
       eval "${find_emptydir} -delete"
-      printf "\e[00;31mDeleted ${NUM_EMPTY_DIRS} empty directories\e[00m\n"
+      printf "\e[00;31mDeleted %s empty directories\e[00m\n" "${NUM_EMPTY_DIRS}"
   fi
 }
 

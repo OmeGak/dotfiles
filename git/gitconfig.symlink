@@ -4,11 +4,9 @@
 
 # -- General -------------------------------------------------------------------
 
-[hub]
-	protocol = https
-[user]
-	# Require explicit user.name and user.email
-	useConfigOnly = true
+[advice]
+	detachedHead = false
+	waitingForEditor = false
 [core]
 	editor = vim
 	attributesfile = ~/.gitattributes
@@ -49,9 +47,8 @@
 	enabled = true
 [sequence]
 	editor = interactive-rebase-tool
-[advice]
-	detachedHead = false
-	waitingForEditor = false
+[user]
+	useConfigOnly = true  # Require explicit user.name and user.email
 
 
 # -- Triangular workflow ------------------------------------------------------
@@ -138,7 +135,9 @@
 	required = true
 
 
-# -- Tig -----------------------------------------------------------------------
+# -- Other tools ---------------------------------------------------------------
 
+[hub]
+	protocol = https
 [tig]
 	diff-highlight = true
