@@ -12,6 +12,7 @@ devdocs
 ngrok
 docker
 java
+lens
 
 # Downloads
 homebrew/cask/transmission
