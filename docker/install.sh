@@ -3,6 +3,8 @@
 source $DOT/.dot/functions/try
 
 try pinstall brew docker-completion
+try pinstall brew kubectx
+try pinstall brew kubernetes-cli
 try pinstall brew lazydocker
 
 exit $TRY_CODE
