@@ -2,13 +2,12 @@
 brave-browser
 backblaze
 dropbox
-google-backup-and-sync
+google-drive
 gpg-suite
 
 # Development
 iterm2
 visual-studio-code
-devdocs
 ngrok
 docker
 java
@@ -16,7 +15,6 @@ lens
 
 # Downloads
 homebrew/cask/transmission
-soulseek
 
 # Messaging
 discord
@@ -26,7 +24,6 @@ messenger
 signal
 telegram
 whatsapp
-wire
 
 # Media
 calibre
@@ -34,14 +31,7 @@ plex-media-player
 plex-media-server
 spotify
 vlc
-
-# Research
-evernote
 zotero
-
-# Virtualization
-vagrant
-virtualbox
 
 # Games
 steam
