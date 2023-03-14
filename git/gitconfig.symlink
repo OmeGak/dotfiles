@@ -113,6 +113,7 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbs = rebase --skip
+	rbp = rebase --show-current-patch
 	sb = switch
 	st = status
 	ts = tag --sign --message=''
