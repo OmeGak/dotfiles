@@ -10,16 +10,6 @@
 	<false/>
 	<key>AnimateDimming</key>
 	<true/>
-	<key>AppleAntiAliasingThreshold</key>
-	<integer>1</integer>
-	<key>ApplePressAndHoldEnabled</key>
-	<false/>
-	<key>AppleScrollAnimationEnabled</key>
-	<integer>0</integer>
-	<key>AppleSmoothFixedFontsSizeThreshold</key>
-	<integer>1</integer>
-	<key>AppleWindowTabbingMode</key>
-	<string>manual</string>
 	<key>AutoHideTmuxClientSession</key>
 	<true/>
 	<key>CheckTestRelease</key>
@@ -557,6 +547,18 @@
 			<key>Text</key>
 			<string>Clear Scrollback Buffer</string>
 		</dict>
+		<key>0x4c-0x120000-0x25</key>
+		<dict>
+			<key>Action</key>
+			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string>Restart Session
+Restart Session</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<key>0x54-0x120000</key>
 		<dict>
 			<key>Action</key>
@@ -599,13 +601,6 @@
 			<key>Text</key>
 			<string>Open Quickly</string>
 		</dict>
-		<key>0x72-0x100000</key>
-		<dict>
-			<key>Action</key>
-			<integer>13</integer>
-			<key>Text</key>
-			<string></string>
-		</dict>
 		<key>0x74-0x100000</key>
 		<dict>
 			<key>Action</key>
@@ -634,13 +629,17 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
-		<key>0xd-0x100000</key>
+		<key>0xd-0x100000-0x24</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
+			<key>Label</key>
+			<string></string>
 			<key>Text</key>
 			<string>Maximize Active Pane
 Maximize Active Pane</string>
+			<key>Version</key>
+			<integer>0</integer>
 		</dict>
 		<key>0xd-0x120000</key>
 		<dict>
@@ -1481,11 +1480,11 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -2297,9 +2296,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -2415,7 +2414,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Terminal Type</key>
 			<string>xterm</string>
 			<key>Title Components</key>
-			<integer>1</integer>
+			<integer>3</integer>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
@@ -3103,9 +3102,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -3221,7 +3220,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Terminal Type</key>
 			<string>xterm</string>
 			<key>Title Components</key>
-			<integer>1</integer>
+			<integer>3</integer>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
@@ -3909,9 +3908,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -4027,7 +4026,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Terminal Type</key>
 			<string>xterm</string>
 			<key>Title Components</key>
-			<integer>1</integer>
+			<integer>3</integer>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
@@ -4715,9 +4714,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -4833,7 +4832,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Terminal Type</key>
 			<string>xterm</string>
 			<key>Title Components</key>
-			<integer>1</integer>
+			<integer>3</integer>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
@@ -5513,9 +5512,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -6336,9 +6335,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -7159,9 +7158,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
@@ -7982,9 +7981,9 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Semantic History</key>
 			<dict>
 				<key>action</key>
-				<string>best editor</string>
+				<string>editor</string>
 				<key>editor</key>
-				<string>com.sublimetext.2</string>
+				<string>com.microsoft.VSCode</string>
 				<key>text</key>
 				<string></string>
 			</dict>
