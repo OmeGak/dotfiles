@@ -1,34 +1,48 @@
 #!/usr/bin/env bash
 
+# Use much faster `fd` if available
+if command -v fd &> /dev/null; then
+  find_pyc_files='fd --extension=pyc --type=file --no-ignore'
+  find_pycache_dirs='fd __pycache__ --type=directory --no-ignore'
+  find_emptydirs='fd --type=directory --type=empty --no-ignore'
+  rm_pyc_files="${find_pyc_files} --exec rm"
+  rm_pycache_dirs="${find_pycache_dirs} --exec rm -rf"
+  rm_emptydirs="${find_emptydirs} --exec rm -r"
+else
+  find_pyc_files='find . -name "*.pyc" -type f -not -path "./.git/*"'
+  find_pycache_dirs='find . -name "__pycache__" -type d -not -path "./.git/*"'
+  find_emptydirs='find . -depth -type d -empty -not -path "./.git/*"'
+  rm_pyc_files="${find_pyc_files} -delete"
+  rm_pycache_dirs="${find_pycache_dirs} -exec rm -rf {} +"
+  rm_emptydirs="${find_emptydirs} -delete"
+fi
+
 clean() {
   local NUM_PYC_FILES
   local NUM_PYCACHE_DIRS
   local NUM_EMPTY_DIRS
 
   # Change dir to root of project
-  cd "./$(git rev-parse --show-cdup)"
+  cd "./$(git rev-parse --show-cdup)" || return
 
   # Delete .pyc files
-  local find_pyc='find . -name "*.pyc" -type f -not -path "./.git/*"'
-  NUM_PYC_FILES=$(eval "${find_pyc}" | wc -l | tr -d ' ')
+  NUM_PYC_FILES=$(eval "${find_pyc_files}" | wc -l | tr -d ' ')
   if [[ ${NUM_PYC_FILES} -gt 0 ]]; then
-      eval "${find_pyc} -delete"
+      eval "${rm_pyc_files}"
       printf "\e[00;31mDeleted %s .pyc files\e[00m\n" "${NUM_PYC_FILES}"
   fi
 
   # Delete __pycache__ directories
-  local find_pycache='find . -name "__pycache__" -type d -not -path "./.git/*"'
-  NUM_PYCACHE_DIRS=$(eval "${find_pycache}" | wc -l | tr -d ' ')
+  NUM_PYCACHE_DIRS=$(eval "${find_pycache_dirs}" | wc -l | tr -d ' ')
   if [[ ${NUM_PYCACHE_DIRS} -gt 0 ]]; then
-      eval "${find_pycache} -exec rm -rf {} +"
+      eval "${rm_pycache_dirs}"
       printf "\e[00;31mDeleted %s __pycache__ directories\e[00m\n" "${NUM_PYCACHE_DIRS}"
   fi
 
   # Delete empty directories
-  local find_emptydir='find . -depth -type d -empty -not -path "./.git/*"'
-  NUM_EMPTY_DIRS=$(eval "${find_emptydir}" | wc -l | tr -d ' ')
+  NUM_EMPTY_DIRS=$(eval "${find_emptydirs}" | wc -l | tr -d ' ')
   if [[ ${NUM_EMPTY_DIRS} -gt 0 ]]; then
-      eval "${find_emptydir} -delete"
+      eval "${rm_emptydirs}"
       printf "\e[00;31mDeleted %s empty directories\e[00m\n" "${NUM_EMPTY_DIRS}"
   fi
 }
