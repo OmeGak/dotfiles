@@ -46,6 +46,7 @@ obs
 qlvideo
 rectangle
 sbarex-qlmarkdown
+ShortcutDetective
 the-tagger
 the-unarchiver
 ukelele
