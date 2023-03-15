@@ -1,5 +1,5 @@
-if (( $+commands[docker-compose] )); then
-  compdef dcompose='docker-compose'
+if (( $+commands[docker] )); then
+  compdef dcompose='docker compose'
 fi
 
 if (( $+commands[kubectl] )); then
