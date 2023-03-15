@@ -15,8 +15,8 @@
 	"Insert breakpoint": {
 		"prefix": "debugger",
 		"body": [
-			"import ptvsd; print(\"Waiting for debugger attach\")",
-			"ptvsd.enable_attach(); ptvsd.wait_for_attach()",
+			"import debugpy; print('Waiting for debugger attach')",
+			"debugpy.listen(5678); debugpy.wait_for_client()",
 			"breakpoint()"
 		],
 	}

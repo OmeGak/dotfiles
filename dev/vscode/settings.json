@@ -2,7 +2,17 @@
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[jinja-html]": {
+        "editor.wordWrap": "off"
+    },
+    "[html]": {
+        "editor.wordWrap": "off"
+    },
+    "[python]": {
+        "editor.wordWrap": "off"
+    },
     "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.language.colorizedBracketPairs": [
             [
                 "[",
@@ -47,6 +57,7 @@
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSurroundingLines": 999,
+    "editor.detectIndentation": false,
     "editor.emptySelectionClipboard": false,
     "editor.fontFamily": "Source Code Pro",
     // XXX: Fixes Source Code Pro "l·l" ligature being incorrectly invoked
@@ -90,6 +101,7 @@
     "files.trimTrailingWhitespace": true,
     "git.alwaysShowStagedChangesResourceGroup": true,
     "git.enableStatusBarSync": false,
+    "git.mergeEditor": false,
     "git.rebaseWhenSync": true,
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
@@ -162,10 +174,19 @@
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "terminal.integrated.fontSize": 13,
-    "timeline.excludeSources": [],
-    "todohighlight.keywords": [
-        "XXX:"
+    "terminal.integrated.shellIntegration.decorationsEnabled": "overviewRuler",
+    "todo-tree.general.tags": [
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX"
     ],
+    "todo-tree.highlights.highlightDelay": 0,
+    "todo-tree.highlights.useColourScheme": true,
+    "todo-tree.tree.flat": true,
+    "todo-tree.tree.groupedByTag": true,
+    "todo-tree.tree.showBadges": false,
+    "todo-tree.tree.showCountsInTree": true,
     "vscodeWorkspaceSwitcher.paths": [
         "~/Code",
         "~/Documents/Dendron"
@@ -217,7 +238,6 @@
     "workbench.editor.languageDetection": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editor.splitInGroupLayout": "vertical",
-    "workbench.editor.tabSizing": "shrink",
     "workbench.editor.untitled.hint": "hidden",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
@@ -226,19 +246,31 @@
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "editor.detectIndentation": false,
-    "todo-tree.general.tags": [
-        "HACK",
-        "FIXME",
-        "TODO",
-        "XXX"
+    "editor.stickyScroll.enabled": true,
+    "search.decorations.colors": false,
+    "search.decorations.badges": false,
+    "markdown.validate.enabled": true,
+    "markdown.validate.referenceLinks.enabled": "ignore",
+    "gitlens.autolinks": [
+        {
+            "prefix": "IND2-",
+            "url": "https://rtce-jira.unog.ch/browse/IND2-<num>"
+        }
     ],
-    "todo-tree.highlights.useColourScheme": true,
-    "todo-tree.tree.groupedByTag": true,
-    "todo-tree.tree.flat": true,
-    "todo-tree.tree.showBadges": false,
-    "todo-tree.tree.showCountsInTree": true,
-    "todo-tree.highlights.highlightDelay": 0,
-    "workbench.activityBar.visible": false,
-    "editor.minimap.enabled": false
+    "gitlens.views.worktrees.files.layout": "list",
+    "workbench.editor.tabSizing": "shrink",
+    "redhat.telemetry.enabled": false,
+    "vs-kubernetes": {
+        "disable-linters": [
+            "resource-limits"
+        ]
+    },
+    "editor.minimap.enabled": false,
+    "todo-tree.filtering.ignoreGitSubmodules": true,
+    "todo-tree.tree.scanMode": "workspace only",
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "workbench.activityBar.visible": false
 }

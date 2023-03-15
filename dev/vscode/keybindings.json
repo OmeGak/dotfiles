@@ -412,7 +412,7 @@
         "command": "workbench.view.extension.bookmarks"
     },
     {
-        "key": "ctrl+shift+b",
+        "key": "ctrl+alt+b",
         "command": "gitlens.toggleFileBlame",
         "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
     },
@@ -654,11 +654,6 @@
         "when": "breadcrumbsPossible"
     },
     {
-        "key": "ctrl+alt+f",
-        "command": "workbench.action.search.toggleQueryDetails",
-        "when": "searchViewletVisible"
-    },
-    {
         "key": "shift+cmd+j",
         "command": "-workbench.action.search.toggleQueryDetails",
         "when": "searchViewletVisible"
@@ -688,7 +683,7 @@
         "command": "workbench.action.tasks.reRunTask"
     },
     {
-        "key": "alt+cmd+m",
+        "key": "ctrl+alt+m",
         "command": "editor.action.toggleMinimap"
     },
     {
@@ -1124,5 +1119,43 @@
         "key": "ctrl+shift+r",
         "command": "-editor.action.refactor",
         "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+e",
+        "command": "errorLens.toggle"
+    },
+    {
+        "key": "ctrl+alt+p",
+        "command": "dendron.togglePreview",
+        "when": "dendron:pluginActive"
+    },
+    {
+        "key": "ctrl+cmd+p",
+        "command": "-dendron.togglePreview",
+        "when": "dendron:pluginActive"
+    },
+    {
+        "key": "alt+down",
+        "command": "-markdown.extension.onMoveLineDown",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^qmd$/"
+    },
+    {
+        "key": "alt+up",
+        "command": "-markdown.extension.onMoveLineUp",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^qmd$/"
+    },
+    {
+        "key": "ctrl+alt+f",
+        "command": "workbench.action.search.toggleQueryDetails",
+        "when": "inSearchEditor || searchViewletFocus"
+    },
+    {
+        "key": "shift+cmd+j",
+        "command": "-workbench.action.search.toggleQueryDetails",
+        "when": "inSearchEditor || searchViewletFocus"
+    },
+    {
+        "key": "ctrl+alt+\\",
+        "command": "workbench.action.toggleStatusbarVisibility"
     }
 ]
