@@ -15,7 +15,8 @@ install_keyboard_layout() {
 
   if [[ ! -d ${target_bundle_local} ]]; then
     pprint info-go "Installing US-ES-Keyboard layout locally"
-    mksymlink "${source_bundle}" "${target_bundle_local}"
+    # XXX: Layouts need to be copied rather than symlinked, otherwise they may not work with some applications
+    cp "${source_bundle}" "${target_bundle_local}"
   fi
 }
 
