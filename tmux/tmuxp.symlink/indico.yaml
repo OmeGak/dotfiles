@@ -29,7 +29,7 @@ windows:
     layout: main-vertical
     start_directory: $INDICODEV/indico-un
     panes:
-      - shell_command: pipenv run -- maildump
+      - shell_command: maildump
       - shell_command: pipenv run -- python indico/bin/utils/db_log.py -S
       - shell_command: tail -f $INDICOAPP/data/log/indico.log
 

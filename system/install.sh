@@ -18,6 +18,7 @@ try pinstall brew ripgrep
 try pinstall brew tealdeer
 try pinstall brew unar
 try pinstall brew wget
+try pinstall pip maildump
 
 # fonts
 try brew tap homebrew/cask-fonts > /dev/null 2>&1
