@@ -2,6 +2,7 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
+try pinstall brew asciinema
 try pinstall brew direnv
 try pinstall brew exa
 try pinstall brew fzf
