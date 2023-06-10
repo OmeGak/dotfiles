@@ -9,6 +9,7 @@
 	waitingForEditor = false
 [core]
 	editor = vim
+	fsmonitor = true
 	attributesfile = ~/.gitattributes
 	excludesfile = ~/.gitignore
 	hooksPath = ~/.githooks
@@ -25,6 +26,11 @@
 	textconv = pandoc --to=plain --wrap=none
 [difftool]
 	prompt = false
+[gpg]
+	format = ssh
+[gpg.ssh]
+	defaultKeyCommand = ssh-add -L
+	allowedSignersFile = ~/.gitallowed
 [init]
 	defaultBranch = master
 [interactive]
@@ -76,6 +82,7 @@
 [pull]
 	rebase = true
 [push]
+	autoSetupRemote = true
 	followTags = true
 [rebase]
 	autosquash = true
@@ -83,6 +90,8 @@
 [status]
 	short = true
 	branch = true
+[submodule]
+	stickyRecursiveClone = true
 [tag]
 	sort = version:refname
 
