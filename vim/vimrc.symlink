@@ -67,6 +67,10 @@ autocmd FileType gitcommit setlocal spell
 " Color the 73rd column (extended limit)
 autocmd FileType gitcommit set colorcolumn=73
 
+" Enable undercurl for spelling errors
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
+
 
 " -- Indentation --------------------------------------------------------------
 
