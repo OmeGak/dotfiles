@@ -29,7 +29,7 @@
     "no_cache": false,
     "cookie_file": null,
     "headless": false,
-    "restrict": false,
+    "restrict": "ascii",
     "print_errors": false,
     "sponsor_block": false,
     "preload": false,
