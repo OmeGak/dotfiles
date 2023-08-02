@@ -2300,7 +2300,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -3106,7 +3106,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -3912,7 +3912,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -4718,7 +4718,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -5516,7 +5516,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -6339,7 +6339,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -7162,7 +7162,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -7985,7 +7985,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>editor</key>
 				<string>com.microsoft.VSCode</string>
 				<key>text</key>
-				<string></string>
+				<string>/usr/local/bin/code -r -g \1:\2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
