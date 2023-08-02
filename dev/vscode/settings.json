@@ -85,7 +85,6 @@
     "errorLens.statusBarIconsAtZero": "hide",
     "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
-    "explorer.excludeGitIgnore": true,
     "extensions.ignoreRecommendations": true,
     "files.associations": {
         ".html": "html",
@@ -164,7 +163,6 @@
         "**/.venv": true
     },
     "search.followSymlinks": false,
-    "search.useGlobalIgnoreFiles": true,
     "security.workspace.trust.untrustedFiles": "open",
     "shellcheck.customArgs": [
         "-x"
@@ -258,7 +256,7 @@
         }
     ],
     "gitlens.views.worktrees.files.layout": "list",
-    "workbench.editor.tabSizing": "shrink",
+    "workbench.editor.tabSizing": "fixed",
     "redhat.telemetry.enabled": false,
     "vs-kubernetes": {
         "disable-linters": [
@@ -272,5 +270,19 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "debug.console.acceptSuggestionOnEnter": "on",
+    "gitlens.plusFeatures.enabled": false,
+    "editor.inlineSuggest.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": false,
+        "scminput": false
+    },
+    "explorer.excludeGitIgnore": true,
+    "python.terminal.activateEnvironment": false,
+    "search.useGlobalIgnoreFiles": true,
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.scrollback": 5000,
+    "terminal.integrated.tabs.location": "left",
     "workbench.activityBar.visible": false
 }

@@ -1107,7 +1107,7 @@
         "command": "workbench.action.openWorkspaceSettingsFile"
     },
     {
-        "key": "ctrl+shift+t",
+        "key": "ctrl+shift+o",
         "command": "workbench.view.extension.todo-tree-container"
     },
     {
@@ -1157,5 +1157,67 @@
     {
         "key": "ctrl+alt+\\",
         "command": "workbench.action.toggleStatusbarVisibility"
+    },
+    {
+        "key": "f2",
+        "command": "renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+    },
+    {
+        "key": "cmd+down",
+        "command": "-explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+    },
+    {
+        "key": "alt+up",
+        "command": "-markdown.extension.onMoveLineUp",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "shift+alt+up",
+        "command": "-markdown.extension.onCopyLineUp",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "alt+down",
+        "command": "-markdown.extension.onMoveLineDown",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "shift+alt+down",
+        "command": "-markdown.extension.onCopyLineDown",
+        "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "workbench.panel.chatSidebar.copilot"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "-workbench.panel.chatSidebar.copilot"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.view.testing.focus"
+    },
+    {
+        "key": "shift+cmd+a",
+        "command": "chat.action.askQuickQuestion",
+        "when": "hasChatProvider"
+    },
+    {
+        "key": "shift+cmd+i",
+        "command": "-chat.action.askQuickQuestion",
+        "when": "hasChatProvider"
     }
 ]
