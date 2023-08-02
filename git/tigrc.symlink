@@ -131,7 +131,7 @@ bind generic <Down> next   # Move to next
 bind generic , parent   # Move to parent
 bind generic <Tab> view-next  # Move focus to the next view
 bind generic <Ctrl-R> refresh   # Reload and refresh view
-bind generic O maximize  # Maximize the current view
+bind generic <Ctrl-O> maximize  # Maximize the current view
 bind generic q view-close  # Close the current view
 bind generic Q quit   # Close all views and quit
 
@@ -253,9 +253,11 @@ bind main   + ?<git amend %(commit)
 bind diff   + ?<git amend %(commit)
 bind blame  + ?<git amend %(ref)
 
-# Rebase interactive
+# Rebase
 bind main   R ?<git rebase --interactive %(commit)^
 bind diff   R ?<git rebase --interactive %(commit)^
+bind main   O ?<git rebase --onto "%(prompt Enter branch name: )" %(commit)^
+bind diff   O ?<git rebase --onto "%(prompt Enter branch name: )" %(commit)^
 
 # Reset hard
 bind refs   ! ?git reset --hard %(branch)
