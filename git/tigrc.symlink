@@ -174,23 +174,16 @@ bind generic ? search-back
 bind generic n find-next
 bind generic N find-prev
 
-# Navigation keys used while searching
-bind search <Down> find-next
-bind search <C-N> find-next
-bind search <C-J> find-next
-bind search <Up> find-prev
-bind search <C-P> find-prev
-bind search <C-K> find-prev
-
 # Option manipulation
 bind generic o options  # Open the options menu
 bind generic <Hash> :toggle line-number  # Toggle line numbers
-bind generic A :toggle author  # Toggle author display
-bind generic D :toggle date  # Toggle date display
-bind generic i :toggle sort-field  # Toggle field to sort by
-bind generic I :toggle sort-order  # Toggle ascending/descending sort order
-bind generic F :toggle file-name  # Toggle file name display
-bind generic W :toggle ignore-space  # Toggle ignoring whitespace in diffs
+bind generic <Ctrl-A> :toggle author  # Toggle author display
+bind generic <Ctrl-D> :toggle date  # Toggle date display
+bind generic <Ctrl-N> :toggle file-name  # Toggle file name display
+bind generic <Ctrl-S> :toggle sort-order  # Toggle ascending/descending sort order
+bind generic <Ctrl-R> :toggle commit-title-refs  # Toggle commit refs
+bind generic <Ctrl-F> :toggle sort-field  # Toggle field to sort by
+bind generic <Ctrl-W> :toggle ignore-space  # Toggle ignoring whitespace in diffs
 bind generic . :toggle show-changes  # Toggle local changes display in the main view
 bind generic ~ :toggle commit-title-overflow  # Toggle highlighting of commit title overflow
 bind generic \ :toggle vertical-split  # Toggle vertical split
@@ -203,6 +196,14 @@ bind generic z stop-loading  # Stop all loading views
 bind generic v show-version  # Show Tig version
 
 # Unbind defaults
+bind generic A none
+bind generic F none
+bind generic I none
+bind generic D none
+bind generic O none
+bind generic T none
+bind generic W none
+bind generic i none
 bind main F none
 bind main G none
 bind main S none
@@ -241,7 +242,8 @@ bind main S none
 #   %(diffargs)  The diff options from `diff-options` or `TIG_DIFF_OPTS`
 #   %(prompt)  Prompt for the argument value.
 
-bind main   C ?git cherry-pick %(commit)
+bind main   C ?<git checkout %(commit)
+bind main   P ?<git cherry-pick %(commit)
 bind refs   C ?git checkout %(branch)
 bind refs   D ?git branch -D %(branch)
 bind stash  P ?git stash pop %(stash)
