@@ -8,3 +8,6 @@ export WORKON_HOME=$HOME/.venvs
 
 # poetry config
 export POETRY_VIRTUALENVS_IN_PROJECT=1
+
+# pytest config
+export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
