@@ -1,4 +1,12 @@
 #!/bin/sh
-# Delete all merged branches that are not `master` or `devel`
+# Delete all branches gone in remote repositories
 
-git branch --merged | egrep --invert-match "(^\*|master|devel)" | xargs git branch --delete
+# Protect branches from deletion
+# *: indicates the current branch
+# +: indicates worktree branches
+protected_regex='(^\*|^\+|^  main|^  master|^  devel|^  release|^  stable)'
+
+# Select and delete branches that are gone in remote repositories
+git branch -vv | grep --extended-regexp --invert-match "${protected_regex}" \
+               | awk '{print $1, $4}' | grep 'gone]' | awk '{print $1}' \
+               | xargs git branch -D
