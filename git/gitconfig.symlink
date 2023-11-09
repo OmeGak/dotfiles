@@ -86,6 +86,7 @@
 [push]
 	autoSetupRemote = true
 	followTags = true
+	useForceIfIncludes = true
 [rebase]
 	autosquash = true
 	autostash = true
