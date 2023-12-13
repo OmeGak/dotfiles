@@ -207,6 +207,7 @@ bind generic i none
 bind main F none
 bind main G none
 bind main S none
+bind main T none
 
 # -- User-defined commands -----------------------------------------------------
 
@@ -258,8 +259,8 @@ bind blame  + ?<git amend %(ref)
 # Rebase
 bind main   R ?<git rebase --interactive %(commit)^
 bind diff   R ?<git rebase --interactive %(commit)^
-bind main   O ?<git rebase --onto "%(prompt Enter branch name: )" %(commit)^
-bind diff   O ?<git rebase --onto "%(prompt Enter branch name: )" %(commit)^
+bind main   O ?<git rebase --onto "%(prompt New base to rebase onto: )" %(commit)^
+bind diff   O ?<git rebase --onto "%(prompt New base to rebase onto: )" %(commit)^
 
 # Reset hard
 bind refs   ! ?git reset --hard %(branch)
