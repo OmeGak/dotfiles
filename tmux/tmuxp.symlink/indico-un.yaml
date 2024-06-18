@@ -38,8 +38,8 @@ windows:
     start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
-        shell_command: ssh indico-prod-tasks -t 'sudo su indico'
-      - shell_command: ssh indico-prod-w1 -t 'sudo su indico'
-      - shell_command: ssh indico-prod-w2 -t 'sudo su indico'
-      - shell_command: ssh indico-prod-w3 -t 'sudo su indico'
-      - shell_command: ssh indico-prod-w4 -t 'sudo su indico'
+        shell_command: ssh un-indico-prod-tasks -t 'sudo su indico'
+      - shell_command: ssh un-indico-prod-w1 -t 'sudo su indico'
+      - shell_command: ssh un-indico-prod-w2 -t 'sudo su indico'
+      - shell_command: ssh un-indico-prod-w3 -t 'sudo su indico'
+      - shell_command: ssh un-indico-prod-w4 -t 'sudo su indico'
