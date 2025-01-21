@@ -14,7 +14,7 @@ java
 lens
 
 # Downloads
-homebrew/cask/transmission
+transmission
 
 # Messaging
 discord
