@@ -8,6 +8,10 @@ dev/vscode/*
 apps/duply.symlink/**/*.gpg
 apps/duply.symlink/**/*.asc
 
+# docker: track k9s config only
+docker/k9s.symlink/*
+!docker/k9s.symlink/config.yaml
+
 # git: ignore local .gitconfig
 git/gitconfig.local.symlink
 
