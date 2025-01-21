@@ -23,7 +23,6 @@ try pinstall brew wget
 try pinstall pip maildump
 
 # fonts
-try brew tap homebrew/cask-fonts > /dev/null 2>&1
 try pinstall brew font-sauce-code-pro-nerd-font
 try pinstall brew font-source-code-pro
 
