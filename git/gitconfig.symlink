@@ -96,6 +96,7 @@
 [submodule]
 	stickyRecursiveClone = true
 [tag]
+	gpgSign = true
 	sort = version:refname
 
 
