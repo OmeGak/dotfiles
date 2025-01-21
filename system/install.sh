@@ -13,6 +13,7 @@ try pinstall brew glances
 try pinstall brew grc
 try pinstall brew hyperfine
 try pinstall brew make
+try pinstall brew monolith
 try pinstall brew openssl
 try pinstall brew procs
 try pinstall brew ripgrep
