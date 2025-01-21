@@ -30,11 +30,11 @@ alias la="$LS -lhA"
 unset LS_ARGS
 unset LS
 
-if (( $+commands[exa] )); then
-  EXA="exa --group-directories-first --git --time-style=long-iso -F"
-  alias ls="${EXA}"
-  alias ll="${EXA} -l"
-  alias la="${EXA} -la"
-  alias tree="${EXA} --tree"
-  unset EXA
+if (( $+commands[eza] )); then
+  EZA="eza --group-directories-first --git --time-style=long-iso -F"
+  alias ls="${EZA}"
+  alias ll="${EZA} -l"
+  alias la="${EZA} -la"
+  alias tree="${EZA} --tree"
+  unset EZA
 fi
