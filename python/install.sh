@@ -7,5 +7,6 @@ try pinstall brew pipenv
 try pinstall brew poetry
 try pinstall brew pyenv
 try pinstall brew tox
+try pinstall brew uv
 
 exit $TRY_CODE
