@@ -1,17 +1,18 @@
 {
+    "[html]": {
+        "editor.wordWrap": "off"
+    },
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[jinja-html]": {
         "editor.wordWrap": "off"
     },
-    "[html]": {
-        "editor.wordWrap": "off"
-    },
-    "[python]": {
-        "editor.wordWrap": "off"
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[markdown]": {
+        "editor.wordWrap": "bounded",
         "editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.language.colorizedBracketPairs": [
             [
@@ -27,6 +28,9 @@
         "editor.snippetSuggestions": "none",
         "editor.tabSize": 2
     },
+    "[python]": {
+        "editor.wordWrap": "off"
+    },
     "[restructuredtext]": {
         "editor.quickSuggestions": {
             "comments": "off",
@@ -37,6 +41,10 @@
     "[shellscript]": {
         "editor.tabSize": 2
     },
+    "[yaml]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "autoDocstring.docstringFormat": "sphinx-notypes",
     "bracket-pair-colorizer-2.depreciation-notice": false,
     "cSpell.diagnosticLevel": "Hint",
@@ -46,9 +54,6 @@
         "cryptoeconomic",
         "cryptoeconomics"
     ],
-    "customizeUI.stylesheet": {
-        ".actions-container[aria-label='Editor actions'] .action-item .action-label:not([title='More Actions...'])": "display: none !important;"
-    },
     "debug.showBreakpointsInOverviewRuler": true,
     "debug.toolBarLocation": "docked",
     "diffEditor.ignoreTrimWhitespace": true,
@@ -56,21 +61,19 @@
     "editor.bracketPairColorization.enabled": true,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.cursorBlinking": "smooth",
-    "editor.cursorSurroundingLines": 999,
     "editor.detectIndentation": false,
     "editor.emptySelectionClipboard": false,
     "editor.fontFamily": "Source Code Pro",
-    // XXX: Fixes Source Code Pro "l·l" ligature being incorrectly invoked
-    //      https://github.com/microsoft/vscode/issues/106583
-    "editor.fontLigatures": "'ccmp' off",
     "editor.fontSize": 14,
     "editor.guides.bracketPairsHorizontal": true,
+    "editor.inlineSuggest.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.renderWhitespace": "selection",
     "editor.rulers": [
         80,
         120
     ],
+    "editor.stickyScroll.enabled": true,
     "editor.suggest.preview": true,
     "editor.useTabStops": false,
     "editor.wordWrap": "bounded",
@@ -85,6 +88,7 @@
     "errorLens.statusBarIconsAtZero": "hide",
     "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
+    "explorer.excludeGitIgnore": true,
     "extensions.ignoreRecommendations": true,
     "files.associations": {
         ".html": "html",
@@ -102,6 +106,12 @@
     "git.enableStatusBarSync": false,
     "git.mergeEditor": false,
     "git.rebaseWhenSync": true,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": true,
+        "markdown": false,
+        "scminput": false
+    },
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
         "suppressCommitNotFoundWarning": false,
@@ -109,11 +119,16 @@
         "suppressFileNotUnderSourceControlWarning": false,
         "suppressGitDisabledWarning": false,
         "suppressGitVersionWarning": false,
-        "suppressImproperWorkspaceCasingWarning": false,
         "suppressLineUncommittedWarning": false,
         "suppressNoRepositoryWarning": false,
         "suppressRebaseSwitchToTextWarning": false
     },
+    "gitlens.autolinks": [
+        {
+            "prefix": "IND2-",
+            "url": "https://rtce-jira.unog.ch/browse/IND2-<num>"
+        }
+    ],
     "gitlens.blame.highlight.locations": [
         "gutter",
         "line",
@@ -131,6 +146,8 @@
     ],
     "gitlens.hovers.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.views.worktrees.files.layout": "list",
     "gitlens.views.worktrees.showBranchComparison": "branch",
     "latex-workshop.view.pdf.viewer": "tab",
     "lineJumper.linesToJump": 5,
@@ -139,30 +156,35 @@
     "liveshare.presence": false,
     "liveshare.sharedTerminalHeight": 100,
     "liveshare.showInStatusBar": "whileCollaborating",
+    "markdown-preview-enhanced.chromePath": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
     "markdown-preview-enhanced.enableEmojiSyntax": false,
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
-    "markdown.extension.toc.levels": "2..6",
+    "markdown.extension.toc.levels": "2..2",
+    "markdown.marp.chromePath": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+    "markdown.validate.enabled": true,
+    "markdown.validate.referenceLinks.enabled": "ignore",
     "material-icon-theme.saturation": 0,
     "materialTheme.accent": "Tomato", // #F44336
+    "mypy-type-checker.args": [
+        // Workaround for extension bug (https://github.com/microsoft/vscode-mypy/issues/105)
+        "--follow-imports=normal"
+    ],
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
     },
     "python.languageServer": "Pylance",
-    "python.linting.flake8Args": [
-        // Workaround for flake8-colors bug (https://github.com/microsoft/vscode-python/issues/14776#issuecomment-781997327)
-        "--color=always"
-    ],
-    "python.linting.flake8Enabled": true,
-    "python.linting.pydocstyleEnabled": true,
-    "python.linting.pylintCategorySeverity.refactor": "Information",
-    "python.linting.pylintEnabled": true,
+    "python.terminal.activateEnvironment": false,
+    "redhat.telemetry.enabled": false,
     "rewrap.wrappingColumn": 120,
+    "search.decorations.badges": false,
+    "search.decorations.colors": false,
     "search.exclude": {
-        "**/*.code-search": false,
-        "**/.venv": true
+        "**/.venv": true,
+        "**/*.code-search": false
     },
     "search.followSymlinks": false,
+    "search.useGlobalIgnoreFiles": true,
     "security.workspace.trust.untrustedFiles": "open",
     "shellcheck.customArgs": [
         "-x"
@@ -172,7 +194,10 @@
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "SauceCodePro Nerd Font",
     "terminal.integrated.fontSize": 13,
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.scrollback": 5000,
     "terminal.integrated.shellIntegration.decorationsEnabled": "overviewRuler",
+    "todo-tree.filtering.ignoreGitSubmodules": true,
     "todo-tree.general.tags": [
         "HACK",
         "FIXME",
@@ -183,14 +208,21 @@
     "todo-tree.highlights.useColourScheme": true,
     "todo-tree.tree.flat": true,
     "todo-tree.tree.groupedByTag": true,
+    "todo-tree.tree.scanMode": "workspace only",
     "todo-tree.tree.showBadges": false,
     "todo-tree.tree.showCountsInTree": true,
+    "vs-kubernetes": {
+        "disable-linters": [
+            "resource-limits"
+        ]
+    },
     "vscodeWorkspaceSwitcher.paths": [
         "~/Code",
         "~/Documents/Dendron"
     ],
     "vscodeWorkspaceSwitcher.showInExplorer": false,
     "vscodeWorkspaceSwitcher.showTreeView": false,
+    "window.commandCenter": false,
     "wordcounter.languages": [
         "markdown",
         "plaintext"
@@ -227,8 +259,7 @@
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
     "workbench.editor.autoLockGroups": {
-        "mainThreadWebview-markdown.preview": true,
-        "vscode.markdown.preview.editor": true
+        "mainThreadWebview-markdown.preview": true
     },
     "workbench.editor.decorations.badges": false,
     "workbench.editor.decorations.colors": false,
@@ -236,7 +267,7 @@
     "workbench.editor.languageDetection": false,
     "workbench.editor.pinnedTabSizing": "compact",
     "workbench.editor.splitInGroupLayout": "vertical",
-    "workbench.editor.untitled.hint": "hidden",
+    "workbench.editor.tabSizing": "fixed",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
@@ -244,45 +275,40 @@
     "workbench.sideBar.location": "right",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 15,
-    "editor.stickyScroll.enabled": true,
-    "search.decorations.colors": false,
-    "search.decorations.badges": false,
-    "markdown.validate.enabled": true,
-    "markdown.validate.referenceLinks.enabled": "ignore",
-    "gitlens.autolinks": [
-        {
-            "prefix": "IND2-",
-            "url": "https://rtce-jira.unog.ch/browse/IND2-<num>"
-        }
-    ],
-    "gitlens.views.worktrees.files.layout": "list",
-    "workbench.editor.tabSizing": "fixed",
-    "redhat.telemetry.enabled": false,
-    "vs-kubernetes": {
-        "disable-linters": [
-            "resource-limits"
-        ]
+    "workbench.editor.empty.hint": "hidden",
+    "mypy-type-checker.reportingScope": "workspace",
+    "editor.cursorSurroundingLines": 999,
+    "markdown.preview.scrollEditorWithPreview": false,
+    "git.openRepositoryInParentFolders": "never",
+    "mypy-type-checker.importStrategy": "fromEnvironment",
+    "terminal.integrated.tabs.enabled": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.telemetry.enabled": false,
+    "gitlens.advanced.quickPick.closeOnFocusOut": false,
+    "scm.autoReveal": false,
+    "gitlens.defaultGravatarsStyle": "mp",
+    "gitlens.ai.experimental.provider": "openai",
+    "gitlens.ai.experimental.openai.model": "gpt-3.5-turbo-1106",
+    "gitlens.views.commitDetails.files.layout": "list",
+    "scm.showActionButton": false,
+    "scm.showOutgoingChanges": "never",
+    "scm.showIncomingChanges": "never",
+    "scm.repositories.visible": 0,
+    "workbench.layoutControl.enabled": false,
+    "scm.showChangesSummary": false,
+    "scm.showInputActionButton": false,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "search.useParentIgnoreFiles": true,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "yaml.schemas": {
+        "Kubernetes": [
+            "deployment.yaml"
+        ],
     },
+    "debug.inlineValues": "off",
+    "vscode-kubernetes.kubectl-path-mac": "/usr/local/bin/kubectl",
     "editor.minimap.enabled": false,
-    "todo-tree.filtering.ignoreGitSubmodules": true,
-    "todo-tree.tree.scanMode": "workspace only",
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "debug.console.acceptSuggestionOnEnter": "on",
-    "gitlens.plusFeatures.enabled": false,
-    "editor.inlineSuggest.enabled": true,
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": true,
-        "markdown": false,
-        "scminput": false
-    },
-    "explorer.excludeGitIgnore": true,
-    "python.terminal.activateEnvironment": false,
-    "search.useGlobalIgnoreFiles": true,
-    "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.scrollback": 5000,
-    "terminal.integrated.tabs.location": "left",
-    "workbench.activityBar.visible": false
+    "ruff.lint.run": "onSave",
+    "workbench.activityBar.location": "hidden"
 }

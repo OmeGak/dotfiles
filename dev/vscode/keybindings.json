@@ -185,7 +185,7 @@
         "command": "-workbench.action.focusRightGroup"
     },
     {
-        "key": "ctrl+alt+\\",
+        "key": "shift+alt+cmd+\\",
         "command": "editor.action.jumpToBracket",
         "when": "editorTextFocus"
     },
@@ -410,16 +410,6 @@
     {
         "key": "ctrl+shift+k",
         "command": "workbench.view.extension.bookmarks"
-    },
-    {
-        "key": "ctrl+alt+b",
-        "command": "gitlens.toggleFileBlame",
-        "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
-    },
-    {
-        "key": "alt+cmd+g b",
-        "command": "-gitlens.toggleFileBlame",
-        "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
     },
     {
         "key": "shift+alt+b",
@@ -885,11 +875,6 @@
         "command": "liveshare.focusParticipants"
     },
     {
-        "key": "alt+b",
-        "command": "-gitlens.toggleFileBlame",
-        "when": "editorTextFocus && config.gitlens.keymap == 'alternate' && gitlens:activeFileStatus =~ /blameable/"
-    },
-    {
         "key": "ctrl+shift+g",
         "command": "workbench.view.extension.gitlens"
     },
@@ -1111,7 +1096,7 @@
         "command": "workbench.view.extension.todo-tree-container"
     },
     {
-        "key": "shift+cmd+r",
+        "key": "ctrl+shift+cmd+r",
         "command": "editor.action.refactor",
         "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     },
@@ -1145,7 +1130,7 @@
         "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^qmd$/"
     },
     {
-        "key": "ctrl+alt+f",
+        "key": "alt+cmd+f",
         "command": "workbench.action.search.toggleQueryDetails",
         "when": "inSearchEditor || searchViewletFocus"
     },
@@ -1153,10 +1138,6 @@
         "key": "shift+cmd+j",
         "command": "-workbench.action.search.toggleQueryDetails",
         "when": "inSearchEditor || searchViewletFocus"
-    },
-    {
-        "key": "ctrl+alt+\\",
-        "command": "workbench.action.toggleStatusbarVisibility"
     },
     {
         "key": "f2",
@@ -1199,10 +1180,6 @@
         "when": "editorTextFocus && !editorReadonly && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
     },
     {
-        "key": "ctrl+shift+a",
-        "command": "workbench.panel.chatSidebar.copilot"
-    },
-    {
         "key": "ctrl+cmd+i",
         "command": "-workbench.panel.chatSidebar.copilot"
     },
@@ -1211,13 +1188,55 @@
         "command": "workbench.view.testing.focus"
     },
     {
-        "key": "shift+cmd+a",
-        "command": "chat.action.askQuickQuestion",
-        "when": "hasChatProvider"
-    },
-    {
         "key": "shift+cmd+i",
         "command": "-chat.action.askQuickQuestion",
         "when": "hasChatProvider"
+    },
+    {
+        "key": "ctrl+cmd+k",
+        "command": "editor.action.removeBrackets",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+backspace",
+        "command": "-editor.action.removeBrackets",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+i",
+        "command": "-inlineChat.start",
+        "when": "editorFocus && inlineChatHasProvider && !editorReadonly"
+    },
+    {
+        "key": "shift+cmd+r",
+        "command": "editor.action.rename",
+        "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "f2",
+        "command": "-editor.action.rename",
+        "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+'",
+        "command": "workbench.action.quickTextSearch"
+    },
+    {
+        "key": "shift+cmd+a",
+        "command": "workbench.action.openQuickChat"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "gitlens.toggleFileBlameInDiffLeft"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
+    },
+    {
+        "key": "ctrl+cmd+i",
+        "command": "-workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
     }
 ]
