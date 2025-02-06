@@ -10,14 +10,8 @@ xterm_filenames=("xterm-256color-apple-darwin" "xterm-apple-darwin")
 DRY=true
 
 usage() {
-  echo "usage: ${progname} [-a]"
+  echo 'usage: ${progname} $OSTYPE [-a]'
   echo '  -a: Apply changes'
-}
-
-init() {
-  ZKBD=$HOME/.zkbd
-  osversion=$(echo $OSTYPE | sed s/darwin//)
-  cd $ZKBD
 }
 
 make_symlinks() {
@@ -39,6 +33,15 @@ update() {
 }
 
 main() {
+  if [[ ${#} < 1 ]]; then
+    usage
+    exit 1
+  fi
+
+  # $OSTYPE is set by the shell and may not be correct
+  ostype=$1
+  shift
+
   if [[ ${#} > 0 ]]; then
     case "${1}" in
       -a)
@@ -55,7 +58,10 @@ main() {
     echo "\033[0;31m  pass -a to apply changes\033[0m"
   fi
 
-  init
+  # Remove 'darwin' from the OSTYPE string
+  osversion=${ostype//darwin/}
+  cd $HOME/.zkbd
+
   update
 }
 
