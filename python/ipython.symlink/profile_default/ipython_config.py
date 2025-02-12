@@ -60,11 +60,3 @@ c.TerminalInteractiveShell.editor = 'vim'
 
 # Automatically set the terminal title
 c.TerminalInteractiveShell.term_title = False
-
-#------------------------------------------------------------------------------
-# StoreMagics(Magics) configuration
-#------------------------------------------------------------------------------
-
-## If True, any %store-d variables will be automatically restored when IPython
-#  starts.
-c.StoreMagics.autorestore = True
