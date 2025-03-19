@@ -3,6 +3,7 @@
 source $DOT/.dot/functions/try
 
 try pinstall brew bat
+try pinstall brew cliclick
 try pinstall brew coreutils
 try pinstall brew dnsmasq
 try pinstall brew dust

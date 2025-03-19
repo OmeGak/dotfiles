@@ -1,0 +1,50 @@
+#! /bin/bash
+# Monitor the mouse position regularly
+
+set -e
+progname=$(basename "$0")
+
+usage() {
+  echo "usage: ${progname} [-f <num>] [-h]"
+  echo "  -f frequency  Set the monitoring frequency in seconds (default: 1)"
+  echo "  -h            Display this help message"
+  exit 1
+}
+
+# Default monitoring frequency in seconds
+frequency=1
+
+# Parse command line options
+while getopts ":f:h" opt; do
+  case ${opt} in
+    f)
+      frequency=${OPTARG}
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      usage
+      ;;
+  esac
+done
+
+# Handle invalid arguments
+shift $((OPTIND -1))
+if [ $# -ne 0 ]; then
+  usage
+fi
+
+# Monitor the mouse position
+start_time=$(date +%s)
+while true; do
+  current_time=$(date +%s)
+  elapsed_seconds=$((current_time - start_time))
+  minutes=$((elapsed_seconds / 60))
+  seconds=$((elapsed_seconds % 60))
+  elapsed_time="${minutes}m${seconds}s"
+  pos=$(cliclick p)
+  cliclick m:0,0 "m:${pos}"
+  echo -e "\033[1mHERE\033[0m: (${pos}) \033[1mNOW\033[0m: [+${elapsed_time}]"
+  sleep "${frequency}"
+done
