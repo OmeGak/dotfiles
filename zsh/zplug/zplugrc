@@ -38,6 +38,10 @@ zplug "$BREWDIR/opt/nvm/", from:local, \
   if:"[[ -d $BREWDIR/opt/nvm/ ]]", \
   use:"nvm.sh"
 
+zplug "$BREWDIR/opt/restic", from:local, \
+  if:"[[ -d $BREWDIR/opt/restic/ ]]", \
+  use:"site-functions"
+
 zplug "zsh-users/zsh-completions", use:src
 
 zplug "exercism/cli-www", from:github, \
