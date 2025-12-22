@@ -5,20 +5,24 @@ set -e
 progname=$(basename "$0")
 
 usage() {
-  echo "usage: ${progname} [-f <num>] [-h]"
+  echo "usage: ${progname} [-f <num>] [-d <num>] [-h]"
   echo "  -f frequency  Set the monitoring frequency in seconds (default: 1)"
+  echo "  -d duration   Number of minutes to monitor (must be > 0)"
   echo "  -h            Display this help message"
   exit 1
 }
 
-# Default monitoring frequency in seconds
-frequency=1
+frequency=1  # Default monitoring frequency in seconds
+duration_minutes=""  # Leave empty to run indefinitely; set with -d <minutes>
 
 # Parse command line options
-while getopts ":f:h" opt; do
+while getopts ":f:d:h" opt; do
   case ${opt} in
     f)
       frequency=${OPTARG}
+      ;;
+    d)
+      duration_minutes=${OPTARG}
       ;;
     h)
       usage
@@ -35,8 +39,28 @@ if [ $# -ne 0 ]; then
   usage
 fi
 
-# Monitor the mouse position
+# Validate and convert duration input, if provided
+if [ -n "${duration_minutes}" ]; then
+  if ! [[ ${duration_minutes} =~ ^[0-9]+$ ]]; then
+    usage
+  fi
+  if [ "${duration_minutes}" -le 0 ]; then
+    usage
+  fi
+  duration_seconds=$((duration_minutes * 60))
+else
+  duration_seconds=""
+fi
+
+# Calculate end time if duration is specified
 start_time=$(date +%s)
+if [ -n "${duration_seconds}" ]; then
+  end_time=$((start_time + duration_seconds))
+else
+  end_time=""
+fi
+
+# Monitor the mouse position
 while true; do
   current_time=$(date +%s)
   elapsed_seconds=$((current_time - start_time))
@@ -45,6 +69,15 @@ while true; do
   elapsed_time="${minutes}m${seconds}s"
   pos=$(cliclick p)
   cliclick m:0,0 "m:${pos}"
-  echo -e "\033[1mHERE\033[0m: (${pos}) \033[1mNOW\033[0m: [+${elapsed_time}]"
+  left_text=""
+  if [ -n "${end_time}" ]; then
+    remaining_minutes=$(((end_time - current_time) / 60))
+    left_text=" \033[1mLEFT\033[0m: [${remaining_minutes}m]"
+  fi
+  echo -e "\033[1mHERE\033[0m: (${pos}) \033[1mNOW\033[0m: [+${elapsed_time}]${left_text}"
   sleep "${frequency}"
+  # Check if we need to stop based on duration
+  if [ -n "${end_time}" ] && [ "${current_time}" -ge "${end_time}" ]; then
+    break
+  fi
 done
