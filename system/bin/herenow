@@ -52,7 +52,68 @@ else
   duration_seconds=""
 fi
 
-# Calculate end time if duration is specified
+capture_position() {
+  local position raw_pos x y
+  raw_pos=$(cliclick p)
+  cliclick m:0,0 "m:${raw_pos}"
+
+  IFS=',' read -r x y <<< "${raw_pos}"
+  x=$(printf '%04d' "${x}")
+  y=$(printf '%04d' "${y}")
+  position="${x}, ${y}"
+
+  echo "${position}"
+}
+
+format_elapsed() {
+  local total_seconds=$1
+  local minutes=$((total_seconds / 60))
+  local seconds=$((total_seconds % 60))
+  printf '%sm%02ds' "${minutes}" "${seconds}"
+}
+
+format_left_text() {
+  local end=$1
+  local now=$2
+
+  if [ -z "${end}" ]; then
+    echo ""
+    return
+  fi
+
+  local remaining_seconds=$((end - now))
+  if [ "${remaining_seconds}" -lt 0 ]; then
+    remaining_seconds=0
+  fi
+
+  local remaining_formatted
+  remaining_formatted=$(format_elapsed "${remaining_seconds}")
+  printf ' \033[1mLEFT\033[0m: [-%s]' "${remaining_formatted}"
+}
+
+print_status() {
+  local position=$1
+  local elapsed=$2
+  local left_segment=$3
+  printf '\033[1mHERE\033[0m: (%s) \033[1mNOW\033[0m: [+%s]%s\n' "${position}" "${elapsed}" "${left_segment}"
+}
+
+should_stop_monitoring() {
+  local end=$1
+  local now=$2
+
+  if [ -z "${end}" ]; then
+    return 1
+  fi
+
+  if [ "${now}" -ge "${end}" ]; then
+    return 0
+  fi
+
+  return 1
+}
+
+# Calculate start and end times
 start_time=$(date +%s)
 if [ -n "${duration_seconds}" ]; then
   end_time=$((start_time + duration_seconds))
@@ -60,24 +121,16 @@ else
   end_time=""
 fi
 
-# Monitor the mouse position
+# Mouse position monitoring loop
 while true; do
   current_time=$(date +%s)
   elapsed_seconds=$((current_time - start_time))
-  minutes=$((elapsed_seconds / 60))
-  seconds=$((elapsed_seconds % 60))
-  elapsed_time="${minutes}m${seconds}s"
-  pos=$(cliclick p)
-  cliclick m:0,0 "m:${pos}"
-  left_text=""
-  if [ -n "${end_time}" ]; then
-    remaining_minutes=$(((end_time - current_time) / 60))
-    left_text=" \033[1mLEFT\033[0m: [${remaining_minutes}m]"
-  fi
-  echo -e "\033[1mHERE\033[0m: (${pos}) \033[1mNOW\033[0m: [+${elapsed_time}]${left_text}"
+  elapsed_time=$(format_elapsed "${elapsed_seconds}")
+  position=$(capture_position)
+  left_text=$(format_left_text "${end_time}" "${current_time}")
+  print_status "${position}" "${elapsed_time}" "${left_text}"
   sleep "${frequency}"
-  # Check if we need to stop based on duration
-  if [ -n "${end_time}" ] && [ "${current_time}" -ge "${end_time}" ]; then
+  if should_stop_monitoring "${end_time}" "${current_time}"; then
     break
   fi
 done
