@@ -5,7 +5,6 @@ source $DOT/.dot/functions/try
 try pinstall brew bat
 try pinstall brew cliclick
 try pinstall brew coreutils
-try pinstall brew dnsmasq
 try pinstall brew dust
 try pinstall brew f2
 try pinstall brew fd
@@ -38,13 +37,6 @@ fi
 
 
 # -- Create other symlinks -----------------------------------------------------
-
-source="$DOT/system/dnsmasq.conf"
-target="/usr/local/etc/dnsmasq.conf"
-if [[ ! $(checklink "${target}" "${source}") ]]; then
-  pprint info-go "Installing dnsmasq configuration"
-  mksymlink "${source}" "${target}"
-fi
 
 # Install macOS keybindings to prevent undesired beeps
 # Source: https://github.com/adobe/brackets/issues/2419#issuecomment-186619537
