@@ -5,7 +5,7 @@ windows:
     focus: true
     start_directory: $INDICODEV/indico-un
     panes:
-      - shell_command: pipenv shell
+      - shell_command: source .venv/bin/activate
 
   - window_name: repos
     layout: even-horizontal
@@ -20,17 +20,17 @@ windows:
     start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
-        shell_command: pipenv run -- indico shell
-      - shell_command: pipenv run -- indico run -q --enable-evalex
-      - shell_command: pipenv run -- make build-core
-      - shell_command: pipenv run -- make build-plugin
+        shell_command: uv run -- indico shell
+      - shell_command: uv run -- indico run -q --enable-evalex
+      - shell_command: uv run -- make build-core
+      - shell_command: uv run -- make build-plugin
 
   - window_name: local-logs
     layout: main-vertical
     start_directory: $INDICODEV/indico-un
     panes:
       - shell_command: maildump
-      - shell_command: pipenv run -- python indico/bin/utils/db_log.py -S
+      - shell_command: uv run -- python indico/bin/utils/db_log.py -S
       - shell_command: tail -f $INDICOAPP/data/log/indico.log
 
   - window_name: prod
@@ -38,8 +38,8 @@ windows:
     start_directory: $INDICODEV/indico-un
     panes:
       - focus: true
-        shell_command: ssh un-indico-prod-tasks -t 'sudo su indico'
-      - shell_command: ssh un-indico-prod-w1 -t 'sudo su indico'
-      - shell_command: ssh un-indico-prod-w2 -t 'sudo su indico'
-      - shell_command: ssh un-indico-prod-w3 -t 'sudo su indico'
-      - shell_command: ssh un-indico-prod-w4 -t 'sudo su indico'
+        shell_command: ssh un-edcv-indico-prod-tasks -t 'sudo su indico'
+      - shell_command: ssh un-edcv-indico-prod-w1 -t 'sudo su indico'
+      - shell_command: ssh un-edcv-indico-prod-w2 -t 'sudo su indico'
+      - shell_command: ssh un-edcv-indico-prod-w3 -t 'sudo su indico'
+      - shell_command: ssh un-edcv-indico-prod-w4 -t 'sudo su indico'
