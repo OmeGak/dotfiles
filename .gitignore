@@ -1,3 +1,7 @@
+# agents: ignore all but settings
+agents/claude.symlink/*
+!agents/claude.symlink/settings.json
+
 # dev: sync only VSCode settings
 dev/vscode/*
 !dev/vscode/snippets/
