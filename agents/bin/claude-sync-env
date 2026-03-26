@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Sync shell environment variables into Claude's settings file.
+# Run from a terminal where dotfiles are sourced.
+
+set -euo pipefail
+
+# Set path to Claude's settings file.
+SETTINGS="$HOME/.claude/settings.json"
+
+# Variables to sync into Claude's env config. Add or remove as needed.
+SYNC_VARS=(
+  PATH
+  GIT_AUTHOR_NAME
+  GIT_AUTHOR_EMAIL
+  GIT_COMMITTER_NAME
+  GIT_COMMITTER_EMAIL
+)
+
+# Check for jq dependency before doing anything else.
+command -v jq &>/dev/null || { echo "error: jq is required" >&2; exit 1; }
+
+# Validate the settings file exists and contains valid JSON before doing anything.
+if [[ ! -f "$SETTINGS" ]]; then
+  echo "error: $SETTINGS not found" >&2
+  exit 1
+fi
+
+jq empty "$SETTINGS" 2>/dev/null || { echo "error: $SETTINGS is not valid JSON" >&2; exit 1; }
+
+# Fail early with a clear message if any required variable is unset or empty.
+# Uses bash indirect expansion (${!var}) to check each name in SYNC_VARS.
+for var in "${SYNC_VARS[@]}"; do
+  : "${!var:?$var is not set, are dotfiles sourced?}"
+done
+
+# Write to a temp file so the final mv is atomic to avoid a partial write corrupting settings.
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+
+# Build a JSON object from SYNC_VARS using jq's built-in `env` object,
+# then replace .env in settings wholesale. This avoids constructing
+# dynamic --arg flags for each variable.
+vars_json=$(printf '%s\n' "${SYNC_VARS[@]}" | jq -R . | jq -s .)
+jq --argjson vars "$vars_json" \
+  '.env = ($vars | map({key: ., value: env[.]}) | from_entries)' \
+  "$SETTINGS" > "$tmp"
+
+# Atomically replace the settings file with the updated version.
+mv "$tmp" "$SETTINGS"
+echo "Synced env to $SETTINGS"
