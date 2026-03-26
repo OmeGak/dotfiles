@@ -3,5 +3,5 @@ alias docker-vm='screen ~/Library/Containers/com.docker.docker/Data/com.docker.d
 alias k='kubectl'
 alias kk='kubectl apply -k'
 alias kkk='kubectl apply -k .'
-alias kb='kubectl kustomize'
-alias kkb='kubectl kustomize .'
+alias kb='kubectl kustomize --enable-helm --load-restrictor=LoadRestrictionsNone'
+alias kba='kb | kubectl apply -f -'
