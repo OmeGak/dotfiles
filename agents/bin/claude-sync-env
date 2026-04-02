@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 #
-# Sync shell environment variables into Claude's settings file.
+# Sync shell environment variables into Claude's config files.
+# Syncs PATH into env.sh (sourced by Claude Desktop at startup) and
+# named variables from SYNC_VARS into settings.json's .env object.
 # Run from a terminal where dotfiles are sourced.
 
 set -euo pipefail
 
-# Set path to Claude's settings file.
+# Set paths to Claude's config files.
 SETTINGS="$HOME/.claude/settings.json"
+ENV_FILE="$HOME/.claude/env.sh"
 
-# Variables to sync into Claude's env config. Add or remove as needed.
+# Variables to sync into the .env object in settings.json.
+# Do NOT add PATH here. Claude Desktop overwrites PATH with the system default
+# at launch, so PATH is synced separately via ENV_FILE (see below).
 SYNC_VARS=(
-  PATH
   GIT_AUTHOR_NAME
   GIT_AUTHOR_EMAIL
   GIT_COMMITTER_NAME
@@ -20,6 +24,14 @@ SYNC_VARS=(
 # Check for jq dependency before doing anything else.
 command -v jq &>/dev/null || { echo "error: jq is required" >&2; exit 1; }
 
+# Guard against accidentally adding PATH to SYNC_VARS.
+for var in "${SYNC_VARS[@]}"; do
+  if [[ "$var" == "PATH" ]]; then
+    echo "error: PATH must not be in SYNC_VARS; it is synced via $ENV_FILE" >&2
+    exit 1
+  fi
+done
+
 # Validate the settings file exists and contains valid JSON before doing anything.
 if [[ ! -f "$SETTINGS" ]]; then
   echo "error: $SETTINGS not found" >&2
@@ -28,22 +40,35 @@ fi
 
 jq empty "$SETTINGS" 2>/dev/null || { echo "error: $SETTINGS is not valid JSON" >&2; exit 1; }
 
+# Validate the env file exists.
+if [[ ! -f "$ENV_FILE" ]]; then
+  echo "error: $ENV_FILE not found" >&2
+  exit 1
+fi
+
 # Fail early with a clear message if any required variable is unset or empty.
 # Uses bash indirect expansion (${!var}) to check each name in SYNC_VARS.
 for var in "${SYNC_VARS[@]}"; do
   : "${!var:?$var is not set, are dotfiles sourced?}"
 done
 
-# Write to a temp file so the final mv is atomic to avoid a partial write corrupting settings.
+# Write to temp files so the final mv operations are atomic.
 tmp=$(mktemp)
-trap 'rm -f "$tmp"' EXIT
+env_tmp=$(mktemp)
+trap 'rm -f "$tmp" "$env_tmp"' EXIT
 
-# Build a JSON object from SYNC_VARS using jq's built-in `env` object,
-# then replace .env in settings wholesale. This avoids constructing
-# dynamic --arg flags for each variable.
+# Atomically write the current PATH into env.sh.
+# Claude Desktop sources this file at startup to restore the full shell PATH.
+printf 'export PATH="%s"\n' "$PATH" > "$env_tmp"
+mv "$env_tmp" "$ENV_FILE"
+echo "Synced PATH to $ENV_FILE"
+
+# Merge SYNC_VARS into the .env object in settings.json using jq's built-in
+# `env` object. Existing keys not in SYNC_VARS are preserved. Keys in SYNC_VARS
+# are overwritten with their current values.
 vars_json=$(printf '%s\n' "${SYNC_VARS[@]}" | jq -R . | jq -s .)
 jq --argjson vars "$vars_json" \
-  '.env = ($vars | map({key: ., value: env[.]}) | from_entries)' \
+  '.env |= . + ($vars | map({key: ., value: env[.]}) | from_entries)' \
   "$SETTINGS" > "$tmp"
 
 # Atomically replace the settings file with the updated version.
