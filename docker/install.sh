@@ -7,5 +7,6 @@ try pinstall brew k9s
 try pinstall brew kubectx
 try pinstall brew kubernetes-cli
 try pinstall brew lazydocker
+try pinstall brew opentofu
 
 exit $TRY_CODE
