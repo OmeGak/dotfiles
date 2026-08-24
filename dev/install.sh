@@ -5,6 +5,7 @@ source $DOT/.dot/functions/try
 # Linters
 try pinstall brew grex
 try pinstall brew hlint
+try pinstall brew mise
 try pinstall brew shellcheck
 try pinstall brew tokei
 try pinstall npm dockerlint
