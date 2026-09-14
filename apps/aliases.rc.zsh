@@ -1,3 +1,7 @@
+if (( $+commands[pass] )); then
+  alias passc="pass -c"
+fi
+
 if (( $+commands[xkcdpass] )); then
   alias xkcdpass="xkcdpass --interactive --numwords=4 --valid-chars='[a-z]' --max=8 --delimiter='-'"
 fi
