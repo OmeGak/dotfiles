@@ -1,7 +1,10 @@
-# agents: ignore all but settings and env
+# agents: selectively track Claude config
 agents/claude.symlink/*
 !agents/claude.symlink/env.sh
 !agents/claude.symlink/settings.json
+!agents/claude.symlink/CLAUDE.md
+!agents/claude.symlink/agents
+!agents/claude.symlink/skills
 
 # dev: sync only VSCode settings
 dev/vscode/*
