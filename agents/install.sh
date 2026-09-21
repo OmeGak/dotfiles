@@ -5,5 +5,6 @@ source $DOT/.dot/functions/try
 try pinstall brew claude
 try pinstall brew codex
 try pinstall brew copilot-cli
+try pinstall brew rtk
 
 exit $TRY_CODE

@@ -3,6 +3,7 @@ agents/claude.symlink/*
 !agents/claude.symlink/env.sh
 !agents/claude.symlink/settings.json
 !agents/claude.symlink/CLAUDE.md
+!agents/claude.symlink/RTK.md
 !agents/claude.symlink/agents
 !agents/claude.symlink/skills
 

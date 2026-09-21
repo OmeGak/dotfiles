@@ -36,3 +36,5 @@ If `.claude/agents/README.md` exists, route to those seats first; tiers fill the
 ## Reporting
 
 Final message: outcome, files changed (from subagent returns), what was verified, what needs the owner's call. Never present a subagent's work as verified without a `checker` pass or reading the diff yourself.
+
+@RTK.md
