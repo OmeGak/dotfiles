@@ -1,6 +1,6 @@
 # Rosters by project type
 
-Pick from the type that matches. Install only the seats today's work needs; the rest arrive by re-run. Every roster starts with the orchestrator (examples/orchestrator.md).
+Pick from the type that matches. Install only the seats today's work needs; the rest arrive by re-run. No roster has an orchestrator seat: the main session orchestrates, briefed by the project CLAUDE.md Orchestration section (examples/orchestration-section.md).
 
 ## Research (a paper, a review, an analysis)
 
@@ -17,7 +17,7 @@ Pick from the type that matches. Install only the seats today's work needs; the 
 
 | Seat | Owns | Never | Tier |
 |---|---|---|---|
-| chief-of-staff | briefing (moved / blocked / needs a call), follow-up list closed to zero | building, publishing, moving money, making another seat's call | opus / high (often *is* the orchestrator) |
+| chief-of-staff | briefing (moved / blocked / needs a call), follow-up list closed to zero | building, publishing, moving money, making another seat's call | opus / high (only when the follow-up list outgrows the briefing the main session writes each run) |
 | research-lead | the sourced answer to any "do we know" question | contacting anyone, acting on a finding | sonnet / high |
 | content-lead | docs, changelog, comms drafts in `drafts/` | publishing; every draft waits for the owner | sonnet / medium |
 | finance | pricing, unit economics, the ledger, compliance notes | moving a cent, touching a credential | sonnet / high |

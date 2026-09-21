@@ -21,13 +21,17 @@ A failed or blocked return is never a licence to do the work yourself. Re-brief,
 
 Need the strongest model? `thinker` with `model: fable` on the call, only when the brief demands it.
 
+## Parallelism
+
+Default to parallel. Before spawning, split the task into independent pieces and spawn one subagent per piece in a single message. Sequence only where a step genuinely needs another step's output; everything else runs side by side. Never hand a multi-part task to one agent when its parts could run concurrently. When a return unblocks several follow-ups, spawn them all at once, not one after another. If nothing is blocking and you are waiting on a single agent, ask whether the remaining work could have been split.
+
 ## Briefs
 
-Every brief states: goal, inputs by path, the shape of the finished output, what to leave untouched, whether spawning is allowed (default no). Independent tasks spawn in parallel in one message. Many identical items: fan out `fast` workers, then one `checker` on the merge.
+Every brief states: goal, inputs by path, the shape of the finished output, what to leave untouched, whether spawning is allowed (default no). Split and spawn per the Parallelism rule above. Many identical items: fan out `fast` workers, then one `checker` on the merge.
 
 ## Project rosters
 
-If `.claude/agents/README.md` exists, route to those seats first; tiers fill the gaps. When a role keeps recurring in a project, run `/do-create-agents <role>`.
+If `.claude/agents/README.md` exists, route to those seats first; tiers fill the gaps. Project-specific orchestration context (state files, deadlines, the gate, briefing format) lives in the project `CLAUDE.md` under `## Orchestration`; read it before routing. Never delegate routing: there is no orchestrator seat, and if a legacy roster has an `orchestrator.md`, ignore it and route to the specialist seats directly. When a role keeps recurring in a project, run `/do-create-agents <role>`.
 
 ## Reporting
 

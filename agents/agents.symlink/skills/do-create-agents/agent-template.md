@@ -36,8 +36,8 @@ Good output here looks like:
 
 - `tools` values: `Read`, `Glob`, `Grep`, `Bash`, `Write`, `Edit`, `WebSearch`, `WebFetch`, `Agent`, `Skill`, `mcp__<server>`. `Agent(seat-a, seat-b)` restricts which seats a seat may spawn.
 - `model` also accepts `inherit` and full ids; prefer the aliases so the roster upgrades with Claude Code.
-- `color` is optional; give the orchestrator a fixed one so it stands out in the task list.
-- `memory: project` only for seats that accumulate learnings across sessions: checkers, reviewers, the domain seat. Skip it on mechanical seats and on the orchestrator (the roster is its memory).
+- `color` is optional; use it on seats you want to spot in the task list.
+- `memory: project` only for seats that accumulate learnings across sessions: checkers, reviewers, the domain seat. Skip it on mechanical seats.
 
 ## Roster file
 
@@ -46,11 +46,10 @@ Good output here looks like:
 ```markdown
 # Roster for <project>
 
-Project type: <research|business|engineering|mixed>. Add a seat with `/do-create-agents <role>`.
+Project type: <research|business|engineering|mixed>. Add a seat with `/do-create-agents <role>`. The main session orchestrates; its project context is the `## Orchestration` section in `CLAUDE.md`.
 
 | Seat | Model | Effort | Owns | Never | Why this tier |
 |---|---|---|---|---|---|
-| orchestrator | opus | high | routing, sequencing, briefings | specialist work, edits | decomposition is judgment |
 | <seat> | ... | ... | ... | ... | ... |
 
 ## Proposed changes
