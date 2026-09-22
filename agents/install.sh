@@ -7,4 +7,6 @@ try pinstall brew codex
 try pinstall brew copilot-cli
 try pinstall brew rtk
 
+try pinstall npm ccstatusline
+
 exit $TRY_CODE
