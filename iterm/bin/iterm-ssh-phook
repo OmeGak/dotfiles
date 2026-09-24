@@ -11,7 +11,9 @@ usage() {
 }
 
 ssh-phook() {
-  if [[ "$OS" == "Darwin" ]]; then
+  # LocalCommand stdout is the ssh channel itself; without a tty check these
+  # escapes corrupt non-interactive streams (git/rsync/scp/sftp).
+  if [[ "$OS" == "Darwin" && -t 1 ]]; then
     local level=$1
     phook -e "iterm-profile ssh-$level${TMUX_ITERM_PROFILE_SUFFIX}" -a "iterm-profile"; sleep 0
     sleep 0  # resolves occasional "kevent: No such process" error
