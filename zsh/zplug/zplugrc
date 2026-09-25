@@ -34,6 +34,10 @@ zplug "$BREWDIR/opt/fzf/", from:local, \
   use:"shell/completion.zsh", \
   defer:2  # needs loading after compinit
 
+zplug "/nix/var/nix/profiles/default/etc/profile.d/", from:local, \
+  if:"[[ -d /nix/var/nix/profiles/default/etc/profile.d/ ]]", \
+  use:"nix-daemon.sh"
+
 zplug "$BREWDIR/opt/nvm/", from:local, \
   if:"[[ -d $BREWDIR/opt/nvm/ ]]", \
   use:"nvm.sh"

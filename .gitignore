@@ -29,6 +29,10 @@ gpg/gnupg.symlink/*
 !gpg/gnupg.symlink/gpg.conf
 !gpg/gnupg.symlink/gpg-agent.conf
 
+# nix: track config only
+nix/nix.csymlink/*
+!nix/nix.csymlink/nix.conf
+
 # python: track profile config only
 python/ipython.symlink/**/**
 !python/ipython.symlink/**/
