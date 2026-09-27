@@ -1,0 +1,48 @@
+onboarding = false
+
+[keys]
+previous_tab = "ctrl+alt+["
+next_tab = "ctrl+alt+]"
+new_tab = "ctrl+alt+t"
+new_workspace = "ctrl+alt+n"
+previous_workspace = "ctrl+alt+shift+up"
+next_workspace = "ctrl+alt+shift+down"
+move_tab_previous = "ctrl+alt+{"
+move_tab_next = "ctrl+alt+}"
+focus_pane_left = ["ctrl+alt+h", "ctrl+alt+left"]
+focus_pane_down = ["ctrl+alt+j", "ctrl+alt+down"]
+focus_pane_up = ["ctrl+alt+k", "ctrl+alt+up"]
+focus_pane_right = ["ctrl+alt+l", "ctrl+alt+right"]
+close_pane = "ctrl+alt+w"
+zoom = "ctrl+alt+enter"
+previous_agent = "ctrl+alt+shift+left"
+next_agent = "ctrl+alt+shift+right"
+open_notification_target = "ctrl+alt+o"
+help = "ctrl+alt+?"
+detach = "ctrl+alt+q"
+goto = "ctrl+alt+p"
+workspace_picker = "ctrl+alt+space"
+navigate_workspace_up = ["up", "["]
+navigate_workspace_down = ["down", "]"]
+
+[[keys.command]]
+key = "ctrl+alt+\\"
+type = "shell"
+description = "split right running claude"
+command = 'p=$("$HERDR_BIN_PATH" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction right --focus | jq -r .result.pane.pane_id) && "$HERDR_BIN_PATH" pane run "$p" claude'
+
+[[keys.command]]
+key = "ctrl+alt+|"
+type = "shell"
+description = "split down running claude"
+command = 'p=$("$HERDR_BIN_PATH" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction down --focus | jq -r .result.pane.pane_id) && "$HERDR_BIN_PATH" pane run "$p" claude'
+
+[ui.toast]
+delivery = "herdr"
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "machine", "workspace", "tab"], ["terminal_title_stripped"]]

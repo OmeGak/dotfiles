@@ -7,6 +7,10 @@ agents/claude.symlink/*
 !agents/claude.symlink/agents
 !agents/claude.symlink/skills
 
+# agents: track herdr config only
+agents/herdr.csymlink/*
+!agents/herdr.csymlink/config.toml
+
 # dev: sync only VSCode settings
 dev/vscode/*
 !dev/vscode/snippets/
