@@ -17,7 +17,9 @@ try pinstall brew make
 try pinstall brew monolith
 try pinstall brew openssl
 try pinstall brew procs
+try pinstall brew pulseaudio
 try pinstall brew ripgrep
+try pinstall brew tailcat
 try pinstall brew tealdeer
 try pinstall brew unar
 try pinstall brew wget
