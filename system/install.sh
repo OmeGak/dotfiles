@@ -4,6 +4,7 @@ source $DOT/.dot/functions/try
 
 try pinstall brew bat
 try pinstall brew cliclick
+try pinstall brew cmatrix
 try pinstall brew coreutils
 try pinstall brew dust
 try pinstall brew f2
