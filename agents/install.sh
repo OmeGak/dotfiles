@@ -5,6 +5,8 @@ source $DOT/.dot/functions/try
 try pinstall brew claude
 try pinstall brew codex
 try pinstall brew copilot-cli
+try pinstall brew handy
+try pinstall brew herdr
 try pinstall brew rtk
 
 try pinstall npm ccstatusline
