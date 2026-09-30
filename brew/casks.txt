@@ -42,6 +42,7 @@ slippi-dolphin
 # Misc
 bpm
 handbrake
+hammerspoon
 losslesscut
 obs
 qlvideo
