@@ -1,29 +1,34 @@
 onboarding = false
 
 [keys]
-previous_tab = "ctrl+alt+["
-next_tab = "ctrl+alt+]"
-new_tab = "ctrl+alt+t"
-new_workspace = "ctrl+alt+n"
-previous_workspace = "ctrl+alt+shift+up"
-next_workspace = "ctrl+alt+shift+down"
-move_tab_previous = "ctrl+alt+{"
-move_tab_next = "ctrl+alt+}"
-focus_pane_left = ["ctrl+alt+h", "ctrl+alt+left"]
-focus_pane_down = ["ctrl+alt+j", "ctrl+alt+down"]
-focus_pane_up = ["ctrl+alt+k", "ctrl+alt+up"]
-focus_pane_right = ["ctrl+alt+l", "ctrl+alt+right"]
-close_pane = "ctrl+alt+w"
-zoom = "ctrl+alt+enter"
-previous_agent = "ctrl+alt+shift+left"
-next_agent = "ctrl+alt+shift+right"
-open_notification_target = "ctrl+alt+o"
-help = "ctrl+alt+?"
-detach = "ctrl+alt+d"
-goto = "ctrl+alt+p"
+previous_tab = "ctrl+alt+left"
+next_tab = "ctrl+alt+right"
+new_tab = "alt+t"
+new_workspace = "alt+n"
+previous_workspace = "ctrl+alt+up"
+next_workspace = "ctrl+alt+down"
+move_tab_previous = "ctrl+alt+shift+left"
+move_tab_next = "ctrl+alt+shift+right"
+focus_pane_left = ["shift+alt+left"]
+focus_pane_down = ["shift+alt+down"]
+focus_pane_up = ["shift+alt+up"]
+focus_pane_right = ["shift+alt+right"]
+close_pane = "alt+w"
+close_tab = "shift+alt+w"
+zoom = "alt+enter"
+previous_agent = "ctrl+alt+shift+up"
+next_agent = "ctrl+alt+shift+down"
+open_notification_target = "alt+o"
+help = "alt+?"
+detach = "alt+d"
+settings = "alt+."
+reload_config = "alt+r"
+goto = "alt+p"
 workspace_picker = "ctrl+alt+space"
-navigate_workspace_up = ["up", "["]
-navigate_workspace_down = ["down", "]"]
+navigate_workspace_up = ["up"]
+navigate_workspace_down = ["down"]
+split_vertical = "alt+\\"
+split_horizontal = "alt+|"
 
 [[keys.command]]
 key = "ctrl+alt+\\"
