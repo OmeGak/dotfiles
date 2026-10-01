@@ -51,15 +51,44 @@ class T(unittest.TestCase):
                 {"pane_id": "p5", "tab_id": "t4", "cwd": "/a/e"},
             ],
         }
-        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "b ²")])
+        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "b · 2")])
         # a busy agent in a secondary pane does not rename the tab
         snap["panes"][0].update(agent="claude", agent_status="working",
                                 terminal_title="◐ Fix bug")
-        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "b ²")])
+        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "b · 2")])
         # the main pane's title wins; the glyph is the tab-level status
         snap["panes"][1].update(terminal_title="main task")
         snap["tabs"][0]["agent_status"] = "working"
-        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "◐ main task ²")])
+        self.assertEqual(t.plan(snap, {}, "/h"), [("t1", "1", "◐ main task · 2")])
+
+    def test_plan_zoomed(self):
+        def snap(zoomed, focused, label="1"):
+            return {
+                "tabs": [{"tab_id": "t1", "label": label, "agent_status": "working"}],
+                "layouts": [{"tab_id": "t1", "zoomed": zoomed, "focused_pane_id": focused}],
+                "panes": [{"pane_id": "p2", "tab_id": "t1", "cwd": "/a/c"},
+                          {"pane_id": "p1", "tab_id": "t1", "cwd": "/a/b"}],
+            }
+        # zoomed: the zoomed pane names the tab; glyph and count unchanged
+        self.assertEqual(t.plan(snap(True, "p2"), {}, "/h"), [("t1", "1", "◐ c · 2 ·")])
+        # unzoomed: main pane, even when another pane is focused
+        self.assertEqual(t.plan(snap(False, "p2"), {}, "/h"), [("t1", "1", "◐ b · 2")])
+        # zoomed pane id not among the tab's panes: main name, still marked zoomed
+        self.assertEqual(t.plan(snap(True, "p9"), {}, "/h"), [("t1", "1", "◐ b · 2 ·")])
+        # switching zoomed <-> main names is still recognised as ours
+        self.assertEqual(t.plan(snap(True, "p2", "◐ b · 2"), {"t1": "◐ b · 2"}, "/h"),
+                         [("t1", "◐ b · 2", "◐ c · 2 ·")])
+        self.assertEqual(t.plan(snap(True, "p2", "◐ b · 2"), {}, "/h"), [])
+        # toggling zoom on/off is recognised as ours (marker stripped by the guard)
+        self.assertEqual(t.plan(snap(False, "p2", "◐ c · 2 ·"), {"t1": "◐ c · 2 ·"}, "/h"),
+                         [("t1", "◐ c · 2 ·", "◐ b · 2")])
+        self.assertEqual(t.plan(snap(True, "p1", "◐ b · 2"), {"t1": "◐ b · 2"}, "/h"),
+                         [("t1", "◐ b · 2", "◐ b · 2 ·")])
+        # zoomed without a count suffix
+        one = {"tabs": [{"tab_id": "t", "label": "x", "agent_status": None}],
+               "layouts": [{"tab_id": "t", "zoomed": True, "focused_pane_id": "p"}],
+               "panes": [{"pane_id": "p", "tab_id": "t", "cwd": "/a/x"}]}
+        self.assertEqual(t.plan(one, {"t": "x"}, "/h"), [("t", "x", "x ·")])
 
     def test_pane_number(self):
         self.assertEqual(t.pane_number("w2:p3"), 3)
@@ -137,7 +166,16 @@ class T(unittest.TestCase):
     def test_strip_label(self):
         self.assertEqual(t.strip_label("◐ api ⊞3"), "api")
         self.assertEqual(t.strip_label("api ⊞12"), "api")  # legacy
-        self.assertEqual(t.strip_label("◐ api ³"), "api")
+        self.assertEqual(t.strip_label("◐ api · 3"), "api")
+        self.assertEqual(t.strip_label("api · 12"), "api")
+        self.assertEqual(t.strip_label("api ·"), "api")  # zoom marker
+        self.assertEqual(t.strip_label("◐ api · 3 ·"), "api")  # count + zoom
+        self.assertEqual(t.strip_label("api · 3 · 4"), "api · 3")  # one suffix only
+        self.assertEqual(t.strip_label("api · ·"), "api ·")  # one marker only
+        self.assertEqual(t.strip_label("api·"), "api·")  # no leading space: kept
+        self.assertEqual(t.strip_label("api · 3·"), "api · 3·")
+        self.assertEqual(t.strip_label("api · 3x"), "api · 3x")
+        self.assertEqual(t.strip_label("◐ api ³"), "api")  # legacy superscript
         self.assertEqual(t.strip_label("api ¹²"), "api")
         self.assertEqual(t.strip_label("api ³ ⊞2"), "api ³")  # one suffix only
         self.assertEqual(t.strip_label("api ²x"), "api ²x")
@@ -152,12 +190,15 @@ class T(unittest.TestCase):
     def test_build_label(self):
         self.assertEqual(t.build_label("x", "", 1), "x")
         self.assertEqual(t.build_label("x", "◐", 1), "◐ x")
-        self.assertEqual(t.build_label("x", "", 2), "x ²")
-        self.assertEqual(t.build_label("x", "◐", 3), "◐ x ³")
+        self.assertEqual(t.build_label("x", "", 2), "x · 2")
+        self.assertEqual(t.build_label("x", "◐", 3), "◐ x · 3")
         self.assertEqual(t.build_label("x", "◐", 0), "◐ x")
+        self.assertEqual(t.build_label("x", "◐", 2, True), "◐ x · 2 ·")
+        self.assertEqual(t.build_label("x", "", 1, True), "x ·")
+        self.assertEqual(t.build_label("x", "", 1, False), "x")
         long = t.build_label("y" * 60, "◐", 12)
-        self.assertTrue(long.startswith("◐ y") and long.endswith("… ¹²"))
-        self.assertEqual(len(long), 2 + 40 + 3)
+        self.assertTrue(long.startswith("◐ y") and long.endswith("… · 12"))
+        self.assertEqual(len(long), 2 + 40 + 5)
 
     def test_plan_pane_count(self):
         def snap(label, count=None, npanes=1, status=None):
@@ -169,29 +210,81 @@ class T(unittest.TestCase):
                               for i in range(npanes)]}
         # suffix only when count > 1
         self.assertEqual(t.plan(snap("1", 1), {}, "/h"), [("t", "1", "x")])
-        self.assertEqual(t.plan(snap("1", 3), {}, "/h"), [("t", "1", "x ³")])
+        self.assertEqual(t.plan(snap("1", 3), {}, "/h"), [("t", "1", "x · 3")])
         # fallback: count snapshot panes
-        self.assertEqual(t.plan(snap("1", None, 2), {}, "/h"), [("t", "1", "x ²")])
+        self.assertEqual(t.plan(snap("1", None, 2), {}, "/h"), [("t", "1", "x · 2")])
         self.assertEqual(t.plan(snap("1", None, 1), {}, "/h"), [("t", "1", "x")])
         # count change alone renames; so does dropping back to one pane
-        self.assertEqual(t.plan(snap("x ²", 3), {"t": "x ²"}, "/h"),
-                         [("t", "x ²", "x ³")])
-        self.assertEqual(t.plan(snap("x ³", 1), {"t": "x ³"}, "/h"),
-                         [("t", "x ³", "x")])
+        self.assertEqual(t.plan(snap("x · 2", 3), {"t": "x · 2"}, "/h"),
+                         [("t", "x · 2", "x · 3")])
+        self.assertEqual(t.plan(snap("x · 3", 1), {"t": "x · 3"}, "/h"),
+                         [("t", "x · 3", "x")])
         # older label without suffix is recognised
         self.assertEqual(t.plan(snap("○ x", 2, status="idle"), {"t": "○ x"}, "/h"),
-                         [("t", "○ x", "○ x ²")])
+                         [("t", "○ x", "○ x · 2")])
         # glyph + count together, unchanged: no rename
-        self.assertEqual(t.plan(snap("◐ x ²", 2, status="working"), {"t": "◐ x ²"}, "/h"), [])
+        self.assertEqual(t.plan(snap("◐ x · 2", 2, status="working"), {"t": "◐ x · 2"}, "/h"), [])
         # manual label untouched
-        self.assertEqual(t.plan(snap("x ⊞2", 2), {"t": "x ⊞2"}, "/h"), [("t", "x ⊞2", "x ²")])  # legacy label migrates
-        self.assertEqual(t.plan(snap("mine ²", 3), {"t": "x ²"}, "/h"), [])
+        self.assertEqual(t.plan(snap("x ⊞2", 2), {"t": "x ⊞2"}, "/h"), [("t", "x ⊞2", "x · 2")])  # legacy label migrates
+        # legacy superscript label set by the plugin migrates to the new form
+        self.assertEqual(t.plan(snap("x ²", 2), {"t": "x ²"}, "/h"), [("t", "x ²", "x · 2")])
+        self.assertEqual(t.plan(snap("◐ x ³", 3, status="working"), {"t": "◐ x ³"}, "/h"),
+                         [("t", "◐ x ³", "◐ x · 3")])
+        self.assertEqual(t.plan(snap("mine · 2", 3), {"t": "x · 2"}, "/h"), [])
 
     def test_session_key(self):
         a, b = t.session_key("/tmp/a.sock"), t.session_key("/tmp/b.sock")
         self.assertNotEqual(a, b)
         self.assertEqual(a, t.session_key("/tmp/a.sock"))
         self.assertEqual(len(a), 8)
+
+
+class Panes(unittest.TestCase):
+    def snap(self, **kw):
+        p = {"pane_id": "w1:p1", "agent": "claude", "terminal_title": "✳ Fix bug"}
+        p.update(kw)
+        return {"panes": [p, {"pane_id": "w1:p2", "terminal_title": "vim"}]}
+
+    def test_sets_cleaned_title_only_for_agents(self):
+        self.assertEqual(t.plan_panes(self.snap(), {}), [("w1:p1", "", "Fix bug")])
+
+    def test_status_glyph(self):
+        for st, g in (("working", "◐ "), ("blocked", "× "), ("done", "✓ "), ("idle", "○ "), ("unknown", "")):
+            self.assertEqual(t.plan_panes(self.snap(agent_status=st), {}), [("w1:p1", "", g + "Fix bug")])
+
+    def test_glyph_only_change_replaces_ours(self):
+        s = self.snap(agent_status="done", label="◐ Fix bug")
+        self.assertEqual(t.plan_panes(s, {"w1:p1": "◐ Fix bug"}), [("w1:p1", "◐ Fix bug", "✓ Fix bug")])
+        self.assertEqual(t.plan_panes(self.snap(agent_status="done", label="◐ mine"), {"w1:p1": "x"}), [])
+
+    def test_empty_title_and_unchanged(self):
+        self.assertEqual(t.plan_panes(self.snap(terminal_title="✳ Claude Code"), {}), [])
+        self.assertEqual(t.plan_panes(self.snap(label="Fix bug"), {}), [])
+        self.assertEqual(t.plan_panes(self.snap(agent_status="idle", terminal_title="✳ Claude Code"), {}), [])
+
+    def test_truncates(self):
+        (_, _, new), = t.plan_panes(self.snap(terminal_title="x" * 60, agent_status="idle"), {})
+        self.assertEqual(len(new), 42)
+
+    def test_guard(self):
+        self.assertEqual(len(t.plan_panes(self.snap(label="claude"), {})), 1)
+        self.assertEqual(len(t.plan_panes(self.snap(label="old"), {"w1:p1": "old"})), 1)
+        self.assertEqual(t.plan_panes(self.snap(label="mine"), {"w1:p1": "old"}), [])
+        self.assertEqual(t.plan_panes(self.snap(label="mine"), {}), [])
+
+    def test_sync_state(self):
+        calls = []
+        orig = t.run_herdr
+        t.run_herdr = lambda *a: calls.append(a) or type("R", (), {"returncode": 0})()
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                path = os.path.join(d, "p.json")
+                t.save_state(path, {"gone": "x"})
+                t.sync_panes(path, self.snap())
+                self.assertEqual(calls, [("pane", "rename", "w1:p1", "Fix bug")])
+                self.assertEqual(t.load_state(path), {"w1:p1": "Fix bug"})
+        finally:
+            t.run_herdr = orig
 
 
 class Watch(unittest.TestCase):
@@ -293,6 +386,46 @@ class Watch(unittest.TestCase):
             t.save_state(path, {"t": "x", "gone": "y"})
             t.sync_once(path, snapshot=snap)
             self.assertEqual(t.load_state(path), {"t": "x"})  # pruned closed tab
+
+    def test_tabs_value(self):
+        self.assertEqual(t.tabs_value(2), "2")
+        self.assertEqual(t.tabs_value(12), "12")
+        self.assertEqual(t.tabs_value(1), "")
+        self.assertEqual(t.tabs_value(None), "")
+
+    def test_plan_tabs(self):
+        snap = {"workspaces": [{"workspace_id": "w1", "tab_count": 3},
+                               {"workspace_id": "w2", "tab_count": 1}]}
+        self.assertEqual(t.plan_tabs(snap, {}), [("w1", "3")])
+        self.assertEqual(t.plan_tabs(snap, {"w1": "3"}), [])
+        # count change, and dropping to one tab clears
+        self.assertEqual(t.plan_tabs(snap, {"w1": "2", "w2": "2"}),
+                         [("w1", "3"), ("w2", "")])
+
+    def test_sync_tabs_state(self):
+        snap = {"workspaces": [{"workspace_id": "w1", "label": "a", "tab_count": 2}]}
+        calls = []
+        real = t.run_herdr
+        t.run_herdr = lambda *a: calls.append(a) or type("R", (), {"returncode": 0})()
+        base = ("workspace", "report-metadata", "w1", "--source", "tab-names")
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                path = os.path.join(d, "tabs.json")
+                self.assertEqual(t.sync_tabs(path, snap), [("w1", "2")])
+                # first pass clears the old title token, then sets tabs
+                self.assertEqual(calls, [base + ("--clear-token", "title"),
+                                         base + ("--token", "tabs=2")])
+                self.assertEqual(t.sync_tabs(path, snap), [])  # remembered
+                self.assertEqual(len(calls), 2)
+                snap["workspaces"][0]["tab_count"] = 3
+                self.assertEqual(t.sync_tabs(path, snap), [("w1", "3")])
+                self.assertEqual(calls[2:], [base + ("--token", "tabs=3")])  # no re-clear
+                snap["workspaces"][0]["tab_count"] = 1
+                self.assertEqual(t.sync_tabs(path, snap), [("w1", "")])
+                self.assertEqual(calls[3:], [base + ("--clear-token", "tabs")])
+                self.assertEqual(t.load_state(path)["values"], {})
+        finally:
+            t.run_herdr = real
 
 
 if __name__ == "__main__":

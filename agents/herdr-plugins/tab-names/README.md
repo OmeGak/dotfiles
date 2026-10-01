@@ -5,9 +5,13 @@ only; talks to herdr through `$HERDR_BIN_PATH` (fallback `herdr`).
 
 ## Naming rule
 
-Per tab, the name always comes from its first ("main") pane: the earliest-created
+Per tab, the name comes from its first ("main") pane: the earliest-created
 pane still alive. Secondary panes are side tasks and never affect the name, busy
-or focused. herdr's snapshot lists panes in layout order, not creation order, so
+or focused. One exception: while the tab is zoomed (snapshot `layouts[]` entry
+with `zoomed: true`), the name comes from the zoomed pane instead, which herdr
+0.9.1 reports as that layout's `focused_pane_id` (if it is not among the tab's
+panes, the main pane is used). Unzooming returns to the main pane. herdr has no
+plugin event for zoom toggles, so the change is picked up by the 3 s watcher. herdr's snapshot lists panes in layout order, not creation order, so
 creation order is taken from the pane id: herdr numbers panes per workspace with a
 monotonic counter, encoded in bijective base 32 over `123456789ABCDEFGHJKMNPQRSTVWXYZ0`
 (`w2:p3` < `w2:p9` < `w2:pA` < `w2:pG` < `w2:p11`), and the lowest number wins. Ids
@@ -30,13 +34,20 @@ one leading known glyph (and its space, including the legacy `·` and `●`)
 from the current label and the remembered one before comparing, so previously
 set labels stay recognised and an old `· name` is renamed to `name`.
 
-Pane count: a tab with more than one pane gets a space and N in superscript digits (`⁰¹²³⁴⁵⁶⁷⁸⁹`) appended, N being the
+Pane count: a tab with more than one pane gets ` · N` (space, middle dot, space, plain number) appended, N being the
 tab's `pane_count` (fallback: the snapshot panes with that `tab_id`). The label
-format is `[<glyph> ]<name>[ <N>]`, e.g. `◐ api-refactor ³`, `.dotfiles ²`, `build ¹²`. The
+format is `[<glyph> ]<name>[ · <N>]`, e.g. `◐ api-refactor · 3`, `.dotfiles · 2`, `build · 12`. The
 name is truncated before the glyph and suffix are added, so the suffix always
 survives. A count change alone renames the tab. The guard also strips a
-trailing ` <superscript digits>` or legacy ` ⊞<digits>` (with the leading glyph) before comparing, so older
+trailing ` · <digits>` or the legacy ` <superscript digits>` / ` ⊞<digits>` (with the leading glyph) before comparing, so older
 labels without a suffix are still recognised.
+
+Zoom marker: herdr's tab bar appends ` Z` to a zoomed tab's label (0.9.1
+`tab_label`), which would otherwise read `name · 2 Z`. While the tab's layout is
+zoomed the plugin ends the label with ` ·` (after the count suffix, if any), so
+the bar shows `◐ name · 2 · Z` or `name · Z`. Pane labels never get it. The
+guard also strips this trailing ` ·` (alone or after ` · N`), so zoom toggles
+are recognised as ours; a name ending in `·` without the leading space is kept.
 
 Manual-rename guard: the plugin remembers the last label it set per tab (in
 `$HERDR_PLUGIN_STATE_DIR/labels-<session hash>.json`, keyed by a hash of
@@ -45,11 +56,51 @@ renames a tab whose current label is empty, `shell`, herdr's default (the tab's
 1-based position in its workspace, e.g. `3` for the third tab; herdr renumbers
 it as tabs close and the API has no default/custom flag), the pane's agent name
 (e.g. `claude`), or the label it set last (ignoring its leading glyph and trailing count suffix). Anything else is treated as manual
-and left alone. Workspace labels are never touched.
+and left alone. Workspace labels are never touched (see Workspace tab count).
 
 herdr does report `terminal_title` for plain shell panes (checked live), so the
 shell hooks matter: zsh sets the title to the cwd basename at the prompt and to
 the command name (no arguments) while it runs.
+
+## Pane labels
+
+Every pane with an agent (`agent` set, e.g. `claude`) also gets a pane label,
+shown on its border by herdr 0.9.1 (borders exist only when a tab has more than
+one pane). The label is the cleaned terminal title (`clean_title`, truncated to
+40 chars) prefixed with the pane's own `agent_status` glyph like tab labels
+(`◐ ` working, `× ` blocked, `✓ ` done, `○ ` idle, none for unknown/missing; no
+count suffix), set with `herdr pane rename <pane_id> <label>`.
+Empty cleaned title: nothing is done. Panes without an agent are untouched.
+herdr's snapshot exposes a set label as pane field `label` (absent when unset);
+`herdr pane rename <pane_id> --clear` removes it (the plugin never clears).
+Same guard as tabs: a label is replaced only if empty, equal to the agent name,
+or equal to the one the plugin set last (`labels-<session hash>-panes.json`,
+pane id to label, pruned to live panes, written only on change). Renames happen
+only on change, via the same events and 3 s watcher as tabs.
+
+## Workspace tab count
+
+The workspace (Space) sidebar row shows herdr's native `workspace` name plus a
+tab count when it has more than one tab (e.g. `.dotfiles · 3`).
+herdr joins row tokens with ` · `, so that separator is fixed. The count uses
+herdr's native display-only workspace metadata, not the label: each sync reports
+token `tabs` per workspace via `herdr workspace report-metadata <workspace_id>
+--source tab-names --token tabs=<count>` (id first: herdr's CLI misparses a
+trailing positional), or `--clear-token tabs` when the count drops to 1. Nothing
+renames the workspace. Reports are made only on change (so a tab count change is
+picked up by the 3 s watcher), remembered in
+`labels-<session hash>-tabs.json` (with the herdr socket's mtime as a server
+epoch, since herdr keeps metadata in memory and a restart forgets it). The first
+pass per workspace per epoch also clears the old combined `title` token.
+
+Display needs a Space row template referencing `$tabs`, in
+`~/.config/herdr/config.toml` (herdr docs, "Sidebar row layouts"):
+
+    [ui.sidebar.spaces]
+    rows = [["state_icon", "workspace", "$tabs"], ["branch", "git_status"]]
+
+Apply with `herdr server reload-config`. Machines without the plugin (remote
+herdr servers) just show the name with no count.
 
 ## How it stays fresh
 

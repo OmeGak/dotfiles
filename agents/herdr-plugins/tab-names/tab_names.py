@@ -111,23 +111,25 @@ def strip_glyph(label):
     return label
 
 
-SUPERSCRIPT = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
-# new ` ²` style and legacy ` ⊞2` style
-COUNT_SUFFIX = re.compile(r" (?:[⁰¹²³⁴⁵⁶⁷⁸⁹]+|⊞\d+)$")
+# current ` · 2` style plus legacy ` ²` (superscript) and ` ⊞2` styles
+# plus the trailing ` ·` zoom marker (herdr appends ` Z` to a zoomed tab's label), alone or after the count
+COUNT_SUFFIX = re.compile(r"(?: (?:· \d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+|⊞\d+)(?: ·)?| ·)$")
 
 
 def strip_label(label):
-    """Drop the plugin's decorations: one leading status glyph and a trailing pane-count suffix (superscript, or legacy ` ⊞N`)."""
+    """Drop the plugin's decorations: one leading status glyph and a trailing pane-count suffix (` · N`, or legacy superscript / ` ⊞N`) and/or zoom marker (` ·`)."""
     return COUNT_SUFFIX.sub("", strip_glyph(label or ""))
 
 
-def build_label(name, glyph, pane_count):
-    """`[<glyph> ]<name>[ <superscript N>]`; the name is truncated first so the suffix survives."""
+def build_label(name, glyph, pane_count, zoomed=False):
+    """`[<glyph> ]<name>[ · N][ ·]` (trailing ` ·` when zoomed, so herdr shows `· Z`); the name is truncated first so the suffix survives."""
     label = truncate(name)
     if glyph:
         label = f"{glyph} {label}"
     if pane_count > 1:
-        label += " " + str(pane_count).translate(SUPERSCRIPT)
+        label += f" · {pane_count}"
+    if zoomed:
+        label += " ·"
     return label
 
 
@@ -144,8 +146,22 @@ def is_replaceable(current, pane, last_set, position=None):
     return last_set is not None and strip_label(c) == strip_label(last_set)
 
 
+def zoomed_pane(layout, panes):
+    """The tab's zoomed pane, or None.
+
+    While a layout is zoomed, its `focused_pane_id` is the zoomed pane (herdr
+    0.9.1 `apply_pane_zoom` focuses the target before zooming). Must be one of
+    the tab's own panes, else None.
+    """
+    if not layout or not layout.get("zoomed"):
+        return None
+    fid = layout.get("focused_pane_id")
+    return next((p for p in panes if p.get("pane_id") == fid), None) if fid else None
+
+
 def plan(snapshot, state, home):
     """Return list of (tab_id, current, new) renames."""
+    layouts = {l.get("tab_id"): l for l in snapshot.get("layouts") or []}
     by_tab = {}
     for p in snapshot.get("panes", []):
         by_tab.setdefault(p.get("tab_id"), []).append(p)
@@ -154,7 +170,8 @@ def plan(snapshot, state, home):
     for t in snapshot.get("tabs", []):
         ws = t.get("workspace_id")
         seen[ws] = position = seen.get(ws, 0) + 1
-        pane = pick_pane(by_tab.get(t["tab_id"], []))
+        tab_panes = by_tab.get(t["tab_id"], [])
+        pane = zoomed_pane(layouts.get(t["tab_id"]), tab_panes) or pick_pane(tab_panes)
         if not pane:
             continue
         name = compute_label(pane, home)
@@ -162,12 +179,76 @@ def plan(snapshot, state, home):
         if not name:
             continue
         count = t.get("pane_count") or len(by_tab.get(t["tab_id"], []))
-        new = build_label(name, status_glyph(t.get("agent_status")), count)
+        zoomed = bool((layouts.get(t["tab_id"]) or {}).get("zoomed"))
+        new = build_label(name, status_glyph(t.get("agent_status")), count, zoomed)
         if new == cur:
             continue
         if is_replaceable(cur, pane, state.get(t["tab_id"]), position):
             out.append((t["tab_id"], cur, new))
     return out
+
+
+def plan_panes(snapshot, state):
+    """Return list of (pane_id, current, new) pane-label renames.
+
+    Only panes with an agent: label = `[<glyph> ]<cleaned title>` (the pane's
+    own agent_status glyph, no count). No usable title: untouched. Manual
+    labels are left alone.
+    """
+    out = []
+    for p in snapshot.get("panes", []):
+        if not p.get("agent"):
+            continue
+        name = truncate(clean_title(p.get("terminal_title_stripped") or p.get("terminal_title")))
+        if not name:
+            continue
+        new = build_label(name, status_glyph(p.get("agent_status")), 1)
+        cur = p.get("label", "")  # absent from the snapshot when unset
+        if new == cur:
+            continue
+        if is_replaceable(cur, p, state.get(p["pane_id"])):
+            out.append((p["pane_id"], cur, new))
+    return out
+
+
+TABS_TOKEN = "tabs"
+LEGACY_TOKEN = "title"  # old combined name+count token, cleared once per workspace per server epoch
+TABS_SOURCE = "tab-names"
+
+
+def tabs_value(tab_count):
+    """Workspace `$tabs` token: plain tab count when N > 1, else "" (no token)."""
+    if tab_count and tab_count > 1:
+        return str(tab_count)
+    return ""
+
+
+def plan_tabs(snapshot, reported):
+    """Return list of (workspace_id, value) `tabs` reports to make; "" means clear.
+
+    `reported` maps workspace_id -> value last reported (absent = nothing set).
+    Only changes are returned; herdr keeps the metadata itself.
+    """
+    out = []
+    for w in snapshot.get("workspaces", []):
+        wid = w.get("workspace_id")
+        if not wid:
+            continue
+        want = tabs_value(w.get("tab_count"))
+        if want != reported.get(wid, ""):
+            out.append((wid, want))
+    return out
+
+
+def server_epoch(sock=None):
+    """Changes when the herdr server restarts (its socket is recreated); herdr
+    keeps metadata in memory only, so a restart invalidates what we reported."""
+    if sock is None:
+        sock = os.environ.get("HERDR_SOCKET_PATH", "")
+    try:
+        return os.stat(sock).st_mtime_ns
+    except OSError:
+        return 0
 
 
 def session_key(sock=None):
@@ -205,8 +286,41 @@ def save_state(path, state):
     os.replace(tmp, path)
 
 
+def sync_tabs(tabs_path, snap, dry_run=False):
+    """Report the `tabs` workspace metadata token where the tab count changed."""
+    epoch = server_epoch()
+    st = load_state(tabs_path)
+    fresh = st.get("epoch") == epoch
+    reported = st.get("values", {}) if fresh else {}
+    cleared = set(st.get("cleared", [])) if fresh else set()
+    changes = plan_tabs(snap, reported)
+    live = {w.get("workspace_id") for w in snap.get("workspaces", []) if w.get("workspace_id")}
+    values = {k: v for k, v in reported.items() if k in live}
+    # herdr's CLI wants the workspace id first (a trailing positional is misparsed)
+    base = lambda wid: ["workspace", "report-metadata", wid, "--source", TABS_SOURCE]
+    if not dry_run:
+        for wid in sorted(live - cleared):  # once per epoch: drop the old `title` token
+            if run_herdr(*base(wid), "--clear-token", LEGACY_TOKEN).returncode == 0:
+                cleared.add(wid)
+    for wid, value in changes:
+        if dry_run:
+            print(f"{wid}: tabs -> {value!r}")
+            continue
+        arg = ["--token", f"{TABS_TOKEN}={value}"] if value else ["--clear-token", TABS_TOKEN]
+        if run_herdr(*base(wid), *arg).returncode == 0:
+            if value:
+                values[wid] = value
+            else:
+                values.pop(wid, None)
+    new = {"epoch": epoch, "values": values, "cleared": sorted(cleared & live)}
+    if not dry_run and new != st:
+        save_state(tabs_path, new)  # only on change: the poll runs every 3 s
+    return changes
+
+
 def sync_once(state_path, dry_run=False, snapshot=None):
     snap = snapshot or get_snapshot()
+    sync_tabs(os.path.splitext(state_path)[0] + "-tabs.json", snap, dry_run)
     state = load_state(state_path)
     renames = plan(snap, state, os.path.expanduser("~"))
     live = {t["tab_id"] for t in snap.get("tabs", [])}
@@ -220,6 +334,24 @@ def sync_once(state_path, dry_run=False, snapshot=None):
     pruned = {k: v for k, v in state.items() if k in live}
     if not dry_run and len(pruned) != len(state):
         save_state(state_path, pruned)  # prune only on change: the poll runs every 3 s
+    sync_panes(os.path.splitext(state_path)[0] + "-panes.json", snap, dry_run)
+    return renames
+
+
+def sync_panes(path, snap, dry_run=False):
+    """Set agent panes' labels to their cleaned title (herdr `pane rename`)."""
+    state = load_state(path)
+    renames = plan_panes(snap, state)
+    for pane_id, cur, new in renames:
+        if dry_run:
+            print(f"{pane_id}: pane label {cur!r} -> {new!r}")
+        elif run_herdr("pane", "rename", pane_id, new).returncode == 0:
+            state[pane_id] = new
+            save_state(path, state)  # record now: a crash must not look manual
+    live = {p["pane_id"] for p in snap.get("panes", [])}
+    pruned = {k: v for k, v in state.items() if k in live}
+    if not dry_run and len(pruned) != len(state):
+        save_state(path, pruned)
     return renames
 
 
