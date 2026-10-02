@@ -11,3 +11,9 @@
 	path = agents/dotagents
 	url = https://github.com/OmeGak/dotagents.git
 	ignore = dirty
+[submodule "macos/spicetify.csymlink/vendor/spicetify-extensions"]
+	path = macos/spicetify.csymlink/vendor/spicetify-extensions
+	url = https://github.com/Konsl/spicetify-extensions.git
+[submodule "macos/spicetify.csymlink/vendor/spicetify-seekSongKeybinds"]
+	path = macos/spicetify.csymlink/vendor/spicetify-seekSongKeybinds
+	url = https://github.com/tlozs/spicetify-seekSongKeybinds.git

@@ -1,0 +1,1 @@
+../vendor/spicetify-extensions/playback-bar-waveform/dist/playback-bar-waveform.js

@@ -31,7 +31,27 @@ install_rectangle_prefs() {
   fi
 }
 
+install_spicetify() {
+  try pinstall brew spicetify-cli
+
+  # Patching needs Spotify installed and launched once; a later run catches up.
+  if [[ ! -d /Applications/Spotify.app ]]; then
+    pprint info-warn "Skipping Spicetify apply: Spotify is not installed"
+    return
+  fi
+  pprint info-go "Applying Spicetify"
+  if [[ -f /Applications/Spotify.app/Contents/Resources/Apps/xpui.spa ]]; then
+    # Unpatched Spotify: the tracked [Backup] section describes another
+    # install, and Spicetify won't back up while it claims a backup exists.
+    sed -i '' -E 's/^(version|with)( *)=.*/\1\2= /' "$HOME/.config/spicetify/config-xpui.ini"
+    spicetify backup apply
+  else
+    spicetify apply
+  fi
+}
+
 install_keyboard_layout
 install_rectangle_prefs
+install_spicetify
 
 exit 0

@@ -24,6 +24,13 @@ gpg/gnupg.symlink/*
 !gpg/gnupg.symlink/gpg.conf
 !gpg/gnupg.symlink/gpg-agent.conf
 
+# macos: track Spicetify config, extensions and their submodules only
+macos/spicetify.csymlink/*
+!macos/spicetify.csymlink/config-xpui.ini
+!macos/spicetify.csymlink/Extensions/
+!macos/spicetify.csymlink/vendor/
+macos/spicetify.csymlink/Extensions/.DS_Store
+
 # nix: track config only
 nix/nix.csymlink/*
 !nix/nix.csymlink/nix.conf

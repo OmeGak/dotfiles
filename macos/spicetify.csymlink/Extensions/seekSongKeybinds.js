@@ -1,0 +1,1 @@
+../vendor/spicetify-seekSongKeybinds/seekSongKeybinds.js
