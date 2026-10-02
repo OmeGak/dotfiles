@@ -11,6 +11,7 @@ try pinstall brew herdr
 try herdr plugin link "$DOT/agents/herdr-plugins/tab-names" >/dev/null
 try pinstall brew rtk
 
-try pinstall npm ccstatusline
+# Link the shared Claude setup (skills, rules, output styles, subagents) from the dotagents submodule.
+try "$DOT/agents/dotagents/dotagents" install laptop
 
 exit $TRY_CODE

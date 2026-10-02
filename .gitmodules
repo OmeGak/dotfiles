@@ -7,3 +7,7 @@
 [submodule "brew/tap"]
 	path = brew/tap
 	url = git@github.com:OmeGak/brewery.git
+[submodule "agents/dotagents"]
+	path = agents/dotagents
+	url = https://github.com/OmeGak/dotagents.git
+	ignore = dirty
