@@ -10,7 +10,11 @@ local function check()
   local out = hs.audiodevice.defaultOutputDevice()
   if not mic or not out then return end
   if mic:inUse() and not saved then
-    saved = out:outputVolume()
+    -- nil when the device has no software volume, or mid-switch (Bluetooth
+    -- headsets change profile when their mic starts); the timer retries.
+    local vol = out:outputVolume()
+    if not vol then return end
+    saved = vol
     savedUID = out:uid()
     out:setOutputVolume(math.min(DUCK, saved))  -- never make it louder
   elseif not mic:inUse() and saved then
