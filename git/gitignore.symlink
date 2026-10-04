@@ -12,3 +12,6 @@
 # from: stack
 *.cabal
 .stack-work/
+
+# from: claude code
+**/.claude/settings.local.json
