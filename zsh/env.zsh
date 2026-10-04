@@ -1,18 +1,18 @@
 # -- Configure TERM info -------------------------------------------------------
 
-TERMINFO_DIR="/usr/share/terminfo"
-[[ "$OS" == "Linux" ]] && TERMINFO_DIR="/lib/terminfo"
+# Inside tmux, TERM is tmux's default-terminal: left as it is.
+if [[ -z $TMUX ]]; then
+  TERMINFO_DIR="/usr/share/terminfo"
+  [[ "$OS" == "Linux" ]] && TERMINFO_DIR="/lib/terminfo"
 
-# Always use screen on tmux
-[[ -z $TMUX ]] && TERM_TYPE='xterm' || TERM_TYPE='screen'
+  # Apply 256 only if available
+  if [ ! -z $TERMINFO_DIR/**/xterm-256color(N) ]; then
+    TERM_COLOR='-256color'
+  fi
 
-# Apply 256 only if available
-if [ ! -z $TERMINFO_DIR/**/$TERM_TYPE-256color(N) ]; then
-  TERM_COLOR='-256color'
+  export TERM="xterm${TERM_COLOR}"
+  unset TERMINFO_DIR TERM_COLOR
 fi
-
-export TERM="${TERM_TYPE}${TERM_COLOR}"
-unset TERMINFO_DIR TERM_TYPE TERM_COLOR
 
 
 # -- Configure FZF -------------------------------------------------------------

@@ -13,6 +13,10 @@ set -g visual-activity off
 set -g bell-action any
 set -g visual-bell on
 
+# Not screen- or tmux-256color: macOS's ncurses draws standout as italics
+# under those, which drops tig's word-diff highlight.
+set -g default-terminal "xterm-256color"
+
 # Style
 # -----
     TMUX_BORDER_FG="white"
