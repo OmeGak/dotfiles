@@ -2,6 +2,11 @@ if (( $+commands[pass] )); then
   alias passc="pass -c"
 fi
 
+# The Spotify app's credentials stay in pass: spotdl.config.json is public.
+if (( $+commands[spotdl] )); then
+  alias spotdl='command spotdl --client-id "$(pass show tokens/spotify/client-id)" --client-secret "$(pass show tokens/spotify/client-secret)"'
+fi
+
 if (( $+commands[xkcdpass] )); then
   alias xkcdpass="xkcdpass --interactive --numwords=4 --valid-chars='[a-z]' --max=8 --delimiter='-'"
 fi
