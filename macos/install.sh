@@ -50,8 +50,17 @@ install_spicetify() {
   fi
 }
 
+# apps.txt holds the App Store apps a fresh Mac gets, one `<id>  <name>` per
+# line: a chosen few, not everything installed. `mas list` shows the ids.
+# mas skips apps already installed, and needs root to install.
+install_app_store_apps() {
+  pprint info-go "Installing App Store apps"
+  awk '{print $1}' "$DOT/macos/apps.txt" | xargs sudo mas install
+}
+
 install_keyboard_layout
 install_rectangle_prefs
+install_app_store_apps
 install_spicetify
 
 exit 0
