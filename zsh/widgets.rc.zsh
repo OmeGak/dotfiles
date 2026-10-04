@@ -24,15 +24,15 @@ zle -N show-buffers
 # -- Movement -----------------------------------------------------------------
 
 backward-word-end() {
-  [[ $RBUFFER[1] == ' ' ]] && zle backward-char
-  zle vi-backward-blank-word-end
-  [[ $#LBUFFER != 0 ]] && zle forward-char
+  [[ $RBUFFER[1] == ' ' ]] && zle .backward-char
+  zle .vi-backward-blank-word-end
+  [[ $#LBUFFER != 0 ]] && zle .forward-char
 }
 zle -N backward-word-end
 
 forward-word-end() {
-  zle vi-forward-blank-word-end
-  zle forward-char
+  zle .vi-forward-blank-word-end
+  zle .forward-char
 }
 zle -N forward-word-end
 
