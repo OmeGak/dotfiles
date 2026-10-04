@@ -186,7 +186,16 @@
     },
     {
         "key": "cmd+\\",
-        "command": "workbench.action.toggleActivityBarVisibility"
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.toggleActivityBarVisibility",
+                "toggle.window.commandCenter",
+                "toggle.workbench.navigationControl.enabled",
+                "toggle.workbench.experimental.share.enabled",
+                "toggle.workbench.layoutControl.enabled"
+            ]
+        }
     },
     {
         "key": "cmd+\\",
