@@ -42,6 +42,12 @@ type = "shell"
 description = "split down running claude"
 command = 'p=$("$HERDR_BIN_PATH" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction down --focus | jq -r .result.pane.pane_id) && "$HERDR_BIN_PATH" pane run "$p" claude'
 
+[[keys.command]]
+key = "ctrl+alt+t"
+type = "shell"
+description = "new tab running claude"
+command = 'p=$("$HERDR_BIN_PATH" tab create --focus | jq -r .result.root_pane.pane_id) && "$HERDR_BIN_PATH" pane run "$p" claude'
+
 [ui]
 pane_borders = "always"
 sidebar_width = 30
