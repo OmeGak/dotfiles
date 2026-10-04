@@ -37,6 +37,9 @@ style = "black bold"
 style = "blue yellow"
 format = "[\\[$symbol\\]]($style) "
 
+[kubernetes]
+disabled = true
+
 [nodejs]
 style = "bold green dimmed"
 
