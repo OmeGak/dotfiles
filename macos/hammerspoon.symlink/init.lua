@@ -5,9 +5,14 @@ require("hs.ipc")  -- enables the `hs` CLI for debugging
 -- low-quality, quieter audio with its own volume); undo that, but keep a mic
 -- the user picks by hand. The audio events don't say which mic was replaced,
 -- so remember it, and when each mic appeared.
+-- A multipoint headset moving to or from a phone call stays connected, so
+-- nothing arrives; but macOS reroutes the system output in the same instant
+-- as the input, which a hand-picked mic doesn't do.
 local ARRIVAL_GRACE = 5  -- seconds after connecting that a switch counts as macOS's
+local REROUTE_GRACE = 2  -- seconds after a system output change, likewise
 local knownMics = {}     -- UID -> time the mic appeared
 local chosenMic = nil    -- UID of the default input the user wants
+local lastReroute = 0    -- time the system output last changed
 
 local function noteArrivals()
   local now = hs.timer.secondsSinceEpoch()
@@ -22,9 +27,11 @@ local function keepChosenMic()
   noteArrivals()
   local mic = hs.audiodevice.defaultInputDevice()
   if not mic then return end
-  local justArrived = hs.timer.secondsSinceEpoch() - knownMics[mic:uid()] < ARRIVAL_GRACE
+  local now = hs.timer.secondsSinceEpoch()
+  local byMacOS = now - knownMics[mic:uid()] < ARRIVAL_GRACE
+    or now - lastReroute < REROUTE_GRACE
   local previous = chosenMic and hs.audiodevice.findDeviceByUID(chosenMic)
-  if justArrived and previous and chosenMic ~= mic:uid() then
+  if byMacOS and previous and chosenMic ~= mic:uid() then
     previous:setDefaultInputDevice()
   else
     chosenMic = mic:uid()
@@ -74,12 +81,18 @@ function bindMic()
 end
 
 -- System-level watcher: default device changed (AirPods/USB mic connect etc.).
+-- The input and system output changes of a reroute arrive in either order,
+-- so act once they've settled.
+local settle = hs.timer.delayed.new(0.5, function()
+  keepChosenMic()
+  bindMic()
+  check()
+end)
 hs.audiodevice.watcher.setCallback(function(event)
   if event == "dev#" then noteArrivals() end  -- devices added or removed
-  if event == "dIn " or event == "dOut" then  -- note trailing space in "dIn "
-    keepChosenMic()
-    bindMic()
-    check()
+  if event == "sOut" then lastReroute = hs.timer.secondsSinceEpoch() end
+  if event == "dIn " or event == "dOut" or event == "sOut" then  -- note trailing space in "dIn "
+    settle:start()
   end
 end)
 hs.audiodevice.watcher.start()
