@@ -245,6 +245,8 @@ defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -stri
 # Delete the one you don't want by passing the index in the 0-indexed array printed with the previous command
 # /usr/libexec/PlistBuddy -c "Delete AppleEnabledInputSources:<index>" ~/Library/Preferences/com.apple.HIToolbox.plist
 
+# Disable emoji suggestions
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist emoji_enhancements -dict-add Enabled -bool NO
 
 # -----------------------------------------------------------------------------
 # Dock, Dashboard, and spaces
