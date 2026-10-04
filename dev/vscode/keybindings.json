@@ -1257,5 +1257,10 @@
     {
         "key": "ctrl+shift+cmd+\\",
         "command": "workbench.action.toggleMaximizedAuxiliaryBar"
+    },
+    {
+        "key": "alt+cmd+k",
+        "command": "-claude-code.insertAtMentioned",
+        "when": "editorTextFocus"
     }
 ]
