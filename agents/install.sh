@@ -8,7 +8,7 @@ try pinstall brew copilot-cli
 try pinstall brew handy
 try pinstall brew herdr
 # Re-link on every run: herdr stores a copy of the manifest, so a re-link is how manifest changes take effect (idempotent).
-try herdr plugin link "$DOT/agents/herdr-plugins/tab-names" >/dev/null
+try herdr plugin link "$DOT/agents/dotagents/herdr/plugins/tab-names" >/dev/null
 try pinstall brew rtk
 
 # Link the shared Claude setup (skills, rules, output styles, subagents) from the dotagents submodule.
