@@ -11,7 +11,6 @@ try pinstall brew herdr
 for plugin in "$DOT"/agents/dotagents/herdr/plugins/*/; do
   try herdr plugin link "${plugin%/}" >/dev/null
 done
-try pinstall brew rtk
 
 # Link the shared Claude setup (skills, rules, output styles, subagents) from the dotagents submodule.
 try "$DOT/agents/dotagents/dotagents" install laptop
