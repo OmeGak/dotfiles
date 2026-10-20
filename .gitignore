@@ -1,3 +1,6 @@
+# claude code: everything there is local to this machine
+.claude/
+
 # agents: track herdr config only
 agents/herdr.csymlink/*
 !agents/herdr.csymlink/config.toml
