@@ -25,3 +25,24 @@
     }
   };
 })();
+
+// Spotify 1.3.6 dropped the classes playback-bar-waveform.js finds the
+// playback bar by (".main-nowPlayingBar-center .playback-bar"), and
+// Spicetify 2.46.2 doesn't map them back. Put them back on the player
+// controls and the progress bar's row, again whenever Spotify re-renders
+// them.
+(function tagPlaybackBar() {
+  if (!document.body) return setTimeout(tagPlaybackBar, 100);
+
+  const tag = () => {
+    if (document.querySelector(".main-nowPlayingBar-center .playback-bar")) return;
+    const controls = document.querySelector("[data-testid='now-playing-bar'] [data-testid='player-controls']");
+    const row = controls?.querySelector(":scope > :has([data-testid='playback-progressbar'])");
+    if (!row) return;
+    controls.classList.add("main-nowPlayingBar-center");
+    row.classList.add("playback-bar");
+  };
+
+  new MutationObserver(tag).observe(document.body, { childList: true, subtree: true });
+  tag();
+})();
