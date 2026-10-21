@@ -2558,6 +2558,7 @@
             "chat.slashCommandForeground": "#F44336",
             "editor.findMatchBackground": "#000000",
             "editor.findMatchHighlightBackground": "#00000050",
+            "editor.findMatchHighlightBorder": "#FFFFFF30",
             "editor.foreground": "#EEFFFF",
             "editor.inactiveSelectionBackground": "#61616130",
             "editor.selectionBackground": "#61616150",
