@@ -48,7 +48,7 @@ install_spicetify() {
   fi
   pprint info-go "Applying Spicetify"
   if [[ -f /Applications/Spotify.app/Contents/Resources/Apps/xpui.spa ]]; then
-    # Unpatched Spotify: the tracked [Backup] section describes another
+    # Unpatched Spotify: a [Backup] section left on disk describes another
     # install, and Spicetify won't back up while it claims a backup exists.
     sed -i '' -E 's/^(version|with)( *)=.*/\1\2= /' "$HOME/.config/spicetify/config-xpui.ini"
     spicetify backup apply

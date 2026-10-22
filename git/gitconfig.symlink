@@ -149,6 +149,14 @@
 	required = true
 
 
+# -- Spicetify -----------------------------------------------------------------
+
+# Spicetify records this Mac's Spotify build in config-xpui.ini's [Backup]
+# section: commit it blank, keep it on disk.
+[filter "spicetify-backup"]
+	clean = "sed -E 's/^(version|with)( *)=.*/\\1\\2= /'"
+
+
 # -- Other tools ---------------------------------------------------------------
 
 [hub]
