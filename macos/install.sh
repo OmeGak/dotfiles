@@ -9,6 +9,11 @@ fi
 
 try pinstall brew mas
 
+# FUSE-T gives sshfs a FUSE layer without a kernel extension:
+# Homebrew's own sshfs needs libfuse, which only Linux has.
+try pinstall brew fuse-t
+try pinstall brew fuse-t-sshfs
+
 install_keyboard_layout() {
   local source_bundle="$DOT/macos/US-ES-Keyboard/US-ES-International.bundle"
   local target_bundle_local="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
