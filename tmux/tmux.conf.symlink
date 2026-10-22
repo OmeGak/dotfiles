@@ -16,6 +16,9 @@ set -g visual-bell on
 # Not screen- or tmux-256color: macOS's ncurses draws standout as italics
 # under those, which drops tig's word-diff highlight.
 set -g default-terminal "xterm-256color"
+# The outer terminal does 24-bit color; without RGB tmux downsamples it
+# to 256, which shifts truecolor themes.
+set -as terminal-features ',xterm*:RGB'
 
 # Style
 # -----
