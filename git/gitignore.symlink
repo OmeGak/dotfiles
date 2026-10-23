@@ -14,5 +14,6 @@
 .stack-work/
 
 # from: claude code
+**/.claude/worktrees/
 **/.claude/settings.local.json
 **/.claude/lifecycle.toml
