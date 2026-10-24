@@ -9,7 +9,7 @@ try pinstall brew handy
 try pinstall brew herdr
 try pinstall brew peonping/tap/peon-ping
 # peon-ping's banners: its overlay style hangs on macOS 15
-try pinstall brew terminal-notifier
+try pinstall brew omegak/brewery/terminal-notifier-agentbox
 
 # Link herdr plugins on every run: herdr keeps a copy of each manifest
 pprint info-go "Linking herdr plugins"
