@@ -2,24 +2,32 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
-try pinstall brew claude
+try pinstall brew claude-code@latest
 try pinstall brew codex
 try pinstall brew copilot-cli
 try pinstall brew handy
 try pinstall brew herdr
-# Re-link every plugin on every run: herdr stores a copy of the manifest, so a re-link is how manifest changes take effect (idempotent).
+try pinstall brew peonping/tap/peon-ping
+# peon-ping's banners: its overlay style hangs on macOS 15
+try pinstall brew terminal-notifier
+
+# Link herdr plugins on every run: herdr keeps a copy of each manifest
+pprint info-go "Linking herdr plugins"
+logfile="/tmp/herdr-plugins.$DOT_TOPIC_LOGFILE_SUFFIX"
+: > "${logfile}"
 for plugin in "$DOT"/agents/dotagents/herdr/plugins/*/; do
-  try herdr plugin link "${plugin%/}" >/dev/null
+  if ! herdr plugin link "${plugin%/}" >> "${logfile}" 2>&1; then
+    pprint info-error "Failed to link $(basename "${plugin}")"
+    TRY_CODE=1
+  fi
 done
 
-# Link the shared Claude setup (skills, rules, output styles, subagents) from the dotagents submodule.
-try "$DOT/agents/dotagents/dotagents" install laptop
-
-# peon-ping: dotagents' hook runs Homebrew's peon on ~/.openpeon, which
-# links to openpeon.symlink here (config and sound pack), so neither
-# peon-ping-setup nor its downloads are needed.
-try pinstall brew peonping/tap/peon-ping
-# Notification Center notifications: the overlay style hangs on macOS 15.
-try pinstall brew terminal-notifier
+# Link the shared Claude setup (skills, rules, settings) from dotagents
+sudoplz -r "For Claude Code's managed settings"
+pprint info-go "Installing dotagents"
+if ! "$DOT/agents/dotagents/dotagents" install laptop > "/tmp/dotagents.$DOT_TOPIC_LOGFILE_SUFFIX" 2>&1; then
+  pprint info-error "Failed to install dotagents"
+  TRY_CODE=1
+fi
 
 exit $TRY_CODE
