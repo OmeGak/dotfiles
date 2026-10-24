@@ -11,7 +11,6 @@ cmds=(
   as
   ant
   blkid
-  cc
   configure
   curl
   cvs
