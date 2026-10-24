@@ -5,6 +5,13 @@
 agents/herdr.csymlink/*
 !agents/herdr.csymlink/config.toml
 
+# agents: track peon-ping's config and its one sound pack only
+agents/openpeon.symlink/*
+!agents/openpeon.symlink/config.json
+!agents/openpeon.symlink/packs/
+agents/openpeon.symlink/packs/*
+!agents/openpeon.symlink/packs/cute-minimal/
+
 # dev: sync only VSCode settings
 dev/vscode/*
 !dev/vscode/snippets/

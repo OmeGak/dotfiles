@@ -1,0 +1,85 @@
+{
+  "cesp_version": "1.0",
+  "name": "cute-minimal",
+  "display_name": "Cute UI",
+  "version": "1.0.0",
+  "description": "Simple, cute UI/UX interface sounds \u2014 light and playful coding event feedback",
+  "author": {
+    "name": "Mark Chitty",
+    "github": "TechPdM"
+  },
+  "license": "MIT",
+  "language": "en",
+  "tags": [
+    "ui",
+    "cute",
+    "simple",
+    "playful",
+    "minimal"
+  ],
+  "categories": {
+    "session.start": {
+      "sounds": [
+        {
+          "file": "sounds/pause-sound.wav",
+          "label": "Pause",
+          "sha256": "5ab48a19a17293b3b99117fe12e4b3c2152f3c1671638a6617da24f0f518d17c"
+        }
+      ]
+    },
+    "task.complete": {
+      "sounds": [
+        {
+          "file": "sounds/cancel-sound.wav",
+          "label": "Cancel",
+          "sha256": "78719b70a23a56b2e0cedcbed0756a78da68c683782b8e4769250206a2a0d23f"
+        }
+      ]
+    },
+    "task.error": {
+      "sounds": [
+        {
+          "file": "sounds/cancel-sound-low.wav",
+          "label": "Cancel (low)",
+          "sha256": "21f6497ea1bb97b92026fda41496f27c21f56d0c4ca83cca0756e6b45d478f14"
+        }
+      ]
+    },
+    "input.required": {
+      "sounds": [
+        {
+          "file": "sounds/hover-sound.wav",
+          "label": "Hover",
+          "sha256": "ce7010f3999816aa0ce3cbd421e6992f801e1863f96e8dced567ca5c59c1b20e"
+        }
+      ]
+    },
+    "task.acknowledge": {
+      "sounds": [
+        {
+          "file": "sounds/confirm-sound.wav",
+          "label": "Confirm",
+          "sha256": "9e7390ce6eee72aef7325e0854f751c2c95ca116ccff04c525bc0c293acf217c"
+        }
+      ]
+    },
+    "resource.limit": {
+      "sounds": [
+        {
+          "file": "sounds/pause-sound-low.wav",
+          "label": "Pause (low)",
+          "sha256": "433dd20cc5d7a4f3b1b020e5c5426c08ddb4d55e5064de039ea8ea284bbeb1a7"
+        }
+      ]
+    },
+    "user.spam": {
+      "sounds": [
+        {
+          "file": "sounds/hover-sound-low.wav",
+          "label": "Hover (low)",
+          "sha256": "7051e7e77c5d136c7c9b144a39d945b44434d5742586a9b67d94ec435b72ebba"
+        }
+      ]
+    }
+  }
+}
