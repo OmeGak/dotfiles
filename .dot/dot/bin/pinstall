@@ -42,8 +42,13 @@ papt() {
   _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s" "${@:2}"
 }
 
+# brew installs casks too, but `brew ls --versions` only lists formulae
+_brew_ls() {
+  brew ls --versions "$1" || brew ls --cask --versions "$1"
+}
+
 pbrew() {
-  _pretty_install $1 "brew" "brew install" "brew ls --versions" "${@:2}"
+  _pretty_install $1 "brew" "brew install" "_brew_ls" "${@:2}"
 }
 
 pcask() {
