@@ -7,20 +7,19 @@ if command -v fd &> /dev/null; then
   find_emptydirs='fd --type=directory --type=empty --no-ignore'
   rm_pyc_files="${find_pyc_files} --exec rm"
   rm_pycache_dirs="${find_pycache_dirs} --exec rm -rf"
-  rm_emptydirs="${find_emptydirs} --exec rm -r"
 else
   find_pyc_files='find . -name "*.pyc" -type f -not -path "./.git/*"'
   find_pycache_dirs='find . -name "__pycache__" -type d -not -path "./.git/*"'
   find_emptydirs='find . -depth -type d -empty -not -path "./.git/*"'
   rm_pyc_files="${find_pyc_files} -delete"
   rm_pycache_dirs="${find_pycache_dirs} -exec rm -rf {} +"
-  rm_emptydirs="${find_emptydirs} -delete"
 fi
 
 clean() {
   local NUM_PYC_FILES
   local NUM_PYCACHE_DIRS
   local NUM_EMPTY_DIRS
+  local submodules dir
 
   # Change dir to root of project
   cd "./$(git rev-parse --show-cdup)" || return
@@ -39,10 +38,15 @@ clean() {
       printf "\e[00;31mDeleted %s __pycache__ directories\e[00m\n" "${NUM_PYCACHE_DIRS}"
   fi
 
-  # Delete empty directories
-  NUM_EMPTY_DIRS=$(eval "${find_emptydirs}" | wc -l | tr -d ' ')
+  # Delete empty directories, except submodules: one not checked out is an
+  # empty directory git tracks
+  submodules=$(git ls-files --stage | awk '$1 == 160000 { print $4 }')
+  NUM_EMPTY_DIRS=0
+  while IFS= read -r dir; do
+    rmdir "${dir}" && NUM_EMPTY_DIRS=$((NUM_EMPTY_DIRS + 1))
+  done < <(eval "${find_emptydirs}" | sed 's|^\./||; s|/$||' \
+             | grep -vxF -f <(printf '%s\n' "${submodules}"))
   if [[ ${NUM_EMPTY_DIRS} -gt 0 ]]; then
-      eval "${rm_emptydirs}"
       printf "\e[00;31mDeleted %s empty directories\e[00m\n" "${NUM_EMPTY_DIRS}"
   fi
 }
