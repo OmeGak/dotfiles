@@ -140,6 +140,13 @@
 	staaash = stash --all
 
 
+# -- hooks ---------------------------------------------------------------------
+
+[hook "lifecycle-gate"]
+	event = reference-transaction
+	command = /Users/ome/.dotfiles/agents/dotagents/lifecycle/lifecycle.sh gate
+
+
 # -- Git LFS -------------------------------------------------------------------
 
 [filter "lfs"]
