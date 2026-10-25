@@ -4,7 +4,7 @@
 # PATH). Plain bash, no runner: the exit code is the result.
 
 set -u
-prefix=$(cd "$(dirname "$0")/.." && pwd)/prefix
+prefix=$(cd "$(dirname "$0")/../.." && pwd)/brew/prefix
 fake=$(mktemp -d "${TMPDIR:-/tmp}/prefix-test.XXXXXX")
 failed=0
 

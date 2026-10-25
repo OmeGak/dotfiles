@@ -50,7 +50,7 @@ apps:
 
 .PHONY: test
 test:
-	for t in .dot/*/test/*; do "$$t" || exit 1; done
+	for t in .dot/test/*/*; do "$$t" || exit 1; done
 
 
 # -- Helpers ------------------------------------------------------------------
