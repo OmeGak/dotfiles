@@ -8,53 +8,28 @@ if [[ "$OS" != "Darwin" ]]; then
 fi
 
 try pinstall brew mas
-
 # FUSE-T gives sshfs a FUSE layer without a kernel extension:
 # Homebrew's own sshfs needs libfuse, which only Linux has.
 try pinstall brew fuse-t
 # The fuse-t-sshfs cask's sshfs drops newer FUSE-T options (noappledouble):
 # the tap's formula builds it against the installed FUSE-T instead.
 try pinstall brew omegak/brewery/sshfs-fuse-t
+try pinstall brew spicetify-cli
 
-install_keyboard_layout() {
-  local source_bundle="$DOT/macos/US-ES-Keyboard/US-ES-International.bundle"
-  local target_bundle_local="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
-
-  if [[ ! -d ${target_bundle_local} ]]; then
-    pprint info-go "Installing US-ES-Keyboard layout locally"
-    # XXX: Layouts need to be copied rather than symlinked, otherwise they may not work with some applications
-    cp "${source_bundle}" "${target_bundle_local}"
-  fi
-}
-
-install_spicetify() {
-  try pinstall brew spicetify-cli
-
-  # Patching needs Spotify installed and launched once; a later run catches up.
-  if [[ ! -d /Applications/Spotify.app ]]; then
-    pprint info-warn "Skipping Spicetify apply: Spotify is not installed"
-    return
-  fi
-  if [[ -f /Applications/Spotify.app/Contents/Resources/Apps/xpui.spa ]]; then
-    # Unpatched Spotify: a [Backup] section left on disk describes another
-    # install, and Spicetify won't back up while it claims a backup exists.
-    sed -i '' -E 's/^(version|with)( *)=.*/\1\2= /' "$HOME/.config/spicetify/config-xpui.ini"
-    try prun "Applying Spicetify" spicetify backup apply
-  else
-    try prun "Applying Spicetify" spicetify apply
-  fi
-}
+# Layouts are copied, not linked: some applications don't follow a link
+layout="$HOME/Library/Keyboard Layouts/US-ES-International.bundle"
+if [[ ! -d ${layout} ]]; then
+  pprint info-go "Installing the US-ES-Keyboard layout"
+  cp -R "$DOT/macos/US-ES-Keyboard/US-ES-International.bundle" "${layout}"
+fi
 
 # apps.txt holds the App Store apps a fresh Mac gets, one `<id>  <name>` per
 # line: a chosen few, not everything installed. `mas list` shows the ids.
-# mas skips apps already installed, and needs root to install.
-install_app_store_apps() {
-  # shellcheck disable=SC2046
-  try prun "Installing App Store apps" sudo mas install $(awk '{print $1}' "$DOT/macos/apps.txt")
-}
+# Only the missing ones are installed, and mas needs root for that.
+missing=$(awk '{print $1}' "$DOT/macos/apps.txt" | grep -vxFf <(mas list | awk '{print $1}'))
+if [[ ${missing} ]]; then
+  # shellcheck disable=SC2086
+  try prun "Installing App Store apps" sudo mas install ${missing}
+fi
 
-install_keyboard_layout
-install_app_store_apps
-install_spicetify
-
-exit 0
+exit $TRY_CODE
