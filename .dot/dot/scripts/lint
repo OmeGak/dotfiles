@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Lints the shell code: shellcheck over the bash (the core, the topic
+# installers, the tests), zsh -n over the zsh. Notes are left out.
+source "$(dirname "$0")/../env"
+set -e
+cd "$DOT"
+
+if ! command -v shellcheck > /dev/null; then
+  pprint step-error -n "shellcheck is missing; dot run installs it (dev topic)"
+  exit 1
+fi
+
+pprint step-go -n "shellcheck"
+shellcheck -x -S warning \
+  .dot/bin/dot .dot/dot/env .dot/dot/scripts/* .dot/dot/bin/* .dot/dot/functions/* \
+  .dot/functions/try .dot/brew/prefix .dot/*/install.dep.sh .dot/test/*/* \
+  ./*/install.sh brew/apps.sh macos/defaults.sh
+
+pprint step-go -n "zsh -n"
+for file in ./*/*.zsh .dot/zsh/*.symlink .dot/zsh/zplugrc zsh/dotrc zsh/dotenv \
+  zsh/zplug/* zsh/functions/* .dot/zsh/functions/* functions/*; do
+  zsh -n "${file}"
+done
+
+pprint step-ok -n "Lint clean"
