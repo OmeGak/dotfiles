@@ -4,5 +4,5 @@ source $DOT/.dot/functions/try
 
 try pinstall brew reattach-to-user-namespace
 try pinstall brew tmux
-try pinstall pip tmuxp
+try pinstall brew tmuxp
 exit $TRY_CODE

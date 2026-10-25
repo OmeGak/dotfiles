@@ -10,4 +10,3 @@ if [[ ! "$(zgrep "`which zsh`" /etc/shells)" ]]; then
   which zsh | sudo tee -a /etc/shells > /dev/null
 fi
 
-pprint info-ok "Zsh is ready to hack"

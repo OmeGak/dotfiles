@@ -5,6 +5,5 @@ source $DOT/.dot/functions/try
 try pinstall brew ipython
 try pinstall brew pyenv
 try pinstall brew tox
-try pinstall brew uv
 
 exit $TRY_CODE

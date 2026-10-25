@@ -15,5 +15,4 @@ if ! command -v brew > /dev/null; then
   fi
 fi
 
-pprint info-ok "Homebrew is ready to brew -- Choo, choo!"
 exit 0

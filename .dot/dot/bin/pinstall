@@ -51,10 +51,6 @@ pbrew() {
   _pretty_install $1 "brew" "brew install" "_brew_ls" "${@:2}"
 }
 
-pcask() {
-  _pretty_install $1 "brew" "brew cask install" "brew cask ls --versions" "${@:2}"
-}
-
 pgem() {
   _pretty_install $1 "gem" "gem install" "gem list -i" "${@:2}"
 }
@@ -63,8 +59,14 @@ pnpm() {
   _pretty_install $1 "npm" "npm -g install" "npm -g list" "${@:2}"
 }
 
-ppip() {
-  _pretty_install $1 "pip3" "pip3 install --upgrade" "pip3 show" "${@:2}"
+# Python command-line tools, each in an environment of its own; `uv tool
+# list` prints one "name vX.Y.Z" line per tool, then its commands indented
+_uv_ls() {
+  uv tool list 2> /dev/null | grep -i "^$1 "
+}
+
+puv() {
+  _pretty_install $1 "uv" "uv tool install" "_uv_ls" "${@:2}"
 }
 
 
@@ -72,7 +74,7 @@ ppip() {
 
 usage() {
   echo "usage: ${progname} system package args"
-  echo "  system:  package system to use: (apt | brew | gem | npm | pip)"
+  echo "  system:  package system to use: (apt | brew | gem | npm | uv)"
   echo "  package: the package to be installed"
   echo "  args:    additional args to pass to the pkg manager"
 }
@@ -82,14 +84,12 @@ case "$1" in
     fn="papt";;
   brew)
     fn="pbrew";;
-  cask)
-    fn="pcask";;
   gem)
     fn="pgem";;
   npm)
     fn="pnpm";;
-  pip)
-    fn="ppip";;
+  uv)
+    fn="puv";;
   *)
     usage
     exit 1;;

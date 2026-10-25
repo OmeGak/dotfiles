@@ -14,7 +14,4 @@ if [[ -n "${new_casks}" ]]; then
   echo "${new_casks}" | xargs -L 1 brew install
 fi
 
-# Cleanup
-brew cask cleanup
-
 exit 0

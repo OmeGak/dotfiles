@@ -6,7 +6,8 @@ export OS; OS=$(uname -s)
 
 # shellcheck source=../brew/prefix
 source "$DOT/.dot/brew/prefix"
-export PATH="$DOT/.dot/dot/bin:$BREWDIR/bin:/usr/bin:/bin"
+# Brew's ruby ahead of the system's, so gem installs where the user may write
+export PATH="$DOT/.dot/dot/bin:$BREWDIR/opt/ruby@3.3/bin:$BREWDIR/bin:/usr/bin:/bin"
 
 if [[ $MAKELEVEL ]]; then
   export MAKEPID=$PPID

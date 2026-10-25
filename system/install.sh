@@ -23,7 +23,7 @@ try pinstall brew tailcat
 try pinstall brew tealdeer
 try pinstall brew unar
 try pinstall brew wget
-try pinstall pip maildump
+try pinstall uv maildump
 
 # fonts
 try pinstall brew font-sauce-code-pro-nerd-font

@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+# Tests pinstall against fake package managers first on the PATH: each logs
+# the install it is asked for and answers presence from a fixture list.
+# Plain bash, no runner: each `it` is a test, each `expect_*` an assertion,
+# the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+
+# -- Fixtures -----------------------------------------------------------------
+
+# A fresh bin of fakes and empty lists; `installed <manager> <name>` lists a
+# package as present
+fresh() {
+  tmp=$(mktemp -d "${TMPDIR:-/tmp}/pinstall-test.XXXXXX")
+  tmp=$(cd "${tmp}" && pwd)
+  mkdir -p "${tmp}/bin"
+  : > "${tmp}/log"
+  : > "${tmp}/uv-list"
+  : > "${tmp}/brew-list"
+  : > "${tmp}/gem-list"
+  cat > "${tmp}/bin/uv" <<EOF
+#!/usr/bin/env bash
+case "\$1 \$2" in
+  "tool list") cat "${tmp}/uv-list";;
+  "tool install") echo "uv \$3" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  cat > "${tmp}/bin/brew" <<EOF
+#!/usr/bin/env bash
+case "\$1" in
+  ls) grep -x "\${*: -1}" "${tmp}/brew-list";;
+  install) echo "brew \$2" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  cat > "${tmp}/bin/gem" <<EOF
+#!/usr/bin/env bash
+case "\$1" in
+  list) if grep -qx "\$3" "${tmp}/gem-list"; then echo true; else echo false; exit 1; fi;;
+  install) echo "gem \$2" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  chmod +x "${tmp}"/bin/*
+  export DOT_TOPIC_LOGFILE_SUFFIX=pinstall-test.dot.log
+}
+
+installed() {
+  case $1 in
+    uv) echo "$2 v1.0.0" >> "${tmp}/uv-list";;
+    brew) echo "$2" >> "${tmp}/brew-list";;
+    gem) echo "$2" >> "${tmp}/gem-list";;
+  esac
+}
+
+# Runs pinstall with the fakes ahead of the real managers, as the install
+# step's env has the core's bin first
+run_pinstall() {
+  PATH="${tmp}/bin:${repo}/.dot/dot/bin:/usr/bin:/bin" "${repo}/.dot/dot/bin/pinstall" "$@" > "${tmp}/out" 2>&1
+  code=$?
+  out=$(cat "${tmp}/out")
+  log=$(cat "${tmp}/log" | tr '\n' ' ')
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_log() {
+  [[ ${log} == "${1:+$1 }" ]] || fail "installed '${log}', expected '$1'"
+}
+
+expect_code() {
+  [[ ${code} -eq $1 ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "installs a Python tool with uv tool install"
+fresh
+run_pinstall uv maildump
+expect_code 0
+expect_log "uv maildump"
+expect_output "Installing maildump from uv"
+
+it "leaves a tool uv already lists alone"
+fresh
+installed uv maildump
+run_pinstall uv maildump
+expect_code 0
+expect_log ""
+
+it "installs a formula with brew, and leaves a listed one alone"
+fresh
+installed brew fd
+run_pinstall brew fd
+run_pinstall brew bat
+expect_code 0
+expect_log "brew bat"
+
+it "installs a gem with gem install"
+fresh
+run_pinstall gem boom
+expect_code 0
+expect_log "gem boom"
+
+it "reports a failed install, exit 1"
+fresh
+FAKE_RC=1 run_pinstall uv spotdl
+expect_code 1
+expect_output "Failed to install spotdl"
+
+it "errors when the manager is missing, exit 1"
+fresh
+rm "${tmp}/bin/uv"
+run_pinstall uv spotdl
+expect_code 1
+expect_output "Error: uv is not available"
+expect_log ""
+
+it "prints usage for pip and cask, which it no longer drives"
+fresh
+run_pinstall pip spotdl
+expect_code 1
+expect_output "usage:"
+run_pinstall cask firefox
+expect_code 1
+expect_output "usage:"
+
+rm -f /tmp/*."$DOT_TOPIC_LOGFILE_SUFFIX"
+exit "${failed}"

@@ -12,7 +12,7 @@ try pinstall brew restic
 try pinstall brew speedtest-cli
 try pinstall brew yt-dlp
 try pinstall gem boom
-try pinstall pip xkcdpass
-try pinstall pip spotdl
+try pinstall uv xkcdpass
+try pinstall uv spotdl
 
 exit $TRY_CODE
