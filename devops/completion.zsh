@@ -7,5 +7,5 @@ if (( $+commands[kubectl] )); then
 fi
 
 if (( $+commands[tofu] )); then
-  complete -o nospace -C /usr/local/bin/tofu tofu
+  complete -o nospace -C "$BREWDIR/bin/tofu" tofu
 fi

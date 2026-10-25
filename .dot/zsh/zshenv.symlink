@@ -8,9 +8,9 @@ export DOTEDITOR='vi'
 export OS
 OS=$(uname -s)
 
-# Hardcoded homebrew prefix to avoid expensive calls
-[[ "$OS" == 'Darwin' ]] && export BREWDIR='/usr/local' \
-                        || export BREWDIR='/home/linuxbrew/.linuxbrew'
+# Homebrew prefix, by machine (asking brew is slow)
+# shellcheck source=../brew/prefix
+source $DOT/.dot/brew/prefix
 
 # ZPLUG home folder
 export ZPLUG=$BREWDIR/opt/zplug

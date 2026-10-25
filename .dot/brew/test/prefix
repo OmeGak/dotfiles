@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Tests the Homebrew prefix fact under each machine kind, in bash and zsh,
+# with a fake uname on PATH and no startup files (-f: ~/.zshenv would rebuild
+# PATH). Plain bash, no runner: the exit code is the result.
+
+set -u
+prefix=$(cd "$(dirname "$0")/.." && pwd)/prefix
+fake=$(mktemp -d "${TMPDIR:-/tmp}/prefix-test.XXXXXX")
+failed=0
+
+# A uname that answers the given system and machine
+fake_uname() {
+  printf '#!/bin/sh\ncase "$1" in -m) echo %s;; *) echo %s;; esac\n' "$2" "$1" > "${fake}/uname"
+  chmod +x "${fake}/uname"
+}
+
+# expect <uname -s> <uname -m> <prefix>
+expect() {
+  local shell got
+  fake_uname "$1" "$2"
+  for shell in bash zsh; do
+    got=$(PATH="${fake}:$PATH" OS='' "${shell}" -f -c "source '${prefix}'; echo \$BREWDIR")
+    if [[ "${got}" == "$3" ]]; then
+      printf -- '- %s %s in %s: %s\n' "$1" "$2" "${shell}" "${got}"
+    else
+      printf -- '- %s %s in %s: FAIL, got %s, expected %s\n' "$1" "$2" "${shell}" "${got}" "$3"
+      failed=1
+    fi
+  done
+}
+
+expect Darwin arm64 /opt/homebrew
+expect Darwin x86_64 /usr/local
+expect Linux x86_64 /home/linuxbrew/.linuxbrew
+expect Linux aarch64 /home/linuxbrew/.linuxbrew
+
+# An OS already known is trusted, no uname needed
+fake_uname Linux x86_64
+got=$(PATH="${fake}:$PATH" OS=Darwin bash -c "source '${prefix}'; echo \$BREWDIR")
+if [[ "${got}" == /usr/local ]]; then
+  echo "- OS=Darwin preset on a Linux uname: ${got}"
+else
+  echo "- OS=Darwin preset on a Linux uname: FAIL, got ${got}"
+  failed=1
+fi
+
+rm -rf "${fake}"
+if (( failed )); then
+  echo "prefix: some tests failed"
+  exit 1
+fi
+echo "prefix: all tests passed"

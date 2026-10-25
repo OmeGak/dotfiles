@@ -2,12 +2,11 @@
 # Sets up the minimum sanitized environment for dot steps
 
 export DOT; DOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
-export PATH="$DOT/.dot/dot/bin:/usr/local/bin:/usr/bin:/bin"
-
 export OS; OS=$(uname -s)
-if [[ "$OS" == "Linux" ]]; then
-  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-fi
+
+# shellcheck source=../brew/prefix
+source "$DOT/.dot/brew/prefix"
+export PATH="$DOT/.dot/dot/bin:$BREWDIR/bin:/usr/bin:/bin"
 
 if [[ $MAKELEVEL ]]; then
   export MAKEPID=$PPID
