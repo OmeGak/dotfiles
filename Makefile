@@ -23,6 +23,10 @@ link:
 	.dot/dot/scripts/link-git
 	.dot/dot/scripts/link
 
+.PHONY: check
+check:
+	.dot/dot/scripts/link --check
+
 .PHONY: install
 install:
 	env -i HOME="${HOME}" .dot/dot/scripts/install-deps-core
@@ -40,6 +44,13 @@ defaults:
 .PHONY: apps
 apps:
 	.dot/dot/scripts/apps
+
+
+# -- Development --------------------------------------------------------------
+
+.PHONY: test
+test:
+	.dot/dot/test/link
 
 
 # -- Helpers ------------------------------------------------------------------

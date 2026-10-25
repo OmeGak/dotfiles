@@ -1,0 +1,184 @@
+#!/usr/bin/env bash
+# Tests the link step against a fake HOME and a fake dotfiles folder made of
+# the real .dot core and a few fixture topics. Plain bash, no runner: each
+# `it` is a test, each `expect_*` an assertion, the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+
+# -- Fixtures -----------------------------------------------------------------
+
+# A fresh fake dotfiles folder: the real core, then the given topic layout
+fresh() {
+  tmp=$(mktemp -d "${TMPDIR:-/tmp}/link-test.XXXXXX")
+  tmp=$(cd "${tmp}" && pwd)
+  export HOME="${tmp}/home"
+  DOT="${tmp}/dotfiles"
+  mkdir -p "$HOME" "$DOT"
+  cp -R "${repo}/.dot" "$DOT/.dot"
+  rm -f "$DOT"/.dot/*/*.symlink
+  mkdir -p "$DOT/alpha/sub" "$DOT/beta"
+  echo a > "$DOT/alpha/one.symlink"
+  mkdir "$DOT/alpha/dir.symlink"
+  echo c > "$DOT/alpha/conf.csymlink"
+  echo s > "$DOT/alpha/sub/file.txt"
+  echo d > "$DOT/alpha/deep.txt"
+  printf '%s\n' \
+    '# a comment, then a blank line' \
+    '' \
+    'sub/file.txt -> ~/Library/Some App/file.txt' \
+    'deep.txt -> ~/a/b/c/deep.txt' \
+    > "$DOT/alpha/links"
+  echo o > "$DOT/beta/ours.txt"
+  echo t > "$DOT/beta/theirs.txt"
+  printf '%s\n' 'ours.txt -> ~/for-this-os' > "$DOT/beta/links.$(uname -s)"
+  printf '%s\n' 'theirs.txt -> ~/for-another-os' > "$DOT/beta/links.NotAnOS"
+  link="$DOT/.dot/dot/scripts/link"
+}
+
+# Runs the link step with the given keys as the answers to its prompts; a dumb
+# TERM keeps underline codes out of the output the assertions read
+run_link() {
+  local keys=$1; shift
+  printf '%s' "${keys}" | TERM=dumb "${link}" "$@" > "${tmp}/out" 2>&1
+  code=$?
+  out=$(cat "${tmp}/out")
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_link() {
+  local target=$1 source=$2
+  [[ -L "${target}" ]] || { fail "${target#"$HOME"/} is not a link"; return; }
+  [[ "$(readlink "${target}")" == "${source}" ]] \
+    || fail "${target#"$HOME"/} points to $(readlink "${target}"), not ${source}"
+}
+
+expect_no_link() {
+  [[ -L "$1" ]] && fail "${1#"$HOME"/} is a link"
+}
+
+expect_exit() {
+  [[ ${code} == "$1" ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ "${out}" == *"$1"* ]] || fail "output lacks: $1"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "links .symlink to ~/.name, .csymlink to ~/.config/name, and the manifests"
+fresh
+run_link ''
+expect_exit 0
+expect_link "$HOME/.one" "$DOT/alpha/one.symlink"
+expect_link "$HOME/.dir" "$DOT/alpha/dir.symlink"
+expect_link "$HOME/.config/conf" "$DOT/alpha/conf.csymlink"
+expect_link "$HOME/Library/Some App/file.txt" "$DOT/alpha/sub/file.txt"
+expect_link "$HOME/a/b/c/deep.txt" "$DOT/alpha/deep.txt"
+expect_output "6 linked, 0 already in place, 0 skipped"
+
+it "applies links.<OS> for this OS only"
+expect_link "$HOME/for-this-os" "$DOT/beta/ours.txt"
+[[ -e "$HOME/for-another-os" ]] && fail "links.NotAnOS was applied"
+
+it "leaves a correct link alone on a second run, without asking"
+run_link ''
+expect_exit 0
+expect_output "0 linked, 6 already in place, 0 skipped"
+[[ "${out}" == *"exists"* ]] && fail "a correct link was reported as a conflict"
+
+it "reports a conflict with --check, touches nothing, exits 1"
+rm "$HOME/.one"; echo mine > "$HOME/.one"
+run_link '' --check
+expect_exit 1
+expect_output ".one"
+expect_output "exists and is not linked to alpha/one.symlink"
+expect_output "1 to link, 5 in place"
+[[ "$(cat "$HOME/.one")" == mine ]] || fail ".one was changed by --check"
+
+it "reports what it would link with --check"
+rm "$HOME/.config/conf"
+run_link '' --check
+expect_output "Would link alpha/conf.csymlink"
+expect_output "2 to link, 4 in place"
+expect_no_link "$HOME/.config/conf"
+
+it "exits 0 from --check when everything is in place"
+run_link 'B'
+run_link '' --check
+expect_exit 0
+expect_output "All 6 links in place"
+
+it "backs the file up as <target>.backup on b"
+fresh
+mkdir -p "$HOME"; echo mine > "$HOME/.one"
+run_link 'b'
+expect_output "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+expect_link "$HOME/.one" "$DOT/alpha/one.symlink"
+[[ "$(cat "$HOME/.one.backup")" == mine ]] || fail "no .backup with the old content"
+expect_output "(backed up)"
+
+it "overwrites on o, even a directory"
+fresh
+mkdir -p "$HOME/.dir"; touch "$HOME/.dir/inside"
+run_link 'o'
+expect_link "$HOME/.dir" "$DOT/alpha/dir.symlink"
+[[ -e "$HOME/.dir.backup" ]] && fail "overwrite left a backup"
+expect_output "(overwritten)"
+
+it "skips on s, and on any other key"
+fresh
+echo mine > "$HOME/.one"
+run_link 'x'
+expect_no_link "$HOME/.one"
+expect_output "Skipped alpha/one.symlink"
+expect_output "5 linked, 0 already in place, 1 skipped"
+
+it "answers for all remaining conflicts on S, O and B"
+fresh
+echo mine > "$HOME/.one"; mkdir -p "$HOME/.config"; echo mine > "$HOME/.config/conf"
+run_link 'S'
+expect_output "4 linked, 0 already in place, 2 skipped"
+[[ $(grep -c "exists\." "${tmp}/out") == 1 ]] || fail "S asked more than once"
+fresh
+echo mine > "$HOME/.one"; mkdir -p "$HOME/.config"; echo mine > "$HOME/.config/conf"
+run_link 'B'
+expect_link "$HOME/.one" "$DOT/alpha/one.symlink"
+expect_link "$HOME/.config/conf" "$DOT/alpha/conf.csymlink"
+[[ -f "$HOME/.one.backup" && -f "$HOME/.config/conf.backup" ]] || fail "B did not back both up"
+
+it "treats a link to the wrong place as a conflict"
+fresh
+ln -s /nowhere "$HOME/.one"
+run_link '' --check
+expect_exit 1
+expect_output ".one"
+
+it "ignores a manifest line without ' -> ' and says so"
+fresh
+echo 'no arrow here' >> "$DOT/alpha/links"
+run_link ''
+expect_exit 0
+expect_output "Ignoring a line without ' -> ' in alpha/links: no arrow here"
+expect_output "6 linked"
+
+# -- Result -------------------------------------------------------------------
+
+rm -rf "${TMPDIR:-/tmp}"/link-test.*
+if (( failed )); then
+  echo "link: some tests failed"
+  exit 1
+fi
+echo "link: all tests passed"

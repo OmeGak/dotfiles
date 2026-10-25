@@ -40,7 +40,8 @@ The installation process will guide you through and will mainly: 1) set your
 shell to `zsh`, 2) symlink the appropriate files in `.dotfiles` to your home
 directory, and 3) run several install scripts.
 
-Everything is configured and tweaked within `~/.dotfiles`. The main file
+Everything is configured and tweaked within `~/.dotfiles`. The decisions behind the
+framework are recorded in `.dot/docs/adr`. The main file
 you'll want to change right off the bat is `zsh/zshrc.symlink`, which sets up a
 few paths that'll be different on your particular machine.
 
@@ -52,6 +53,8 @@ gives access to some common actions.
 
 * `dot run` will symlink new files into your home directory and run topic
   installers.
+* `dot check` will list the links that are missing or point elsewhere, without
+  touching anything.
 * `dot macosrun` will install OS X applications and apply setting defaults.
 * `dot edit` will open an editor on your `~/.dotfiles` folder.
 
@@ -87,6 +90,12 @@ There's a few special files in the hierarchy.
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. New files will
   get symlinked with `dot run`.
+- ***topic*/\*.csymlink**: Any files ending in `*.csymlink` get symlinked into
+  `$HOME/.config` instead.
+- ***topic*/links**: One `source -> target` per line, for a file that has to
+  live somewhere else (`~/Library/Application Support/...`). The source is
+  relative to the topic, the target may start with `~`. A `links.Darwin` or
+  `links.Linux` file only applies on that OS.
 - ***topic*/\*.install.sh**: These scripts will be run during the initial
   installation and anytime after that with `dot run`. They are expected to
   install stuff in the system.

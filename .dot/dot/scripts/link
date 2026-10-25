@@ -1,89 +1,133 @@
 #!/usr/bin/env bash
-# Finds .symlink and .csymlink files and symlinks them to ~ and ~/.config respectively.
-source $HOME/.dotfiles/.dot/dot/env
+# Links each topic's files into place:
+#   topic/<name>.symlink          -> ~/.<name>
+#   topic/<name>.csymlink         -> ~/.config/<name>
+#   topic/links, topic/links.<OS> -> one `source -> target` per line, for
+#                                    anything else: source relative to the
+#                                    topic, target may start with ~
+# A link that already points right is left alone. Anything else in the way
+# asks what to do: skip, overwrite, or back up as <target>.backup, once or
+# for all. With --check nothing is touched: it reports what would change and
+# exits 1 if anything would.
+source "$(dirname "$0")/../env"
 
-u=`tput smul`
-offu=`tput sgr0`
+u=$(tput smul 2> /dev/null)
+offu=$(tput sgr0 2> /dev/null)
+
+check=
+[[ "$1" == '--check' ]] && check=true
+
+overwrite_all=false backup_all=false skip_all=false
+linked=0 inplace=0 skipped=0 pending=0
+
+# The source's path within the dotfiles, for messages
+rel() {
+  echo "${u}${1#"$DOT"/}${offu}"
+}
+
+# What to do about something already at the target: sets $answer to skip,
+# overwrite or backup, asking unless an earlier answer was "for all"
+resolve() {
+  local src=$1 dst=$2
+  if [[ ${overwrite_all} == true ]]; then answer=overwrite; return; fi
+  if [[ ${backup_all} == true ]]; then answer=backup; return; fi
+  if [[ ${skip_all} == true ]]; then answer=skip; return; fi
+  pprint info-warn "$(rel "${src}"): ${u}${dst}${offu} exists. [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+  case "$(readone)" in
+    o) answer=overwrite;;
+    O) answer=overwrite; overwrite_all=true;;
+    b) answer=backup;;
+    B) answer=backup; backup_all=true;;
+    S) answer=skip; skip_all=true;;
+    *) answer=skip;;
+  esac
+}
 
 link_file() {
-  local src=$1 dst=$2
+  local src=$1 dst=$2 note=
 
-  local overwrite= backup= skip=
-  local action=
-
-  if [ -f "${dst}" -o -d "${dst}" -o -L "${dst}" ]; then
-    if [[ "${overwrite_all}" == "false" ]] && [[ "${backup_all}" == "false" ]] && [[ "${skip_all}" == "false" ]]; then
-      pprint info-warn "$(basename "${src}") already exists: [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-      action=$(readone)
-
-      case "${action}" in
-        o)
-          overwrite=true;;
-        O)
-          overwrite_all=true;;
-        b)
-          backup=true;;
-        B)
-          backup_all=true;;
-        S)
-          skip_all=true;;
-        *)
-          skip=true;;
-      esac
-    fi
-
-    overwrite=${overwrite:-$overwrite_all}
-    backup=${backup:-$backup_all}
-    skip=${skip:-$skip_all}
-    overwritten=
-    backedup=
-
-    if [[ "${overwrite}" == "true" ]]; then
-      rm -rf "${dst}"
-      overwritten=' (overwritten)'
-    fi
-
-    if [[ "${backup}" == "true" ]]; then
-      mv "${dst}" "${dst}.backup"
-      backedup=' (backed up)'
-    fi
-
-    if [[ "${skip}" == "true" ]]; then
-      pprint info-ok "Skipped ${u}$(dotbasepath ${src})${offu}"
-    fi
+  if [[ -L "${dst}" && "$(readlink "${dst}")" == "${src}" ]]; then
+    (( inplace += 1 ))
+    return
   fi
 
-  if [[ "${skip}" != "true" ]]; then
-    ln -s "${src}" "${dst}"
-    pprint info-ok "Linked ${u}$(dotbasepath ${src})${offu} to ${u}${dst}${offu}${overwritten}${backedup}"
+  if [[ -e "${dst}" || -L "${dst}" ]]; then
+    if [[ ${check} ]]; then
+      pprint info-warn "${u}${dst}${offu} exists and is not linked to $(rel "${src}")"
+      (( pending += 1 ))
+      return
+    fi
+    resolve "${src}" "${dst}"
+    case ${answer} in
+      skip)
+        pprint info-ok "Skipped $(rel "${src}")"
+        (( skipped += 1 ))
+        return;;
+      overwrite)
+        rm -rf "${dst}"
+        note=' (overwritten)';;
+      backup)
+        mv "${dst}" "${dst}.backup"
+        note=' (backed up)';;
+    esac
   fi
+
+  if [[ ${check} ]]; then
+    pprint info-go "Would link $(rel "${src}") to ${u}${dst}${offu}"
+    (( pending += 1 ))
+    return
+  fi
+  mkdir -p "$(dirname "${dst}")"
+  ln -s "${src}" "${dst}"
+  pprint info-ok "Linked $(rel "${src}") to ${u}${dst}${offu}${note}"
+  (( linked += 1 ))
 }
 
-link_dotcore() {
-  local overwrite_all=false backup_all=false skip_all=false
-  pprint step-go "Linking core dotfiles from ${u}$DOT/.dot${offu} to ${u}$HOME${offu}:"
-  for src in $(find -H "$DOT/.dot" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
-    dst="$HOME/.$(basename "${src%.*}")"
-    link_file "${src}" "${dst}"
-  done
+# Links every <name>.<suffix> one level under the folders of a root to
+# <prefix><name>. Entries are read on fd 3 so that the prompt keeps stdin.
+link_by_suffix() {
+  local root=$1 suffix=$2 prefix=$3 src name
+  while IFS= read -r -u 3 src; do
+    name=$(basename "${src}")
+    link_file "${src}" "${prefix}${name%."${suffix}"}"
+  done 3< <(find -H "${root}"/*/ -maxdepth 1 -name "*.${suffix}" | sort)
 }
 
-link_dotfiles() {
-  local overwrite_all=false backup_all=false skip_all=false
-  pprint step-go "Linking dotfiles from ${u}$DOT${offu} to ${u}$HOME[/.config]${offu}:"
-  for src in $(find -H "$DOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
-    dst="$HOME/.$(basename "${src%.*}")"
+# Links the `source -> target` lines of a topic's links file
+link_by_manifest() {
+  local file=$1 topic line src dst
+  topic=$(dirname "${file}")
+  while IFS= read -r -u 3 line; do
+    [[ -z "${line}" || "${line}" == \#* ]] && continue
+    if [[ ${line} != *" -> "* ]]; then
+      pprint info-warn "Ignoring a line without ' -> ' in $(rel "${file}"): ${line}"
+      continue
+    fi
+    src=${line%% -> *}
+    dst=${line##* -> }
+    dst=${dst/#\~/$HOME}
+    [[ ${src} != /* ]] && src="${topic}/${src}"
     link_file "${src}" "${dst}"
-  done
-  for src in $(find -H "$DOT" -maxdepth 2 -name '*.csymlink' -not -path '*.git*'); do
-    dst="$HOME/.config/$(basename "${src%.*}")"
-    link_file "${src}" "${dst}"
-  done
+  done 3< "${file}"
 }
 
-pprint section "LINKING DOTFILES TO HOME FOLDER"
-link_dotcore
+pprint section "LINKING DOTFILES"
+pprint step-go "Linking ${u}$DOT${offu} into ${u}$HOME${offu}:"
+
+link_by_suffix "$DOT/.dot" symlink "$HOME/."
+link_by_suffix "$DOT" symlink "$HOME/."
+link_by_suffix "$DOT" csymlink "$HOME/.config/"
+for file in "$DOT"/*/links "$DOT"/*/links."$OS"; do
+  [[ -f "${file}" ]] && link_by_manifest "${file}"
+done
+
 pprint newline
-link_dotfiles
-pprint newline
-pprint step-ok -n "All dotfiles linked"
+if [[ ${check} ]]; then
+  if (( pending > 0 )); then
+    pprint step-error -n "${pending} to link, ${inplace} in place"
+    exit 1
+  fi
+  pprint step-ok -n "All ${inplace} links in place"
+else
+  pprint step-ok -n "${linked} linked, ${inplace} already in place, ${skipped} skipped"
+fi
