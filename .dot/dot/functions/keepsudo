@@ -26,7 +26,6 @@ keepsudo() {
   code=$?
 
   if [[ ${code} == 0 ]]; then
-    _brew_disable_sudo_k
     _keep_sudo_alive 2> /dev/null &
   fi
 
@@ -37,19 +36,6 @@ _keep_sudo_alive() {
   while true; do
     sudo -n true;
     sleep 60;
-    kill -0 "${pid}" || ! _brew_reset || exit;
+    kill -0 "${pid}" || exit;
   done
-}
-
-_brew_disable_sudo_k() {
-  if [[ $(which brew) ]]; then
-    local build_rb="$(brew --repository)/Library/Homebrew/build.rb"
-    sed -i.bak '/system.*sudo.*-k.*$/d' ${build_rb}
-  fi
-}
-
-_brew_reset() {
-  if [[ $(which brew) ]]; then
-    (cd "$(brew --repository)" && git reset --hard && git clean -d -f) > /dev/null 2>&1
-  fi
 }
