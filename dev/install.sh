@@ -29,23 +29,6 @@ try pinstall pip pylint
 # try pinstall npm remark-preset-lint-recommended
 # try pinstall npm remark-preset-lint-markdown-style-guide
 
-link_vscode_settings() {
-  local build="$1"
-  local settings_target="$2"
-  local settings_source="$DOT/dev/vscode"
-  if [[ "$OS" != "Darwin" ]]; then
-    pprint info-warn "${build} settings not installed"
-    exit 1
-  fi
-  if [[ ! $(checklink "${settings_target}" "${settings_source}") ]]; then
-    pprint info-go "Installing ${build} settings"
-    mksymlink "${settings_source}" "${settings_target}"
-  fi
-}
-
-# Link VSCode settings
-link_vscode_settings 'VSCode' "$HOME/Library/Application Support/Code/User"
-
 # Install extensions
 if [[ $(which code) ]]; then
   pprint info-go "Installing VSCode extensions"

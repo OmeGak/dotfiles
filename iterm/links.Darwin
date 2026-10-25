@@ -1,0 +1,3 @@
+# iTerm reads its preferences from this folder (PrefsCustomFolder); the
+# dynamic profiles have to be linked where it looks for them
+profiles -> ~/Library/Application Support/iTerm2/DynamicProfiles

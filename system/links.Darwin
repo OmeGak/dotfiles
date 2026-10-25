@@ -1,0 +1,3 @@
+# Keybindings that stop the beeps on unbound keys
+# Source: https://github.com/adobe/brackets/issues/2419#issuecomment-186619537
+keyboard/DefaultKeyBinding.dict -> ~/Library/KeyBindings/DefaultKeyBinding.dict

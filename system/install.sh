@@ -38,18 +38,4 @@ if [[ "$OS" == "Darwin" ]]; then
   brew unlink gnupg > /dev/null 2>&1
 fi
 
-
-# -- Create other symlinks -----------------------------------------------------
-
-# Install macOS keybindings to prevent undesired beeps
-# Source: https://github.com/adobe/brackets/issues/2419#issuecomment-186619537
-if [[ "$OS" == "Darwin" ]]; then
-  source="$DOT/system/keyboard/DefaultKeyBinding.dict"
-  target="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
-  if [[ ! $(checklink "${target}" "${source}") ]]; then
-    pprint info-go "Fixing weird keyboard beeps on macOS"
-    mksymlink "${source}" "${target}"
-  fi
-fi
-
 exit $TRY_CODE
