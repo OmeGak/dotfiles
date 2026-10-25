@@ -1,5 +1,6 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 # Applies default preferences for macOS and some apps.
+set -e
 source "$(dirname "$0")/../env"
 
 if [[ "$OS" != "Darwin" ]]; then

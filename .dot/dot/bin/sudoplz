@@ -10,7 +10,7 @@ source $DOT/.dot/dot/functions/keepsudo
 # shellcheck source=../../functions/try
 source $DOT/.dot/functions/try
 
-while getopts 'ksr:t:' OPTION; do
+while getopts 'ksr:' OPTION; do
   case $OPTION in
     k)
       keep=true;;
@@ -18,6 +18,8 @@ while getopts 'ksr:t:' OPTION; do
       reason="${OPTARG}";;
     s)
       pprint_step=true;;
+    *)
+      ;;
   esac
 done
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Sets shit how I like in macOS.
 #
 # To find other settings:

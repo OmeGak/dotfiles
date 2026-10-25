@@ -77,22 +77,22 @@ esac
 shift
 
 # Build plist
-[[ $# < 1 ]] && _usage && exit 1
+[[ $# -lt 1 ]] && _usage && exit 1
 plist="$HOME/Library/Preferences/$1.plist"; shift
 
 # Get entry
 if [[ ${action} != 'print' ]]; then
-  [[ $# < 1 ]] && _needs_entry && exit 1
+  [[ $# -lt 1 ]] && _needs_entry && exit 1
   entry=$1; shift
 fi
 
 # Check for necessary arguments
 if [[ "${needs_type}" ]]; then
-  [[ $# < 1 ]] && _needs_type && exit 1
+  [[ $# -lt 1 ]] && _needs_type && exit 1
   value_type=$1
   value=$2
 elif [[ "${needs_value}" ]]; then
-  [[ $# < 1 ]] && _needs_value && exit 1
+  [[ $# -lt 1 ]] && _needs_value && exit 1
   value=$1
 fi
 

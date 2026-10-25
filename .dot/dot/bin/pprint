@@ -9,7 +9,8 @@ EOL=
 # -- Top-level prints ----------------------------------------------------------
 
 pp_section() {
-  local pad=$(printf '%0.1s' '-'{1..80})
+  local pad
+  pad=$(printf '%0.1s' '-'{1..80})
   local padlength=74
   local string=$2
   printf "$1\n# -- %s " "${string}"
@@ -125,7 +126,7 @@ esac
 shift
 
 # Start of line option
-if [[ $# > 1 ]]; then
+if [[ $# -gt 1 ]]; then
   case "$1" in
     -n)
       EOL='\n'

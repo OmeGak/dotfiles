@@ -6,12 +6,12 @@ source "$(dirname "$0")/../env"
 
 pprint section "PREPARING SHELL"
 
-if [[ $(basename $SHELL) != 'zsh' ]]; then
+if [[ $(basename "$SHELL") != 'zsh' ]]; then
   pprint step-go "Setting ZSH as your shell..."
   sudoplz
 
   if [[ $? == 0 ]]; then
-    sudo chsh -s $(which zsh) $(whoami) 2> /dev/null
+    sudo chsh -s "$(which zsh)" "$(whoami)" 2> /dev/null
     pprint info-ok -n "She sells z shells"
   fi
 fi
