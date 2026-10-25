@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "/Users/ome/.dotfiles"
+		}
+	],
+	"settings": {
+        "workbench.colorCustomizations": {
+            "statusBar.background": "#FFA000", // material theme "yellow"
+            "statusBar.inactiveBackground": "#FFA000",
+            "statusBar.foreground": "#000000",
+            // Shades of the bar keep black text above 4.5:1; a hover pill needs
+            // no 3:1 against the bar (WCAG 1.4.11), the focus border does
+            "statusBarItem.hoverBackground": "#CC8000", // 20% black over the bar
+            "statusBarItem.hoverForeground": "#000000",
+            "statusBarItem.compactHoverBackground": "#E69000", // 10% black, the hovered item's neighbour
+            "statusBarItem.activeBackground": "#B37000", // 30% black, while clicked
+            "statusBarItem.focusBorder": "#000000"
+        }
+    }
+}
