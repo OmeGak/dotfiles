@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Sets up the minimum sanitized environment for dot steps
 
-export DOT=$HOME/.dotfiles
+export DOT; DOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
 export PATH="$DOT/.dot/dot/bin:/usr/local/bin:/usr/bin:/bin"
 
 export OS; OS=$(uname -s)

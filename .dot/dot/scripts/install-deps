@@ -2,7 +2,7 @@
 # Checks and install dependencies for the install step
 
 # shellcheck source=../env
-source $HOME/.dotfiles/.dot/dot/env
+source "$(dirname "$0")/../env"
 
 pprint section 'CHECKING DEPENDENCIES'
 

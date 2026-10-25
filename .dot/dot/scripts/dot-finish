@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Debriefing splash
-source $HOME/.dotfiles/.dot/dot/env
+source "$(dirname "$0")/../env"
 
 pprint section "EVERYTHING READY!"
 pprint step-ok "What to do now?"

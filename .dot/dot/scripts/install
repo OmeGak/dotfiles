@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Runs all topic installers
-source $HOME/.dotfiles/.dot/dot/env
+source "$(dirname "$0")/../env"
 
 pprint section 'RUNNING INSTALLERS'
 
