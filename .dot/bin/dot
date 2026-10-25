@@ -26,4 +26,5 @@ esac
 
 # -- Go dot! ------------------------------------------------------------------
 
-command make -C $DOT $1 --no-print-directory
+# The words after the target reach the step as ARGS: `dot install python zsh`
+command make -C "$DOT" --no-print-directory ${1:+"$1"} ARGS="${*:2}"

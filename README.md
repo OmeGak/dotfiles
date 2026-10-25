@@ -55,6 +55,8 @@ gives access to some common actions.
   installers.
 * `dot check` will list the links that are missing or point elsewhere, without
   touching anything.
+* `dot install [topic ...]` will run the core's installers and then every
+  topic's, or only the named ones.
 * `dot macosrun` will install OS X applications and apply setting defaults.
 * `dot edit` will open an editor on your `~/.dotfiles` folder.
 
@@ -96,12 +98,12 @@ There's a few special files in the hierarchy.
   live somewhere else (`~/Library/Application Support/...`). The source is
   relative to the topic, the target may start with `~`. A `links.Darwin` or
   `links.Linux` file only applies on that OS.
-- ***topic*/\*.install.sh**: These scripts will be run during the initial
-  installation and anytime after that with `dot run`. They are expected to
-  install stuff in the system.
-- ***topic*/\*.install.dep.sh**: These scripts will be executed before the
-  `*.install.sh` ones do. They are expected to install stuff the latter depend
-  on.
+- ***topic*/install.sh**: This script will be run during the initial
+  installation and anytime after that with `dot run` or `dot install`. It is
+  expected to install stuff in the system, through `pinstall`. The core's own
+  installers, in `.dot/*/install.sh`, run before any topic's and bring what
+  the dotfiles need to run: the shell and the package managers `pinstall`
+  drives.
 
 
 ## bugs

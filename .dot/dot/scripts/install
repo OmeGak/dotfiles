@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
-# Runs all topic installers
+# Runs the installers: the core's first, since they bring the shell and the
+# package managers pinstall drives, then every topic's, or only the named ones
 source "$(dirname "$0")/../env"
 
-pprint section 'RUNNING INSTALLERS'
-
-# Prepare logs
 logsuffix='.install.dot.log'
-find -L /tmp -maxdepth 1 -name "*${logsuffix}" -delete
-
-# Find and run install scripts; they are read on fd 3 so that stdin stays
-# the terminal for the installers
 errors=()
-while IFS= read -r -u 3 script; do
-  topic=$(basename "$(dirname "${script}")")
+
+# Runs one topic's installer, after clearing its logs from an earlier run;
+# the installer keeps the terminal as stdin, so it may ask things
+run_topic() {
+  local topic=$1 script=$2
+  rm -f /tmp/*"${topic}${logsuffix}"
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Installing stuff for ${topic}..."
   if sh -c "${script}"; then
@@ -20,14 +18,76 @@ while IFS= read -r -u 3 script; do
   else
     errors+=("${topic}")
     pprint info-error -n "Failed"
+    return 1
   fi
-done 3< <(dotfind "$DOT" install.sh)
+}
 
-# Show summary
+# Lists the failed topics with the logs their installers left
+report() {
+  local topic log
+  pprint step-error "There were some errors in: ${errors[*]}"
+  for topic in "${errors[@]}"; do
+    for log in /tmp/*"${topic}${logsuffix}"; do
+      [[ -e ${log} ]] && pprint info-error "${log}"
+    done
+  done
+  pprint newline
+}
+
+# -- Scope --------------------------------------------------------------------
+
+for topic in "$@"; do
+  if [[ ${topic} == .* || ! -d "$DOT/${topic}" ]]; then
+    echo "No topic ${topic}" 1>&2
+    exit 1
+  fi
+done
+
+# The named topics in sorted order, as a full run has them, or all of them
+topics=()
+if (( $# > 0 )); then
+  while IFS= read -r topic; do
+    topics+=("${topic}")
+  done < <(printf '%s\n' "$@" | sort -u)
+else
+  for script in "$DOT"/*/install.sh; do
+    topics+=("$(basename "$(dirname "${script}")")")
+  done
+fi
+
+# The core runs whole, whatever the scope: system brings what brew needs,
+# brew what the rest of the core needs, and the core what every topic needs
+core=()
+for topic in system brew; do
+  [[ -e "$DOT/.dot/${topic}/install.sh" ]] && core+=("${topic}")
+done
+for script in "$DOT"/.dot/*/install.sh; do
+  topic=$(basename "$(dirname "${script}")")
+  [[ ${topic} == system || ${topic} == brew ]] || core+=("${topic}")
+done
+
+# -- Go -----------------------------------------------------------------------
+
+pprint section 'INSTALLING CORE'
+for topic in "${core[@]}"; do
+  if ! run_topic "${topic}" "$DOT/.dot/${topic}/install.sh"; then
+    report
+    exit 1
+  fi
+done
+
+pprint section 'INSTALLING TOPICS'
+for topic in "${topics[@]}"; do
+  if [[ -e "$DOT/${topic}/install.sh" ]]; then
+    run_topic "${topic}" "$DOT/${topic}/install.sh" || true
+  else
+    pprint step-ok -n "Nothing to install for ${topic}"
+  fi
+done
+
 if (( ${#errors[@]} > 0 )); then
-  plogs "${logsuffix}" "${errors[@]}"
+  report
 else
   pprint step-ok -n "Everything installed"
 fi
-
 exit 0

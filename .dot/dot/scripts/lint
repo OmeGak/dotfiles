@@ -13,7 +13,7 @@ fi
 pprint step-go -n "shellcheck"
 shellcheck -x -S warning \
   .dot/bin/dot .dot/dot/env .dot/dot/scripts/* .dot/dot/bin/* .dot/dot/functions/* \
-  .dot/functions/try .dot/brew/prefix .dot/*/install.dep.sh .dot/test/*/* \
+  .dot/functions/try .dot/brew/prefix .dot/*/install.sh .dot/test/*/* \
   ./*/install.sh brew/apps.sh macos/defaults.sh
 
 pprint step-go -n "zsh -n"

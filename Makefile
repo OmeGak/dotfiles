@@ -29,9 +29,7 @@ check:
 
 .PHONY: install
 install:
-	env -i HOME="${HOME}" .dot/dot/scripts/install-deps-core
-	env -i HOME="${HOME}" .dot/dot/scripts/install-deps
-	env -i HOME="${HOME}" .dot/dot/scripts/install
+	env -i HOME="${HOME}" .dot/dot/scripts/install $(ARGS)
 
 .PHONY: setshell
 setshell:
