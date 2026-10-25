@@ -35,14 +35,13 @@ install_spicetify() {
     pprint info-warn "Skipping Spicetify apply: Spotify is not installed"
     return
   fi
-  pprint info-go "Applying Spicetify"
   if [[ -f /Applications/Spotify.app/Contents/Resources/Apps/xpui.spa ]]; then
     # Unpatched Spotify: a [Backup] section left on disk describes another
     # install, and Spicetify won't back up while it claims a backup exists.
     sed -i '' -E 's/^(version|with)( *)=.*/\1\2= /' "$HOME/.config/spicetify/config-xpui.ini"
-    spicetify backup apply
+    try prun "Applying Spicetify" spicetify backup apply
   else
-    spicetify apply
+    try prun "Applying Spicetify" spicetify apply
   fi
 }
 
@@ -50,8 +49,8 @@ install_spicetify() {
 # line: a chosen few, not everything installed. `mas list` shows the ids.
 # mas skips apps already installed, and needs root to install.
 install_app_store_apps() {
-  pprint info-go "Installing App Store apps"
-  awk '{print $1}' "$DOT/macos/apps.txt" | xargs sudo mas install
+  # shellcheck disable=SC2046
+  try prun "Installing App Store apps" sudo mas install $(awk '{print $1}' "$DOT/macos/apps.txt")
 }
 
 install_keyboard_layout

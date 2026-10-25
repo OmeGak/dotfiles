@@ -27,8 +27,9 @@ try pinstall npm sass-lint
 
 # Install extensions
 if [[ $(which code) ]]; then
-  pprint info-go "Installing VSCode extensions"
-  xargs -L 1 code --install-extension > /dev/null < "${DOT}/dev/vscode.ext"
+  # One code call with an --install-extension per line of vscode.ext
+  # shellcheck disable=SC2046
+  try prun "Installing VS Code extensions" code $(sed 's/^/--install-extension /' "${DOT}/dev/vscode.ext")
 fi
 
 exit $TRY_CODE

@@ -11,15 +11,17 @@ failed=0
 
 # -- Fixtures -----------------------------------------------------------------
 
-# An installer that appends its topic to the trace, writes a log when asked,
-# and exits with the given code
+# An installer that appends its topic to the trace, leaves the logs of a
+# failed run and a fine one when asked, as prun names them, and exits with
+# the given code
 installer() {
   local path=$1 code=${2:-0} log=${3:-}
   mkdir -p "$(dirname "${path}")"
   {
     echo '#!/usr/bin/env bash'
     echo "echo \"$(basename "$(dirname "${path}")")\" >> \"${tmp}/trace\""
-    [[ ${log} ]] && echo "echo failed > \"/tmp/${log}.\$DOT_TOPIC_LOGFILE_SUFFIX\""
+    [[ ${log} ]] && echo "echo failed > \"/tmp/${log}.failed.\$DOT_TOPIC_LOGFILE_SUFFIX\""
+    [[ ${log} ]] && echo "echo fine > \"/tmp/fine.\$DOT_TOPIC_LOGFILE_SUFFIX\""
     echo "exit ${code}"
   } > "${path}"
   chmod +x "${path}"
@@ -92,12 +94,13 @@ expect_trace "system brew alpha zeta alpha beta gamma"
 expect_output "INSTALLING CORE"
 expect_output "INSTALLING TOPICS"
 
-it "keeps going after a topic fails and reports it with its log"
+it "keeps going after a topic fails and reports it with its failed logs only"
 fresh
 run_install
 expect_code 0
 expect_output "There were some errors in: beta"
-expect_output "/tmp/fixture.beta.install.dot.log"
+expect_output "/tmp/fixture.failed.beta.install.dot.log"
+expect_no_output "/tmp/fine.beta.install.dot.log"
 
 it "says everything is installed when nothing fails"
 fresh

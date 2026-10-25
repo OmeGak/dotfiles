@@ -4,15 +4,13 @@
 installer='https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh'
 
 if ! command -v brew > /dev/null; then
-  pprint info-go "Installing Homebrew"
   # The installer needs sudo for its prefix; dot-start keeps it alive
   sudoplz
-  log="/tmp/$DOT_TOPIC_LOGFILE_SUFFIX"
-  if ! script=$(curl -fsSL "${installer}") \
-    || ! NONINTERACTIVE=1 bash -c "${script}" > "${log}" 2>&1; then
-    pprint info-error "Failed to install Homebrew"
+  if ! script=$(curl -fsSL "${installer}"); then
+    pprint info-error "Couldn't fetch Homebrew's installer"
     exit 1
   fi
+  NONINTERACTIVE=1 prun "Installing Homebrew" bash -c "${script}" || exit 1
 fi
 
 exit 0

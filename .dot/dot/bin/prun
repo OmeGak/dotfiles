@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Runs a command that may take a while, quietly: its output goes to a log,
+# the status line shows it is still alive, and a failure shows the log's tail
+# Usage: prun "<what it does>" command [args ...]
+#   The command gets no stdin, so it must not ask anything: sudoplz before
+#   it. Its log is /tmp/<what it does, as a slug>.$DOT_TOPIC_LOGFILE_SUFFIX,
+#   renamed <slug>.failed.$DOT_TOPIC_LOGFILE_SUFFIX when the command fails
+
+progname=$(basename "$0")
+[[ -z $DOT_TOPIC_LOGFILE_SUFFIX ]] && DOT_TOPIC_LOGFILE_SUFFIX='dot.log'
+
+usage() {
+  echo "usage: ${progname} label command [args ...]"
+  echo "  label:   what the command does, as shown on the status line"
+  echo "  command: the command to run, with its arguments"
+}
+
+if [[ $# -lt 2 ]]; then
+  usage
+  exit 1
+fi
+
+label=$1; shift
+slug=$(printf '%s' "${label}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-')
+slug=${slug#-}; slug=${slug%-}
+log="/tmp/${slug}.${DOT_TOPIC_LOGFILE_SUFFIX}"
+
+elapsed() {
+  local s=$1
+  if (( s < 60 )); then echo "${s}s"; else echo "$((s / 60))m $((s % 60))s"; fi
+}
+
+# A background command ignores Ctrl-C on its own, so it is passed on
+trap 'kill "${pid}" 2> /dev/null; exit 130' INT TERM
+
+start=$SECONDS
+"$@" < /dev/null > "${log}" 2>&1 &
+pid=$!
+# On a terminal the line is rewritten as the seconds pass; elsewhere only
+# the outcome is printed
+if [[ -t 1 ]]; then
+  pprint info-go "${label}"
+  while kill -0 "${pid}" 2> /dev/null; do
+    sleep 1
+    pprint info-go -r "${label} ($(elapsed $((SECONDS - start))))"
+  done
+  rewrite='-r'
+fi
+wait "${pid}"
+code=$?
+took=$(elapsed $((SECONDS - start)))
+
+if [[ ${code} -eq 0 ]]; then
+  pprint info-ok ${rewrite:-} "${label} (${took})"
+else
+  # A failed run's log is told apart by its name, so a report can list the
+  # failed ones alone
+  failed="/tmp/${slug}.failed.${DOT_TOPIC_LOGFILE_SUFFIX}"
+  mv "${log}" "${failed}"
+  pprint info-error ${rewrite:-} "${label}: failed (${took})"
+  tail -n 5 "${failed}" | while IFS= read -r line; do pprint text "${line}"; done
+  pprint info-error "see ${failed}"
+fi
+exit "${code}"

@@ -11,23 +11,14 @@ try pinstall brew peonping/tap/peon-ping
 # peon-ping's banners: its overlay style hangs on macOS 15
 try pinstall brew omegak/brewery/terminal-notifier-agentbox
 
-# Link herdr plugins on every run: herdr keeps a copy of each manifest
-pprint info-go "Linking herdr plugins"
-logfile="/tmp/herdr-plugins.$DOT_TOPIC_LOGFILE_SUFFIX"
-: > "${logfile}"
+# Wire the herdr plugins on every run: herdr keeps a copy of each manifest.
+# Not "linking", which is dot link's word for a symlink
 for plugin in "$DOT"/agents/dotagents/herdr/plugins/*/; do
-  if ! herdr plugin link "${plugin%/}" >> "${logfile}" 2>&1; then
-    pprint info-error "Failed to link $(basename "${plugin}")"
-    TRY_CODE=1
-  fi
+  try prun "Wiring herdr plugin $(basename "${plugin}")" herdr plugin link "${plugin%/}"
 done
 
 # Link the shared Claude setup (skills, rules, settings) from dotagents
 sudoplz -r "For Claude Code's managed settings"
-pprint info-go "Installing dotagents"
-if ! "$DOT/agents/dotagents/dotagents" install laptop > "/tmp/dotagents.$DOT_TOPIC_LOGFILE_SUFFIX" 2>&1; then
-  pprint info-error "Failed to install dotagents"
-  TRY_CODE=1
-fi
+try prun "Installing dotagents" "$DOT/agents/dotagents/dotagents" install laptop
 
 exit $TRY_CODE

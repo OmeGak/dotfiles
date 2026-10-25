@@ -22,12 +22,13 @@ run_topic() {
   fi
 }
 
-# Lists the failed topics with the logs their installers left
+# Lists the failed topics with the logs of their failed runs, which prun
+# names <slug>.failed.<suffix>
 report() {
   local topic log
   pprint step-error "There were some errors in: ${errors[*]}"
   for topic in "${errors[@]}"; do
-    for log in /tmp/*"${topic}${logsuffix}"; do
+    for log in /tmp/*.failed."${topic}${logsuffix}"; do
       [[ -e ${log} ]] && pprint info-error "${log}"
     done
   done

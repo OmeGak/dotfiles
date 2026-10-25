@@ -119,7 +119,7 @@ it "reports a failed install, exit 1"
 fresh
 FAKE_RC=1 run_pinstall uv spotdl
 expect_code 1
-expect_output "Failed to install spotdl"
+expect_output "Installing spotdl from uv: failed"
 
 it "errors when the manager is missing, exit 1"
 fresh

@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Tests prun, the runner for long commands: off a terminal it prints one
+# line per command, so the assertions read that line, the log it leaves and
+# the exit code. Plain bash, no runner: each `it` is a test, each `expect_*`
+# an assertion, the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+export DOT_TOPIC_LOGFILE_SUFFIX=prun-test.dot.log
+rm -f /tmp/*."$DOT_TOPIC_LOGFILE_SUFFIX"
+
+# -- Fixtures -----------------------------------------------------------------
+
+run_prun() {
+  PATH="${repo}/.dot/dot/bin:/usr/bin:/bin" "${repo}/.dot/dot/bin/prun" "$@" > /tmp/prun-test.out 2>&1
+  code=$?
+  out=$(cat /tmp/prun-test.out)
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_code() {
+  [[ ${code} -eq $1 ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
+}
+
+expect_no_output() {
+  [[ ${out} != *"$1"* ]] || fail "output has '$1':"$'\n'"${out}"
+}
+
+expect_log() {
+  local log="/tmp/$1.$DOT_TOPIC_LOGFILE_SUFFIX"
+  [[ -f ${log} ]] || { fail "no log ${log}"; return; }
+  [[ $(cat "${log}") == *"$2"* ]] || fail "log ${log} lacks '$2':"$'\n'"$(cat "${log}")"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "runs the command with its output in a log named after the label"
+run_prun "Doing Something Fine" sh -c 'echo hello; echo oops 1>&2'
+expect_code 0
+expect_output "Doing Something Fine ("
+expect_log doing-something-fine "hello"
+expect_log doing-something-fine "oops"
+
+it "says only the one line off a terminal"
+[[ $(grep -c . /tmp/prun-test.out) -eq 1 ]] || fail "more than one line:"$'\n'"${out}"
+
+it "passes a failure's code and shows the tail and path of its log, renamed failed"
+run_prun "Breaking things" sh -c 'for i in 1 2 3 4 5 6 7; do echo "line $i"; done; exit 3'
+expect_code 3
+expect_output "Breaking things: failed ("
+expect_output "line 7"
+expect_no_output "line 1"
+expect_output "/tmp/breaking-things.failed.$DOT_TOPIC_LOGFILE_SUFFIX"
+expect_log breaking-things.failed "line 1"
+[[ -e /tmp/breaking-things.$DOT_TOPIC_LOGFILE_SUFFIX ]] && fail "the log kept its plain name too"
+
+it "gives the command no stdin, so nothing can wait on a question"
+run_prun "Reading" sh -c 'cat; echo done'
+expect_code 0
+expect_log reading "done"
+
+it "passes the environment through"
+PRUN_TEST_VAR=seen run_prun "Looking at the env" sh -c 'echo "$PRUN_TEST_VAR"'
+expect_log looking-at-the-env "seen"
+
+it "prints usage without a label and a command, exit 1"
+run_prun "Only a label"
+expect_code 1
+expect_output "usage:"
+
+rm -f /tmp/*."$DOT_TOPIC_LOGFILE_SUFFIX" /tmp/prun-test.out
+exit "${failed}"

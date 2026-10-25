@@ -5,9 +5,8 @@ set -e
 if [[ "$OS" == "Linux" ]]; then
   sudoplz
 
-  pprint info-go "Updating apt-get"
-  sudo apt-get update -y -qq 2> /dev/null || true
-  sudo apt-get update --fix-missing -y -qq 2> /dev/null || true
+  prun "Updating apt-get" sudo apt-get update -y -qq || true
+  prun "Updating apt-get, fixing missing packages" sudo apt-get update --fix-missing -y -qq || true
 
   # Linuxbrew system dependencies
   pinstall apt build-essential

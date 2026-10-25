@@ -100,7 +100,9 @@ There's a few special files in the hierarchy.
   `links.Linux` file only applies on that OS.
 - ***topic*/install.sh**: This script will be run during the initial
   installation and anytime after that with `dot run` or `dot install`. It is
-  expected to install stuff in the system, through `pinstall`. The core's own
+  expected to install stuff in the system, through `pinstall`, and to run
+  anything else that takes a while through `prun`, which keeps the status
+  line alive and shows the log's tail on failure. The core's own
   installers, in `.dot/*/install.sh`, run before any topic's and bring what
   the dotfiles need to run: the shell and the package managers `pinstall`
   drives.
