@@ -1,24 +1,51 @@
 #!/usr/bin/env bash
 # Runs the installers: the core's first, since they bring the shell and the
-# package managers pinstall drives, then every topic's, or only the named ones
+# package managers pinstall drives, then every topic's, or only the named
+# ones. A topic's packages manifest goes first, then its install.sh. With
+# --check, only says what the manifests are missing.
 source "$(dirname "$0")/../env"
 
 logsuffix='.install.dot.log'
 errors=()
 
-# Runs one topic's installer, after clearing its logs from an earlier run;
-# the installer keeps the terminal as stdin, so it may ask things
+# Whether a topic's folder has anything to install
+has_installer() {
+  [[ -e $1/packages || -e $1/install.sh ]]
+}
+
+# Runs one topic's manifest and installer, after clearing its logs from an
+# earlier run; the installer keeps the terminal as stdin, so it may ask things
 run_topic() {
-  local topic=$1 script=$2
+  local topic=$1 dir=$2 ok=true
   rm -f /tmp/*"${topic}${logsuffix}"
   export DOT_TOPIC_LOGFILE_SUFFIX=${topic}${logsuffix}
   pprint step-go "Installing stuff for ${topic}..."
-  if sh -c "${script}"; then
+  if [[ -e ${dir}/packages ]]; then
+    pinstall -f "${dir}/packages" || ok=false
+  fi
+  if [[ -e ${dir}/install.sh ]]; then
+    sh -c "${dir}/install.sh" || ok=false
+  fi
+  if ${ok}; then
     pprint info-ok -n "All is done"
   else
     errors+=("${topic}")
     pprint info-error -n "Failed"
     return 1
+  fi
+}
+
+# Says what one topic's manifest is missing, as its lines
+check_topic() {
+  local topic=$1 dir=$2 missing line
+  [[ -e ${dir}/packages ]] || return 0
+  if missing=$(pinstall --check -f "${dir}/packages"); then
+    pprint step-ok -n "Nothing missing for ${topic}"
+  elif [[ ${missing} ]]; then
+    pprint step-go "Missing for ${topic}:"
+    while IFS= read -r line; do pprint text "${line}"; done <<< "${missing}"
+  else
+    pprint step-error -n "Couldn't check ${topic}"
   fi
 }
 
@@ -37,6 +64,12 @@ report() {
 
 # -- Scope --------------------------------------------------------------------
 
+check=
+if [[ $1 == --check ]]; then
+  check=1
+  shift
+fi
+
 for topic in "$@"; do
   if [[ ${topic} == .* || ! -d "$DOT/${topic}" ]]; then
     echo "No topic ${topic}" 1>&2
@@ -51,25 +84,39 @@ if (( $# > 0 )); then
     topics+=("${topic}")
   done < <(printf '%s\n' "$@" | sort -u)
 else
-  for script in "$DOT"/*/install.sh; do
-    topics+=("$(basename "$(dirname "${script}")")")
+  for dir in "$DOT"/*/; do
+    has_installer "${dir}" && topics+=("$(basename "${dir}")")
   done
 fi
 
 # The core runs whole, whatever the scope: brew brings what the rest of the
 # core needs, and the core what every topic needs
 core=()
-[[ -e "$DOT/.dot/brew/install.sh" ]] && core+=(brew)
-for script in "$DOT"/.dot/*/install.sh; do
-  topic=$(basename "$(dirname "${script}")")
-  [[ ${topic} == brew ]] || core+=("${topic}")
+has_installer "$DOT/.dot/brew" && core+=(brew)
+for dir in "$DOT"/.dot/*/; do
+  topic=$(basename "${dir}")
+  [[ ${topic} == brew ]] || ! has_installer "${dir}" || core+=("${topic}")
 done
+
+# -- Check --------------------------------------------------------------------
+
+if [[ ${check} ]]; then
+  pprint section 'CHECKING CORE'
+  for topic in "${core[@]}"; do
+    check_topic "${topic}" "$DOT/.dot/${topic}"
+  done
+  pprint section 'CHECKING TOPICS'
+  for topic in "${topics[@]}"; do
+    check_topic "${topic}" "$DOT/${topic}"
+  done
+  exit 0
+fi
 
 # -- Go -----------------------------------------------------------------------
 
 pprint section 'INSTALLING CORE'
 for topic in "${core[@]}"; do
-  if ! run_topic "${topic}" "$DOT/.dot/${topic}/install.sh"; then
+  if ! run_topic "${topic}" "$DOT/.dot/${topic}"; then
     report
     exit 1
   fi
@@ -77,8 +124,8 @@ done
 
 pprint section 'INSTALLING TOPICS'
 for topic in "${topics[@]}"; do
-  if [[ -e "$DOT/${topic}/install.sh" ]]; then
-    run_topic "${topic}" "$DOT/${topic}/install.sh" || true
+  if has_installer "$DOT/${topic}"; then
+    run_topic "${topic}" "$DOT/${topic}" || true
   else
     pprint step-ok -n "Nothing to install for ${topic}"
   fi

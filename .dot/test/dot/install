@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Tests the install step against a fake dotfiles folder: the real .dot core
-# with its installers replaced by fixtures, and a few fixture topics, whose
-# installers only write their name to a trace and exit as told. Plain bash,
-# no runner: each `it` is a test, each `expect_*` an assertion, the exit code
-# is the result.
+# with its installers replaced by fixtures and pinstall by a fake, and a few
+# fixture topics, whose installers only write their name to a trace and
+# exit as told. Plain bash, no runner: each `it` is a test, each `expect_*`
+# an assertion, the exit code is the result.
 
 set -u
 repo=$(cd "$(dirname "$0")/../../.." && pwd)
@@ -27,9 +27,37 @@ installer() {
   chmod +x "${path}"
 }
 
+# A manifest with the given lines; one with "fail" in it fails
+manifest() {
+  local path=$1
+  shift
+  mkdir -p "$(dirname "${path}")"
+  printf '%s\n' "$@" > "${path}"
+}
+
+# A pinstall that appends <topic>/packages to the trace and, with --check,
+# reports every line of the manifest as missing
+fake_pinstall() {
+  cat > "$DOT/.dot/dot/bin/pinstall" <<EOF
+#!/usr/bin/env bash
+check=
+if [[ \$1 == --check ]]; then check=1; shift; fi
+topic=\$(basename "\$(dirname "\$2")")
+if [[ \${check} ]]; then
+  grep -v '^#' "\$2" | grep . && exit 1
+  exit 0
+fi
+echo "\${topic}/packages" >> "${tmp}/trace"
+grep -q fail "\$2" && exit 1
+exit 0
+EOF
+  chmod +x "$DOT/.dot/dot/bin/pinstall"
+}
+
 # A fresh fake dotfiles folder: the real core without its installers, fixture
 # core topics (alpha sorts before brew, to show brew still goes first) and
-# fixture topics (beta fails and leaves a log, empty has no installer)
+# fixture topics (beta fails and leaves a log, delta has only a manifest,
+# empty has nothing)
 fresh() {
   tmp=$(mktemp -d "${TMPDIR:-/tmp}/install-test.XXXXXX")
   tmp=$(cd "${tmp}" && pwd)
@@ -37,12 +65,14 @@ fresh() {
   DOT="${tmp}/dotfiles"
   mkdir -p "$HOME" "$DOT"
   cp -R "${repo}/.dot" "$DOT/.dot"
-  rm -f "$DOT"/.dot/*/install.sh
+  rm -f "$DOT"/.dot/*/install.sh "$DOT"/.dot/*/packages
+  fake_pinstall
   installer "$DOT/.dot/brew/install.sh"
   installer "$DOT/.dot/alpha/install.sh"
   installer "$DOT/.dot/zeta/install.sh"
   installer "$DOT/alpha/install.sh"
   installer "$DOT/beta/install.sh" 1 fixture
+  manifest "$DOT/delta/packages" "brew fd"
   installer "$DOT/gamma/install.sh"
   mkdir -p "$DOT/empty"
   install="$DOT/.dot/dot/scripts/install"
@@ -89,9 +119,17 @@ expect_no_output() {
 it "runs the core first, brew ahead, then the topics"
 fresh
 run_install
-expect_trace "brew alpha zeta alpha beta gamma"
+expect_trace "brew alpha zeta alpha beta delta/packages gamma"
 expect_output "INSTALLING CORE"
 expect_output "INSTALLING TOPICS"
+
+it "runs a topic's manifest before its installer"
+fresh
+manifest "$DOT/alpha/packages" "brew bat"
+manifest "$DOT/.dot/zeta/packages" "brew zsh"
+run_install alpha
+expect_code 0
+expect_trace "brew alpha zeta/packages zeta alpha/packages alpha"
 
 it "keeps going after a topic fails and reports it with its failed logs only"
 fresh
@@ -100,6 +138,13 @@ expect_code 0
 expect_output "There were some errors in: beta"
 expect_output "/tmp/fixture.failed.beta.install.dot.log"
 expect_no_output "/tmp/fine.beta.install.dot.log"
+
+it "marks a topic failed when its manifest fails"
+fresh
+manifest "$DOT/epsilon/packages" "brew fail-me"
+run_install epsilon
+expect_code 0
+expect_output "There were some errors in: epsilon"
 
 it "says everything is installed when nothing fails"
 fresh
@@ -143,5 +188,29 @@ echo stale > /tmp/old.alpha.install.dot.log
 run_install alpha
 [[ -e /tmp/old.alpha.install.dot.log ]] && fail "old log still there"
 rm -f /tmp/old.alpha.install.dot.log
+
+it "says what each manifest is missing with --check, and installs nothing"
+fresh
+manifest "$DOT/alpha/packages" "# Tools" "brew bat"
+manifest "$DOT/theta/packages" "# Nothing"
+run_install --check
+expect_code 0
+expect_trace ""
+expect_output "CHECKING CORE"
+expect_output "CHECKING TOPICS"
+expect_output "Missing for alpha:"
+expect_output "brew bat"
+expect_output "Missing for delta:"
+expect_output "Nothing missing for theta"
+expect_no_output "INSTALLING"
+
+it "checks only the named topics, after the core"
+fresh
+manifest "$DOT/.dot/zeta/packages" "brew zsh"
+run_install --check delta
+expect_code 0
+expect_output "Missing for zeta:"
+expect_output "Missing for delta:"
+expect_no_output "alpha"
 
 exit "${failed}"

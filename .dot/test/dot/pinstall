@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tests pinstall against fake package managers first on the PATH: each logs
-# the install it is asked for and answers presence from a fixture list.
+# the installs it is asked for and lists what a fixture says it has.
 # Plain bash, no runner: each `it` is a test, each `expect_*` an assertion,
 # the exit code is the result.
 
@@ -10,47 +10,72 @@ failed=0
 
 # -- Fixtures -----------------------------------------------------------------
 
-# A fresh bin of fakes and empty lists; `installed <manager> <name>` lists a
-# package as present
+# A fresh bin of fakes and empty lists; `installed <driver> <name>` lists a
+# package as present, FAKE_RC is what an install exits with
 fresh() {
   tmp=$(mktemp -d "${TMPDIR:-/tmp}/pinstall-test.XXXXXX")
   tmp=$(cd "${tmp}" && pwd)
   mkdir -p "${tmp}/bin"
   : > "${tmp}/log"
-  : > "${tmp}/uv-list"
-  : > "${tmp}/brew-list"
-  : > "${tmp}/gem-list"
-  cat > "${tmp}/bin/uv" <<EOF
-#!/usr/bin/env bash
-case "\$1 \$2" in
-  "tool list") cat "${tmp}/uv-list";;
-  "tool install") echo "uv \$3" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
-esac
-EOF
+  local list
+  for list in brew cask gem npm uv mas code; do : > "${tmp}/${list}-list"; done
   cat > "${tmp}/bin/brew" <<EOF
 #!/usr/bin/env bash
-case "\$1" in
-  ls) grep -x "\${*: -1}" "${tmp}/brew-list";;
-  install) echo "brew \$2" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+case "\$*" in
+  "ls --formula") cat "${tmp}/brew-list";;
+  "ls --cask") cat "${tmp}/cask-list";;
+  install*) echo "brew \${*:2}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
 esac
 EOF
   cat > "${tmp}/bin/gem" <<EOF
 #!/usr/bin/env bash
 case "\$1" in
-  list) if grep -qx "\$3" "${tmp}/gem-list"; then echo true; else echo false; exit 1; fi;;
-  install) echo "gem \$2" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+  list) echo; echo "*** LOCAL GEMS ***"; echo; cat "${tmp}/gem-list";;
+  install) echo "gem \${*:2}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
 esac
 EOF
+  cat > "${tmp}/bin/npm" <<EOF
+#!/usr/bin/env bash
+case "\$2" in
+  ls) echo /lib; sed 's|^|/lib/node_modules/|' "${tmp}/npm-list";;
+  install) echo "npm \${*:3}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  cat > "${tmp}/bin/uv" <<EOF
+#!/usr/bin/env bash
+case "\$2" in
+  list) sed 's|\$| v1.0.0|; a\\
+- its-command
+' "${tmp}/uv-list";;
+  install) echo "uv \${*:3}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  cat > "${tmp}/bin/mas" <<EOF
+#!/usr/bin/env bash
+case "\$1" in
+  list) sed 's|\$|  Some App  (1.0)|' "${tmp}/mas-list";;
+  install) echo "mas \${*:2}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  cat > "${tmp}/bin/code" <<EOF
+#!/usr/bin/env bash
+case "\$1" in
+  --list-extensions) cat "${tmp}/code-list";;
+  --install-extension) echo "code \$*" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+esac
+EOF
+  # mas installs through sudo
+  printf '#!/usr/bin/env bash\nexec "$@"\n' > "${tmp}/bin/sudo"
   chmod +x "${tmp}"/bin/*
   export DOT_TOPIC_LOGFILE_SUFFIX=pinstall-test.dot.log
 }
 
 installed() {
-  case $1 in
-    uv) echo "$2 v1.0.0" >> "${tmp}/uv-list";;
-    brew) echo "$2" >> "${tmp}/brew-list";;
-    gem) echo "$2" >> "${tmp}/gem-list";;
-  esac
+  echo "$2" >> "${tmp}/$1-list"
+}
+
+manifest() {
+  cat > "${tmp}/packages"
 }
 
 # Runs pinstall with the fakes ahead of the real managers, as the install
@@ -59,7 +84,7 @@ run_pinstall() {
   PATH="${tmp}/bin:${repo}/.dot/dot/bin:/usr/bin:/bin" "${repo}/.dot/dot/bin/pinstall" "$@" > "${tmp}/out" 2>&1
   code=$?
   out=$(cat "${tmp}/out")
-  log=$(cat "${tmp}/log" | tr '\n' ' ')
+  log=$(tr '\n' ' ' < "${tmp}/log")
 }
 
 # -- Assertions ---------------------------------------------------------------
@@ -85,41 +110,123 @@ expect_output() {
   [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
 }
 
+expect_no_output() {
+  [[ ${out} != *"$1"* ]] || fail "output has '$1':"$'\n'"${out}"
+}
+
 # -- Tests --------------------------------------------------------------------
 
-it "installs a Python tool with uv tool install"
+it "installs the missing packages of a driver in one call"
 fresh
-run_pinstall uv maildump
+installed brew fd
+run_pinstall brew fd bat ripgrep
 expect_code 0
-expect_log "uv maildump"
-expect_output "Installing maildump from uv"
+expect_log "brew bat ripgrep"
+expect_output "Installing bat, ripgrep from brew"
 
-it "leaves a tool uv already lists alone"
+it "leaves it all alone when the manager lists every package"
 fresh
-installed uv maildump
-run_pinstall uv maildump
+installed brew fd
+installed brew bat
+run_pinstall brew fd bat
 expect_code 0
 expect_log ""
 
-it "installs a formula with brew, and leaves a listed one alone"
+it "reads a manifest: comments, blanks, drivers as they first appear"
+fresh
+manifest <<'EOF'
+# Tools
+brew bat
+uv maildump  # mail on the command line
+cask iterm2
+
+brew fd
+EOF
+run_pinstall -f "${tmp}/packages"
+expect_code 0
+expect_log "brew bat fd uv maildump brew --cask iterm2"
+
+it "reads several manifests as one"
+fresh
+manifest <<'EOF'
+brew bat
+EOF
+echo "brew fd" > "${tmp}/more"
+run_pinstall -f "${tmp}/packages" "${tmp}/more"
+expect_code 0
+expect_log "brew bat fd"
+
+it "knows a package by the last part of its name, whatever the case"
+fresh
+installed brew sshfs-fuse-t
+installed cask shortcutdetective
+run_pinstall brew omegak/tap/sshfs-fuse-t
+run_pinstall cask ShortcutDetective
+expect_code 0
+expect_log ""
+
+it "gives uv one tool per call"
+fresh
+installed uv xkcdpass
+run_pinstall uv maildump xkcdpass spotdl
+expect_code 0
+expect_log "uv maildump uv spotdl"
+expect_output "Installing maildump from uv"
+expect_output "Installing spotdl from uv"
+
+it "drives gem and npm, mas through sudo, code with a flag per extension"
+fresh
+installed gem boom
+installed npm eslint
+installed mas 450527929
+installed code alefragnani.bookmarks
+run_pinstall gem boom rake
+run_pinstall npm eslint sass-lint
+run_pinstall mas 450527929 1351639930
+run_pinstall code alefragnani.bookmarks anthropic.claude-code
+expect_code 0
+expect_log "gem rake npm sass-lint mas 1351639930 code --install-extension anthropic.claude-code"
+
+it "names a long list briefly"
+fresh
+run_pinstall npm a b c d e
+expect_code 0
+expect_log "npm a b c d e"
+expect_output "Installing a, b and 3 more from npm"
+
+it "prints what is missing with --check, as manifest lines, exit 1"
 fresh
 installed brew fd
-run_pinstall brew fd
-run_pinstall brew bat
-expect_code 0
-expect_log "brew bat"
-
-it "installs a gem with gem install"
-fresh
-run_pinstall gem boom
-expect_code 0
-expect_log "gem boom"
-
-it "reports a failed install, exit 1"
-fresh
-FAKE_RC=1 run_pinstall uv spotdl
+manifest <<'EOF'
+brew fd
+brew bat
+uv maildump
+EOF
+run_pinstall --check -f "${tmp}/packages"
 expect_code 1
-expect_output "Installing spotdl from uv: failed"
+expect_log ""
+expect_output "brew bat"
+expect_output "uv maildump"
+expect_no_output "brew fd"
+
+it "exits 0 from --check when nothing is missing"
+fresh
+installed brew fd
+run_pinstall --check brew fd
+expect_code 0
+expect_log ""
+expect_no_output "brew"
+
+it "reports a failed install, exit 1, and goes on with the next driver"
+fresh
+manifest <<'EOF'
+brew bat
+uv maildump
+EOF
+FAKE_RC=1 run_pinstall -f "${tmp}/packages"
+expect_code 1
+expect_output "Installing bat from brew: failed"
+expect_log "brew bat uv maildump"
 
 it "errors when the manager is missing, exit 1"
 fresh
@@ -129,12 +236,23 @@ expect_code 1
 expect_output "Error: uv is not available"
 expect_log ""
 
-it "prints usage for pip and cask, which it no longer drives"
+it "refuses a driver it doesn't have, on the command line and in a manifest"
 fresh
-run_pinstall pip spotdl
+run_pinstall nope xclip
 expect_code 1
 expect_output "usage:"
-run_pinstall cask firefox
+manifest <<'EOF'
+brew bat
+nope xclip
+EOF
+run_pinstall -f "${tmp}/packages"
+expect_code 1
+expect_output "${tmp}/packages:2: not a 'driver package' line"
+expect_log ""
+
+it "prints usage without a package, exit 1"
+fresh
+run_pinstall brew
 expect_code 1
 expect_output "usage:"
 

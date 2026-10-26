@@ -1,96 +1,188 @@
 #!/usr/bin/env bash
-# Pretty and quite silent package installer wrapper: a package already in
-# place is left alone, one that isn't is installed through prun
+# Installs the packages that aren't there yet, quietly: one driver per
+# package manager lists what the manager has and installs the missing
+# packages in one go through prun, so a topic asks each manager once
+# Usage: pinstall [--check] <driver> <package>...
+#        pinstall [--check] -f <manifest>...
+#   driver:   brew | cask | gem | npm | uv | mas | code
+#   manifest: one `<driver> <package>` per line; blank lines and what
+#             follows a # are ignored, and the drivers run in the order
+#             they first appear. Several manifests read as one.
+#   --check:  prints the missing packages as manifest lines and installs
+#             nothing; exit 1 when any is missing
 
-progname=$(basename $0)
+progname=$(basename "$0")
+drivers=' brew cask gem npm uv mas code '
 
+usage() {
+  echo "usage: ${progname} [--check] driver package..."
+  echo "       ${progname} [--check] -f manifest..."
+  echo "  driver:   brew | cask | gem | npm | uv | mas | code"
+  echo "  manifest: one 'driver package' per line, # starts a comment"
+  echo "  --check:  print what is missing instead of installing it"
+}
 
-# -- Core ----------------------------------------------------------------------
+# "Installing a, b, c from brew", or "a, b and 7 more" past three
+label() {
+  local manager=$1 names
+  shift
+  if (( $# > 3 )); then
+    names="$1, $2 and $(( $# - 2 )) more"
+  else
+    names=$(printf '%s, ' "$@")
+    names=${names%, }
+  fi
+  echo "Installing ${names} from ${manager}"
+}
 
-_pretty_install() {
-  local package=$1
-  local manager=$2
-  local cmd_install=$3
-  local cmd_check=$4
-  local args=${*:5}
-  if [[ ! $(which "${manager}") ]]; then
+# -- Drivers ------------------------------------------------------------------
+# A driver is three functions: _<driver>_manager names the command it
+# needs, _<driver>_installed prints what the manager has, one package per
+# line with its name first, and _<driver>_install installs the packages
+# it is given, through prun
+
+# The plain listings read the Cellar and the Caskroom, no formula is loaded
+_brew_manager() { echo brew; }
+_brew_installed() { brew ls --formula; }
+_brew_install() { prun "$(label brew "$@")" brew install "$@"; }
+
+_cask_manager() { echo brew; }
+_cask_installed() { brew ls --cask; }
+_cask_install() { prun "$(label brew "$@")" brew install --cask "$@"; }
+
+_gem_manager() { echo gem; }
+_gem_installed() { gem list --no-versions; }
+_gem_install() { prun "$(label gem "$@")" gem install "$@"; }
+
+_npm_manager() { echo npm; }
+# One path per global package, the name last
+_npm_installed() { npm -g ls --parseable --depth 0 | sed 's|.*/||'; }
+_npm_install() { prun "$(label npm "$@")" npm -g install "$@"; }
+
+_uv_manager() { echo uv; }
+# A "name vX.Y.Z" line per tool, then its commands indented
+_uv_installed() { uv tool list | grep '^[^ -]'; }
+# uv installs one tool per call
+_uv_install() {
+  local package status=0
+  for package in "$@"; do
+    prun "$(label uv "${package}")" uv tool install "${package}" || status=1
+  done
+  return "${status}"
+}
+
+_mas_manager() { echo mas; }
+# An "id  name  (version)" line per app
+_mas_installed() { mas list; }
+_mas_install() { prun "$(label mas "$@")" sudo mas install "$@"; }
+
+_code_manager() { echo code; }
+_code_installed() { code --list-extensions; }
+_code_install() {
+  local package args=()
+  for package in "$@"; do
+    args+=(--install-extension "${package}")
+  done
+  prun "$(label code "$@")" code "${args[@]}"
+}
+
+# -- Core ---------------------------------------------------------------------
+
+lower() {
+  printf '%s' "$1" | tr '[:upper:]' '[:lower:]'
+}
+
+# Prints the packages of a driver its manager doesn't list, known by the
+# last part of their name: omegak/tap/sshfs-fuse-t is listed as sshfs-fuse-t
+missing() {
+  local driver=$1 listed package
+  shift
+  listed=$("_${driver}_installed" 2> /dev/null | awk '{print tolower($1)}')
+  for package in "$@"; do
+    grep -qxF "$(lower "${package##*/}")" <<< "${listed}" || echo "${package}"
+  done
+}
+
+# Adds a manifest's lines to the entries, "driver package" each
+entries=()
+read_manifest() {
+  local file=$1 n=0 line driver package rest
+  if [[ ! -r ${file} ]]; then
+    echo "Error: no manifest ${file}" 1>&2
+    exit 1
+  fi
+  while IFS= read -r line || [[ ${line} ]]; do
+    n=$((n + 1))
+    line=${line%%#*}
+    read -r driver package rest <<< "${line}"
+    [[ ${driver} ]] || continue
+    if [[ ${drivers} != *" ${driver} "* || -z ${package} || ${rest} ]]; then
+      echo "Error: ${file}:${n}: not a 'driver package' line: ${line}" 1>&2
+      exit 1
+    fi
+    entries+=("${driver} ${package}")
+  done < "${file}"
+}
+
+# -- Go -----------------------------------------------------------------------
+
+check=
+if [[ $1 == --check ]]; then
+  check=1
+  shift
+fi
+
+if [[ $1 == -f ]]; then
+  shift
+  if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+  for file in "$@"; do
+    read_manifest "${file}"
+  done
+else
+  driver=$1
+  shift
+  if [[ ${drivers} != *" ${driver} "* || $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+  for package in "$@"; do
+    entries+=("${driver} ${package}")
+  done
+fi
+
+# The drivers in the order they first appear
+order=()
+for entry in "${entries[@]}"; do
+  driver=${entry%% *}
+  [[ " ${order[*]} " == *" ${driver} "* ]] || order+=("${driver}")
+done
+
+status=0
+for driver in "${order[@]}"; do
+  packages=()
+  for entry in "${entries[@]}"; do
+    [[ ${entry%% *} == "${driver}" ]] && packages+=("${entry#* }")
+  done
+  manager=$("_${driver}_manager")
+  if ! command -v "${manager}" > /dev/null; then
     echo "Error: ${manager} is not available" 1>&2
     exit 1
   fi
-  if [[ $(_is_installed "${cmd_check}" "${package}") == false ]]; then
-    prun "Installing ${package} from ${manager}" ${cmd_install} ${package} ${args} || exit 1
+  todo=()
+  while IFS= read -r package; do
+    [[ ${package} ]] && todo+=("${package}")
+  done < <(missing "${driver}" "${packages[@]}")
+  (( ${#todo[@]} > 0 )) || continue
+  if [[ ${check} ]]; then
+    for package in "${todo[@]}"; do
+      echo "${driver} ${package}"
+    done
+    status=1
+  else
+    "_${driver}_install" "${todo[@]}" || status=1
   fi
-}
-
-_is_installed() {
-  local cmd_check=$1
-  local package=$2
-  local output
-  local code
-  output=$(${cmd_check} ${package} 2> /dev/null)
-  code=$?
-  [[ -z "${output}" ]] || [[ "${code}" != 0 ]] && echo false && return
-  echo true
-}
-
-
-# -- System calls --------------------------------------------------------------
-
-# brew installs casks too, but `brew ls --versions` only lists formulae
-_brew_ls() {
-  brew ls --versions "$1" || brew ls --cask --versions "$1"
-}
-
-pbrew() {
-  _pretty_install $1 "brew" "brew install" "_brew_ls" "${@:2}"
-}
-
-pgem() {
-  _pretty_install $1 "gem" "gem install" "gem list -i" "${@:2}"
-}
-
-pnpm() {
-  _pretty_install $1 "npm" "npm -g install" "npm -g list" "${@:2}"
-}
-
-# Python command-line tools, each in an environment of its own; `uv tool
-# list` prints one "name vX.Y.Z" line per tool, then its commands indented
-_uv_ls() {
-  uv tool list 2> /dev/null | grep -i "^$1 "
-}
-
-puv() {
-  _pretty_install $1 "uv" "uv tool install" "_uv_ls" "${@:2}"
-}
-
-
-# ------------------------------------------------------------------------------
-
-usage() {
-  echo "usage: ${progname} system package args"
-  echo "  system:  package system to use: (brew | gem | npm | uv)"
-  echo "  package: the package to be installed"
-  echo "  args:    additional args to pass to the pkg manager"
-}
-
-case "$1" in
-  brew)
-    fn="pbrew";;
-  gem)
-    fn="pgem";;
-  npm)
-    fn="pnpm";;
-  uv)
-    fn="puv";;
-  *)
-    usage
-    exit 1;;
-esac
-
-if [[ $# -lt 2 ]]; then
-  usage
-  exit 1
-fi
-
-${fn} "$2" "${@:3}"
-exit 0
+done
+exit "${status}"
