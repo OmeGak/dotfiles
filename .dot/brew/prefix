@@ -2,13 +2,8 @@
 # The Homebrew prefix, as a fact rather than a question to brew: Homebrew's
 # installer puts it here by machine, and `brew --prefix` costs a fork of ruby
 # on every shell start. POSIX sh: sourced by zsh (zshenv) and bash (dot env).
-# Trusts an $OS already set by the caller.
-case "${OS:-$(uname -s)}" in
-  Darwin)
-    case "$(uname -m)" in
-      arm64) BREWDIR=/opt/homebrew;;
-      *) BREWDIR=/usr/local;;
-    esac;;
-  *) BREWDIR=/home/linuxbrew/.linuxbrew;;
+case "$(uname -m)" in
+  arm64) BREWDIR=/opt/homebrew;;
+  *) BREWDIR=/usr/local;;
 esac
 export BREWDIR

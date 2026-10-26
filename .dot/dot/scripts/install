@@ -56,15 +56,13 @@ else
   done
 fi
 
-# The core runs whole, whatever the scope: system brings what brew needs,
-# brew what the rest of the core needs, and the core what every topic needs
+# The core runs whole, whatever the scope: brew brings what the rest of the
+# core needs, and the core what every topic needs
 core=()
-for topic in system brew; do
-  [[ -e "$DOT/.dot/${topic}/install.sh" ]] && core+=("${topic}")
-done
+[[ -e "$DOT/.dot/brew/install.sh" ]] && core+=(brew)
 for script in "$DOT"/.dot/*/install.sh; do
   topic=$(basename "$(dirname "${script}")")
-  [[ ${topic} == system || ${topic} == brew ]] || core+=("${topic}")
+  [[ ${topic} == brew ]] || core+=("${topic}")
 done
 
 # -- Go -----------------------------------------------------------------------

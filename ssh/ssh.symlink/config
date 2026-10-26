@@ -5,10 +5,10 @@ Include config.local
 CanonicalizeHostname yes
 
 Host *-stagging
-  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-caution" -a "iterm-profile"
+  LocalCommand phook -e "iterm-profile ssh-caution" -a "iterm-profile"
 
 Host *-prod
-  LocalCommand [[ "$OS" == "Darwin" ]] && phook -e "iterm-profile ssh-danger" -a "iterm-profile"
+  LocalCommand phook -e "iterm-profile ssh-danger" -a "iterm-profile"
 
 Host *
   AddKeysToAgent yes

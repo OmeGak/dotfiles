@@ -96,8 +96,7 @@ There's a few special files in the hierarchy.
   `$HOME/.config` instead.
 - ***topic*/links**: One `source -> target` per line, for a file that has to
   live somewhere else (`~/Library/Application Support/...`). The source is
-  relative to the topic, the target may start with `~`. A `links.Darwin` or
-  `links.Linux` file only applies on that OS.
+  relative to the topic, the target may start with `~`.
 - ***topic*/install.sh**: This script will be run during the initial
   installation and anytime after that with `dot run` or `dot install`. It is
   expected to install stuff in the system, through `pinstall`, and to run

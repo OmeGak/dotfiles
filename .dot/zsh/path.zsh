@@ -7,8 +7,7 @@ buildpath() {
 }
 
 buildmanpath() {
-  [[ "$OS" == 'Darwin' ]] && echo "$BREWDIR/man" \
-                          || echo "$BREWDIR/share/man"
+  echo "$BREWDIR/share/man"
 }
 
 # Explicitly run macOS path builder with clean paths, otherwise it scrambles it

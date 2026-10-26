@@ -29,11 +29,4 @@ fi
 
 # -- Compatibility -------------------------------------------------------------
 
-if [[ "$OS" == "Linux" ]]; then
-  alias pbcopy="xclip -selection clipboard"
-  alias pbpaste="xclip -selection clipboard -o"
-fi
-
-if [[ "$OS" == "Darwin" ]]; then
-  alias tac='tail -r'
-fi
+alias tac='tail -r'

@@ -2,7 +2,6 @@
 # Sets up the minimum sanitized environment for dot steps
 
 export DOT; DOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
-export OS; OS=$(uname -s)
 
 # shellcheck source=../brew/prefix
 source "$DOT/.dot/brew/prefix"

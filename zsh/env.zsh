@@ -3,7 +3,6 @@
 # Inside tmux, TERM is tmux's default-terminal: left as it is.
 if [[ -z $TMUX ]]; then
   TERMINFO_DIR="/usr/share/terminfo"
-  [[ "$OS" == "Linux" ]] && TERMINFO_DIR="/lib/terminfo"
 
   # Apply 256 only if available
   if [ ! -z $TERMINFO_DIR/**/xterm-256color(N) ]; then

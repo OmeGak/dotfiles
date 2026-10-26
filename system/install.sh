@@ -29,13 +29,7 @@ try pinstall uv maildump
 try pinstall brew font-sauce-code-pro-nerd-font
 try pinstall brew font-source-code-pro
 
-if [[ "$OS" == "Linux" ]]; then
-  try pinstall apt xclip
-fi
-
-if [[ "$OS" == "Darwin" ]]; then
-  # Make sure gnupg is not linked as it will collide with GPGTools
-  brew unlink gnupg > /dev/null 2>&1
-fi
+# Make sure gnupg is not linked as it will collide with GPGTools
+brew unlink gnupg > /dev/null 2>&1
 
 exit $TRY_CODE

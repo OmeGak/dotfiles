@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 # Prints your IPv4
 
-if [[ "$OS" == "Darwin" ]]; then
-  ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d ' ' -f2
-else
-  ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-fi
+ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d ' ' -f2

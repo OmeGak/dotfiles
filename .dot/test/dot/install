@@ -38,7 +38,6 @@ fresh() {
   mkdir -p "$HOME" "$DOT"
   cp -R "${repo}/.dot" "$DOT/.dot"
   rm -f "$DOT"/.dot/*/install.sh
-  installer "$DOT/.dot/system/install.sh"
   installer "$DOT/.dot/brew/install.sh"
   installer "$DOT/.dot/alpha/install.sh"
   installer "$DOT/.dot/zeta/install.sh"
@@ -87,10 +86,10 @@ expect_no_output() {
 
 # -- Tests --------------------------------------------------------------------
 
-it "runs the core first, system and brew ahead, then the topics"
+it "runs the core first, brew ahead, then the topics"
 fresh
 run_install
-expect_trace "system brew alpha zeta alpha beta gamma"
+expect_trace "brew alpha zeta alpha beta gamma"
 expect_output "INSTALLING CORE"
 expect_output "INSTALLING TOPICS"
 
@@ -115,20 +114,20 @@ fresh
 installer "$DOT/.dot/brew/install.sh" 1
 run_install
 expect_code 1
-expect_trace "system brew"
+expect_trace "brew"
 expect_output "There were some errors in: brew"
 
 it "installs only the named topics, after the whole core"
 fresh
 run_install gamma alpha
 expect_code 0
-expect_trace "system brew alpha zeta alpha gamma"
+expect_trace "brew alpha zeta alpha gamma"
 
 it "says so for a named topic without an installer"
 fresh
 run_install empty
 expect_code 0
-expect_trace "system brew alpha zeta"
+expect_trace "brew alpha zeta"
 expect_output "Nothing to install for empty"
 
 it "refuses an unknown topic before running anything"

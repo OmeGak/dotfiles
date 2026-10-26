@@ -2,11 +2,6 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
-if [[ "$OS" != "Darwin" ]]; then
-  pprint info-warn "Step skipped: This is not a Mac"
-  exit 0
-fi
-
 try pinstall brew mas
 # FUSE-T gives sshfs a FUSE layer without a kernel extension:
 # Homebrew's own sshfs needs libfuse, which only Linux has.

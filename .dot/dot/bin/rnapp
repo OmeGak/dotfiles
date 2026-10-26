@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 # Determines whether a macOS application is runing or not
 
-if [[ "$OS" != "Darwin" ]]; then
-  echo "Oops! This is not a Mac..." 1>&2
-  exit 1
-fi
-
 count=$(osascript -e "tell app \"System Events\" to count processes whose name is \"$1\"")
 (( ${count} == 1 )) && echo $1 is running

@@ -3,11 +3,6 @@
 set -e
 source "$(dirname "$0")/../env"
 
-if [[ "$OS" != "Darwin" ]]; then
-  pprint step-error "This is not a Mac"
-  exit 1
-fi
-
 pprint section "Applying system defaults"
 
 $DOT/macos/defaults.sh

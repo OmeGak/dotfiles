@@ -36,10 +36,6 @@ _is_installed() {
 
 # -- System calls --------------------------------------------------------------
 
-papt() {
-  _pretty_install $1 "apt-get" "sudo apt-get install -q -y" "dpkg -s" "${@:2}"
-}
-
 # brew installs casks too, but `brew ls --versions` only lists formulae
 _brew_ls() {
   brew ls --versions "$1" || brew ls --cask --versions "$1"
@@ -72,14 +68,12 @@ puv() {
 
 usage() {
   echo "usage: ${progname} system package args"
-  echo "  system:  package system to use: (apt | brew | gem | npm | uv)"
+  echo "  system:  package system to use: (brew | gem | npm | uv)"
   echo "  package: the package to be installed"
   echo "  args:    additional args to pass to the pkg manager"
 }
 
 case "$1" in
-  apt)
-    fn="papt";;
   brew)
     fn="pbrew";;
   gem)

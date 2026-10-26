@@ -1,11 +1,6 @@
 #!/bin/sh
 # Locates macOS applications by either name or bundle ID
 
-if [[ "$OS" != "Darwin" ]]; then
-  echo "Oops! This is not a Mac..." 1>&2
-  exit 1
-fi
-
 which_app() {
   local app=$1 is_name=0 bundle_id
   # Determine whether an app *name* or *bundle ID* was specified

@@ -4,10 +4,6 @@ export DOT=$HOME/.dotfiles
 # Default editor for .dotfiles
 export DOTEDITOR='vi'
 
-# Get OS name
-export OS
-OS=$(uname -s)
-
 # Homebrew prefix, by machine (asking brew is slow)
 # shellcheck source=../brew/prefix
 source $DOT/.dot/brew/prefix

@@ -8,12 +8,7 @@ fi
 
 pprint section 'SETTING UP GITCONFIG'
 
-git_credential='cache'
-if [ "$OS" == "Darwin" ]; then
-  git_credential='osxkeychain'
-fi
-
-s_credential="s/GIT_CREDENTIAL_HELPER/${git_credential}/g"
+s_credential="s/GIT_CREDENTIAL_HELPER/osxkeychain/g"
 sed -e "${s_credential}" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
 
 pprint step-ok -r 'gitconfig generated'

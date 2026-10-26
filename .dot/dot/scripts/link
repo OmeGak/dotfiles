@@ -2,7 +2,7 @@
 # Links each topic's files into place:
 #   topic/<name>.symlink          -> ~/.<name>
 #   topic/<name>.csymlink         -> ~/.config/<name>
-#   topic/links, topic/links.<OS> -> one `source -> target` per line, for
+#   topic/links                   -> one `source -> target` per line, for
 #                                    anything else: source relative to the
 #                                    topic, target may start with ~
 # A link that already points right is left alone. Anything else in the way
@@ -117,7 +117,7 @@ pprint step-go "Linking ${u}$DOT${offu} into ${u}$HOME${offu}:"
 link_by_suffix "$DOT/.dot" symlink "$HOME/."
 link_by_suffix "$DOT" symlink "$HOME/."
 link_by_suffix "$DOT" csymlink "$HOME/.config/"
-for file in "$DOT"/*/links "$DOT"/*/links."$OS"; do
+for file in "$DOT"/*/links; do
   [[ -f "${file}" ]] && link_by_manifest "${file}"
 done
 

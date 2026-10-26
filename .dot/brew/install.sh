@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs Homebrew (Linuxbrew on Linux) when there is none
+# Installs Homebrew when there is none
 
 installer='https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh'
 

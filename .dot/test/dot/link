@@ -18,7 +18,7 @@ fresh() {
   mkdir -p "$HOME" "$DOT"
   cp -R "${repo}/.dot" "$DOT/.dot"
   rm -f "$DOT"/.dot/*/*.symlink
-  mkdir -p "$DOT/alpha/sub" "$DOT/beta"
+  mkdir -p "$DOT/alpha/sub"
   echo a > "$DOT/alpha/one.symlink"
   mkdir "$DOT/alpha/dir.symlink"
   echo c > "$DOT/alpha/conf.csymlink"
@@ -30,10 +30,6 @@ fresh() {
     'sub/file.txt -> ~/Library/Some App/file.txt' \
     'deep.txt -> ~/a/b/c/deep.txt' \
     > "$DOT/alpha/links"
-  echo o > "$DOT/beta/ours.txt"
-  echo t > "$DOT/beta/theirs.txt"
-  printf '%s\n' 'ours.txt -> ~/for-this-os' > "$DOT/beta/links.$(uname -s)"
-  printf '%s\n' 'theirs.txt -> ~/for-another-os' > "$DOT/beta/links.NotAnOS"
   link="$DOT/.dot/dot/scripts/link"
 }
 
@@ -87,16 +83,12 @@ expect_link "$HOME/.dir" "$DOT/alpha/dir.symlink"
 expect_link "$HOME/.config/conf" "$DOT/alpha/conf.csymlink"
 expect_link "$HOME/Library/Some App/file.txt" "$DOT/alpha/sub/file.txt"
 expect_link "$HOME/a/b/c/deep.txt" "$DOT/alpha/deep.txt"
-expect_output "6 linked, 0 already in place, 0 skipped"
-
-it "applies links.<OS> for this OS only"
-expect_link "$HOME/for-this-os" "$DOT/beta/ours.txt"
-[[ -e "$HOME/for-another-os" ]] && fail "links.NotAnOS was applied"
+expect_output "5 linked, 0 already in place, 0 skipped"
 
 it "leaves a correct link alone on a second run, without asking"
 run_link ''
 expect_exit 0
-expect_output "0 linked, 6 already in place, 0 skipped"
+expect_output "0 linked, 5 already in place, 0 skipped"
 [[ "${out}" == *"exists"* ]] && fail "a correct link was reported as a conflict"
 
 it "reports a conflict with --check, touches nothing, exits 1"
@@ -105,21 +97,21 @@ run_link '' --check
 expect_exit 1
 expect_output ".one"
 expect_output "exists and is not linked to alpha/one.symlink"
-expect_output "1 to link, 5 in place"
+expect_output "1 to link, 4 in place"
 [[ "$(cat "$HOME/.one")" == mine ]] || fail ".one was changed by --check"
 
 it "reports what it would link with --check"
 rm "$HOME/.config/conf"
 run_link '' --check
 expect_output "Would link alpha/conf.csymlink"
-expect_output "2 to link, 4 in place"
+expect_output "2 to link, 3 in place"
 expect_no_link "$HOME/.config/conf"
 
 it "exits 0 from --check when everything is in place"
 run_link 'B'
 run_link '' --check
 expect_exit 0
-expect_output "All 6 links in place"
+expect_output "All 5 links in place"
 
 it "backs the file up as <target>.backup on b"
 fresh
@@ -144,13 +136,13 @@ echo mine > "$HOME/.one"
 run_link 'x'
 expect_no_link "$HOME/.one"
 expect_output "Skipped alpha/one.symlink"
-expect_output "5 linked, 0 already in place, 1 skipped"
+expect_output "4 linked, 0 already in place, 1 skipped"
 
 it "answers for all remaining conflicts on S, O and B"
 fresh
 echo mine > "$HOME/.one"; mkdir -p "$HOME/.config"; echo mine > "$HOME/.config/conf"
 run_link 'S'
-expect_output "4 linked, 0 already in place, 2 skipped"
+expect_output "3 linked, 0 already in place, 2 skipped"
 [[ $(grep -c "exists\." "${tmp}/out") == 1 ]] || fail "S asked more than once"
 fresh
 echo mine > "$HOME/.one"; mkdir -p "$HOME/.config"; echo mine > "$HOME/.config/conf"
@@ -172,7 +164,7 @@ echo 'no arrow here' >> "$DOT/alpha/links"
 run_link ''
 expect_exit 0
 expect_output "Ignoring a line without ' -> ' in alpha/links: no arrow here"
-expect_output "6 linked"
+expect_output "5 linked"
 
 # -- Result -------------------------------------------------------------------
 
