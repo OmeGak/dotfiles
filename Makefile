@@ -12,9 +12,6 @@ dot: _dot-start run setshell _dot-finish
 .PHONY: run
 run: link install
 
-.PHONY: macosrun
-macosrun: apps defaults
-
 
 # -- Steps --------------------------------------------------------------------
 
@@ -38,10 +35,6 @@ setshell:
 .PHONY: defaults
 defaults:
 	.dot/dot/scripts/defaults
-
-.PHONY: apps
-apps:
-	.dot/dot/scripts/apps
 
 
 # -- Development --------------------------------------------------------------

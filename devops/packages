@@ -1,0 +1,8 @@
+brew docker-completion
+brew k9s
+brew kubectx
+brew kubernetes-cli
+brew lazydocker
+brew opentofu
+cask docker
+cask lens

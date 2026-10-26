@@ -1,0 +1,3 @@
+brew ipython
+brew pyenv
+brew tox

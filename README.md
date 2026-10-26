@@ -55,9 +55,11 @@ gives access to some common actions.
   installers.
 * `dot check` will list the links that are missing or point elsewhere, without
   touching anything.
-* `dot install [topic ...]` will run the core's installers and then every
+* `dot install [topic ...]` will install the core's packages and then every
   topic's, or only the named ones.
-* `dot macosrun` will install OS X applications and apply setting defaults.
+* `dot install --check [topic ...]` will list what the manifests are missing,
+  without installing anything.
+* `dot defaults` will apply macOS setting defaults.
 * `dot edit` will open an editor on your `~/.dotfiles` folder.
 
 
@@ -97,14 +99,16 @@ There's a few special files in the hierarchy.
 - ***topic*/links**: One `source -> target` per line, for a file that has to
   live somewhere else (`~/Library/Application Support/...`). The source is
   relative to the topic, the target may start with `~`.
-- ***topic*/install.sh**: This script will be run during the initial
-  installation and anytime after that with `dot run` or `dot install`. It is
-  expected to install stuff in the system, through `pinstall`, and to run
-  anything else that takes a while through `prun`, which keeps the status
-  line alive and shows the log's tail on failure. The core's own
-  installers, in `.dot/*/install.sh`, run before any topic's and bring what
-  the dotfiles need to run: the shell and the package managers `pinstall`
-  drives.
+- ***topic*/packages**: What the topic needs installed, one `driver package`
+  per line, for the managers `pinstall` drives; `#` starts a comment, and the
+  drivers run in the order they first appear. `dot install` asks each manager
+  once and installs what is missing. The core's own manifests, in
+  `.dot/*/packages`, go before any topic's and bring the shell and the
+  package managers.
+- ***topic*/install.sh**: Runs after the topic's packages, on `dot run` and
+  `dot install`, for what a manifest can't say: a file to copy, a plugin to
+  fetch. Anything that takes a while goes through `prun`, which keeps the
+  status line alive and shows the log's tail on failure.
 
 
 ## bugs

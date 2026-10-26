@@ -1,0 +1,5 @@
+brew asciinema
+brew direnv
+brew eza
+brew fzf
+brew starship

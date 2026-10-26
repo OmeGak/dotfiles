@@ -2,15 +2,6 @@
 # shellcheck source=../.dot/functions/try
 source $DOT/.dot/functions/try
 
-try pinstall brew claude-code@latest
-try pinstall brew codex
-try pinstall brew copilot-cli
-try pinstall brew handy
-try pinstall brew herdr
-try pinstall brew peonping/tap/peon-ping
-# peon-ping's banners: its overlay style hangs on macOS 15
-try pinstall brew omegak/brewery/terminal-notifier-agentbox
-
 # Wire the herdr plugins on every run: herdr keeps a copy of each manifest.
 # Not "linking", which is dot link's word for a symlink
 for plugin in "$DOT"/agents/dotagents/herdr/plugins/*/; do

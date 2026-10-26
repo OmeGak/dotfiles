@@ -1,0 +1,3 @@
+brew pgcli
+# The versioned name, since the listing has no aliases
+brew postgresql@16

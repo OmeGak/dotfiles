@@ -1,0 +1,26 @@
+brew bat
+brew cliclick
+brew cmatrix
+brew coreutils
+brew dust
+brew f2
+brew fd
+brew ffmpeg
+brew glances
+brew grc
+brew hyperfine
+brew make
+brew monolith
+brew openssl@4
+brew procs
+brew pulseaudio
+brew ripgrep
+brew tailcat
+brew tealdeer
+brew unar
+brew wget
+uv maildump
+
+# Fonts
+cask font-sauce-code-pro-nerd-font
+cask font-source-code-pro

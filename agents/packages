@@ -1,0 +1,8 @@
+cask claude-code@latest
+cask codex
+cask copilot-cli
+cask handy
+brew herdr
+brew peonping/tap/peon-ping
+# peon-ping's banners: its overlay style hangs on macOS 15
+brew omegak/tap/terminal-notifier-agentbox

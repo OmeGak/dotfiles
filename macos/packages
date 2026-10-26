@@ -1,0 +1,69 @@
+# FUSE-T gives sshfs a FUSE layer without a kernel extension:
+# Homebrew's own sshfs needs libfuse, which only Linux has.
+cask macos-fuse-t/cask/fuse-t
+# The fuse-t-sshfs cask's sshfs drops newer FUSE-T options (noappledouble):
+# the tap's formula builds it against the installed FUSE-T instead.
+brew omegak/tap/sshfs-fuse-t
+brew spicetify-cli
+
+# App Store apps a fresh Mac gets, by id: a chosen few, not everything
+# installed. `mas list` shows the ids.
+mas 450527929   # djay Pro
+mas 1351639930  # Gifski
+mas 6744745027  # quickgif
+mas 6445813049  # Spark Desktop
+mas 1291898086  # Toggl Track
+
+# Essentials
+cask backblaze
+cask dropbox
+cask gpg-suite
+
+# Development
+cask ngrok
+
+# Downloads
+cask transmission
+
+# Messaging
+cask discord
+cask element
+cask keybase
+cask messenger
+cask signal
+cask telegram
+cask whatsapp
+
+# Media
+cask calibre
+cask plex-media-server
+cask spotify
+cask vlc
+cask zotero
+
+# Games
+cask steam
+cask minecraft
+cask openemu
+cask slippi-dolphin
+
+# Misc
+cask omegak/tap/bpm
+cask handbrake
+cask hammerspoon
+cask losslesscut
+cask obs
+cask qlvideo
+cask rectangle
+cask sbarex-qlmarkdown
+cask ShortcutDetective
+cask the-tagger
+cask the-unarchiver
+cask ukelele
+
+# Drivers
+cask xbox360-controller-driver-unofficial
+cask logitech-unifying
+
+# Heavy!
+cask mactex
