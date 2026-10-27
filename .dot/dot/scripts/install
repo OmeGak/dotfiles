@@ -15,6 +15,14 @@ has_installer() {
   [[ -e $1/packages || -e $1/install.sh ]]
 }
 
+# Runs an installer with try at hand: it fails when its last command does,
+# or when any try did. An exit of its own still decides
+run_installer() {
+  bash -c 'source "$1"; source "$2"; code=$?
+    (( code )) && exit "${code}"; exit "${TRY_CODE}"' \
+    _ "$DOT/.dot/functions/try" "$1"
+}
+
 # Runs one topic's manifest and installer, after clearing its logs from an
 # earlier run; the installer keeps the terminal as stdin, so it may ask things
 run_topic() {
@@ -26,7 +34,7 @@ run_topic() {
     pinstall -f "${dir}/packages" || ok=false
   fi
   if [[ -e ${dir}/install.sh ]]; then
-    sh -c "${dir}/install.sh" || ok=false
+    run_installer "${dir}/install.sh" || ok=false
   fi
   if ${ok}; then
     pprint info-ok -n "All is done"

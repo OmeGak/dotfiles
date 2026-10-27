@@ -27,6 +27,20 @@ installer() {
   chmod +x "${path}"
 }
 
+# An installer as a topic writes one, without an exit of its own: its lines
+# after the trace one
+plain_installer() {
+  local path=$1
+  shift
+  mkdir -p "$(dirname "${path}")"
+  {
+    echo '#!/usr/bin/env bash'
+    echo "echo \"$(basename "$(dirname "${path}")")\" >> \"${tmp}/trace\""
+    printf '%s\n' "$@"
+  } > "${path}"
+  chmod +x "${path}"
+}
+
 # A manifest with the given lines; one with "fail" in it fails
 manifest() {
   local path=$1
@@ -176,6 +190,21 @@ manifest "$DOT/epsilon/packages" "brew fail-me"
 run_install epsilon
 expect_code 0
 expect_output "There were some errors in: epsilon"
+
+it "marks a topic failed when a try in its installer fails, and runs the rest"
+fresh
+plain_installer "$DOT/kappa/install.sh" "try false" "echo after >> \"${tmp}/trace\""
+run_install kappa
+expect_code 0
+expect_trace "brew alpha zeta kappa after"
+expect_output "There were some errors in: kappa"
+
+it "marks a topic failed when its installer's last command fails, without try"
+fresh
+plain_installer "$DOT/kappa/install.sh" "false"
+run_install kappa
+expect_code 0
+expect_output "There were some errors in: kappa"
 
 it "says everything is installed when nothing fails"
 fresh

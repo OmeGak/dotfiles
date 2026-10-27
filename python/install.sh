@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck source=../.dot/functions/try
-source $DOT/.dot/functions/try
 
 # One Python on the PATH, as ~/.local/bin/python: the version is named so a
 # newer release never swaps it under a run. It does not follow

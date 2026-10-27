@@ -111,9 +111,11 @@ There's a few special files in the hierarchy.
 - ***topic*/install.sh**: Runs after the topic's packages, on `dot run` and
   `dot install`, for what a manifest can't say: a file to copy, a plugin to
   fetch. Anything that takes a while goes through `prun`, which keeps the
-  status line alive and shows the log's tail on failure. Every `sudo` sits
-  behind a `sudoplz`, which asks once, or has the part skipped when the run
-  has no root.
+  status line alive and shows the log's tail on failure. A step that may
+  fail while the rest goes on runs through `try`, which every installer
+  has at hand: the topic is reported failed when a `try` failed, or when
+  the script's last command did. Every `sudo` sits behind a `sudoplz`,
+  which asks once, or has the part skipped when the run has no root.
 
 
 ## bugs

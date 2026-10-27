@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck source=../.dot/functions/try
-source $DOT/.dot/functions/try
 
 # Wire the herdr plugins on every run: herdr keeps a copy of each manifest.
 # Not "linking", which is dot link's word for a symlink
@@ -13,5 +11,3 @@ done
 if sudoplz -r "Claude Code's managed settings"; then
   try prun "Installing dotagents" "$DOT/agents/dotagents/dotagents" install laptop
 fi
-
-exit $TRY_CODE
