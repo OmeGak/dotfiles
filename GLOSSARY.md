@@ -17,8 +17,9 @@ It runs before any topic.
 _Avoid_: framework, base
 
 **Step**:
-One action `dot` runs, a target of the Makefile: `link`, `install`,
-`defaults`.
+One action `dot` runs, a script in `.dot/dot/scripts`: `link`, `install`,
+`defaults`. `make` runs the setup on a fresh clone; `make lint` and `make
+test` are the dev targets, not steps.
 _Avoid_: task, command
 
 **Link**:

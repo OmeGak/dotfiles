@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+# Tests the dot dispatcher against a fake dotfiles folder: the real dot with
+# the step scripts replaced by fixtures, which only write their name and
+# words to a trace and exit as told. Plain bash, no runner: each `it` is a
+# test, each `expect_*` an assertion, the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+
+# -- Fixtures -----------------------------------------------------------------
+
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/dot-test.XXXXXX")
+DOT="${tmp}/dotfiles"
+
+# A step that appends its name and each word, '|'-separated, to the trace,
+# runs the given extra lines, and fails when its name is in the fail file
+step() {
+  local name=$1
+  shift
+  {
+    echo '#!/usr/bin/env bash'
+    echo "{ printf '%s' \"${name}\"; for w; do printf '|%s' \"\$w\"; done; echo; } >> \"${tmp}/trace\""
+    printf '%s\n' "$@"
+    echo "grep -qx \"${name}\" \"${tmp}/fail\" 2> /dev/null && exit 3"
+    echo 'exit 0'
+  } > "$DOT/.dot/dot/scripts/${name}"
+  chmod +x "$DOT/.dot/dot/scripts/${name}"
+}
+
+# A fresh fake dotfiles folder: the real dot and fixture steps; the install
+# one also records whether the pid it is told is its parent's (the
+# dispatcher, since env execs it) and whether a variable leaked through env -i
+fresh() {
+  rm -rf "$DOT"
+  mkdir -p "$DOT/.dot/bin" "$DOT/.dot/dot/scripts"
+  cp "${repo}/.dot/bin/dot" "$DOT/.dot/bin/dot"
+  for name in dot-start dot-finish link-git link setshell defaults; do
+    step "${name}"
+  done
+  step install \
+    "[[ \${DOTPID:-} == \$PPID ]] && echo pid-ok >> \"${tmp}/trace\"" \
+    "[[ \${LEAK:-} ]] && echo leaked >> \"${tmp}/trace\""
+  rm -f "${tmp}/trace" "${tmp}/fail"
+}
+
+# Runs dot as a bare clone has it: no DOT in the environment, from any folder
+run_dot() {
+  (cd "${tmp}" && env -u DOT LEAK=1 "$DOT/.dot/bin/dot" "$@") > "${tmp}/out" 2>&1
+  code=$?
+  out=$(cat "${tmp}/out")
+  trace=$(cat "${tmp}/trace" 2> /dev/null | tr '\n' ' ')
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_trace() {
+  [[ ${trace} == "${1:+$1 }" ]] || fail "ran '${trace}', expected '$1'"
+}
+
+expect_code() {
+  [[ ${code} -eq $1 ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "prints the usage and fails with no step"
+fresh
+run_dot
+expect_code 1
+expect_output "Usage: dot <step>"
+expect_trace ""
+
+it "says which step it does not know, with the usage"
+fresh
+run_dot nope
+expect_code 1
+expect_output "No step nope"
+expect_output "Usage: dot <step>"
+expect_trace ""
+
+it "passes the words after the step to it untouched"
+fresh
+run_dot defaults --sudo 'two words' '*'
+expect_code 0
+expect_trace "defaults|--sudo|two words|*"
+
+it "runs install in a clean env, with the dispatcher's pid"
+fresh
+run_dot install python
+expect_code 0
+expect_trace "install|python pid-ok"
+
+it "run links then installs the named topics"
+fresh
+run_dot run python zsh
+expect_code 0
+expect_trace "link-git link install|python|zsh pid-ok"
+
+it "run stops at the first failing step, with its code"
+fresh
+echo link > "${tmp}/fail"
+run_dot run
+expect_code 3
+expect_trace "link-git link"
+
+it "check only checks the links"
+fresh
+run_dot check
+expect_code 0
+expect_trace "link|--check"
+
+it "setup runs the whole chain, install with root"
+fresh
+run_dot setup
+expect_code 0
+expect_trace "dot-start link-git link install|--sudo pid-ok setshell dot-finish"
+
+it "setup stops when install fails"
+fresh
+echo install > "${tmp}/fail"
+run_dot setup
+expect_code 3
+expect_trace "dot-start link-git link install|--sudo pid-ok"
+
+rm -rf "${tmp}"
+exit "${failed}"

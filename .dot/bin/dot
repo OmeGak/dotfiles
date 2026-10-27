@@ -1,10 +1,54 @@
 #!/usr/bin/env bash
-# Entry point to control dotfiles operations
+# Runs a step of the dotfiles, a script in .dot/dot/scripts, with the words
+# after it passed on untouched: `dot install python zsh`. Works from a bare
+# clone, before anything is linked, on the bash macOS ships.
 
-# -- Helpers ------------------------------------------------------------------
+export DOT; DOT=$(cd "$(dirname "$0")/../.." && pwd)
+# What sudoplz -k keeps sudo alive for: one password covers a whole chain
+export DOTPID=$$
+scripts="$DOT/.dot/dot/scripts"
+
+usage() {
+  cat <<EOF
+Usage: dot <step> [words ...]
+
+  setup                a fresh Mac: link, install with root, set the shell
+  run [topic ...]      link, then install the core and the topics
+  link                 link each topic's files into place
+  check                say what link would change, touching nothing
+  install [topic ...]  install the core's packages, then the topics'
+  setshell             set zsh as the shell
+  defaults             apply the macOS defaults
+  edit                 open the dotfiles in \$DOTEDITOR
+  profile              time the zsh startup
+EOF
+}
+
+# -- Steps --------------------------------------------------------------------
+
+link() {
+  "${scripts}/link-git" && "${scripts}/link"
+}
+
+check() {
+  "${scripts}/link" --check
+}
+
+# A clean environment, so the install sees the machine as a new shell would
+install() {
+  env -i HOME="$HOME" DOTPID="$DOTPID" "${scripts}/install" "$@"
+}
+
+setshell() {
+  "${scripts}/setshell"
+}
+
+defaults() {
+  "${scripts}/defaults" "$@"
+}
 
 edit() {
-  exec $DOTEDITOR $DOT
+  exec $DOTEDITOR "$DOT"
 }
 
 profile() {
@@ -12,19 +56,29 @@ profile() {
   ztraceprof
 }
 
-case "$1" in
-  edit)
-    edit
-    exit 0;;
-  profile)
-    profile
-    exit 0;;
-  *)
-    ;;
-esac
+# -- Chains -------------------------------------------------------------------
 
+run() {
+  link && install "$@"
+}
+
+setup() {
+  "${scripts}/dot-start" && link && install --sudo && setshell \
+    && "${scripts}/dot-finish"
+}
 
 # -- Go dot! ------------------------------------------------------------------
 
-# The words after the target reach the step as ARGS: `dot install python zsh`
-command make -C "$DOT" --no-print-directory ${1:+"$1"} ARGS="${*:2}"
+step=${1:-}
+shift 2> /dev/null
+case "${step}" in
+  setup|run|link|check|install|setshell|defaults|edit|profile)
+    "${step}" "$@";;
+  '')
+    usage 1>&2
+    exit 1;;
+  *)
+    echo "No step ${step}" 1>&2
+    usage 1>&2
+    exit 1;;
+esac

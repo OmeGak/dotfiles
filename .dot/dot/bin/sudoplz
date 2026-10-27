@@ -4,7 +4,7 @@
 # this says what is skipped and why and exits 1, so the caller skips its
 # root part. Nothing is asked while the credential is cached.
 # Usage: sudoplz [-k] [-s] [-r <what for>]
-#   -k    Keeps sudo alive until make, or else the caller, is finished
+#   -k    Keeps sudo alive until dot, or else the caller, is finished
 #   -r    What sudo is for, as "for <what for>" reads
 #   -s    Step style, for the start of a run
 
@@ -33,7 +33,7 @@ fi
 
 pprint_type='info-warn'
 [[ "${pprint_step}" ]] && pprint_type='step-user'
-pid=${MAKEPID:-$PPID}
+pid=${DOTPID:-$PPID}
 
 if [[ $(sudo -n true 2>&1) ]]; then
   pprint "${pprint_type}" -n "Can I haz sudo?${reason:+ For ${reason}}"

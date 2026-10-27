@@ -124,7 +124,7 @@ fresh() {
   rm -f /tmp/*.beta.install.dot.log
 }
 
-# Runs the install step as make does, in a sanitized env
+# Runs the install step as dot does, in a sanitized env
 run_install() {
   TERM=dumb env -i HOME="$HOME" "${install}" "$@" > "${tmp}/out" 2>&1
   code=$?

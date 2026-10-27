@@ -51,6 +51,8 @@ few paths that'll be different on your particular machine.
 After the install, do things with `dot`. It's a fairly simple script that
 gives access to some common actions.
 
+* `dot setup` is what `make` runs on a fresh Mac: link, install with root,
+  set the shell.
 * `dot run` will symlink new files into your home directory and run topic
   installers.
 * `dot check` will list the links that are missing or point elsewhere, without
