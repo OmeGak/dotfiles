@@ -35,7 +35,7 @@ fresh() {
   rm -rf "$DOT"
   mkdir -p "$DOT/.dot/bin" "$DOT/.dot/dot/scripts"
   cp "${repo}/.dot/bin/dot" "$DOT/.dot/bin/dot"
-  for name in dot-start dot-finish link-git link setshell defaults; do
+  for name in dot-start dot-finish link-git link setshell macos; do
     step "${name}"
   done
   step install \
@@ -94,9 +94,9 @@ expect_trace ""
 
 it "passes the words after the step to it untouched"
 fresh
-run_dot defaults --sudo 'two words' '*'
+run_dot macos --sudo 'two words' '*'
 expect_code 0
-expect_trace "defaults|--sudo|two words|*"
+expect_trace "macos|--sudo|two words|*"
 
 it "runs install in a clean env, with the dispatcher's pid"
 fresh
@@ -117,11 +117,18 @@ run_dot run
 expect_code 3
 expect_trace "link-git link"
 
-it "check only checks the links"
+it "link --check only checks the links, generating nothing"
 fresh
-run_dot check
+run_dot link --check
 expect_code 0
 expect_trace "link|--check"
+
+it "knows check no more"
+fresh
+run_dot check
+expect_code 1
+expect_output "No step check"
+expect_trace ""
 
 it "setup runs the whole chain, install with root"
 fresh

@@ -55,8 +55,8 @@ gives access to some common actions.
   set the shell.
 * `dot run` will symlink new files into your home directory and run topic
   installers.
-* `dot check` will list the links that are missing or point elsewhere, without
-  touching anything.
+* `dot link --check` will list the links that are missing or point elsewhere,
+  without touching anything.
 * `dot install [topic ...]` will install the core's packages and then every
   topic's, or only the named ones, without root: a part that needs it is
   skipped and says so.
@@ -64,7 +64,7 @@ gives access to some common actions.
   everything unattended, as `dot` does on a fresh Mac.
 * `dot install --check [topic ...]` will list what the manifests are missing,
   without installing anything.
-* `dot defaults` will apply macOS setting defaults.
+* `dot macos` will apply macOS setting defaults.
 * `dot edit` will open an editor on your `~/.dotfiles` folder.
 
 

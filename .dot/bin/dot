@@ -14,24 +14,23 @@ Usage: dot <step> [words ...]
 
   setup                a fresh Mac: link, install with root, set the shell
   run [topic ...]      link, then install the core and the topics
-  link                 link each topic's files into place
-  check                say what link would change, touching nothing
+  link [--check]       link each topic's files into place; with --check,
+                       say what would change, touching nothing
   install [topic ...]  install the core's packages, then the topics'
   setshell             set zsh as the shell
-  defaults             apply the macOS defaults
+  macos                apply the macOS defaults
   edit                 open the dotfiles in \$DOTEDITOR
-  profile              time the zsh startup
+  ztrace               time the zsh startup
 EOF
 }
 
 # -- Steps --------------------------------------------------------------------
 
+# The gitconfig is generated, not linked, so a check leaves it out
+# shellcheck disable=SC2120  # the words come through the case below
 link() {
-  "${scripts}/link-git" && "${scripts}/link"
-}
-
-check() {
-  "${scripts}/link" --check
+  [[ ${1:-} == --check ]] || "${scripts}/link-git" || return
+  "${scripts}/link" "$@"
 }
 
 # A clean environment, so the install sees the machine as a new shell would
@@ -43,15 +42,15 @@ setshell() {
   "${scripts}/setshell"
 }
 
-defaults() {
-  "${scripts}/defaults" "$@"
+macos() {
+  "${scripts}/macos" "$@"
 }
 
 edit() {
   exec $DOTEDITOR "$DOT"
 }
 
-profile() {
+ztrace() {
   DOT_ZTRACE=true zsh -ci exit
   ztraceprof
 }
@@ -72,7 +71,7 @@ setup() {
 step=${1:-}
 shift 2> /dev/null
 case "${step}" in
-  setup|run|link|check|install|setshell|defaults|edit|profile)
+  setup|run|link|install|setshell|macos|edit|ztrace)
     "${step}" "$@";;
   '')
     usage 1>&2
