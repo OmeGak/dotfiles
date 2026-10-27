@@ -4,8 +4,7 @@
 set -e
 source "$(dirname "$0")/../env"
 
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 echo
 echo "   ██████   ██████  ████████ ███████ ██ ██      ███████ ███████"
