@@ -56,7 +56,10 @@ gives access to some common actions.
 * `dot check` will list the links that are missing or point elsewhere, without
   touching anything.
 * `dot install [topic ...]` will install the core's packages and then every
-  topic's, or only the named ones.
+  topic's, or only the named ones, without root: a part that needs it is
+  skipped and says so.
+* `dot install --sudo [topic ...]` will ask for sudo once, up front, and run
+  everything unattended, as `dot` does on a fresh Mac.
 * `dot install --check [topic ...]` will list what the manifests are missing,
   without installing anything.
 * `dot defaults` will apply macOS setting defaults.
@@ -108,7 +111,9 @@ There's a few special files in the hierarchy.
 - ***topic*/install.sh**: Runs after the topic's packages, on `dot run` and
   `dot install`, for what a manifest can't say: a file to copy, a plugin to
   fetch. Anything that takes a while goes through `prun`, which keeps the
-  status line alive and shows the log's tail on failure.
+  status line alive and shows the log's tail on failure. Every `sudo` sits
+  behind a `sudoplz`, which asks once, or has the part skipped when the run
+  has no root.
 
 
 ## bugs

@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Tests sudoplz against a fake sudo first on the PATH, which has the
+# credential cached when FAKE_CACHED is set and otherwise wants a password,
+# which it then takes without asking. Plain bash, no runner: each `it` is a
+# test, each `expect_*` an assertion, the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+
+# -- Fixtures -----------------------------------------------------------------
+
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/sudoplz-test.XXXXXX")
+mkdir -p "${tmp}/bin"
+cat > "${tmp}/bin/sudo" <<'EOF'
+#!/usr/bin/env bash
+if [[ $1 == -n && -z ${FAKE_CACHED:-} ]]; then
+  echo "sudo: a password is required" 1>&2
+  exit 1
+fi
+[[ $1 == -v ]] && printf '%s' "$3"
+exit 0
+EOF
+chmod +x "${tmp}/bin/sudo"
+
+run_sudoplz() {
+  DOT="${repo}" PATH="${tmp}/bin:${repo}/.dot/dot/bin:/usr/bin:/bin" \
+    "${repo}/.dot/dot/bin/sudoplz" "$@" > "${tmp}/out" 2>&1
+  code=$?
+  out=$(cat "${tmp}/out")
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_code() {
+  [[ ${code} -eq $1 ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
+}
+
+expect_no_output() {
+  [[ ${out} != *"$1"* ]] || fail "output has '$1':"$'\n'"${out}"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "asks, with what it is for, when nothing is cached"
+run_sudoplz -r "a root thing"
+expect_code 0
+expect_output "Can I haz sudo? For a root thing"
+expect_output "Password:"
+expect_output "kthxbye"
+
+it "is silent when the credential is cached"
+FAKE_CACHED=1 run_sudoplz -r "a root thing"
+expect_code 0
+expect_no_output "sudo"
+
+it "says what is skipped and why when the run has no root, exit 1"
+DOT_SUDO=no run_sudoplz -r "a root thing"
+expect_code 1
+expect_output "Needs sudo for a root thing (dot install --sudo)"
+expect_no_output "Password:"
+
+it "skips without a reason too"
+DOT_SUDO=no run_sudoplz
+expect_code 1
+expect_output "Needs sudo (dot install --sudo)"
+
+rm -rf "${tmp}"
+exit "${failed}"

@@ -54,6 +54,36 @@ EOF
   chmod +x "$DOT/.dot/dot/bin/pinstall"
 }
 
+# A sudoplz that traces the ask the step makes before it says whether root
+# is allowed, is silent once it has (the credential is cached), and skips
+# as the real one does when the run has no root
+fake_sudoplz() {
+  cat > "$DOT/.dot/dot/bin/sudoplz" <<EOF
+#!/usr/bin/env bash
+reason=
+while getopts 'ksr:' o; do [[ \$o == r ]] && reason=\$OPTARG; done
+if [[ \${DOT_SUDO:-} == no ]]; then
+  echo "Needs sudo for \${reason} (dot install --sudo)"
+  exit 1
+fi
+[[ \${DOT_SUDO:-} ]] || echo sudoplz >> "${tmp}/trace"
+EOF
+  chmod +x "$DOT/.dot/dot/bin/sudoplz"
+}
+
+# An installer with a root part behind sudoplz, as the rule has them
+root_installer() {
+  local path=$1
+  mkdir -p "$(dirname "${path}")"
+  {
+    echo '#!/usr/bin/env bash'
+    echo "echo \"$(basename "$(dirname "${path}")")\" >> \"${tmp}/trace\""
+    echo "sudoplz -r 'a root thing' || exit 0"
+    echo "echo root >> \"${tmp}/trace\""
+  } > "${path}"
+  chmod +x "${path}"
+}
+
 # A fresh fake dotfiles folder: the real core without its installers, fixture
 # core topics (alpha sorts before brew, to show brew still goes first) and
 # fixture topics (beta fails and leaves a log, delta has only a manifest,
@@ -67,6 +97,7 @@ fresh() {
   cp -R "${repo}/.dot" "$DOT/.dot"
   rm -f "$DOT"/.dot/*/install.sh "$DOT"/.dot/*/packages
   fake_pinstall
+  fake_sudoplz
   installer "$DOT/.dot/brew/install.sh"
   installer "$DOT/.dot/alpha/install.sh"
   installer "$DOT/.dot/zeta/install.sh"
@@ -189,11 +220,35 @@ run_install alpha
 [[ -e /tmp/old.alpha.install.dot.log ]] && fail "old log still there"
 rm -f /tmp/old.alpha.install.dot.log
 
-it "says what each manifest is missing with --check, and installs nothing"
+it "asks for sudo once before anything with --sudo, and the root parts run"
+fresh
+root_installer "$DOT/rho/install.sh"
+run_install --sudo rho
+expect_code 0
+expect_trace "sudoplz brew alpha zeta rho root"
+expect_no_output "Needs sudo"
+
+it "asks nothing without --sudo and skips the root parts, saying so"
+fresh
+root_installer "$DOT/rho/install.sh"
+run_install rho
+expect_code 0
+expect_trace "brew alpha zeta rho"
+expect_output "Needs sudo for a root thing (dot install --sudo)"
+expect_no_output "errors"
+
+it "refuses an unknown option"
+fresh
+run_install --nope
+expect_code 1
+expect_trace ""
+expect_output "No option --nope"
+
+it "says what each manifest is missing with --check, installing and asking nothing"
 fresh
 manifest "$DOT/alpha/packages" "# Tools" "brew bat"
 manifest "$DOT/theta/packages" "# Nothing"
-run_install --check
+run_install --sudo --check
 expect_code 0
 expect_trace ""
 expect_output "CHECKING CORE"

@@ -64,8 +64,15 @@ case "\$1" in
   --install-extension) echo "code \$*" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
 esac
 EOF
-  # mas installs through sudo
+  # mas installs through sudo, behind a sudoplz that skips when the run has
+  # no root
   printf '#!/usr/bin/env bash\nexec "$@"\n' > "${tmp}/bin/sudo"
+  cat > "${tmp}/bin/sudoplz" <<'EOF'
+#!/usr/bin/env bash
+[[ $DOT_SUDO == no ]] || exit 0
+echo "Needs sudo for $2 (dot install --sudo)"
+exit 1
+EOF
   chmod +x "${tmp}"/bin/*
   export DOT_TOPIC_LOGFILE_SUFFIX=pinstall-test.dot.log
 }
@@ -186,6 +193,13 @@ run_pinstall mas 450527929 1351639930
 run_pinstall code alefragnani.bookmarks anthropic.claude-code
 expect_code 0
 expect_log "gem rake npm sass-lint mas 1351639930 code --install-extension anthropic.claude-code"
+
+it "leaves the App Store apps for a run with --sudo when the run has no root"
+fresh
+DOT_SUDO=no run_pinstall mas 450527929
+expect_code 0
+expect_log ""
+expect_output "Needs sudo for the App Store apps (dot install --sudo)"
 
 it "names a long list briefly"
 fresh

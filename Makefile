@@ -3,7 +3,9 @@
 
 # -- Make dot -----------------------------------------------------------------
 
+# A fresh Mac needs root: the install step asks once, before anything runs
 .PHONY: dot
+dot: override ARGS := --sudo $(ARGS)
 dot: _dot-start run setshell _dot-finish
 
 

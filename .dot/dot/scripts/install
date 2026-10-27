@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Runs the installers: the core's first, since they bring the shell and the
 # package managers pinstall drives, then every topic's, or only the named
-# ones. A topic's packages manifest goes first, then its install.sh. With
-# --check, only says what the manifests are missing.
+# ones. A topic's packages manifest goes first, then its install.sh. Root
+# only with --sudo, asked once up front so the run goes unattended; without
+# it, the parts that need root are skipped and say so. With --check, only
+# says what the manifests are missing.
 source "$(dirname "$0")/../env"
 
 logsuffix='.install.dot.log'
@@ -65,10 +67,15 @@ report() {
 # -- Scope --------------------------------------------------------------------
 
 check=
-if [[ $1 == --check ]]; then
-  check=1
+sudo=
+while [[ ${1:-} == --* ]]; do
+  case $1 in
+    --check) check=1;;
+    --sudo) sudo=1;;
+    *) echo "No option $1" 1>&2; exit 1;;
+  esac
   shift
-fi
+done
 
 for topic in "$@"; do
   if [[ ${topic} == .* || ! -d "$DOT/${topic}" ]]; then
@@ -113,6 +120,14 @@ if [[ ${check} ]]; then
 fi
 
 # -- Go -----------------------------------------------------------------------
+
+# Root only on request, asked before anything runs and kept alive for the
+# run; sudoplz reads the answer and has each root part skipped otherwise
+if [[ ${sudo} ]] && sudoplz -k -s -r "the unattended install"; then
+  export DOT_SUDO=yes
+else
+  export DOT_SUDO=no
+fi
 
 pprint section 'INSTALLING CORE'
 for topic in "${core[@]}"; do

@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# Asks for sudo
-# Options:
-#   -k    Keeps sudo alive until dot script is finished
-#   -r    Specify the reason why sudo is needed
-#   -s    For step-user style pprint
+# Asks for sudo, or says a root part is skipped: under `dot install` the
+# step says whether root is allowed (DOT_SUDO=yes or no) and, with no,
+# this says what is skipped and why and exits 1, so the caller skips its
+# root part. Nothing is asked while the credential is cached.
+# Usage: sudoplz [-k] [-s] [-r <what for>]
+#   -k    Keeps sudo alive until make, or else the caller, is finished
+#   -r    What sudo is for, as "for <what for>" reads
+#   -s    Step style, for the start of a run
 
-# shellcheck source=../../dot/functions/try
-source $DOT/.dot/dot/functions/keepsudo
+# shellcheck source=../functions/keepsudo
+source "$DOT/.dot/dot/functions/keepsudo"
 # shellcheck source=../../functions/try
-source $DOT/.dot/functions/try
+source "$DOT/.dot/functions/try"
 
 while getopts 'ksr:' OPTION; do
   case $OPTION in
@@ -23,15 +26,20 @@ while getopts 'ksr:' OPTION; do
   esac
 done
 
+if [[ $DOT_SUDO == no ]]; then
+  pprint info-warn "Needs sudo${reason:+ for ${reason}} (dot install --sudo)"
+  exit 1
+fi
+
 pprint_type='info-warn'
 [[ "${pprint_step}" ]] && pprint_type='step-user'
-[[ $MAKEPID ]] && pid="-a $MAKEPID"
+pid=${MAKEPID:-$PPID}
 
 if [[ $(sudo -n true 2>&1) ]]; then
-  pprint "${pprint_type}" -n "Can I haz sudo? ${reason}"
+  pprint "${pprint_type}" -n "Can I haz sudo?${reason:+ For ${reason}}"
   prompt="$(pprint text -r '.. Password: ')"
   if [[ ${keep} ]]; then
-    try keepsudo -p "${prompt}" ${pid}
+    try keepsudo -p "${prompt}" -a "${pid}"
   else
     try sudo -v -p "${prompt}" 2> /dev/null
   fi

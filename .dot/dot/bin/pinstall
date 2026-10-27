@@ -74,7 +74,11 @@ _uv_install() {
 _mas_manager() { echo mas; }
 # An "id  name  (version)" line per app
 _mas_installed() { mas list; }
-_mas_install() { prun "$(label mas "$@")" sudo mas install "$@"; }
+# mas installs as root: without it the apps wait for a run with --sudo
+_mas_install() {
+  sudoplz -r "the App Store apps" || return 0
+  prun "$(label mas "$@")" sudo mas install "$@"
+}
 
 _code_manager() { echo code; }
 _code_installed() { code --list-extensions; }
