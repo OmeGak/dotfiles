@@ -6,7 +6,7 @@
 	url = https://github.com/junegunn/vim-plug.git
 [submodule "brew/tap"]
 	path = brew/tap
-	url = git@github.com:OmeGak/brewery.git
+	url = git@github.com:OmeGak/homebrew-tap.git
 [submodule "agents/dotagents"]
 	path = agents/dotagents
 	url = git@github.com:OmeGak/dotagents.git
