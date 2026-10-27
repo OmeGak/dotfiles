@@ -166,8 +166,6 @@
 
 # -- Other tools ---------------------------------------------------------------
 
-[hub]
-	protocol = https
 [interactive-rebase-tool]
 	inputMoveSelectionUp = "Control+Up"
 	inputMoveSelectionDown = "Control+Down"

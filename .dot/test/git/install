@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Tests the git topic's installer against a fake gh first on the PATH, which
+# has a token when FAKE_TOKEN is set. Plain bash, no runner: each `it` is a
+# test, each `expect_*` an assertion, the exit code is the result.
+
+set -u
+repo=$(cd "$(dirname "$0")/../../.." && pwd)
+failed=0
+
+# -- Fixtures -----------------------------------------------------------------
+
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/git-install-test.XXXXXX")
+mkdir -p "${tmp}/bin"
+cat > "${tmp}/bin/gh" <<'EOF'
+#!/usr/bin/env bash
+[[ $1 == auth && $2 == token && -n ${FAKE_TOKEN:-} ]] && exit 0
+echo "no oauth token found for github.com" 1>&2
+exit 1
+EOF
+chmod +x "${tmp}/bin/gh"
+
+run_install() {
+  DOT="${repo}" PATH="${tmp}/bin:${repo}/.dot/dot/bin:/usr/bin:/bin" \
+    "${repo}/git/install.sh" > "${tmp}/out" 2>&1
+  code=$?
+  out=$(cat "${tmp}/out")
+}
+
+# -- Assertions ---------------------------------------------------------------
+
+it() {
+  printf '%s\n' "- $1"
+}
+
+fail() {
+  printf '    FAIL: %s\n' "$1"
+  failed=1
+}
+
+expect_code() {
+  [[ ${code} -eq $1 ]] || fail "exit code ${code}, expected $1"
+}
+
+expect_output() {
+  [[ ${out} == *"$1"* ]] || fail "output lacks '$1':"$'\n'"${out}"
+}
+
+expect_no_output() {
+  [[ ${out} != *"$1"* ]] || fail "output has '$1':"$'\n'"${out}"
+}
+
+# -- Tests --------------------------------------------------------------------
+
+it "is silent when gh is logged in"
+FAKE_TOKEN=1 run_install
+expect_code 0
+expect_no_output "gh"
+
+it "says so when gh is not logged in, and does not fail the step"
+run_install
+expect_code 0
+expect_output "gh is not logged in (gh auth login)"
+
+rm -rf "${tmp}"
+exit "${failed}"
