@@ -3,6 +3,5 @@ brew httpie
 brew pandoc
 brew pass
 brew yt-dlp
-gem boom
 uv spotdl
 uv xkcdpass

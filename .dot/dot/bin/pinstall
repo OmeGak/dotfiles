@@ -4,7 +4,7 @@
 # packages in one go through prun, so a topic asks each manager once
 # Usage: pinstall [--check] <driver> <package>...
 #        pinstall [--check] -f <manifest>...
-#   driver:   brew | cask | gem | bun | uv | mas | code
+#   driver:   brew | cask | bun | uv | mas | code
 #   manifest: one `<driver> <package>` per line; blank lines and what
 #             follows a # are ignored, and the drivers run in the order
 #             they first appear. Several manifests read as one.
@@ -12,12 +12,12 @@
 #             nothing; exit 1 when any is missing
 
 progname=$(basename "$0")
-drivers=' brew cask gem bun uv mas code '
+drivers=' brew cask bun uv mas code '
 
 usage() {
   echo "usage: ${progname} [--check] driver package..."
   echo "       ${progname} [--check] -f manifest..."
-  echo "  driver:   brew | cask | gem | bun | uv | mas | code"
+  echo "  driver:   brew | cask | bun | uv | mas | code"
   echo "  manifest: one 'driver package' per line, # starts a comment"
   echo "  --check:  print what is missing instead of installing it"
 }
@@ -49,10 +49,6 @@ _brew_install() { prun "$(label brew "$@")" brew install "$@"; }
 _cask_manager() { echo brew; }
 _cask_installed() { brew ls --cask; }
 _cask_install() { prun "$(label brew "$@")" brew install --cask "$@"; }
-
-_gem_manager() { echo gem; }
-_gem_installed() { gem list --no-versions; }
-_gem_install() { prun "$(label gem "$@")" gem install "$@"; }
 
 _bun_manager() { echo bun; }
 # A tree under a header: "├── name@version" per global package, the scope
