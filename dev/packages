@@ -1,7 +1,6 @@
 # Linters
 brew grex
 brew hlint
-brew mise
 brew shellcheck
 brew tokei
 npm eslint

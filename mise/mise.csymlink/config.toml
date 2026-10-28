@@ -1,0 +1,9 @@
+# mise's global config, linked to ~/.config/mise, so `mise use -g` edits it here
+
+[tools]
+# The newest release, as nvm's `node` default alias did
+node = "latest"
+
+[settings]
+# mise ignores .nvmrc and .node-version unless told which tools read them
+idiomatic_version_file_enable_tools = ["node"]
