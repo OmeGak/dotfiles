@@ -38,9 +38,6 @@ zplug "/nix/var/nix/profiles/default/etc/profile.d/", from:local, \
   if:"[[ -d /nix/var/nix/profiles/default/etc/profile.d/ ]]", \
   use:"nix-daemon.sh"
 
-zplug "$BREWDIR/opt/nvm/", from:local, \
-  if:"[[ -d $BREWDIR/opt/nvm/ ]]", \
-  use:"nvm.sh"
 
 zplug "$BREWDIR/opt/restic", from:local, \
   if:"[[ -d $BREWDIR/opt/restic/ ]]", \
