@@ -2352,6 +2352,7 @@
     "errorLens.enabled": true,
     "errorLens.followCursor": "activeLine",
     "errorLens.statusBarIconsAtZero": "hide",
+    "eslint.nodePath": "/Users/ome/.bun/install/global/node_modules",
     "explorer.autoReveal": "focusNoScroll",
     "explorer.decorations.colors": false,
     "explorer.excludeGitIgnore": true,

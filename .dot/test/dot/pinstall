@@ -18,7 +18,7 @@ fresh() {
   mkdir -p "${tmp}/bin"
   : > "${tmp}/log"
   local list
-  for list in brew cask gem npm uv mas code; do : > "${tmp}/${list}-list"; done
+  for list in brew cask gem bun uv mas code; do : > "${tmp}/${list}-list"; done
   cat > "${tmp}/bin/brew" <<EOF
 #!/usr/bin/env bash
 case "\$*" in
@@ -34,11 +34,12 @@ case "\$1" in
   install) echo "gem \${*:2}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
 esac
 EOF
-  cat > "${tmp}/bin/npm" <<EOF
+  cat > "${tmp}/bin/bun" <<EOF
 #!/usr/bin/env bash
-case "\$2" in
-  ls) echo /lib; sed 's|^|/lib/node_modules/|' "${tmp}/npm-list";;
-  install) echo "npm \${*:3}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
+case "\$1" in
+  pm) echo "/global node_modules (1 installed)"
+      sed 's|^|├── |; s|\$|@1.0.0|; \$ s|^├|└|' "${tmp}/bun-list";;
+  install) echo "bun \${*:3}" >> "${tmp}/log"; exit "\${FAKE_RC:-0}";;
 esac
 EOF
   cat > "${tmp}/bin/uv" <<EOF
@@ -181,18 +182,19 @@ expect_log "uv maildump uv spotdl"
 expect_output "Installing maildump from uv"
 expect_output "Installing spotdl from uv"
 
-it "drives gem and npm, mas through sudo, code with a flag per extension"
+it "drives gem and bun, mas through sudo, code with a flag per extension"
 fresh
 installed gem boom
-installed npm eslint
+installed bun eslint
+installed bun @types/node
 installed mas 450527929
 installed code alefragnani.bookmarks
 run_pinstall gem boom rake
-run_pinstall npm eslint sass-lint
+run_pinstall bun eslint @types/node sass-lint
 run_pinstall mas 450527929 1351639930
 run_pinstall code alefragnani.bookmarks anthropic.claude-code
 expect_code 0
-expect_log "gem rake npm sass-lint mas 1351639930 code --install-extension anthropic.claude-code"
+expect_log "gem rake bun sass-lint mas 1351639930 code --install-extension anthropic.claude-code"
 
 it "leaves the App Store apps for a run with --sudo when the run has no root"
 fresh
@@ -203,10 +205,10 @@ expect_output "Needs sudo for the App Store apps (dot install --sudo)"
 
 it "names a long list briefly"
 fresh
-run_pinstall npm a b c d e
+run_pinstall bun a b c d e
 expect_code 0
-expect_log "npm a b c d e"
-expect_output "Installing a, b and 3 more from npm"
+expect_log "bun a b c d e"
+expect_output "Installing a, b and 3 more from bun"
 
 it "prints what is missing with --check, as manifest lines, exit 1"
 fresh

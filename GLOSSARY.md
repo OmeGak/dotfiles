@@ -37,5 +37,5 @@ how to install what is missing. A manifest line names the driver.
 _Avoid_: provider, adapter, backend
 
 **Manager**:
-The tool a driver runs: brew, gem, npm, uv, mas, code.
+The tool a driver runs: brew, gem, bun, uv, mas, code.
 _Avoid_: package system

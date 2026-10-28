@@ -3,10 +3,10 @@ brew grex
 brew hlint
 brew shellcheck
 brew tokei
-npm eslint
-npm eslint-plugin-promise
-npm eslint-plugin-react
-npm eslint-config-standard
+bun eslint
+bun eslint-plugin-promise
+bun eslint-plugin-react
+bun eslint-config-standard
 
 # VS Code; its extensions are in vscode.ext, which install.sh feeds the code driver
 cask visual-studio-code
