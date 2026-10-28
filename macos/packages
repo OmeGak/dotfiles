@@ -19,17 +19,12 @@ cask backblaze
 cask dropbox
 cask gpg-suite
 
-# Development
-cask ngrok
-
 # Downloads
 cask transmission
 
 # Messaging
 cask discord
 cask element
-cask keybase
-cask messenger
 cask signal
 cask telegram
 cask whatsapp
@@ -56,7 +51,6 @@ cask obs
 cask qlvideo
 cask rectangle
 cask sbarex-qlmarkdown
-cask ShortcutDetective
 cask the-tagger
 cask the-unarchiver
 cask ukelele
@@ -64,6 +58,3 @@ cask ukelele
 # Drivers
 cask xbox360-controller-driver-unofficial
 cask logitech-unifying
-
-# Heavy!
-cask mactex

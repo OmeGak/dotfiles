@@ -1,6 +1,5 @@
 cask claude-code@latest
 cask codex
-cask copilot-cli
 cask handy
 brew herdr
 brew peonping/tap/peon-ping

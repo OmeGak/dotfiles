@@ -2,7 +2,6 @@ brew duply
 brew httpie
 brew pandoc
 brew pass
-brew speedtest-cli
 brew yt-dlp
 gem boom
 uv spotdl

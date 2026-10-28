@@ -4,21 +4,10 @@ brew hlint
 brew mise
 brew shellcheck
 brew tokei
-npm dockerlint
 npm eslint
 npm eslint-plugin-promise
 npm eslint-plugin-react
 npm eslint-config-standard
-npm eslint-plugin-standard
-npm sass-lint
-# FIXME: Must be installed locally in `~` with `npm install` until this issue
-#        is resolved: https://github.com/remarkjs/remark-lint/issues/165
-# npm remark-lint-list-item-indent
-# npm remark-lint-maximum-line-length
-# npm remark-lint-ordered-list-marker-value
-# npm remark-preset-lint-consistent
-# npm remark-preset-lint-recommended
-# npm remark-preset-lint-markdown-style-guide
 
 # VS Code; its extensions are in vscode.ext, which install.sh feeds the code driver
 cask visual-studio-code

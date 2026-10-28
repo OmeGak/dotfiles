@@ -6,7 +6,6 @@ brew dust
 brew f2
 brew fd
 brew ffmpeg
-brew glances
 brew grc
 brew hyperfine
 brew make
