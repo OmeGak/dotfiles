@@ -11,9 +11,22 @@ if [[ -a $DOT/zsh/dotrc ]]; then
   source $DOT/zsh/dotrc
 fi
 
-# Load dotfiles topics
+# Load the topics by file suffix: every topic's path.zsh first, then env.zsh,
+# then the *.rc.zsh files; completion.zsh comes after compinit, below
+for file in $DOT/*/path.zsh(N) $DOT/*/env.zsh(N) $DOT/*/*.rc.zsh(N); do
+  # shellcheck source=/dev/null
+  source $file
+done
+
+# Load the external packages, which runs compinit
 # shellcheck source=zplugrc
 source $DOT/.dot/zsh/zplugrc
+
+for file in $DOT/*/completion.zsh(N); do
+  # shellcheck source=/dev/null
+  source $file
+done
+unset file
 
 # Disable tracing for debugging
 [[ $DOT_ZTRACE = true ]] && ztraceoff
