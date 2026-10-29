@@ -1,8 +1,5 @@
 # -- External packages ---------------------------------------------------------
 
-zplug "plugins/pass", from:oh-my-zsh
-zplug "plugins/pip", from:oh-my-zsh
-
 # FIXME: breaks zsh-autosuggestions on accept/abort
 #        probably, due to wrong load order
 zplug "Aloxaf/fzf-tab", from:github, \
@@ -37,15 +34,7 @@ zplug "/nix/var/nix/profiles/default/etc/profile.d/", from:local, \
   if:"[[ -d /nix/var/nix/profiles/default/etc/profile.d/ ]]", \
   use:"nix-daemon.sh"
 
-
-zplug "$BREWDIR/opt/restic", from:local, \
-  if:"[[ -d $BREWDIR/opt/restic/ ]]", \
-  use:"site-functions"
-
 zplug "zsh-users/zsh-completions", use:src
-
-zplug "exercism/cli-www", from:github, \
-  use:"public/exercism_completion.zsh"
 
 # -- Tweaks in packages --------------------------------------------------------
 
