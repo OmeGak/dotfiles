@@ -22,9 +22,11 @@ sudoplz -k -r "the macOS defaults" || exit 1
 
 # Set computer name (as done via System Preferences → Sharing)
 #sudo scutil --set ComputerName "OmeBook"
-#sudo scutil --set HostName "OmeBook"
 #sudo scutil --set LocalHostName "OmeBook"
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "OmeBook"
+
+# Pin the host name to the local one, so a network's DHCP can't rename the Mac
+sudo scutil --set HostName "$(scutil --get LocalHostName)"
 
 # Set sleep delay on charger (-c) and on battery (-b) in minutes
 sudo pmset -c sleep 30
