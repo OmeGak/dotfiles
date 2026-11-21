@@ -1126,6 +1126,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<false/>
 			<key>Disable Window Resizing</key>
 			<true/>
+			<key>Enable Progress Bars</key>
+			<false/>
 			<key>Enable Triggers in Interactive Apps</key>
 			<false/>
 			<key>Flashing Bell</key>
@@ -1734,6 +1736,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<true/>
 			<key>Dynamic Profile Filename</key>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-danger.json</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -2272,7 +2276,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Blend</key>
 			<real>0.44819796085357666</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
@@ -2309,6 +2313,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>Red Component</key>
 				<integer>1</integer>
 			</dict>
+			<key>Cursor Smooth Blink</key>
+			<true/>
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -2342,6 +2348,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-danger-tmux.json</string>
 			<key>Dynamic Profile Parent Name</key>
 			<string>ssh-danger</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -2694,52 +2702,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>iTermEnterWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-					</dict>
-					<key>matchType</key>
-					<integer>113</integer>
-					<key>parameter</key>
-					<string>builtin.claudeCode</string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>action</key>
-					<string>iTermExitWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-						<key>leaderOnly</key>
-						<true/>
-					</dict>
-					<key>matchType</key>
-					<integer>114</integer>
-					<key>parameter</key>
-					<string></string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -3010,6 +2973,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<true/>
 			<key>Dynamic Profile Filename</key>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-info.json</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -3548,7 +3513,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Blend</key>
 			<real>0.44819796085357666</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
@@ -3585,6 +3550,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>Red Component</key>
 				<real>0.33333333333333331</real>
 			</dict>
+			<key>Cursor Smooth Blink</key>
+			<true/>
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3618,6 +3585,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-info-tmux.json</string>
 			<key>Dynamic Profile Parent Name</key>
 			<string>ssh-info</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -3970,52 +3939,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>iTermEnterWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-					</dict>
-					<key>matchType</key>
-					<integer>113</integer>
-					<key>parameter</key>
-					<string>builtin.claudeCode</string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>action</key>
-					<string>iTermExitWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-						<key>leaderOnly</key>
-						<true/>
-					</dict>
-					<key>matchType</key>
-					<integer>114</integer>
-					<key>parameter</key>
-					<string></string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -4286,6 +4210,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<true/>
 			<key>Dynamic Profile Filename</key>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-warning.json</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -4824,7 +4750,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Blend</key>
 			<real>0.44819796085357666</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
@@ -4861,6 +4787,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 				<key>Red Component</key>
 				<integer>1</integer>
 			</dict>
+			<key>Cursor Smooth Blink</key>
+			<true/>
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -4894,6 +4822,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<string>/Users/ome/.dotfiles/iterm/profiles/ssh-warning-tmux.json</string>
 			<key>Dynamic Profile Parent Name</key>
 			<string>ssh-warning</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -5246,52 +5176,7 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<key>Transparency</key>
 			<real>0.1737218052148819</real>
 			<key>Triggers</key>
-			<array>
-				<dict>
-					<key>action</key>
-					<string>iTermEnterWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-					</dict>
-					<key>matchType</key>
-					<integer>113</integer>
-					<key>parameter</key>
-					<string>builtin.claudeCode</string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>action</key>
-					<string>iTermExitWorkgroupTrigger</string>
-					<key>contentregex</key>
-					<string></string>
-					<key>disabled</key>
-					<false/>
-					<key>eventParams</key>
-					<dict>
-						<key>jobName</key>
-						<string>claude</string>
-						<key>leaderOnly</key>
-						<true/>
-					</dict>
-					<key>matchType</key>
-					<integer>114</integer>
-					<key>parameter</key>
-					<string></string>
-					<key>partial</key>
-					<false/>
-					<key>regex</key>
-					<string></string>
-				</dict>
-			</array>
+			<array/>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -5554,6 +5439,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<true/>
 			<key>Dynamic Profile Filename</key>
 			<string>/Users/ome/.dotfiles/iterm/profiles/tmux.json</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -6169,6 +6056,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<true/>
 			<key>Dynamic Profile Filename</key>
 			<string>/Users/ome/.dotfiles/iterm/profiles/visor.json</string>
+			<key>Enable Triggers in Interactive Apps</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -6188,24 +6077,14 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<false/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
-			<key>HotKey Characters</key>
-			<string></string>
 			<key>HotKey Characters Ignoring Modifiers</key>
 			<string>´</string>
 			<key>HotKey Key Code</key>
 			<integer>50</integer>
 			<key>HotKey Modifier Flags</key>
 			<integer>524288</integer>
-			<key>HotKey Window Animates</key>
-			<integer>1</integer>
-			<key>HotKey Window AutoHides</key>
-			<integer>1</integer>
 			<key>HotKey Window Dock Click Action</key>
 			<integer>2</integer>
-			<key>HotKey Window Floats</key>
-			<integer>1</integer>
-			<key>HotKey Window Reopens On Activation</key>
-			<integer>0</integer>
 			<key>Icon</key>
 			<integer>0</integer>
 			<key>Idle Code</key>
@@ -6375,6 +6254,8 @@ Broadcast Input.Broadcast Input to All Panes in All Tabs</string>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<integer>0</integer>
+			<key>Rewritable</key>
+			<true/>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>

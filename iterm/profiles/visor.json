@@ -2,15 +2,15 @@
   "Profiles" : [
     {
       "Has Hotkey" : 1,
-      "HotKey Modifier Flags" : 524288,
-      "Window Type" : 1,
-      "Rewritable" : true,
       "HotKey Key Code" : 50,
+      "Rewritable" : true,
+      "Window Type" : 1,
+      "HotKey Window Dock Click Action" : 2,
       "Guid" : "5B880134-5915-43C2-AE4E-83A334A0D891",
       "Name" : "visor",
       "Space" : -1,
       "HotKey Characters Ignoring Modifiers" : "´",
-      "HotKey Window Dock Click Action" : 2
+      "HotKey Modifier Flags" : 524288
     }
   ]
 }
