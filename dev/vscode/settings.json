@@ -2470,7 +2470,8 @@
     "redhat.telemetry.enabled": false,
     "remote.SSH.remotePlatform": {
         "agentbox": "linux",
-        "agentbox-root": "linux"
+        "agentbox-root": "linux",
+        "nucbox-agents": "linux"
     },
     "remote.SSH.useLocalServer": false,
     "rewrap.wrappingColumn": 120,
